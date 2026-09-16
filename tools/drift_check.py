@@ -24,7 +24,7 @@ import subprocess
 import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REPO = "alextok200-boop/alextok200-boop.github.io"
+REPO = "alextok200-boop/akldcp-sketch.github.io"
 BRANCH = "main"
 
 

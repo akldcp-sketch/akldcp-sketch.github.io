@@ -149,7 +149,7 @@ def make_og_default(src):
     draw.text((600, 390), "个人简历  ·  项目经历  ·  成绩单",
               fill=(180, 190, 230), font=f_tag)
     # 域名（底部）
-    draw.text((600, 530), "alextok200-boop.github.io",
+    draw.text((600, 530), "akldcp-sketch.github.io",
               fill=(100, 110, 150), font=f_url)
     return canvas
 

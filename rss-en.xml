@@ -2,167 +2,167 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dai Chengpeng · Blog</title>
-    <link>https://alextok200-boop.github.io/blog.html</link>
+    <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>E-commerce operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
     <lastBuildDate>Wed, 02 Sep 2026 09:50:16 GMT</lastBuildDate>
-    <atom:link href="https://alextok200-boop.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Adding Site Analytics Failed Three Times: Test the Client First</title>
-      <link>https://alextok200-boop.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html</guid>
       <pubDate>Wed, 02 Sep 2026 00:00:00 GMT</pubDate>
       <category>Data &amp; Automation</category>
       <description>Three analytics services unreachable while all servers returned 200. The problem wasn't the tools — it was the network layer in between.</description>
     </item>
     <item>
       <title>Multi-Sheet Excel Reports: Classify Before You Process</title>
-      <link>https://alextok200-boop.github.io/posts/2026-09-01-duo-sheet-fen-lei.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-09-01-duo-sheet-fen-lei.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-09-01-duo-sheet-fen-lei.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-09-01-duo-sheet-fen-lei.html</guid>
       <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
       <category>Data &amp; Automation</category>
       <description>Importing six sheets at once silently dropped half the data. The fix: identify each sheet's type first, then decide how to handle it.</description>
     </item>
     <item>
       <title>How to Set Inventory Alert Thresholds Without False Alarms</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-31-ku-cun-guard-rail.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-31-ku-cun-guard-rail.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-31-ku-cun-guard-rail.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-31-ku-cun-guard-rail.html</guid>
       <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
       <category>E-commerce</category>
       <description>Three-tier thresholds based on sell-through speed, replenishment lead time and promo cycles.</description>
     </item>
     <item>
       <title>403 Is Not Always a Wrong Key: One ERP API Debugging Session</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-30-erp-403.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-30-erp-403.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-30-erp-403.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-30-erp-403.html</guid>
       <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
       <category>Data &amp; Automation</category>
       <description>Swapped AppIDs again and again, still 403. The key never even reached the server — an IP whitelist was blocking the request.</description>
     </item>
     <item>
       <title>22 Versions of a Personal Site, Zero Version Drift</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-29-ban-ben-men-jin.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-29-ban-ben-men-jin.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-29-ban-ben-men-jin.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-29-ban-ben-men-jin.html</guid>
       <pubDate>Sat, 29 Aug 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
       <description>Once I changed only CSS and forgot to bump the version — visitors kept seeing the old page. Now a CI gate checks it for me.</description>
     </item>
     <item>
       <title>Clearing 14,000 Cues in 8 Weeks: A Liquidation Playbook</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-28-qing-cang.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-28-qing-cang.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-28-qing-cang.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-28-qing-cang.html</guid>
       <pubDate>Fri, 28 Aug 2026 00:00:00 GMT</pubDate>
       <category>E-commerce</category>
       <description>Pricing anchor, tiered launch, unified B/C pricing, SKU-level decomposition.</description>
     </item>
     <item>
       <title>Two Tables That Won't Reconcile: Fix the Definition, Not the Numbers</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-27-kou-jing-tong-yi.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-27-kou-jing-tong-yi.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-27-kou-jing-tong-yi.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-27-kou-jing-tong-yi.html</guid>
       <pubDate>Thu, 27 Aug 2026 00:00:00 GMT</pubDate>
       <category>Team</category>
       <description>The calculator said 100, the rating sheet said 90. Nobody miscalculated — the two tables defined 'sales' differently.</description>
     </item>
     <item>
       <title>Influencer Campaigns Are ROI Management, Not Just Filming</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-25-da-ren-roi.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-25-da-ren-roi.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-25-da-ren-roi.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-25-da-ren-roi.html</guid>
       <pubDate>Tue, 25 Aug 2026 00:00:00 GMT</pubDate>
       <category>Influencer</category>
       <description>Five-dimension scoring, S/A/B tiers, budget by tier, attribution after each run.</description>
     </item>
     <item>
       <title>Signing 'Contracts' with AI Skills: From Usable to Reliable</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-20-skill-contract.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-20-skill-contract.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-20-skill-contract.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-20-skill-contract.html</guid>
       <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
       <description>Interface contracts, exit codes, idempotency — the details that make skills dependable.</description>
     </item>
     <item>
       <title>Price Chaos Is a Channel Signal, Not an Accident</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-18-luan-jia.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-18-luan-jia.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-18-luan-jia.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-18-luan-jia.html</guid>
       <pubDate>Tue, 18 Aug 2026 00:00:00 GMT</pubDate>
       <category>E-commerce</category>
       <description>Three sources of low prices: diversion, destocking, counterfeits. Monitor first, then act.</description>
     </item>
     <item>
       <title>ERP Integration: Jushuitan vs Lingxing</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-15-erp.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-15-erp.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-15-erp.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-15-erp.html</guid>
       <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
       <category>Data &amp; Automation</category>
       <description>Jushuitan for domestic multi-platform, Lingxing for Amazon finance. Export-first, API later.</description>
     </item>
     <item>
       <title>Temu Semi-managed: How to Play Without Stocking</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-12-temu.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-12-temu.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-12-temu.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-12-temu.html</guid>
       <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
       <category>Cross-border</category>
       <description>Price wins traffic, fulfillment keeps weight. Get pricing, selection and logistics right.</description>
     </item>
     <item>
       <title>Managing 49 Stores Without Chaos</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-10-duo-platform-matrix.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-10-duo-platform-matrix.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-10-duo-platform-matrix.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-10-duo-platform-matrix.html</guid>
       <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
       <category>E-commerce</category>
       <description>Unified metrics, tiered operations, automated dashboards — three levers that keep it sane.</description>
     </item>
     <item>
       <title>Multi-brand Matrix: Position, Price and Channel</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-08-pin-pai-ju-zhen.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-08-pin-pai-ju-zhen.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-08-pin-pai-ju-zhen.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-08-pin-pai-ju-zhen.html</guid>
       <pubDate>Sat, 08 Aug 2026 00:00:00 GMT</pubDate>
       <category>Brand</category>
       <description>Differentiate positioning, price bands and channels; concentrate resources on the lead brand.</description>
     </item>
     <item>
       <title>DingTalk OA Automation: Admin and Employee Versions Separately</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-08-oa.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-08-oa.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-08-oa.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-08-oa.html</guid>
       <pubDate>Sat, 08 Aug 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
       <description>Simple employee side, fast admin side, strict permission isolation, rapid iteration.</description>
     </item>
     <item>
       <title>Going Global: From Zero to Amazon Brand Rankings</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-05-chu-hai.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-05-chu-hai.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-05-chu-hai.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-05-chu-hai.html</guid>
       <pubDate>Wed, 05 Aug 2026 00:00:00 GMT</pubDate>
       <category>Cross-border</category>
       <description>Choose markets, nail listings, grow reviews compliantly, layer ads.</description>
     </item>
     <item>
       <title>Data Platform: From Excel to Automated Dashboards</title>
-      <link>https://alextok200-boop.github.io/posts/2026-08-03-shu-ju-zhong-tai.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-08-03-shu-ju-zhong-tai.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-08-03-shu-ju-zhong-tai.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-08-03-shu-ju-zhong-tai.html</guid>
       <pubDate>Mon, 03 Aug 2026 00:00:00 GMT</pubDate>
       <category>Data &amp; Automation</category>
       <description>Define metrics, centralize data, dashboard it. Three steps away from Friday spreadsheet marathons.</description>
     </item>
     <item>
       <title>How to Staff a 15-Person E-commerce Team</title>
-      <link>https://alextok200-boop.github.io/posts/2026-07-30-tuan-dui.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-07-30-tuan-dui.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-07-30-tuan-dui.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-07-30-tuan-dui.html</guid>
       <pubDate>Thu, 30 Jul 2026 00:00:00 GMT</pubDate>
       <category>Team</category>
       <description>Six roles, domestic/overseas split, assistants as reserves, one table to manage everyone.</description>
     </item>
     <item>
       <title>Building a B2B Channel System: Tier, License, Support</title>
-      <link>https://alextok200-boop.github.io/posts/2026-07-28-b2b.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-07-28-b2b.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-07-28-b2b.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-07-28-b2b.html</guid>
       <pubDate>Tue, 28 Jul 2026 00:00:00 GMT</pubDate>
       <category>Brand</category>
       <description>Tier channels, license in writing, use joint warranty as a trust point. Signing is just the start.</description>
     </item>
     <item>
       <title>Getting Non-Technical Colleagues to Use AI Skills</title>
-      <link>https://alextok200-boop.github.io/posts/2026-07-25-ling-ji-chu.html</link>
-      <guid isPermaLink="true">https://alextok200-boop.github.io/posts/2026-07-25-ling-ji-chu.html</guid>
+      <link>https://akldcp-sketch.github.io/posts/2026-07-25-ling-ji-chu.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-07-25-ling-ji-chu.html</guid>
       <pubDate>Sat, 25 Jul 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
       <description>Minimal input, friendly UI, graceful failure — three principles or nobody uses it.</description>

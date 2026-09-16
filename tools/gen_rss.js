@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.resolve(__dirname, "..");
-const SITE = "https://alextok200-boop.github.io";
+const SITE = "https://akldcp-sketch.github.io";
 
 // posts-data.js 是 window.POSTS_DATA = [...]，这里造个 window 再 require
 global.window = {};

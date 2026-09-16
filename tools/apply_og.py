@@ -5,7 +5,7 @@ import re
 import html
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://alextok200-boop.github.io"
+SITE = "https://akldcp-sketch.github.io"
 
 
 def esc(s):

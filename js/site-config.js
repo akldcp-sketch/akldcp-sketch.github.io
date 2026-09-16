@@ -5,7 +5,7 @@
    ============================================================ */
 window.SITE_CONFIG = {
   // 站点根地址（用于 JSON-LD、RSS、OG 绝对链接）
-  siteUrl: "https://alextok200-boop.github.io",
+  siteUrl: "https://akldcp-sketch.github.io",
 
   // 站点主体信息（JSON-LD 与 OG 共用）
   siteName: "戴程鹏",
@@ -55,7 +55,7 @@ window.SITE_CONFIG = {
 
   // 文章评论 Giscus（repoId / categoryId 留空则评论区自动隐藏）
   giscus: {
-    repo: "alextok200-boop/alextok200-boop.github.io",
+    repo: "alextok200-boop/akldcp-sketch.github.io",
     repoId: "",
     category: "General",
     categoryId: "",

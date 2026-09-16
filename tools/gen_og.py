@@ -65,7 +65,7 @@ def main():
     d.text((80, 430), "品牌电商操盘   跨境增长   数据驱动决策", font=f_tag, fill=WHITE)
 
     # 域名
-    d.text((80, 520), "alextok200-boop.github.io", font=f_tag, fill=DIM)
+    d.text((80, 520), "akldcp-sketch.github.io", font=f_tag, fill=DIM)
 
     # 右侧数据卡
     box_x, box_y, box_w, box_h = 760, 150, 360, 330

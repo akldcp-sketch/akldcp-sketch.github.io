@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /posts/*.html?preview=1
 
-Sitemap: https://alextok200-boop.github.io/sitemap.xml
+Sitemap: https://akldcp-sketch.github.io/sitemap.xml

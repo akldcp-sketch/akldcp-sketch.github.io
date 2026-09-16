@@ -8,7 +8,7 @@ gen_posts.py —— 批量生成 5 篇新博客文章 HTML（v1.6.23 用）
 import os, io, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://alextok200-boop.github.io"
+SITE = "https://akldcp-sketch.github.io"
 AUTHOR_ZH = '{"@type":"Person","name":"戴程鹏","jobTitle":"电商操盘手 · AI 技能包工程负责人","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]}'
 PUBLISHER_ZH = '{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"' + SITE + '/"}'
 AUTHOR_EN = '{"@type":"Person","name":"Dai Chengpeng","jobTitle":"E-commerce Operator · AI Skill Pack Engineer","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]}'
@@ -244,7 +244,7 @@ def render(p):
   <meta property="og:type" content="article">
   <meta property="og:url" content="{url}">
   <meta property="og:site_name" content="戴程鹏">
-  <meta property="og:image" content="https://alextok200-boop.github.io/assets/img/og-default.png">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="{url}">
   <script type="application/ld+json">{art_zh}</script>

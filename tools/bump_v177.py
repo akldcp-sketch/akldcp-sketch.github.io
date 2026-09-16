@@ -145,17 +145,17 @@ def render_detail(meta: dict, body_html: str) -> str:
   <meta property="og:title" content="{meta['title_zh']} - 戴程鹏">
   <meta property="og:description" content="{meta['summary_zh']}">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://alextok200-boop.github.io/methods/{d}-{slug}.html">
-  <meta property="og:image" content="https://alextok200-boop.github.io/assets/img/og-default.png">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/methods/{d}-{slug}.html">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://alextok200-boop.github.io/methods/{d}-{slug}.html">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/methods/{d}-{slug}.html">
   <link rel="stylesheet" href="../css/style.css?v=1.7.7">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{meta['title_zh']}","datePublished":"{d}","dateModified":"{d}","author":{{"@type":"Person","name":"戴程鹏","url":"https://alextok200-boop.github.io/"}},"publisher":{{"@type":"Person","name":"戴程鹏"}},"inLanguage":"zh-CN","url":"https://alextok200-boop.github.io/methods/{d}-{slug}.html"}}</script>
-  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"首页","item":"https://alextok200-boop.github.io/"}},{{"@type":"ListItem","position":2,"name":"方法论","item":"https://alextok200-boop.github.io/methods.html"}},{{"@type":"ListItem","position":3,"name":"{meta['title_zh']}","item":"https://alextok200-boop.github.io/methods/{d}-{slug}.html"}}]}}</script>
+  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{meta['title_zh']}","datePublished":"{d}","dateModified":"{d}","author":{{"@type":"Person","name":"戴程鹏","url":"https://akldcp-sketch.github.io/"}},"publisher":{{"@type":"Person","name":"戴程鹏"}},"inLanguage":"zh-CN","url":"https://akldcp-sketch.github.io/methods/{d}-{slug}.html"}}</script>
+  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"}},{{"@type":"ListItem","position":2,"name":"方法论","item":"https://akldcp-sketch.github.io/methods.html"}},{{"@type":"ListItem","position":3,"name":"{meta['title_zh']}","item":"https://akldcp-sketch.github.io/methods/{d}-{slug}.html"}}]}}</script>
 </head>
 <body>
   <header class="site-header">
@@ -225,10 +225,10 @@ def render_list(articles: list) -> str:
   <meta property="og:title" content="方法论 - 戴程鹏">
   <meta property="og:description" content="通用型方法论手册——换项目、换业务线都能直接套用的组织能力杠杆资产。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://alextok200-boop.github.io/methods.html">
-  <meta property="og:image" content="https://alextok200-boop.github.io/assets/img/og-default.png">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/methods.html">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://alextok200-boop.github.io/methods.html">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/methods.html">
   <link rel="stylesheet" href="css/style.css?v=1.7.7">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">

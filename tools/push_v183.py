@@ -22,7 +22,7 @@
 """
 import json, os, subprocess, base64, sys, time
 
-REPO = "alextok200-boop/alextok200-boop.github.io"
+REPO = "alextok200-boop/akldcp-sketch.github.io"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 脚本在 tools/，上两层即项目根
 GH_ENV = dict(os.environ)
 GH_ENV["GH_CONFIG_DIR"] = "C:/Users/alext/AppData/Roaming/GitHub CLI"

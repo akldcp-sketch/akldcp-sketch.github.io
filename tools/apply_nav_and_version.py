@@ -117,7 +117,7 @@ sm_path = os.path.join(ROOT, "sitemap.xml")
 if os.path.exists(sm_path):
     sm = open(sm_path, encoding="utf-8").read()
     today = "2026-09-01"
-    base = "https://alextok200-boop.github.io/"
+    base = "https://akldcp-sketch.github.io/"
     for page in ["brands.html", "achievements.html", "careers.html"]:
         if page not in sm:
             entry = ("  <url>\n    <loc>%s%s</loc>\n    <lastmod>%s</lastmod>\n"

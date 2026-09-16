@@ -12,7 +12,7 @@ import json
 import subprocess
 import sys
 
-REPO = "alextok200-boop/alextok200-boop.github.io"
+REPO = "alextok200-boop/akldcp-sketch.github.io"
 REMOTE_HEAD = "ae7f1df1a9e5993bb06787c34a2397d481d8406f"
 GH = r"C:\Program Files\GitHub CLI\gh.exe"
 
