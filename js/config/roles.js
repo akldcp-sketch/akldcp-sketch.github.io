@@ -11,14 +11,15 @@
  *
  * role: 角色标识
  * name: 显示名称
- * password: 登录密码（生产环境应改为哈希）
+ * passwordHash: 登录密码的 SHA-256 哈希（小写十六进制）
  * pages: 可查看的页面路径数组
  */
 const ROLES = {
   // 管理员（站长本人）：全权，可访问所有页面 + 后台
+  // 密码：admin2026（首次使用请更换并更新此处哈希）
   admin: {
     name: "站长",
-    password: "admin2026",  // 修改这里
+    passwordHash: "6051fc84a7a0d74c225fb18a496b09952da5642e60723ecae543298edd7d82d6",  // sha256("admin2026")
     pages: ["*"],           // * 表示全部
     canEdit: true
   }
@@ -55,12 +56,25 @@ const Auth = {
 
   /**
    * 登录验证（单账号：不传 role 时默认 admin）
+   * 使用 Web Crypto API 计算输入密码的 SHA-256 哈希与存储值比对
    */
-  login: function(role, password) {
+  login: async function(role, password) {
     const roleKey = role || "admin";
     const roleConfig = ROLES[roleKey];
     if (!roleConfig) return { success: false, error: "角色不存在" };
-    if (roleConfig.password !== password) return { success: false, error: "密码错误" };
+
+    // 计算输入密码的 SHA-256 哈希
+    const hashBuffer = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(password)
+    );
+    const hashHex = Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+
+    if (hashHex !== roleConfig.passwordHash) {
+      return { success: false, error: "密码错误" };
+    }
 
     // 存入 session（关闭浏览器即失效）
     sessionStorage.setItem("auth_session", JSON.stringify({

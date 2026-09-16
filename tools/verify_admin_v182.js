@@ -1,14 +1,16 @@
 /* verify_admin_v182.js —— 验证 v1.8.2 认证简化与后台改造 */
 const path = require('path');
-const NODE_MODULES = 'C:/Users/alext/.workbuddy/binaries/node/workspace/node_modules';
+const NODE_MODULES = path.join(process.cwd(), 'node_modules');
 const puppeteer = require(path.join(NODE_MODULES, 'puppeteer'));
 
 const BASE = 'http://127.0.0.1:8099';
 let fail = 0;
 
 (async () => {
+  // 使用系统 Chrome 而非 puppeteer 缓存
   const browser = await puppeteer.launch({
     headless: 'new',
+    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--mute-audio']
   });
   const page = await browser.newPage();
