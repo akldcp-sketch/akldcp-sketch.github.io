@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - 页面未找到 - 戴程鹏</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="stylesheet" href="/css/style.css?v=1.8.13">
+  <style>
+    .page-404 {
+      min-height: calc(100vh - 200px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .page-404 .code {
+      font-size: 120px;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .page-404 h1 {
+      font-size: 28px;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+    .page-404 p {
+      color: var(--text-dim);
+      margin: 0 0 28px;
+      max-width: 420px;
+    }
+    .page-404 .btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    @media (prefers-reduced-motion: reduce) { .page-404 .code { background: none; -webkit-text-fill-color: var(--neon-green); } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="/" class="logo"><img class="logo-mark" src="/assets/img/favicon-32.png" alt="">DAI<span class="accent">·</span>CP</a>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/about.html">关于</a>
+        <a href="/methods.html">方法论</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-404">
+    <div class="code">404</div>
+    <h1>页面未找到</h1>
+    <p>你访问的页面可能已被移动、更名或不再存在。试试下面的入口：</p>
+    <div class="btns">
+      <a href="/" class="btn btn-primary">返回首页</a>
+      <a href="/blog.html" class="btn btn-ghost">看博客</a>
+      <a href="/contact.html" class="btn btn-ghost">联系我</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 戴程鹏 · 页面地址有误或已失效</p>
+    </div>
+  </footer>
+
+  <script src="/js/theme.js?v=1.8.13"></script>
+</body>
+</html>

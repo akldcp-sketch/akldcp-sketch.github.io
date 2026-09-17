@@ -22,8 +22,8 @@ window.SITE_CONFIG = {
   contact: {
     email: "alextok200@gmail.com",
     github: "https://github.com/alextok200",
-    // 填二维码图片路径后 contact 页显示（例："assets/img/wechat-qr.png"），留空显示占位
-    wechatQr: "assets/img/wechat-qr.png"
+    // 填二维码图片路径后 contact 页显示（例："assets/img/wechat-qr.webp"），留空显示占位
+    wechatQr: "assets/img/wechat-qr.webp"
   },
 
   /* ------------------------------------------------------------

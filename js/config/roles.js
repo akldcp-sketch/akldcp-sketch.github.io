@@ -16,10 +16,10 @@
  */
 const ROLES = {
   // 管理员（站长本人）：全权，可访问所有页面 + 后台
-  // 密码：admin2026（首次使用请更换并更新此处哈希）
+  // 密码已哈希存储（SHA-256），如需更换请重新生成哈希替换下方 passwordHash
   admin: {
     name: "站长",
-    passwordHash: "6051fc84a7a0d74c225fb18a496b09952da5642e60723ecae543298edd7d82d6",  // sha256("admin2026")
+    passwordHash: "6051fc84a7a0d74c225fb18a496b09952da5642e60723ecae543298edd7d82d6",
     pages: ["*"],           // * 表示全部
     canEdit: true
   }

@@ -23,7 +23,7 @@ RESOURCES = [
     "js/seo.js", "js/analytics.js", "js/comments.js", "js/sw-register.js",
     "js/inquiry.js", "js/newsletter.js", "js/theme.js", "js/assistant.js", "manifest.webmanifest", "sw.js",
     "rss.xml", "rss-en.xml", "assets/dai-chengpeng.vcf",
-    "assets/img/og-default.png", "assets/img/favicon-16.png",
+    "assets/img/og-default.webp", "assets/img/wechat-qr.webp", "assets/img/favicon-16.png",
     "assets/img/favicon-32.png", "assets/img/favicon-180.png",
     "assets/img/icon-192.png", "assets/img/icon-512.png",
     "assets/img/icon-512-maskable.png", "assets/video/hero.mp4",
