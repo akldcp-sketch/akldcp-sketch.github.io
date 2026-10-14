@@ -202,8 +202,6 @@
   .form-msg{display:none; margin-top:16px; padding:12px 18px; border-radius:var(--radius-md); font-weight:700; max-width:520px; margin-left:auto; margin-right:auto;}
   .form-msg.ok{background:var(--color-success-bg); color:var(--color-success);}
   .form-msg.err{background:#FEE2E2; color:#991B1B;}
-  .form-msg.pending{background:var(--color-accent-soft); color:var(--color-text);}
-  html[data-theme="dark"] .form-msg.pending{background:var(--color-accent-soft); color:var(--color-text);}
   .faq{max-width:760px; margin:0 auto;}
   .faq details{background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:18px 22px; margin-bottom:12px; box-shadow:var(--shadow-1);}
   .faq summary{cursor:pointer; font-weight:700; font-size:var(--fs-md);}
@@ -365,17 +363,16 @@
         <span class="eyebrow">订阅更新</span>
         <h2 id="newsletter-h">每周一封，把实战经验送到你邮箱</h2>
         <p>精选本周 1–2 篇深度文章 + 一个可直接复用的操作模板。不灌水、不群发广告，随时一键退订。</p>
-        <form class="form" id="subscribe-form" novalidate action="https://example.com/api/subscribe" data-endpoint="" data-ready="false" aria-label="订阅表单（待接入邮件服务）">
+        <form class="form" id="subscribe-form" novalidate action="mailto:alextok100@hotmail.com" method="get">
           <div style="flex:1; min-width:240px;">
             <label class="visually-hidden" for="email">邮箱地址</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="form-status" />
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="form-hint" />
           </div>
           <button class="btn" type="submit">免费订阅<span class="arrow">→</span></button>
         </form>
-        <div class="form-msg ok" id="form-ok" role="status">订阅成功！欢迎加入，每周更新会准时送达。</div>
-        <div class="form-msg pending" id="form-pending" role="status">订阅通道即将开放：表单已就绪，部署时填入邮件服务地址即可启用（当前不会提交到任何后端）。</div>
+        <div class="form-msg ok" id="form-ok" role="status">已复制邮箱，请在邮件中确认订阅。邮件正文已自动填入订阅请求，点击发送即完成订阅。</div>
         <div class="form-msg err" id="form-err" role="alert">邮箱格式不正确，请检查后再试。</div>
-        <div class="form-note">前端就绪态：尚未接入邮件服务，本表单不会提交到任何后端 · 部署时可配置 action 地址启用</div>
+        <div class="form-note" id="form-hint">点击订阅会复制您的邮箱并打开邮件客户端（mailto 直发）：无需账号、无后端存储，发送邮件即完成订阅。</div>
       </div>
     </div>
   </section>
@@ -471,27 +468,44 @@
         var email = document.getElementById('email');
         var ok = document.getElementById('form-ok');
         var err = document.getElementById('form-err');
-        var pending = document.getElementById('form-pending');
         var val = email.value.trim();
         var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
         if(!valid){
           err.style.display = 'block';
           ok.style.display = 'none';
-          if(pending) pending.style.display = 'none';
           email.setAttribute('aria-invalid', 'true');
           email.focus();
           return;
         }
         email.setAttribute('aria-invalid', 'false');
         err.style.display = 'none';
-        if(form.getAttribute('data-ready') === 'true'){
-          ok.style.display = 'block';
-          if(pending) pending.style.display = 'none';
-          form.style.display = 'none';
-        } else {
-          if(pending) pending.style.display = 'block';
-          email.blur();
+        var subject = '订阅博客更新';
+        var body = '你好，\n\n我想订阅你的博客更新。我的邮箱是：' + val + '\n\n请确认订阅，谢谢！';
+        var mailtoUrl = 'mailto:alextok100@hotmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        function copyToClipboard(text){
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            return navigator.clipboard.writeText(text).then(function(){ return true; }, function(){ return fallbackCopy(text); });
+          }
+          return Promise.resolve(fallbackCopy(text));
         }
+        function fallbackCopy(text){
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          var done = false;
+          try { done = document.execCommand('copy'); } catch(e){}
+          document.body.removeChild(ta);
+          return done;
+        }
+        copyToClipboard(val).then(function(){
+          ok.style.display = 'block';
+          window.location.href = mailtoUrl;
+          email.blur();
+        });
       });
       var email = document.getElementById('email');
       if(email){
