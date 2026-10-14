@@ -141,7 +141,7 @@ def make_og_default(src):
     # 英文名
     draw.text((600, 215), "Dai Chengpeng", fill=(120, 130, 170), font=f_sub)
     # tagline（霓虹绿）
-    draw.text((600, 290), "电商操盘  ·  团队体系  ·  AI 技能包工程",
+    draw.text((600, 290), "商业操盘  ·  团队体系  ·  AI 技能包工程",
               fill=NEON_GREEN, font=f_tag)
     # 横线分隔
     draw.rectangle([600, 360, 600 + 460, 363], fill=NEON_BLUE)

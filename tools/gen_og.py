@@ -53,7 +53,7 @@ def main():
 
     # 身份
     f_role = ImageFont.truetype(FONT_BOLD, 40)
-    d.text((80, 316), "电商操盘手 · AI 技能包工程负责人", font=f_role, fill=VIOLET)
+    d.text((80, 316), "商业操盘手 · AI 技能包工程负责人", font=f_role, fill=VIOLET)
 
     # 分隔霓虹线
     d.line([(80, 396), (330, 396)], fill=CYAN, width=4)
@@ -62,7 +62,7 @@ def main():
 
     # 关键词
     f_tag = ImageFont.truetype(FONT_REG, 30)
-    d.text((80, 430), "品牌电商操盘   跨境增长   数据驱动决策", font=f_tag, fill=WHITE)
+    d.text((80, 430), "品牌商业操盘   跨境增长   数据驱动决策", font=f_tag, fill=WHITE)
 
     # 域名
     d.text((80, 520), "akldcp-sketch.github.io", font=f_tag, fill=DIM)

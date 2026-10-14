@@ -9,9 +9,9 @@ import os, io, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://akldcp-sketch.github.io"
-AUTHOR_ZH = '{"@type":"Person","name":"戴程鹏","jobTitle":"电商操盘手 · AI 技能包工程负责人","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]}'
+AUTHOR_ZH = '{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]}'
 PUBLISHER_ZH = '{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"' + SITE + '/"}'
-AUTHOR_EN = '{"@type":"Person","name":"Dai Chengpeng","jobTitle":"E-commerce Operator · AI Skill Pack Engineer","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]}'
+AUTHOR_EN = '{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]}'
 PUBLISHER_EN = '{"@type":"Organization","name":"KONLLEN Group","url":"' + SITE + '/"}'
 
 # 每篇文章：file / date / title(zh) / titleShort(head 用) / tag / summary / ogDesc / en{title,summary,tag} / body

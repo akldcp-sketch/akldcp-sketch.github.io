@@ -18,10 +18,10 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-08-31-ku-cun-guard-rail",
-    en: { title: "How to Set Inventory Alert Thresholds Without False Alarms", summary: "Three-tier thresholds based on sell-through speed, replenishment lead time and promo cycles.", tag: "E-commerce" },
+    en: { title: "How to Set Inventory Alert Thresholds Without False Alarms", summary: "Three-tier thresholds based on sell-through speed, replenishment lead time and promo cycles.", tag: "Business" },
     title: "库存告警阈值怎么定，才不误报又不漏报",
     date: "2026-08-31",
-    tag: "电商操盘",
+    tag: "商业操盘",
     summary: "库存看板跑起来不难，难的是阈值设得准。怎么根据动销速度、在途周期和促销节点定三层阈值。"
   },
   {
@@ -42,10 +42,10 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-08-28-qing-cang",
-    en: { title: "Clearing 14,000 Cues in 8 Weeks: A Liquidation Playbook", summary: "Pricing anchor, tiered launch, unified B/C pricing, SKU-level decomposition.", tag: "E-commerce" },
+    en: { title: "Clearing 14,000 Cues in 8 Weeks: A Liquidation Playbook", summary: "Pricing anchor, tiered launch, unified B/C pricing, SKU-level decomposition.", tag: "Business" },
     title: "8 周清掉 1.4 万支库存：一次清仓的拆解",
     date: "2026-08-28",
-    tag: "电商操盘",
+    tag: "商业操盘",
     summary: "整杆 7 SKU 约 13200 支 + 前肢 363 支，8 周清完。定价锚、阶梯首发、BC 同价、按 SKU 拆解。"
   },
   {
@@ -74,10 +74,10 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-08-18-luan-jia",
-    en: { title: "Price Chaos Is a Channel Signal, Not an Accident", summary: "Three sources of low prices: diversion, destocking, counterfeits. Monitor first, then act.", tag: "E-commerce" },
+    en: { title: "Price Chaos Is a Channel Signal, Not an Accident", summary: "Three sources of low prices: diversion, destocking, counterfeits. Monitor first, then act.", tag: "Business" },
     title: "乱价不是偶然，是渠道信号",
     date: "2026-08-18",
-    tag: "电商操盘",
+    tag: "商业操盘",
     summary: "低价店只有三个来源：窜货、清库存、假货。先判断属于哪类，再决定动作。"
   },
   {
@@ -98,10 +98,10 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-08-10-duo-platform-matrix",
-    en: { title: "Managing 49 Stores Without Chaos", summary: "Unified metrics, tiered operations, automated dashboards — three levers that keep it sane.", tag: "E-commerce" },
+    en: { title: "Managing 49 Stores Without Chaos", summary: "Unified metrics, tiered operations, automated dashboards — three levers that keep it sane.", tag: "Business" },
     title: "多平台矩阵：49 个店铺怎么管而不乱",
     date: "2026-08-10",
-    tag: "电商操盘",
+    tag: "商业操盘",
     summary: "店铺越多，越不能靠人肉盯。统一数据口径、分级运营、自动化看板——三个抓手。"
   },
   {

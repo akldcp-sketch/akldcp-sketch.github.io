@@ -58,7 +58,7 @@ def make(size, path, maskable=False):
 
     # 下方身份小字
     f_sub = ImageFont.truetype(FONT_REG, int(inner * 0.075))
-    sub = "电商操盘手"
+    sub = "商业操盘手"
     tb2 = d.textbbox((0, 0), sub, font=f_sub)
     w2 = tb2[2] - tb2[0]
     d.text(((size - w2) / 2, pad + inner * 0.55), sub, font=f_sub, fill=(255, 255, 255, 220))

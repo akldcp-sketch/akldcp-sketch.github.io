@@ -55,8 +55,8 @@ function buildFeed(lang) {
     <link>${SITE}/blog.html</link>
     <description>${
       isEn
-        ? "E-commerce operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation."
-        : "电商操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。"
+        ? "Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation."
+        : "商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。"
     }</description>
     <language>${isEn ? "en" : "zh-CN"}</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
