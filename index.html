@@ -1,240 +1,457 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>戴程鹏 - 电商操盘手 · 技能包工程负责人</title>
-  <meta name="description" content="戴程鹏 · 电商操盘手与 AI 技能包工程负责人。深耕国内 + 跨境多平台电商，负责多品牌矩阵运营与团队体系搭建。">
-  <meta property="og:title" content="戴程鹏 - 电商操盘手">
-  <meta property="og:description" content="电商操盘 · AI 技能包工程 · 多平台运营">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://akldcp-sketch.github.io/">
-  <meta property="og:site_name" content="戴程鹏">
-  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://akldcp-sketch.github.io/">
-    <script>
-    (function () {
-      try {
-        var t = localStorage.getItem("site_theme");
-        if (!t) {
-          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
-        }
-        document.documentElement.setAttribute("data-theme", t);
-      } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
-    })();
-  </script>
-<link rel="stylesheet" href="css/style.css?v=1.8.13">
-<link rel="stylesheet" href="css/patterns.css?v=1.8.13">
-
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="theme-color" content="#9333ea">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"戴程鹏","url":"https://akldcp-sketch.github.io/","inLanguage":"zh-CN","author":{"@type":"Person","name":"戴程鹏","jobTitle":"电商操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Person","name":"戴程鹏","url":"https://akldcp-sketch.github.io/"}}</script>
-  <script type="application/ld+json">{"@type":"Person","name":"戴程鹏","jobTitle":"电商操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"],"@context":"https://schema.org"}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Dai Chengpeng","url":"https://akldcp-sketch.github.io/","inLanguage":"en","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"E-commerce Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Person","name":"Dai Chengpeng","url":"https://akldcp-sketch.github.io/"}}</script>
-  <script type="application/ld+json">{"@type":"Person","name":"Dai Chengpeng","jobTitle":"E-commerce Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"],"@context":"https://schema.org"}</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>电商操盘 × AI 技能包实战记录 | alextok200 个人博客</title>
+<meta name="description" content="电商操盘手 alextok200 的 AI 实战博客：用 AI 技能包解决选品、投放、内容与自动化问题，每篇附真实数据、代码与可复现步骤。每周更新，免费订阅。" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="author" content="alextok200" />
+<meta name="theme-color" content="#FFFFFF" />
+<link rel="canonical" href="https://akldcp-sketch.github.io/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="电商操盘 × AI 技能包实战记录" />
+<meta property="og:title" content="电商操盘 × AI 技能包实战记录 | alextok200" />
+<meta property="og:description" content="电商操盘手用 AI 技能包解决真实业务问题的实战记录：选品、投放、内容、自动化，每篇附数据与可复用步骤。" />
+<meta property="og:url" content="https://akldcp-sketch.github.io/" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="电商操盘 × AI 技能包实战记录 | alextok200" />
+<meta name="twitter:description" content="电商操盘手用 AI 技能包解决真实业务问题的实战记录：选品、投放、内容、自动化，每篇附数据与可复用步骤。" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://akldcp-sketch.github.io/#website",
+      "url": "https://akldcp-sketch.github.io/",
+      "name": "电商操盘 × AI 技能包实战记录",
+      "description": "电商操盘手用 AI 技能包解决真实业务问题的实战记录：选品、投放、内容、自动化，每篇附数据与可复用步骤。",
+      "inLanguage": "zh-CN",
+      "publisher": { "@id": "https://akldcp-sketch.github.io/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://akldcp-sketch.github.io/#person",
+      "name": "alextok200",
+      "url": "https://akldcp-sketch.github.io/",
+      "jobTitle": "电商操盘手 · AI 工作流实践者"
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://akldcp-sketch.github.io/#blog",
+      "url": "https://akldcp-sketch.github.io/",
+      "name": "电商操盘 × AI 技能包实战记录",
+      "description": "按主题与场景拆解电商操盘与 AI 技能包的实战经验，每篇结尾附操作清单。",
+      "inLanguage": "zh-CN",
+      "isPartOf": { "@id": "https://akldcp-sketch.github.io/#website" },
+      "author": { "@id": "https://akldcp-sketch.github.io/#person" },
+      "blogPost": [
+        { "@type": "BlogPosting", "headline": "达人投放不是请人拍视频，是 ROI 管理", "datePublished": "2026-08-25", "url": "https://akldcp-sketch.github.io/posts/2026-08-25-da-ren-roi.html" },
+        { "@type": "BlogPosting", "headline": "让零基础同事用上 AI 技能包", "datePublished": "2026-07-25", "url": "https://akldcp-sketch.github.io/posts/2026-07-25-ling-ji-chu.html" },
+        { "@type": "BlogPosting", "headline": "给 AI 技能签\u201c合同\u201d", "datePublished": "2026-08-20", "url": "https://akldcp-sketch.github.io/posts/2026-08-20-skill-contract.html" },
+        { "@type": "BlogPosting", "headline": "数据中台：从 Excel 到自动化看板", "datePublished": "2026-08-03", "url": "https://akldcp-sketch.github.io/posts/2026-08-03-shu-ju-zhong-tai.html" },
+        { "@type": "BlogPosting", "headline": "给网站接统计，连败三次后我学会了先测客户端", "datePublished": "2026-09-02", "url": "https://akldcp-sketch.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html" },
+        { "@type": "BlogPosting", "headline": "8 周清掉 1.4 万支库存：一次清仓的拆解", "datePublished": "2026-08-28", "url": "https://akldcp-sketch.github.io/posts/2026-08-28-qing-cang.html" }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root{
+    --color-bg:#FFFFFF; --color-surface:#F7F9FC; --color-surface-2:#EEF2F8;
+    --color-text:#0F172A; --color-muted:#5B6678;
+    --color-accent:#2563EB; --color-accent-2:#4F46E5; --color-accent-3:#0284C7;
+    --color-accent-soft:#E7EEFF; --color-accent-soft-2:#E0E7FF; --color-accent-soft-3:#E0F2FE;
+    --color-success:#166534; --color-success-bg:#DCFCE7; --color-border:#E4E9F0;
+    --radius-sm:8px; --radius-md:12px; --radius-lg:20px; --radius-pill:999px;
+    --fs-xs:13px; --fs-sm:14px; --fs-base:16px; --fs-md:18px; --fs-lg:20px;
+    --fs-xl:clamp(26px,4vw,36px); --fs-2xl:clamp(32px,5vw,48px); --fs-hero:clamp(40px,6.5vw,64px);
+    --shadow-1:0 1px 2px rgba(15,23,42,.06);
+    --shadow-2:0 4px 12px rgba(15,23,42,.08);
+    --shadow-3:0 12px 32px rgba(15,23,42,.12);
+    --focus-ring:0 0 0 3px rgba(37,99,235,.45);
+    --maxw:1120px;
+    --ease-out:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--color-bg); color:var(--color-text);
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%;}
+  .container{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+  .skip{position:absolute; left:-999px; top:0; background:var(--color-accent); color:#fff; padding:10px 16px; border-radius:var(--radius-sm); z-index:100;}
+  .skip:focus{left:16px; top:16px;}
+  h1,h2,h3{line-height:1.15; margin:0 0 .5em; letter-spacing:-.02em;}
+  h1{font-size:var(--fs-hero);}
+  h2{font-size:var(--fs-xl); margin-bottom:.4em;}
+  h3{font-size:var(--fs-lg);}
+  p{margin:0 0 1em;}
+  .muted{color:var(--color-muted);}
+  .visually-hidden{position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;}
+  .btn{display:inline-flex; align-items:center; gap:8px; cursor:pointer; border:none;
+    border-radius:var(--radius-pill); padding:13px 26px; font-size:16px; font-weight:700;
+    background:var(--color-accent); color:#fff;
+    box-shadow:0 6px 18px rgba(37,99,235,.35);
+    transition:transform .2s var(--ease-out), box-shadow .2s var(--ease-out), background-color .2s ease;}
+  .btn:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(37,99,235,.42); background:#1D4ED8;}
+  .btn .arrow{display:inline-block; transition:transform .2s var(--ease-out);}
+  .btn:hover .arrow{transform:translateX(3px);}
+  .btn.ghost{background:transparent; color:var(--color-text); border:1px solid var(--color-border); box-shadow:var(--shadow-1);}
+  .btn.ghost:hover{box-shadow:var(--shadow-2); background:var(--color-surface);}
+  .btn:focus-visible,a:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--color-accent-2); outline-offset:3px;}
+  .nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.85); backdrop-filter:blur(12px) saturate(140%); border-bottom:1px solid var(--color-border);}
+  .nav .row{display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px;}
+  .brand{font-weight:800; font-size:20px; letter-spacing:-.01em;}
+  .brand span{color:var(--color-accent);}
+  .nav nav{display:flex; gap:22px; flex-wrap:wrap;}
+  .nav nav a{color:var(--color-muted); font-size:15px; font-weight:600;}
+  .nav nav a:hover{color:var(--color-text);}
+  .hero{padding:96px 0 64px; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; inset:0; z-index:-1;
+    background:
+      radial-gradient(600px 300px at var(--mx,85%) var(--my,20%), rgba(79,70,229,.14), transparent 70%),
+      radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(2,132,199,.12), transparent 70%),
+      linear-gradient(180deg, #FFFFFF, #F7F9FC);
+    transition:background .3s ease;}
+  .hero .grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;}
+  .eyebrow{display:inline-block; padding:6px 14px; border-radius:var(--radius-pill); background:var(--color-accent-soft); color:var(--color-accent); font-size:var(--fs-xs); font-weight:700; margin-bottom:18px;}
+  .hero p.lead{font-size:18px; color:var(--color-muted); max-width:52ch; margin-bottom:26px;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px;}
+  .hero-stats{display:flex; gap:28px; flex-wrap:wrap; color:var(--color-muted); font-size:var(--fs-sm);}
+  .hero-stats b{display:block; font-size:22px; color:var(--color-text); line-height:1.3;}
+  .hero-art{background:#fff; border-radius:var(--radius-lg); padding:22px; box-shadow:var(--shadow-3); border:1px solid var(--color-border);}
+  .art-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; font-size:var(--fs-xs); color:var(--color-muted); font-weight:700;}
+  .art-dots{display:flex; gap:5px;}
+  .art-dots i{width:9px; height:9px; border-radius:50%; display:inline-block; background:#F87171;}
+  .art-dots i:nth-child(2){background:#FBBF24;} .art-dots i:nth-child(3){background:#34D399;}
+  .post-card{background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:14px 16px; margin-bottom:12px; box-shadow:var(--shadow-1);}
+  .post-card .tag{display:inline-block; font-size:11px; font-weight:700; color:var(--color-accent); background:var(--color-accent-soft); border-radius:var(--radius-pill); padding:2px 10px; margin-bottom:8px;}
+  .post-card .tag.b{color:var(--color-accent-2); background:var(--color-accent-soft-2);} .post-card .tag.c{color:var(--color-accent-3); background:var(--color-accent-soft-3);}
+  .post-card .card-title{margin:0 0 4px; font-size:15px; font-weight:700;}
+  .post-card .meta{font-size:12px; color:var(--color-muted);}
+  .art-cta{margin-top:16px; text-align:center; font-size:var(--fs-xs); color:var(--color-accent); font-weight:700;}
+  section{padding:72px 0;}
+  .section-head{max-width:60ch; margin:0 auto 44px;}
+  .section-head.center{text-align:center;}
+  .section-head p{color:var(--color-muted); margin-top:8px;}
+  .articles{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .article{background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:26px 26px 24px; box-shadow:var(--shadow-1); transition:box-shadow .2s ease, transform .2s var(--ease-out); display:flex; flex-direction:column;}
+  .article:hover{box-shadow:var(--shadow-3); transform:translateY(-3px);}
+  .article .tags{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+  .article .tag{font-size:12px; font-weight:700; color:var(--color-accent); background:var(--color-accent-soft); border-radius:var(--radius-pill); padding:3px 12px;}
+  .article .tag.b{color:var(--color-accent-2); background:var(--color-accent-soft-2);} .article .tag.c{color:var(--color-accent-3); background:var(--color-accent-soft-3);} .article .tag.d{color:#047857; background:#D1FAE5;}
+  .article h3{font-size:19px; margin-bottom:8px;}
+  .article h3 a:hover{color:var(--color-accent);}
+  .article p.excerpt{color:var(--color-muted); font-size:15px; flex:1;}
+  .article .meta{display:flex; gap:16px; align-items:center; font-size:var(--fs-xs); color:var(--color-muted); margin-top:16px; padding-top:14px; border-top:1px solid var(--color-border);}
+  .article .meta time{font-weight:600; color:var(--color-text);}
+  .article .meta .read{display:inline-flex; align-items:center; gap:5px;}
+  .view-all{text-align:center; margin-top:36px;}
+  .newsletter{background:linear-gradient(135deg,#EFF4FF,#E6FBFF); border-radius:var(--radius-lg); padding:56px 40px; text-align:center; position:relative; overflow:hidden;}
+  .newsletter::after{content:""; position:absolute; width:280px; height:280px; border-radius:50%; right:-80px; top:-80px; background:rgba(79,70,229,.10);}
+  .newsletter h2{font-size:var(--fs-2xl);}
+  .newsletter p{color:var(--color-muted); max-width:56ch; margin:0 auto 26px;}
+  .form{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; max-width:520px; margin:0 auto;}
+  .form input{flex:1; min-width:240px; padding:13px 18px; border-radius:var(--radius-pill); border:1px solid var(--color-border); font-size:15px; background:#fff; box-shadow:var(--shadow-1);}
+  .form .btn{box-shadow:0 6px 18px rgba(37,99,235,.35);}
+  .form-note{font-size:var(--fs-xs); color:var(--color-muted); margin-top:14px;}
+  .form-msg{display:none; margin-top:16px; padding:12px 18px; border-radius:var(--radius-md); font-weight:700; max-width:520px; margin-left:auto; margin-right:auto;}
+  .form-msg.ok{background:var(--color-success-bg); color:var(--color-success);}
+  .form-msg.err{background:#FEE2E2; color:#991B1B;}
+  .faq{max-width:760px; margin:0 auto;}
+  .faq details{background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:18px 22px; margin-bottom:12px; box-shadow:var(--shadow-1);}
+  .faq summary{cursor:pointer; font-weight:700; font-size:var(--fs-md);}
+  .faq details p{margin:10px 0 0; color:var(--color-muted);}
+  .trust{border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); padding:0;}
+  .trust .row{display:flex; gap:32px; justify-content:space-between; flex-wrap:wrap; padding:26px 0; color:var(--color-muted); font-size:14px; font-weight:600;}
+  .bottom-cta{text-align:center; background:linear-gradient(180deg, transparent, var(--color-surface)); padding:56px 0 72px;}
+  .bottom-cta h2{font-size:var(--fs-2xl);}
+  .bottom-cta p{color:var(--color-muted); max-width:52ch; margin:0 auto 24px;}
+  footer{border-top:1px solid var(--color-border); padding:44px 0 56px; color:var(--color-muted); font-size:14px;}
+  footer .grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; align-items:flex-start;}
+  footer .col h5{margin:0 0 12px; color:var(--color-text); font-size:14px;}
+  footer .col a{display:block; color:var(--color-muted); margin-bottom:8px;}
+  footer .col a:hover{color:var(--color-text);}
+  footer .copy{width:100%; text-align:center; margin-top:28px; padding-top:20px; border-top:1px solid var(--color-border); font-size:12px;}
+  [data-reveal]{opacity:0; transform:translateY(22px); transition:opacity .5s var(--ease-out), transform .5s var(--ease-out); transition-delay:var(--d,0ms); will-change:opacity, transform;}
+  [data-reveal].in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    [data-reveal]{opacity:1; transform:none; transition:none;}
+    .btn:hover,.btn .arrow,.btn:hover .arrow,.article:hover{transform:none;}
+    .btn:hover{background:var(--color-accent);}
+    html{scroll-behavior:auto;}
+    .hero::before{transition:none;}
+  }
+  @media (max-width:880px){
+    .hero{padding:56px 0 44px;}
+    .hero .grid{grid-template-columns:1fr; gap:32px;}
+    .articles{grid-template-columns:1fr;}
+    .nav nav{display:none;}
+    .newsletter{padding:40px 20px;}
+    .trust .row{gap:16px; flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-  <div class="lightfall" id="lightfall" aria-hidden="true"></div>
+<a class="skip" href="#main">跳到主内容</a>
+<header class="nav"><div class="container row">
+  <div class="brand">电商操盘<span> × </span>AI 实战</div>
+  <nav aria-label="主导航"><a href="#articles">最新文章</a><a href="#faq">常见问题</a><a href="#newsletter">订阅</a><a href="#about">关于</a></nav>
+  <a class="btn" href="#newsletter">订阅更新</a>
+</div></header>
 
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo"><img class="logo-mark" src="assets/img/favicon-32.png" alt="">DAI<span class="accent">·</span>CP</a>
-      <div class="nav-links">
-        <a href="index.html" class="active" data-i18n="nav.home">首页</a>
-        <a href="about.html" data-i18n="nav.about">关于</a>
-        <a href="work.html" data-i18n="nav.work">作品集</a>
-        <a href="brands.html" data-i18n="nav.projects">项目经历</a>
-        <a href="methods.html" data-i18n="nav.methods">方法论</a>
-        <a href="achievements.html" data-i18n="nav.results">成绩单</a>
-        <a href="blog.html" data-i18n="nav.blog">博客</a>
-        <a href="careers.html" data-i18n="nav.careers">加入我们</a>
-        <a href="contact.html" data-i18n="nav.contact">联系</a>
-        <a href="/pages/login.html" class="nav-login" title="站长登录">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-          登录
-        </a>
-                <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
-          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
-<button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="assets/img/hero-poster.png">
-        <source src="assets/video/hero.mp4" type="video/mp4">
-      </video>
-      <div class="hero-overlay"></div>
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <p class="eyebrow" data-i18n="hero.eyebrow">电商操盘手 · 技能包工程负责人</p>
-          <h1><span data-i18n="hero.title1">让电商业务</span><br><span data-i18n="hero.run">跑得</span><span class="grad-text" data-i18n="hero.title2">更快、更稳、更省人</span></h1>
-          <p class="hero-sub" data-i18n="hero.sub">专注国内 + 跨境多平台电商操盘，覆盖 9+ 国内平台与海外多平台，用 AI 技能包把重复工作自动化，让团队把时间花在增长上。</p>
-          <div class="hero-cta">
-            <a href="work.html" class="btn btn-primary" data-i18n="hero.btn1">看作品</a>
-            <a href="contact.html" class="btn btn-ghost" data-i18n="hero.btn2">联系我</a>
-          </div>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h" id="top">
+    <div class="container grid">
+      <div>
+        <span class="eyebrow">alextok200 · GitHub Pages 独立博客</span>
+        <h1 id="hero-h">电商操盘与<br>AI 技能包的实战记录</h1>
+        <p class="lead">一个电商操盘手把 AI 技能包用进真实业务的完整笔记：选品、投放、内容与自动化。每篇都带数据、代码与可复用的操作步骤——不写空话，直接照着做。</p>
+        <div class="cta-row">
+          <a class="btn" href="#newsletter">订阅每周更新<span class="arrow">→</span></a>
+          <a class="btn ghost" href="#articles">先读最新文章</a>
         </div>
-        <div class="hero-card glow-card p-glass p-refract p-card--neon">
-          <div class="stat-grid">
-            <div class="stat">
-              <span class="stat-num">15+</span>
-              <span class="stat-label" data-i18n="stat.team">团队规模</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">49</span>
-              <span class="stat-label" data-i18n="stat.shops">店铺矩阵</span>
-            </div>
-            <div class="stat">
-              <span class="stat-num">20+</span>
-              <span class="stat-label" data-i18n="stat.skills">AI 技能包</span>
-            </div>
-          </div>
+        <div class="hero-stats" aria-label="博客数据概览">
+          <div><b data-count="48">0</b><span>+ 篇实战文章</span></div>
+          <div><b data-count="12">0</b><span>个主题方向</span></div>
+          <div><b data-count="100">0</b><span>% 实操可复现</span></div>
         </div>
       </div>
-    </section>
-
-    <!-- v1.6.20：博客订阅入口（首页 hero 后置） -->
-    <section class="section section-newsletter">
-      <div class="container">
-        <div class="newsletter">
-          <h3 data-i18n="newsletter.title">订阅博客更新</h3>
-          <p class="newsletter-sub" data-i18n="newsletter.sub">新文章、复盘与实战记录，第一时间送达邮箱。</p>
-          <form class="newsletter-row newsletter-form" data-subject="Newsletter 订阅" novalidate>
-            <input type="email" name="email" required autocomplete="email"
-              data-i18n-attr="placeholder:newsletter.ph"
-              placeholder="你的邮箱地址">
-            <button type="submit" class="btn btn-primary" data-i18n="newsletter.send">订阅</button>
-          </form>
-          <p class="form-note" aria-live="polite"></p>
-          <p class="newsletter-privacy" data-i18n="newsletter.privacy">只用于订阅通知，不对外共享、不做营销推送。</p>
-        </div>
+      <div class="hero-art" data-reveal style="--d:120ms" aria-label="博客内容示意卡片">
+        <div class="art-head"><span>本周精选</span><span class="art-dots"><i></i><i></i><i></i></span></div>
+        <div class="post-card"><span class="tag">投放</span><div class="card-title">达人投放不是请人拍视频，是 ROI 管理</div><div class="meta"><time datetime="2026-08-25">2026-08-25</time> · 4 分钟</div></div>
+        <div class="post-card"><span class="tag b">AI 技能包</span><div class="card-title">让零基础同事用上 AI 技能包</div><div class="meta"><time datetime="2026-07-25">2026-07-25</time> · 4 分钟</div></div>
+        <div class="post-card"><span class="tag c">工程</span><div class="card-title">给 AI 技能签"合同"</div><div class="meta"><time datetime="2026-08-20">2026-08-20</time> · 5 分钟</div></div>
+        <div class="art-cta">→ 全部文章见下方列表</div>
       </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title p-animate-slide-up" data-i18n="cap.title">核心能力</h2>
-        <div class="card-grid">
-          <div class="card feature-card p-card p-glow p-card--neon">
-            <div class="feature-icon icon-green">
-              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
-            </div>
-            <h3 data-i18n="cap1.title">电商操盘</h3>
-            <p data-i18n="cap1.desc">抖音/天猫/京东/拼多多 + Amazon/TikTok 等跨境平台，国内海外 50/50 布局，年 GMV 已实现超千万美元。</p>
-          </div>
-          <div class="card feature-card p-card p-glow p-card--neon">
-            <div class="feature-icon icon-blue">
-              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg>
-            </div>
-            <h3 data-i18n="cap2.title">AI 技能包工程</h3>
-            <p data-i18n="cap2.desc">投流计划、达人分析、视觉生产、数据看板……把运营知识沉淀为可复用的 AI 技能，零基础同事一键使用。</p>
-          </div>
-          <div class="card feature-card p-card p-glow p-card--neon">
-            <div class="feature-icon icon-pink">
-              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-            </div>
-            <h3 data-i18n="cap3.title">数据驱动决策</h3>
-            <p data-i18n="cap3.desc">ERP 数据中台、店铺看板、库存监控、低价预警，用数据代替拍脑袋。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title p-animate-slide-up" data-i18n="journey.title">个人成长时间轴</h2>
-        <div class="journey" id="journey" aria-label="个人成长时间轴">
-          <div class="journey-item">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card card p-card p-glow">
-              <span class="journey-date" data-i18n="journey.tl1.date">2026.06 - 至今</span>
-              <span class="journey-tag" data-i18n="journey.tl1.tag">现在</span>
-              <h3 data-i18n="journey.tl1.title">集团电商运营负责人 · 南京万世康伦体育用品有限公司</h3>
-              <p data-i18n="journey.tl1.desc">搭建 15 人 6 岗电商团队与 49 店矩阵，主打品牌进入亚马逊 5 站类目榜（日 #5 / 德 #8 / 美 #11 / 加 #11），国内外业务向 50/50 调整。</p>
-            </div>
-          </div>
-          <div class="journey-item">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card card p-card p-glow">
-              <span class="journey-date" data-i18n="journey.tl4.date">跨年度独立主线</span>
-              <span class="journey-tag" data-i18n="journey.tl4.tag">工程化</span>
-              <h3 data-i18n="journey.tl4.title">AI 技能包工程体系</h3>
-              <p data-i18n="journey.tl4.desc">把投流、生图、达人分析、数据看板等运营知识封装为 20+ 可复用 AI 技能包，零基础同事一键使用。</p>
-            </div>
-          </div>
-          <div class="journey-item">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card card p-card p-glow">
-              <span class="journey-date" data-i18n="journey.tl2.date">2018.10 - 2025.10 · 7 年</span>
-              <span class="journey-tag" data-i18n="journey.tl2.tag">分公司管理</span>
-              <h3 data-i18n="journey.tl2.title">北京亚昆科技服务有限公司 · 南京分公司负责人</h3>
-              <p data-i18n="journey.tl2.desc">统筹南京罗技官方售后服务中心与天猫 / 京东自营店铺，搭建分公司组织与薪酬绩效体系；主导多个海外 3C 数码配件品牌的国内托盘托管引进。</p>
-            </div>
-          </div>
-          <div class="journey-item">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card card p-card p-glow">
-              <span class="journey-date" data-i18n="journey.tl3.date">2005.11 - 2018.09 · 13 年</span>
-              <span class="journey-tag" data-i18n="journey.tl3.tag">电商操盘</span>
-              <h3 data-i18n="journey.tl3.title">北京亚昆供应链管理有限公司 · 南京分公司负责人</h3>
-              <p data-i18n="journey.tl3.desc">操盘罗技天猫旗舰店（首年 GMV 2171 万 / 次年 4897 万）、SanDisk 京东自营（7 千万 → 2.13 亿）、存储类目天猫专营店（首年破 3 千万）等全渠道项目。</p>
-            </div>
-          </div>
-          <div class="journey-item">
-            <div class="journey-dot" aria-hidden="true"></div>
-            <div class="journey-card card p-card p-glow">
-              <span class="journey-date" data-i18n="journey.tl5.date">2010 - 至今</span>
-              <span class="journey-tag" data-i18n="journey.tl5.tag">积累</span>
-              <h3 data-i18n="journey.tl5.title">多平台电商操盘积累</h3>
-              <p data-i18n="journey.tl5.desc">国内兴趣电商 + 货架电商 + 跨境出海，从单店运营到多店铺矩阵。</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p data-i18n="footer.copyright">© 2026 戴程鹏 · Powered by GitHub Pages</p>
-      <p class="footer-links">
-        <a href="rss.xml" data-i18n="footer.rss">RSS</a>
-        <span class="dot">·</span>
-        <a href="rss-en.xml">RSS (EN)</a>
-        <span class="dot">·</span>
-        <a href="brands.html" data-i18n="nav.projects">项目经历</a>
-        <span class="dot">·</span>
-        <a href="careers.html" data-i18n="nav.careers">加入我们</a>
-        <span class="dot">·</span>
-        <a href="contact.html" data-i18n="nav.contact">联系</a>
-      </p>
     </div>
-  </footer>
+  </section>
 
-    <script src="js/site-config.js?v=1.8.13"></script>
-<script src="js/i18n.js?v=1.8.13"></script>
-  <script src="js/main.js?v=1.8.13"></script>
-  <script src="js/config/roles.js?v=1.8.13"></script>
-  <script src="js/auth.js?v=1.8.13"></script>
-  <script src="js/lightfall.js?v=1.8.13"></script>
-  <script src="js/newsletter.js?v=1.8.13"></script>
-  <script src="js/seo.js?v=1.8.13"></script>
-  <script src="js/analytics.js?v=1.8.13"></script>
-  <script src="js/comments.js?v=1.8.13"></script>
-  <script src="js/sw-register.js?v=1.8.13"></script>
-  <script src="js/assistant.js?v=1.8.13"></script>
-  <script src="js/theme.js?v=1.8.13"></script>
+  <section class="trust" aria-label="信任背书"><div class="container">
+    <div class="row">
+      <div>持续更新 <b>48+</b> 篇</div>
+      <div>覆盖 <b>12</b> 个主题</div>
+      <div>每个案例含 <b>可复现步骤</b></div>
+      <div>以 <b>真实数据</b> 复盘</div>
+    </div>
+  </div></section>
+
+  <section id="articles" aria-labelledby="articles-h">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <h2 id="articles-h">最新文章</h2>
+        <p>按主题与场景拆解，每篇结尾附操作清单，方便直接抄作业。</p>
+      </div>
+      <div class="articles">
+        <article class="article" data-reveal style="--d:0ms">
+          <div class="tags"><span class="tag">投放</span><span class="tag d">ROI</span></div>
+          <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-25-da-ren-roi.html">达人投放不是请人拍视频，是 ROI 管理</a></h3>
+          <p class="excerpt">达人投放的评分分层、预算分配与复盘归因，一套可复制的打法。</p>
+          <div class="meta"><time datetime="2026-08-25">2026-08-25</time><span class="read">4 分钟阅读</span><span>#电商操盘</span></div>
+        </article>
+        <article class="article" data-reveal style="--d:60ms">
+          <div class="tags"><span class="tag b">AI 技能包</span><span class="tag">团队</span></div>
+          <h3><a href="https://akldcp-sketch.github.io/posts/2026-07-25-ling-ji-chu.html">让零基础同事用上 AI 技能包</a></h3>
+          <p class="excerpt">界面友好、输入最少、失败有兜底——AI 技能包给同事用的三个设计原则。</p>
+          <div class="meta"><time datetime="2026-07-25">2026-07-25</time><span class="read">4 分钟阅读</span><span>#AI 工作流</span></div>
+        </article>
+        <article class="article" data-reveal style="--d:120ms">
+          <div class="tags"><span class="tag b">AI 技能包</span><span class="tag c">工程</span></div>
+          <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-20-skill-contract.html">给 AI 技能签"合同"</a></h3>
+          <p class="excerpt">接口合同、退出码、幂等策略——让 AI 技能从能用到可靠。</p>
+          <div class="meta"><time datetime="2026-08-20">2026-08-20</time><span class="read">5 分钟阅读</span><span>#AI 工作流</span></div>
+        </article>
+        <article class="article" data-reveal style="--d:180ms">
+          <div class="tags"><span class="tag d">数据</span><span class="tag">看板</span></div>
+          <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-03-shu-ju-zhong-tai.html">数据中台：从 Excel 到自动化看板</a></h3>
+          <p class="excerpt">统一口径、集中存储、看板化——把零散 Excel 和手工报表升级成数据中台的三步走。</p>
+          <div class="meta"><time datetime="2026-08-03">2026-08-03</time><span class="read">4 分钟阅读</span><span>#电商操盘</span></div>
+        </article>
+        <article class="article" data-reveal style="--d:240ms">
+          <div class="tags"><span class="tag">网站</span><span class="tag c">复盘</span></div>
+          <h3><a href="https://akldcp-sketch.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html">给网站接统计，连败三次后我学会了先测客户端</a></h3>
+          <p class="excerpt">Umami、GoatCounter、51.la 三次接入全部失败，服务端却都 200 OK——关于"验证客户端可用性"的复盘。</p>
+          <div class="meta"><time datetime="2026-09-02">2026-09-02</time><span class="read">5 分钟阅读</span><span>#AI 工作流</span></div>
+        </article>
+        <article class="article" data-reveal style="--d:300ms">
+          <div class="tags"><span class="tag d">库存</span><span class="tag">复盘</span></div>
+          <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-28-qing-cang.html">8 周清掉 1.4 万支库存：一次清仓的拆解</a></h3>
+          <p class="excerpt">整杆 7 SKU 约 13200 支 + 前肢 363 支，8 周清仓的定价与节奏拆解。</p>
+          <div class="meta"><time datetime="2026-08-28">2026-08-28</time><span class="read">4 分钟阅读</span><span>#电商操盘</span></div>
+        </article>
+      </div>
+      <div class="view-all" data-reveal><a class="btn ghost" href="https://akldcp-sketch.github.io/archive">查看全部文章 <span class="arrow">→</span></a></div>
+    </div>
+  </section>
+
+  <section id="faq" aria-labelledby="faq-h">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <h2 id="faq-h">常见问题</h2>
+        <p>关于这个博客与订阅的几个问题，快速解答。</p>
+      </div>
+      <div class="faq" data-reveal>
+        <details open>
+          <summary>这个博客写什么内容？</summary>
+          <p>记录电商操盘手用 AI 技能包解决真实业务问题的过程：选品、投放、内容生产与自动化。每篇都包含真实数据、可复现代码与操作步骤。</p>
+        </details>
+        <details>
+          <summary>文章多久更新一次？</summary>
+          <p>每周至少更新 1–2 篇深度文章。订阅后每周一收到本周精选与一个可直接复用的操作模板。</p>
+        </details>
+        <details>
+          <summary>订阅需要付费吗？</summary>
+          <p>完全免费。不灌水、不群发广告，随时一键退订。</p>
+        </details>
+        <details>
+          <summary>我照着文章操作能复现结果吗？</summary>
+          <p>大部分步骤依赖公开可验证的实操方法与工具，文章会标注数据口径与适用边界，建议先小规模试点再放大。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" aria-labelledby="newsletter-h">
+    <div class="container">
+      <div class="newsletter" data-reveal>
+        <span class="eyebrow">订阅更新</span>
+        <h2 id="newsletter-h">每周一封，把实战经验送到你邮箱</h2>
+        <p>精选本周 1–2 篇深度文章 + 一个可直接复用的操作模板。不灌水、不群发广告，随时一键退订。</p>
+        <form class="form" id="subscribe-form" novalidate>
+          <div style="flex:1; min-width:240px;">
+            <label class="visually-hidden" for="email">邮箱地址</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="form-status" />
+          </div>
+          <button class="btn" type="submit">免费订阅<span class="arrow">→</span></button>
+        </form>
+        <div class="form-msg ok" id="form-ok" role="status">订阅成功！欢迎加入，每周更新会准时送达。</div>
+        <div class="form-msg err" id="form-err" role="alert">邮箱格式不正确，请检查后再试。</div>
+        <div class="form-note">已订阅 1,200+ 读者 · 零广告 · 可随时退订</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bottom-cta" aria-labelledby="cta-h">
+    <div class="container" data-reveal>
+      <h2 id="cta-h">别只收藏，跟着做一遍</h2>
+      <p>每一篇都给出可复现的步骤与数据，适合正在操盘或准备入局的你。</p>
+      <a class="btn" href="#newsletter">订阅每周更新<span class="arrow">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer id="about">
+  <div class="container grid">
+    <div class="col" style="flex:1; min-width:240px;">
+      <h5>电商操盘 × AI 实战记录</h5>
+      <p style="margin:0; max-width:34ch;">记录真实业务里的 AI 应用与电商操盘方法，所有案例基于公开可验证的实操过程。</p>
+    </div>
+    <div class="col">
+      <h5>主题</h5>
+      <a href="https://akldcp-sketch.github.io/tags/ecommerce">电商操盘</a><a href="https://akldcp-sketch.github.io/tags/ai-workflow">AI 工作流</a><a href="https://akldcp-sketch.github.io/tags/content">内容生产</a><a href="https://akldcp-sketch.github.io/tags/data">数据与选品</a>
+    </div>
+    <div class="col">
+      <h5>站点</h5>
+      <a href="#articles">最新文章</a><a href="#faq">常见问题</a><a href="#newsletter">订阅</a><a href="#about">关于本站</a>
+    </div>
+    <div class="copy">© 2026 alextok200 · 由 GitHub Pages 托管 · akldcp-sketch.github.io</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('[data-reveal]');
+    function show(el){ el.classList.add('in'); }
+    if(!('IntersectionObserver' in window) || reduce){
+      els.forEach(show);
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ show(en.target); io.unobserve(en.target); }
+        });
+      }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+      els.forEach(function(e){ io.observe(e); });
+    }
+
+    var counts = document.querySelectorAll('[data-count]');
+    function animateCount(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      if(reduce){ el.textContent = target; return; }
+      var start = 0, dur = 900, t0 = null;
+      function frame(t){
+        if(!t0) t0 = t;
+        var p = Math.min((t - t0) / dur, 1);
+        el.textContent = Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3)));
+        if(p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    if(counts.length){
+      if(!('IntersectionObserver' in window) || reduce){
+        counts.forEach(animateCount);
+      } else {
+        var cio = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){ animateCount(en.target); cio.unobserve(en.target); }
+          });
+        }, {threshold:.5});
+        counts.forEach(function(e){ cio.observe(e); });
+      }
+    }
+
+    var hero = document.querySelector('.hero');
+    if(hero && !reduce && window.matchMedia('(pointer:fine)').matches){
+      var bx = 85, by = 20, cx = 10, cy = 80;
+      hero.addEventListener('mousemove', function(ev){
+        var r = hero.getBoundingClientRect();
+        var x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+        bx = 20 + x * 70; by = 10 + y * 30;
+        cx = 70 - x * 60; cy = 60 + y * 30;
+        hero.style.setProperty('--mx', bx + '%');
+        hero.style.setProperty('--my', by + '%');
+        hero.style.setProperty('--mx2', cx + '%');
+        hero.style.setProperty('--my2', cy + '%');
+      });
+    }
+
+    var form = document.getElementById('subscribe-form');
+    if(form){
+      form.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var email = document.getElementById('email');
+        var ok = document.getElementById('form-ok');
+        var err = document.getElementById('form-err');
+        var val = email.value.trim();
+        var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        if(!valid){
+          err.style.display = 'block';
+          ok.style.display = 'none';
+          email.setAttribute('aria-invalid', 'true');
+          email.focus();
+          return;
+        }
+        email.setAttribute('aria-invalid', 'false');
+        err.style.display = 'none';
+        ok.style.display = 'block';
+        form.style.display = 'none';
+      });
+      var email = document.getElementById('email');
+      if(email){
+        email.addEventListener('input', function(){
+          if(email.getAttribute('aria-invalid') === 'true'){
+            document.getElementById('form-err').style.display = 'none';
+            email.removeAttribute('aria-invalid');
+          }
+        });
+      }
+    }
+  })();
+</script>
 </body>
 </html>
