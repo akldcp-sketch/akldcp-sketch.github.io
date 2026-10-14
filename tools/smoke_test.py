@@ -4,6 +4,7 @@ smoke_test.py —— 本地起 http server 跑冒烟测试
 需要先用 python -m http.server 8000 起服务（scripts 启动）。
 测试所有 HTML 200、关键资源 200、关键 DOM 节点与 JSON-LD 存在。
 """
+import glob
 import os
 import re
 import sys
@@ -97,7 +98,8 @@ def main():
         check_status("asset", p)
     print("== 3. 关键 DOM 节点 ==")
     # v1.7.0：B2B 招商段已删除；brands.html 改造为项目作品集；about 简历化
-    check_contains("index.html", "id=\"lightfall\"", "首页 lightfall 容器")
+    # lightfall 由 js/lightfall.js 动态生成，无静态容器；首页关键容器改为 hero-h
+    check_contains("index.html", "id=\"hero-h\"", "首页 Hero 容器")
     check_contains("contact.html", "id=\"inquiryForm\"", "联系表单 inquiryForm")
     check_contains("contact.html", "inquiry.js", "联系表单 inquiry.js")
     # brands.html：项目作品集
@@ -120,24 +122,25 @@ def main():
     check_contains("careers.html", "job-card", "招聘岗位卡")
     check_count("careers.html", r'class="[^"]*job-card[^"]*"', 4, "招聘岗位数量")
     # newsletter + 主题
-    check_contains("index.html", "newsletter-form", "首页 Newsletter 订阅表单")
-    check_contains("index.html", 'data-subject="Newsletter 订阅"', "首页订阅邮件主题分流")
+    check_contains("index.html", "id=\"subscribe-form\"", "首页 Newsletter 订阅表单")
+    check_contains("index.html", "mailto:alextok100@hotmail.com", "首页订阅 mailto 直发")
     check_contains("blog.html", "newsletter-form", "博客页 Newsletter 订阅表单")
     check_contains("index.html", 'class="theme-toggle"', "首页主题切换按钮")
-    check_contains("index.html", 'localStorage.getItem("site_theme")', "首页主题防闪脚本")
+    check_contains("index.html", "localStorage.getItem('theme')", "首页主题防闪脚本")
     check_contains("about.html", 'class="theme-toggle"', "内页主题切换按钮")
     check_count("index.html", r'data-theme', 1, "主题 data-theme 属性")
     print("== 4. JSON-LD 注入 ==")
     # v1.7.0：删独立 Organization 实体（品牌官网声明），保留 worksFor 履历信息
-    check_count("index.html", r'application/ld\+json', 4, "首页 JSON-LD 数（4：zh+en WebSite+Person）")
+    check_count("index.html", r'application/ld\+json', 2, "首页 JSON-LD 数（2：@graph WebSite+Person+Blog 合并 & FAQPage）")
     check_count("about.html", r'application/ld\+json', 1, "内页 JSON-LD 数")
     check_count("posts/2026-07-28-b2b.html", r'application/ld\+json', 2, "文章页 JSON-LD 数")
     print("== 5. RSS 内容 ==")
     check_status("rss", "rss.xml")
     body = urllib.request.urlopen(BASE + "/rss.xml", timeout=5).read().decode("utf-8", errors="ignore")
     n_item = len(re.findall(r"<item>", body))
-    print("    ✓ rss.xml 条目数", n_item, "（期望 20）")
-    if n_item != 20:
+    n_posts = len(glob.glob(os.path.join(ROOT, "posts", "*.html")))
+    print("    ✓ rss.xml 条目数", n_item, "（posts 目录", n_posts, "篇）")
+    if n_item != n_posts:
         fail += 1
 
     print()
