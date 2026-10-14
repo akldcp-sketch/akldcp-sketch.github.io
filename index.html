@@ -8,6 +8,16 @@
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="author" content="alextok200" />
 <meta name="theme-color" content="#FFFFFF" />
+<script>
+  (function(){
+    var stored = null;
+    try { stored = localStorage.getItem('theme'); } catch(e){}
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if(tc) tc.setAttribute('content', theme === 'dark' ? '#0B1220' : '#FFFFFF');
+  })();
+</script>
 <link rel="canonical" href="https://akldcp-sketch.github.io/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="电商操盘 × AI 技能包实战记录" />
@@ -48,6 +58,7 @@
       "isPartOf": { "@id": "https://akldcp-sketch.github.io/#website" },
       "author": { "@id": "https://akldcp-sketch.github.io/#person" },
       "blogPost": [
+        { "@type": "BlogPosting", "headline": "用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘", "datePublished": "2026-10-14", "url": "https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html" },
         { "@type": "BlogPosting", "headline": "达人投放不是请人拍视频，是 ROI 管理", "datePublished": "2026-08-25", "url": "https://akldcp-sketch.github.io/posts/2026-08-25-da-ren-roi.html" },
         { "@type": "BlogPosting", "headline": "让零基础同事用上 AI 技能包", "datePublished": "2026-07-25", "url": "https://akldcp-sketch.github.io/posts/2026-07-25-ling-ji-chu.html" },
         { "@type": "BlogPosting", "headline": "给 AI 技能签\u201c合同\u201d", "datePublished": "2026-08-20", "url": "https://akldcp-sketch.github.io/posts/2026-08-20-skill-contract.html" },
@@ -76,6 +87,34 @@
     --maxw:1120px;
     --ease-out:cubic-bezier(.22,.61,.36,1);
   }
+  html[data-theme="dark"]{
+    --color-bg:#0B1220; --color-surface:#111A2E; --color-surface-2:#1A2440;
+    --color-text:#E6EDF7; --color-muted:#9AA8BF;
+    --color-accent:#60A5FA; --color-accent-2:#818CF8; --color-accent-3:#38BDF8;
+    --color-accent-soft:#1E2A44; --color-accent-soft-2:#232C4A; --color-accent-soft-3:#0F2E40;
+    --color-success:#4ADE80; --color-success-bg:#0F2E1F; --color-border:#1E293B;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4);
+    --shadow-2:0 4px 12px rgba(0,0,0,.5);
+    --shadow-3:0 12px 32px rgba(0,0,0,.6);
+    --focus-ring:0 0 0 3px rgba(96,165,250,.45);
+  }
+  body,.nav,.hero-art,.post-card,.article,.newsletter,.form input,.form-msg,.faq details,.theme-toggle{transition:background-color .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease;}
+  html[data-theme="dark"] .btn{color:#0B1220;}
+  html[data-theme="dark"] .btn:hover{background:#7CB8FF; color:#0B1220;}
+  html[data-theme="dark"] .nav{background:rgba(11,18,32,.85);}
+  html[data-theme="dark"] .hero-art{background:var(--color-surface);}
+  html[data-theme="dark"] .hero::before{
+    background:
+      radial-gradient(600px 300px at var(--mx,85%) var(--my,20%), rgba(129,140,248,.16), transparent 70%),
+      radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(56,189,248,.12), transparent 70%),
+      linear-gradient(180deg, #0B1220, #111A2E);
+  }
+  html[data-theme="dark"] .newsletter{background:linear-gradient(135deg,#111A2E,#0F2E40);}
+  html[data-theme="dark"] .form input{background:#0E1626; color:var(--color-text);}
+  html[data-theme="dark"] .article .tag.d{color:#4ADE80; background:#0F2E1F;}
+  html[data-theme="dark"] .form-msg.err{background:#3B1212; color:#FCA5A5;}
+  .theme-toggle{background:transparent; border:1px solid var(--color-border); color:var(--color-text); border-radius:var(--radius-pill); width:38px; height:38px; cursor:pointer; font-size:16px; line-height:1; flex:none;}
+  .theme-toggle:hover{background:var(--color-surface); box-shadow:var(--shadow-1);}
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{margin:0; background:var(--color-bg); color:var(--color-text);
@@ -163,6 +202,8 @@
   .form-msg{display:none; margin-top:16px; padding:12px 18px; border-radius:var(--radius-md); font-weight:700; max-width:520px; margin-left:auto; margin-right:auto;}
   .form-msg.ok{background:var(--color-success-bg); color:var(--color-success);}
   .form-msg.err{background:#FEE2E2; color:#991B1B;}
+  .form-msg.pending{background:var(--color-accent-soft); color:var(--color-text);}
+  html[data-theme="dark"] .form-msg.pending{background:var(--color-accent-soft); color:var(--color-text);}
   .faq{max-width:760px; margin:0 auto;}
   .faq details{background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:18px 22px; margin-bottom:12px; box-shadow:var(--shadow-1);}
   .faq summary{cursor:pointer; font-weight:700; font-size:var(--fs-md);}
@@ -186,6 +227,7 @@
     .btn:hover{background:var(--color-accent);}
     html{scroll-behavior:auto;}
     .hero::before{transition:none;}
+    body,.nav,.hero-art,.post-card,.article,.newsletter,.form input,.form-msg,.faq details,.theme-toggle{transition:none;}
   }
   @media (max-width:880px){
     .hero{padding:56px 0 44px;}
@@ -201,7 +243,8 @@
 <a class="skip" href="#main">跳到主内容</a>
 <header class="nav"><div class="container row">
   <div class="brand">电商操盘<span> × </span>AI 实战</div>
-  <nav aria-label="主导航"><a href="#articles">最新文章</a><a href="#faq">常见问题</a><a href="#newsletter">订阅</a><a href="#about">关于</a></nav>
+  <nav aria-label="主导航"><a href="#articles">最新文章</a><a href="archive.html">归档</a><a href="#faq">常见问题</a><a href="#newsletter">订阅</a><a href="#about">关于</a></nav>
+  <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
   <a class="btn" href="#newsletter">订阅更新</a>
 </div></header>
 
@@ -285,7 +328,7 @@
           <div class="meta"><time datetime="2026-08-28">2026-08-28</time><span class="read">4 分钟阅读</span><span>#电商操盘</span></div>
         </article>
       </div>
-      <div class="view-all" data-reveal><a class="btn ghost" href="https://akldcp-sketch.github.io/archive">查看全部文章 <span class="arrow">→</span></a></div>
+      <div class="view-all" data-reveal><a class="btn ghost" href="archive.html">查看全部文章 <span class="arrow">→</span></a></div>
     </div>
   </section>
 
@@ -322,7 +365,7 @@
         <span class="eyebrow">订阅更新</span>
         <h2 id="newsletter-h">每周一封，把实战经验送到你邮箱</h2>
         <p>精选本周 1–2 篇深度文章 + 一个可直接复用的操作模板。不灌水、不群发广告，随时一键退订。</p>
-        <form class="form" id="subscribe-form" novalidate>
+        <form class="form" id="subscribe-form" novalidate action="https://example.com/api/subscribe" data-endpoint="" data-ready="false" aria-label="订阅表单（待接入邮件服务）">
           <div style="flex:1; min-width:240px;">
             <label class="visually-hidden" for="email">邮箱地址</label>
             <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="form-status" />
@@ -330,8 +373,9 @@
           <button class="btn" type="submit">免费订阅<span class="arrow">→</span></button>
         </form>
         <div class="form-msg ok" id="form-ok" role="status">订阅成功！欢迎加入，每周更新会准时送达。</div>
+        <div class="form-msg pending" id="form-pending" role="status">订阅通道即将开放：表单已就绪，部署时填入邮件服务地址即可启用（当前不会提交到任何后端）。</div>
         <div class="form-msg err" id="form-err" role="alert">邮箱格式不正确，请检查后再试。</div>
-        <div class="form-note">已订阅 1,200+ 读者 · 零广告 · 可随时退订</div>
+        <div class="form-note">前端就绪态：尚未接入邮件服务，本表单不会提交到任何后端 · 部署时可配置 action 地址启用</div>
       </div>
     </div>
   </section>
@@ -357,7 +401,7 @@
     </div>
     <div class="col">
       <h5>站点</h5>
-      <a href="#articles">最新文章</a><a href="#faq">常见问题</a><a href="#newsletter">订阅</a><a href="#about">关于本站</a>
+      <a href="#articles">最新文章</a><a href="archive.html">全部文章</a><a href="#faq">常见问题</a><a href="#newsletter">订阅</a><a href="#about">关于本站</a>
     </div>
     <div class="copy">© 2026 alextok200 · 由 GitHub Pages 托管 · akldcp-sketch.github.io</div>
   </div>
@@ -427,19 +471,27 @@
         var email = document.getElementById('email');
         var ok = document.getElementById('form-ok');
         var err = document.getElementById('form-err');
+        var pending = document.getElementById('form-pending');
         var val = email.value.trim();
         var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
         if(!valid){
           err.style.display = 'block';
           ok.style.display = 'none';
+          if(pending) pending.style.display = 'none';
           email.setAttribute('aria-invalid', 'true');
           email.focus();
           return;
         }
         email.setAttribute('aria-invalid', 'false');
         err.style.display = 'none';
-        ok.style.display = 'block';
-        form.style.display = 'none';
+        if(form.getAttribute('data-ready') === 'true'){
+          ok.style.display = 'block';
+          if(pending) pending.style.display = 'none';
+          form.style.display = 'none';
+        } else {
+          if(pending) pending.style.display = 'block';
+          email.blur();
+        }
       });
       var email = document.getElementById('email');
       if(email){
@@ -450,6 +502,26 @@
           }
         });
       }
+    }
+
+    var toggle = document.getElementById('theme-toggle');
+    var root = document.documentElement;
+    function setThemeIcon(){
+      if(!toggle) return;
+      var isDark = root.getAttribute('data-theme') === 'dark';
+      toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      toggle.textContent = isDark ? '☀' : '☾';
+    }
+    if(toggle){
+      setThemeIcon();
+      toggle.addEventListener('click', function(){
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch(e){}
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if(tc) tc.setAttribute('content', next === 'dark' ? '#0B1220' : '#FFFFFF');
+        setThemeIcon();
+      });
     }
   })();
 </script>

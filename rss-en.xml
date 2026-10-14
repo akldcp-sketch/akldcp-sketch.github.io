@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>E-commerce operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 09:50:16 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2026 09:50:16 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
+      <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI Skills</category>
+      <description>Installing web-design-skill-matrix (v0.5.1) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.</description>
+    </item>
     <item>
       <title>Adding Site Analytics Failed Three Times: Test the Client First</title>
       <link>https://akldcp-sketch.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html</link>
