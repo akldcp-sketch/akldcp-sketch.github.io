@@ -17,6 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGES = [
     "index.html", "about.html", "work.html", "blog.html", "contact.html",
     "brands.html", "achievements.html", "careers.html", "methods.html",
+    "business-thinking.html", "ai-skill-practice.html",
 ]
 RESOURCES = [
     "css/style.css", "js/i18n.js", "js/main.js", "js/site-config.js",
