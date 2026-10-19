@@ -11,6 +11,8 @@
     "nav.about": { zh: "关于", en: "About" },
     "nav.work": { zh: "作品集", en: "Work" },
     "nav.blog": { zh: "博客", en: "Blog" },
+    "nav.business": { zh: "商业思维", en: "Business Thinking" },
+    "nav.archive": { zh: "全部文章", en: "All Posts" },
     "nav.contact": { zh: "联系", en: "Contact" },
     "lang.btn": { zh: "EN", en: "中文" },
     "theme.toggle": { zh: "切换明暗主题", en: "Toggle light/dark theme" },
@@ -199,6 +201,20 @@
 
     // ---- 页脚 ----
     "footer.rss": { zh: "RSS 订阅", en: "RSS" },
+    "footer.site": { zh: "站点", en: "Site" },
+    "footer.theme": { zh: "主题", en: "Topics" },
+
+    // ---- 商业思维专题页 ----
+    "business.eyebrow": { zh: "商业思维专题", en: "Business Thinking" },
+    "business.title": { zh: "商业思维", en: "Business Thinking" },
+    "business.sub": { zh: "汇集商业操盘与 AI 技能包的实战文章：库存、清仓、渠道、达人、品牌与自动化，按日期倒序收录全部文章，每周更新。", en: "Practical articles on business operations and AI skill packs: inventory, clearance, channels, influencers, branding and automation — all posts in reverse chronological order, updated weekly." },
+    "business.count": { zh: "篇文章", en: "Posts" },
+    "business.cats": { zh: "个主题分类", en: "Categories" },
+    "business.weekly": { zh: "篇/每周更新", en: "Posts / Week" },
+    "business.allTitle": { zh: "商业思维 · 全部文章", en: "Business Thinking · All Posts" },
+    "business.allCount": { zh: "21 篇 · 按日期倒序", en: "21 Posts · Reverse Chronological" },
+    "business.update": { zh: "以上为本站全部文章，覆盖 7 个主题分类；新文章将每周补充到本列表顶部，并与归档、RSS、sitemap 同步。", en: "All site posts above, covering 7 topic categories; new posts are added to the top weekly and synced with the archive, RSS and sitemap." },
+    "business.footerIntro": { zh: "记录真实业务里的 AI 应用与商业操盘方法，所有案例基于公开可验证的实操过程。", en: "Documenting AI applications and business operations methods from real work — every case is based on publicly verifiable practice." },
     "offline.tip": { zh: "当前离线，正在显示缓存内容", en: "You're offline — showing cached content" },
     "comments.title": { zh: "评论", en: "Comments" },
 
