@@ -215,6 +215,10 @@
     "business.allCount": { zh: "21 篇 · 按日期倒序", en: "21 Posts · Reverse Chronological" },
     "business.update": { zh: "以上为本站全部文章，覆盖 7 个主题分类；新文章将每周补充到本列表顶部，并与归档、RSS、sitemap 同步。", en: "All site posts above, covering 7 topic categories; new posts are added to the top weekly and synced with the archive, RSS and sitemap." },
     "business.footerIntro": { zh: "记录真实业务里的 AI 应用与商业操盘方法，所有案例基于公开可验证的实操过程。", en: "Documenting AI applications and business operations methods from real work — every case is based on publicly verifiable practice." },
+    "index.biz.eyebrow": { zh: "商业思维专题", en: "Business Thinking" },
+    "index.biz.desc": { zh: "商业操盘 × AI 技能包，专题汇集双数日自动发布的文章", en: "Business operations × AI skill packs — a special collection of articles auto-published on even-numbered days." },
+    "index.biz.cta": { zh: "进入商业思维 →", en: "Enter Business Thinking →" },
+    "index.biz.recent": { zh: "最近文章", en: "Recent Posts" },
     "offline.tip": { zh: "当前离线，正在显示缓存内容", en: "You're offline — showing cached content" },
     "comments.title": { zh: "评论", en: "Comments" },
 
