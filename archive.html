@@ -71,6 +71,13 @@
     --color-accent:#2563EB; --color-accent-2:#4F46E5; --color-accent-3:#0284C7;
     --color-accent-soft:#E7EEFF; --color-accent-soft-2:#E0E7FF; --color-accent-soft-3:#E0F2FE;
     --color-success:#166534; --color-success-bg:#DCFCE7; --color-border:#E4E9F0;
+    --cat-ai-fg:#3730A3; --cat-ai-bg:#E0E7FF;
+    --cat-data-fg:#1D4ED8; --cat-data-bg:#DBEAFE;
+    --cat-ecom-fg:#0F766E; --cat-ecom-bg:#CCFBF1;
+    --cat-team-fg:#B45309; --cat-team-bg:#FEF3C7;
+    --cat-influencer-fg:#BE185D; --cat-influencer-bg:#FCE7F3;
+    --cat-cross-fg:#6D28D9; --cat-cross-bg:#EDE9FE;
+    --cat-brand-fg:#047857; --cat-brand-bg:#D1FAE5;
     --radius-sm:8px; --radius-md:12px; --radius-lg:20px; --radius-pill:999px;
     --fs-xs:13px; --fs-sm:14px; --fs-base:16px; --fs-md:18px; --fs-lg:20px;
     --fs-xl:clamp(26px,4vw,36px); --fs-2xl:clamp(32px,5vw,48px);
@@ -87,6 +94,13 @@
     --color-accent:#60A5FA; --color-accent-2:#818CF8; --color-accent-3:#38BDF8;
     --color-accent-soft:#1E2A44; --color-accent-soft-2:#232C4A; --color-accent-soft-3:#0F2E40;
     --color-success:#4ADE80; --color-success-bg:#0F2E1F; --color-border:#1E293B;
+    --cat-ai-fg:#A5B4FC; --cat-ai-bg:#1E293B;
+    --cat-data-fg:#93C5FD; --cat-data-bg:#0F172A;
+    --cat-ecom-fg:#5EEAD4; --cat-ecom-bg:#0F172A;
+    --cat-team-fg:#FCD34D; --cat-team-bg:#1E293B;
+    --cat-influencer-fg:#F9A8D4; --cat-influencer-bg:#1E293B;
+    --cat-cross-fg:#C4B5FD; --cat-cross-bg:#0F172A;
+    --cat-brand-fg:#6EE7B7; --cat-brand-bg:#0F172A;
     --shadow-1:0 1px 2px rgba(0,0,0,.4);
     --shadow-2:0 4px 12px rgba(0,0,0,.5);
     --shadow-3:0 12px 32px rgba(0,0,0,.6);
@@ -128,13 +142,34 @@
   .nav nav a{color:var(--color-muted); font-size:15px; font-weight:600;}
   .nav nav a:hover{color:var(--color-text);}
   .nav nav a.active{color:var(--color-accent);}
+  .nav-toggle{display:none; background:transparent; border:1px solid var(--color-border); color:var(--color-text); border-radius:var(--radius-sm); width:40px; height:40px; cursor:pointer; font-size:18px; line-height:1; align-items:center; justify-content:center;}
+  .nav-toggle:hover{background:var(--color-surface); box-shadow:var(--shadow-1);}
+  .nav-panel{display:none; position:fixed; top:64px; left:0; right:0; z-index:49; background:rgba(255,255,255,.97); border-bottom:1px solid var(--color-border); box-shadow:var(--shadow-3); padding:10px 20px 16px;}
+  html[data-theme="dark"] .nav-panel{background:rgba(11,18,32,.97);}
+  .nav-panel a{display:block; padding:12px 4px; color:var(--color-muted); font-size:16px; font-weight:600; border-bottom:1px solid var(--color-border);}
+  .nav-panel a:last-child{border-bottom:none;}
+  .nav-panel a:hover,.nav-panel a.active{color:var(--color-accent);}
+  .nav-panel[hidden]{display:none !important;}
+  .nav-panel.open{display:block;}
   .theme-toggle{background:transparent; border:1px solid var(--color-border); color:var(--color-text); border-radius:var(--radius-pill); width:38px; height:38px; cursor:pointer; font-size:16px; line-height:1;}
   .theme-toggle:hover{background:var(--color-surface); box-shadow:var(--shadow-1);}
   main{min-height:60vh;}
+  main, section, .cat-card{scroll-margin-top:calc(64px + 16px);}
   .archive-hero{padding:72px 0 24px;}
   .archive-hero p{color:var(--color-muted); max-width:60ch;}
   .stats{display:flex; gap:28px; flex-wrap:wrap; color:var(--color-muted); font-size:var(--fs-sm); margin-bottom:12px;}
   .stats b{display:block; font-size:22px; color:var(--color-text); line-height:1.3;}
+  .search-wrap{max-width:560px; margin:4px 0 14px;}
+  .search-box{width:100%; padding:11px 16px 11px 40px; border:1px solid var(--color-border); border-radius:var(--radius-md); background:var(--color-surface); color:var(--color-text); font-size:15px; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%235B6678" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'); background-repeat:no-repeat; background-position:14px center;}
+  .search-box:focus{border-color:var(--color-accent);}
+  .filters{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 10px;}
+  .filter-pill{display:inline-flex; align-items:center; gap:6px; padding:7px 15px; border-radius:var(--radius-pill); background:var(--color-surface); border:1px solid var(--color-border); color:var(--color-muted); font-size:var(--fs-sm); font-weight:700; cursor:pointer; transition:color .15s ease, border-color .15s ease, background-color .15s ease;}
+  .filter-pill:hover{color:var(--color-accent); border-color:var(--color-accent);}
+  .filter-pill[aria-pressed="true"]{color:#fff; background:var(--color-accent); border-color:var(--color-accent);}
+  html[data-theme="dark"] .filter-pill[aria-pressed="true"]{color:#0B1220;}
+  .filter-pill .pill-count{font-size:11px; opacity:.8; font-weight:600;}
+  .result-count{color:var(--color-muted); font-size:var(--fs-sm); font-weight:600; min-height:1.4em; margin:2px 0 6px;}
+  .result-count b{color:var(--color-text);}
   .cat-nav{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 10px;}
   .cat-chip{display:inline-block; padding:7px 16px; border-radius:var(--radius-pill); background:var(--color-surface); border:1px solid var(--color-border); color:var(--color-muted); font-size:var(--fs-sm); font-weight:700;}
   .cat-chip:hover{color:var(--color-accent); border-color:var(--color-accent);}
@@ -142,17 +177,22 @@
   .archive-section h2{font-size:var(--fs-lg); display:flex; align-items:center; gap:10px;}
   .archive-section h2 .count{font-size:var(--fs-xs); color:var(--color-muted); font-weight:600; background:var(--color-surface); border:1px solid var(--color-border); padding:2px 10px; border-radius:var(--radius-pill);}
   .timeline{list-style:none; margin:0; padding:0;}
-  .timeline .entry{display:flex; gap:20px; padding:16px 0; border-bottom:1px solid var(--color-border);}
+  .timeline .entry{display:flex; gap:20px; padding:14px 16px; border-bottom:1px solid var(--color-border); border-radius:var(--radius-md); transition:background-color .15s ease;}
+  .timeline .entry:hover{background:var(--color-surface); box-shadow:var(--shadow-1);}
+  .timeline .entry[hidden]{display:none;}
   .timeline .entry time{flex:0 0 110px; font-size:var(--fs-sm); color:var(--color-muted); font-weight:600; padding-top:2px;}
   .entry-main{flex:1;}
   .entry-main h3{margin:0 0 4px; font-size:17px;}
   .entry-main h3 a:hover{color:var(--color-accent);}
   .entry-desc{font-size:14px; color:var(--color-muted); margin:0 0 6px;}
-  .tag{display:inline-block; font-size:11px; font-weight:700; color:var(--color-accent); background:var(--color-accent-soft); border-radius:var(--radius-pill); padding:2px 10px;}
-  .tag.b{color:var(--color-accent-2); background:var(--color-accent-soft-2);}
-  .tag.c{color:var(--color-accent-3); background:var(--color-accent-soft-3);}
-  .tag.d{color:#047857; background:#D1FAE5;}
-  html[data-theme="dark"] .tag.d{color:#4ADE80; background:#0F2E1F;}
+  .tag{display:inline-block; font-size:11px; font-weight:700; border-radius:var(--radius-pill); padding:2px 10px;}
+  .tag-ai{color:var(--cat-ai-fg); background:var(--cat-ai-bg);}
+  .tag-data{color:var(--cat-data-fg); background:var(--cat-data-bg);}
+  .tag-ecom{color:var(--cat-ecom-fg); background:var(--cat-ecom-bg);}
+  .tag-team{color:var(--cat-team-fg); background:var(--cat-team-bg);}
+  .tag-influencer{color:var(--cat-influencer-fg); background:var(--cat-influencer-bg);}
+  .tag-cross{color:var(--cat-cross-fg); background:var(--cat-cross-bg);}
+  .tag-brand{color:var(--cat-brand-fg); background:var(--cat-brand-bg);}
   .cat-list{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
   .cat-card{background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-md); padding:18px 20px; box-shadow:var(--shadow-1);}
   .cat-card h3{margin:0 0 10px; font-size:16px;}
@@ -168,12 +208,13 @@
   footer .copy{width:100%; text-align:center; margin-top:28px; padding-top:20px; border-top:1px solid var(--color-border); font-size:12px;}
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    body,.nav,.btn,.btn:hover,.theme-toggle{transition:none; transform:none;}
+    body,.nav,.btn,.btn:hover,.theme-toggle,.nav-panel,.timeline .entry{transition:none; transform:none;}
   }
   @media (max-width:880px){
     .timeline .entry{flex-direction:column; gap:4px;}
     .timeline .entry time{flex:none;}
     .cat-list{grid-template-columns:1fr;}
+    .nav-toggle{display:inline-flex;}
     .nav nav{display:none;}
   }
 </style>
@@ -194,6 +235,10 @@
   <div class="brand">商业操盘<span> × </span>AI 实战</div>
   <nav aria-label="主导航"><a href="index.html">首页</a><a href="index.html#articles">最新文章</a><a href="index.html#faq">常见问题</a><a href="index.html#newsletter">订阅</a><a class="active" href="archive.html" aria-current="page">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a></nav>
   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-panel">☰</button>
+</div>
+<div class="nav-panel" id="nav-panel" hidden>
+  <a href="index.html">首页</a><a href="index.html#articles">最新文章</a><a href="index.html#faq">常见问题</a><a href="index.html#newsletter">订阅</a><a class="active" href="archive.html" aria-current="page">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a>
 </div></header>
 
 <main id="main">
@@ -207,6 +252,20 @@
         <div><b>7</b><span>个主题分类</span></div>
         <div><b>1–2</b><span>篇/每周更新</span></div>
       </div>
+            <div class="search-wrap">
+        <input type="search" id="archive-search" class="search-box" placeholder="搜索文章标题或摘要…" aria-label="搜索文章标题或摘要" autocomplete="off" />
+      </div>
+      <div class="filters" role="group" aria-label="按分类筛选文章">
+        <button type="button" class="filter-pill" data-cat="all" aria-pressed="true">全部 <span class="pill-count">22</span></button>
+        <button type="button" class="filter-pill" data-cat="ai" aria-pressed="false">AI 技能包 <span class="pill-count">6</span></button>
+        <button type="button" class="filter-pill" data-cat="data" aria-pressed="false">数据与自动化 <span class="pill-count">5</span></button>
+        <button type="button" class="filter-pill" data-cat="ecom" aria-pressed="false">商业操盘 <span class="pill-count">4</span></button>
+        <button type="button" class="filter-pill" data-cat="team" aria-pressed="false">团队管理 <span class="pill-count">2</span></button>
+        <button type="button" class="filter-pill" data-cat="influencer" aria-pressed="false">达人运营 <span class="pill-count">1</span></button>
+        <button type="button" class="filter-pill" data-cat="cross" aria-pressed="false">跨境电商 <span class="pill-count">2</span></button>
+        <button type="button" class="filter-pill" data-cat="brand" aria-pressed="false">品牌操盘 <span class="pill-count">2</span></button>
+      </div>
+      <p class="result-count" id="result-count" aria-live="polite">显示全部 <b>22</b> 篇</p>
       <nav class="cat-nav" aria-label="按主题分类跳转">
         <a class="cat-chip" href="#cat-ai">AI 技能包</a>
         <a class="cat-chip" href="#cat-data">数据与自动化</a>
@@ -223,28 +282,28 @@
     <div class="container">
       <h2 id="all-h">文章归档 · 全部文章 <span class="count">22 篇 · 按日期倒序</span></h2>
       <ul class="timeline">
-        <li class="entry"><time datetime="2026-10-20">2026-10-20</time><div class="entry-main"><h3><a href="posts/2026-10-20-da-cu-fu-pan.html">大促复盘别只看 GMV：五层净利拆解做成 AI 技能包</a></h3><p class="entry-desc">GMV 是下单口径不是到账口径。五层净利拆解（退款/扣点/物流/投放/固定成本）从 86 万 GMV 算到 50 万净利，附可复现 Python 代码与 SKILL.md 模板，复盘一次从半天缩到 15 分钟。</p><span class="tag">AI 技能包</span></div></li>
-        <li class="entry"><time datetime="2026-10-14">2026-10-14</time><div class="entry-main"><h3><a href="posts/2026-10-14-web-design-skill-matrix.html">用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘</a></h3><p class="entry-desc">77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。</p><span class="tag">AI 技能包</span></div></li>
-        <li class="entry"><time datetime="2026-09-02">2026-09-02</time><div class="entry-main"><h3><a href="posts/2026-09-02-tong-ji-san-lian-bai.html">给网站接统计，连败三次后我学会了先测客户端</a></h3><p class="entry-desc">Umami、GoatCounter、51.la 三次接入全部失败，服务端却都 200。问题不在工具，在用户够不到它的那层网络。</p><span class="tag b">数据与自动化</span></div></li>
-        <li class="entry"><time datetime="2026-09-01">2026-09-01</time><div class="entry-main"><h3><a href="posts/2026-09-01-duo-sheet-fen-lei.html">Excel 多 Sheet 报表，先分类再动手</a></h3><p class="entry-desc">一张工作簿六个 sheet 一起导进脚本，一半解析失败还静默丢数。先识别每个 sheet 的类型，再决定怎么处理。</p><span class="tag b">数据与自动化</span></div></li>
-        <li class="entry"><time datetime="2026-08-31">2026-08-31</time><div class="entry-main"><h3><a href="posts/2026-08-31-ku-cun-guard-rail.html">库存告警阈值怎么定，才不误报又不漏报</a></h3><p class="entry-desc">库存看板跑起来不难，难的是阈值设得准。按动销速度、在途周期和促销节点定三层阈值。</p><span class="tag">商业操盘</span></div></li>
-        <li class="entry"><time datetime="2026-08-30">2026-08-30</time><div class="entry-main"><h3><a href="posts/2026-08-30-erp-403.html">403 不一定是密钥错了：一次 ERP 接口排查</a></h3><p class="entry-desc">AppID 换了一个又一个，403 照旧。最后发现密钥根本没机会进服务器——是 IP 白名单把请求拦在了门外。</p><span class="tag b">数据与自动化</span></div></li>
-        <li class="entry"><time datetime="2026-08-29">2026-08-29</time><div class="entry-main"><h3><a href="posts/2026-08-29-ban-ben-men-jin.html">个人网站改了 22 版，版本号没乱过</a></h3><p class="entry-desc">有一次只改了 CSS 忘了 bump 版本号，访客看到的还是旧页面。后来把版本检查做成了机器门禁。</p><span class="tag">AI 技能包</span></div></li>
-        <li class="entry"><time datetime="2026-08-28">2026-08-28</time><div class="entry-main"><h3><a href="posts/2026-08-28-qing-cang.html">8 周清掉 1.4 万支库存：一次清仓的拆解</a></h3><p class="entry-desc">整杆 7 SKU 约 13200 支 + 前肢 363 支，8 周清完。定价锚、阶梯首发、BC 同价、按 SKU 拆解。</p><span class="tag">商业操盘</span></div></li>
-        <li class="entry"><time datetime="2026-08-27">2026-08-27</time><div class="entry-main"><h3><a href="posts/2026-08-27-kou-jing-tong-yi.html">两套表对不上账，先别急着改数据</a></h3><p class="entry-desc">绩效计算器算出 100，评级表却是 90。不是谁算错了，是两套表对"销售额"的定义不一样。</p><span class="tag c">团队管理</span></div></li>
-        <li class="entry"><time datetime="2026-08-25">2026-08-25</time><div class="entry-main"><h3><a href="posts/2026-08-25-da-ren-roi.html">达人投放不是请人拍视频，是 ROI 管理</a></h3><p class="entry-desc">打分选人、事前定标、事后归因。五个维度给达人评分分层，预算跟着层级走。</p><span class="tag c">达人运营</span></div></li>
-        <li class="entry"><time datetime="2026-08-20">2026-08-20</time><div class="entry-main"><h3><a href="posts/2026-08-20-skill-contract.html">给 AI 技能签"合同"：从能用到可靠</a></h3><p class="entry-desc">技能包做了十几个之后，最大的教训是：能用和可靠是两回事。接口合同、退出码、幂等策略。</p><span class="tag">AI 技能包</span></div></li>
-        <li class="entry"><time datetime="2026-08-18">2026-08-18</time><div class="entry-main"><h3><a href="posts/2026-08-18-luan-jia.html">乱价不是偶然，是渠道信号</a></h3><p class="entry-desc">低价店只有三个来源：窜货、清库存、假货。先判断属于哪类，再决定动作。</p><span class="tag">商业操盘</span></div></li>
-        <li class="entry"><time datetime="2026-08-15">2026-08-15</time><div class="entry-main"><h3><a href="posts/2026-08-15-erp.html">ERP 对接实战：聚水潭和领星到底怎么选</a></h3><p class="entry-desc">国内用聚水潭、跨境用领星，各管一摊。先"导出+自动化"跑起来，再上 API 做实时。</p><span class="tag b">数据与自动化</span></div></li>
-        <li class="entry"><time datetime="2026-08-12">2026-08-12</time><div class="entry-main"><h3><a href="posts/2026-08-12-temu.html">Temu 半托管运营：不备货怎么玩</a></h3><p class="entry-desc">半托管的本质是用价格换流量、用履约保权重。出价算准、选品挑对、履约别拖。</p><span class="tag b">跨境电商</span></div></li>
-        <li class="entry"><time datetime="2026-08-10">2026-08-10</time><div class="entry-main"><h3><a href="posts/2026-08-10-duo-platform-matrix.html">多平台矩阵：49 个店铺怎么管而不乱</a></h3><p class="entry-desc">店铺越多，越不能靠人肉盯。统一数据口径、分级运营、自动化看板——三个抓手。</p><span class="tag">商业操盘</span></div></li>
-        <li class="entry"><time datetime="2026-08-08">2026-08-08</time><div class="entry-main"><h3><a href="posts/2026-08-08-pin-pai-ju-zhen.html">多品牌矩阵怎么排兵布阵：定位、价格、渠道三错开</a></h3><p class="entry-desc">品牌不能都是全能选手。定位错开、价格错开、渠道错开，资源向主品牌集中。</p><span class="tag c">品牌操盘</span></div></li>
-        <li class="entry"><time datetime="2026-08-08">2026-08-08</time><div class="entry-main"><h3><a href="posts/2026-08-08-oa.html">钉钉 OA 审批自动化：管理端和员工端分开做</a></h3><p class="entry-desc">员工端极致简单、管理端要快要全、权限严格隔离、版本快速迭代。</p><span class="tag">AI 技能包</span></div></li>
-        <li class="entry"><time datetime="2026-08-05">2026-08-05</time><div class="entry-main"><h3><a href="posts/2026-08-05-chu-hai.html">品牌出海：从 0 到亚马逊品牌榜</a></h3><p class="entry-desc">KONLLEN 与 CRICAL 双品牌进亚马逊 5 站品牌榜：选站点、打 Listing、合规养评、分层投放。</p><span class="tag b">跨境电商</span></div></li>
-        <li class="entry"><time datetime="2026-08-03">2026-08-03</time><div class="entry-main"><h3><a href="posts/2026-08-03-shu-ju-zhong-tai.html">数据中台：从 Excel 到自动化看板</a></h3><p class="entry-desc">先定口径，再集中数据，最后看板化。三步走完，从"周五加班拼表"进化到"看板自动在群里等你"。</p><span class="tag b">数据与自动化</span></div></li>
-        <li class="entry"><time datetime="2026-07-30">2026-07-30</time><div class="entry-main"><h3><a href="posts/2026-07-30-tuan-dui.html">15 人电商团队怎么配：一张岗位地图</a></h3><p class="entry-desc">六岗归位、国内外分流、助理做储备、一张表管人——团队不是凑人头，是排兵布阵。</p><span class="tag c">团队管理</span></div></li>
-        <li class="entry"><time datetime="2026-07-28">2026-07-28</time><div class="entry-main"><h3><a href="posts/2026-07-28-b2b.html">B2B 渠道体系怎么搭：分层、授权、联保、跟进</a></h3><p class="entry-desc">渠道分层给政策、品牌线错开不打架、授权联保写清楚。签约只是起点，养商才是增长。</p><span class="tag c">品牌操盘</span></div></li>
-        <li class="entry"><time datetime="2026-07-25">2026-07-25</time><div class="entry-main"><h3><a href="posts/2026-07-25-ling-ji-chu.html">让零基础同事用上 AI 技能包</a></h3><p class="entry-desc">输入最少、界面友好、失败有兜底——三个设计原则，缺一个就没人用。</p><span class="tag">AI 技能包</span></div></li>
+        <li class="entry" data-cat="ai"><time datetime="2026-10-20">2026-10-20</time><div class="entry-main"><h3><a href="posts/2026-10-20-da-cu-fu-pan.html">大促复盘别只看 GMV：五层净利拆解做成 AI 技能包</a></h3><p class="entry-desc">GMV 是下单口径不是到账口径。五层净利拆解（退款/扣点/物流/投放/固定成本）从 86 万 GMV 算到 50 万净利，附可复现 Python 代码与 SKILL.md 模板，复盘一次从半天缩到 15 分钟。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
+        <li class="entry" data-cat="ai"><time datetime="2026-10-14">2026-10-14</time><div class="entry-main"><h3><a href="posts/2026-10-14-web-design-skill-matrix.html">用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘</a></h3><p class="entry-desc">77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
+        <li class="entry" data-cat="data"><time datetime="2026-09-02">2026-09-02</time><div class="entry-main"><h3><a href="posts/2026-09-02-tong-ji-san-lian-bai.html">给网站接统计，连败三次后我学会了先测客户端</a></h3><p class="entry-desc">Umami、GoatCounter、51.la 三次接入全部失败，服务端却都 200。问题不在工具，在用户够不到它的那层网络。</p><span class="tag tag-data" data-cat="data">数据与自动化</span></div></li>
+        <li class="entry" data-cat="data"><time datetime="2026-09-01">2026-09-01</time><div class="entry-main"><h3><a href="posts/2026-09-01-duo-sheet-fen-lei.html">Excel 多 Sheet 报表，先分类再动手</a></h3><p class="entry-desc">一张工作簿六个 sheet 一起导进脚本，一半解析失败还静默丢数。先识别每个 sheet 的类型，再决定怎么处理。</p><span class="tag tag-data" data-cat="data">数据与自动化</span></div></li>
+        <li class="entry" data-cat="ecom"><time datetime="2026-08-31">2026-08-31</time><div class="entry-main"><h3><a href="posts/2026-08-31-ku-cun-guard-rail.html">库存告警阈值怎么定，才不误报又不漏报</a></h3><p class="entry-desc">库存看板跑起来不难，难的是阈值设得准。按动销速度、在途周期和促销节点定三层阈值。</p><span class="tag tag-ecom" data-cat="ecom">商业操盘</span></div></li>
+        <li class="entry" data-cat="data"><time datetime="2026-08-30">2026-08-30</time><div class="entry-main"><h3><a href="posts/2026-08-30-erp-403.html">403 不一定是密钥错了：一次 ERP 接口排查</a></h3><p class="entry-desc">AppID 换了一个又一个，403 照旧。最后发现密钥根本没机会进服务器——是 IP 白名单把请求拦在了门外。</p><span class="tag tag-data" data-cat="data">数据与自动化</span></div></li>
+        <li class="entry" data-cat="ai"><time datetime="2026-08-29">2026-08-29</time><div class="entry-main"><h3><a href="posts/2026-08-29-ban-ben-men-jin.html">个人网站改了 22 版，版本号没乱过</a></h3><p class="entry-desc">有一次只改了 CSS 忘了 bump 版本号，访客看到的还是旧页面。后来把版本检查做成了机器门禁。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
+        <li class="entry" data-cat="ecom"><time datetime="2026-08-28">2026-08-28</time><div class="entry-main"><h3><a href="posts/2026-08-28-qing-cang.html">8 周清掉 1.4 万支库存：一次清仓的拆解</a></h3><p class="entry-desc">整杆 7 SKU 约 13200 支 + 前肢 363 支，8 周清完。定价锚、阶梯首发、BC 同价、按 SKU 拆解。</p><span class="tag tag-ecom" data-cat="ecom">商业操盘</span></div></li>
+        <li class="entry" data-cat="team"><time datetime="2026-08-27">2026-08-27</time><div class="entry-main"><h3><a href="posts/2026-08-27-kou-jing-tong-yi.html">两套表对不上账，先别急着改数据</a></h3><p class="entry-desc">绩效计算器算出 100，评级表却是 90。不是谁算错了，是两套表对"销售额"的定义不一样。</p><span class="tag tag-team" data-cat="team">团队管理</span></div></li>
+        <li class="entry" data-cat="influencer"><time datetime="2026-08-25">2026-08-25</time><div class="entry-main"><h3><a href="posts/2026-08-25-da-ren-roi.html">达人投放不是请人拍视频，是 ROI 管理</a></h3><p class="entry-desc">打分选人、事前定标、事后归因。五个维度给达人评分分层，预算跟着层级走。</p><span class="tag tag-influencer" data-cat="influencer">达人运营</span></div></li>
+        <li class="entry" data-cat="ai"><time datetime="2026-08-20">2026-08-20</time><div class="entry-main"><h3><a href="posts/2026-08-20-skill-contract.html">给 AI 技能签"合同"：从能用到可靠</a></h3><p class="entry-desc">技能包做了十几个之后，最大的教训是：能用和可靠是两回事。接口合同、退出码、幂等策略。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
+        <li class="entry" data-cat="ecom"><time datetime="2026-08-18">2026-08-18</time><div class="entry-main"><h3><a href="posts/2026-08-18-luan-jia.html">乱价不是偶然，是渠道信号</a></h3><p class="entry-desc">低价店只有三个来源：窜货、清库存、假货。先判断属于哪类，再决定动作。</p><span class="tag tag-ecom" data-cat="ecom">商业操盘</span></div></li>
+        <li class="entry" data-cat="data"><time datetime="2026-08-15">2026-08-15</time><div class="entry-main"><h3><a href="posts/2026-08-15-erp.html">ERP 对接实战：聚水潭和领星到底怎么选</a></h3><p class="entry-desc">国内用聚水潭、跨境用领星，各管一摊。先"导出+自动化"跑起来，再上 API 做实时。</p><span class="tag tag-data" data-cat="data">数据与自动化</span></div></li>
+        <li class="entry" data-cat="cross"><time datetime="2026-08-12">2026-08-12</time><div class="entry-main"><h3><a href="posts/2026-08-12-temu.html">Temu 半托管运营：不备货怎么玩</a></h3><p class="entry-desc">半托管的本质是用价格换流量、用履约保权重。出价算准、选品挑对、履约别拖。</p><span class="tag tag-cross" data-cat="cross">跨境电商</span></div></li>
+        <li class="entry" data-cat="ecom"><time datetime="2026-08-10">2026-08-10</time><div class="entry-main"><h3><a href="posts/2026-08-10-duo-platform-matrix.html">多平台矩阵：49 个店铺怎么管而不乱</a></h3><p class="entry-desc">店铺越多，越不能靠人肉盯。统一数据口径、分级运营、自动化看板——三个抓手。</p><span class="tag tag-ecom" data-cat="ecom">商业操盘</span></div></li>
+        <li class="entry" data-cat="brand"><time datetime="2026-08-08">2026-08-08</time><div class="entry-main"><h3><a href="posts/2026-08-08-pin-pai-ju-zhen.html">多品牌矩阵怎么排兵布阵：定位、价格、渠道三错开</a></h3><p class="entry-desc">品牌不能都是全能选手。定位错开、价格错开、渠道错开，资源向主品牌集中。</p><span class="tag tag-brand" data-cat="brand">品牌操盘</span></div></li>
+        <li class="entry" data-cat="ai"><time datetime="2026-08-08">2026-08-08</time><div class="entry-main"><h3><a href="posts/2026-08-08-oa.html">钉钉 OA 审批自动化：管理端和员工端分开做</a></h3><p class="entry-desc">员工端极致简单、管理端要快要全、权限严格隔离、版本快速迭代。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
+        <li class="entry" data-cat="cross"><time datetime="2026-08-05">2026-08-05</time><div class="entry-main"><h3><a href="posts/2026-08-05-chu-hai.html">品牌出海：从 0 到亚马逊品牌榜</a></h3><p class="entry-desc">KONLLEN 与 CRICAL 双品牌进亚马逊 5 站品牌榜：选站点、打 Listing、合规养评、分层投放。</p><span class="tag tag-cross" data-cat="cross">跨境电商</span></div></li>
+        <li class="entry" data-cat="data"><time datetime="2026-08-03">2026-08-03</time><div class="entry-main"><h3><a href="posts/2026-08-03-shu-ju-zhong-tai.html">数据中台：从 Excel 到自动化看板</a></h3><p class="entry-desc">先定口径，再集中数据，最后看板化。三步走完，从"周五加班拼表"进化到"看板自动在群里等你"。</p><span class="tag tag-data" data-cat="data">数据与自动化</span></div></li>
+        <li class="entry" data-cat="team"><time datetime="2026-07-30">2026-07-30</time><div class="entry-main"><h3><a href="posts/2026-07-30-tuan-dui.html">15 人电商团队怎么配：一张岗位地图</a></h3><p class="entry-desc">六岗归位、国内外分流、助理做储备、一张表管人——团队不是凑人头，是排兵布阵。</p><span class="tag tag-team" data-cat="team">团队管理</span></div></li>
+        <li class="entry" data-cat="brand"><time datetime="2026-07-28">2026-07-28</time><div class="entry-main"><h3><a href="posts/2026-07-28-b2b.html">B2B 渠道体系怎么搭：分层、授权、联保、跟进</a></h3><p class="entry-desc">渠道分层给政策、品牌线错开不打架、授权联保写清楚。签约只是起点，养商才是增长。</p><span class="tag tag-brand" data-cat="brand">品牌操盘</span></div></li>
+        <li class="entry" data-cat="ai"><time datetime="2026-07-25">2026-07-25</time><div class="entry-main"><h3><a href="posts/2026-07-25-ling-ji-chu.html">让零基础同事用上 AI 技能包</a></h3><p class="entry-desc">输入最少、界面友好、失败有兜底——三个设计原则，缺一个就没人用。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
       </ul>
     </div>
   </section>
@@ -315,8 +374,9 @@
 
 <script>
   (function(){
-    var toggle = document.getElementById('theme-toggle');
     var root = document.documentElement;
+    // 主题切换
+    var toggle = document.getElementById('theme-toggle');
     function setPressed(t){ toggle.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false'); toggle.textContent = t === 'dark' ? '☀' : '☾'; }
     if(toggle){
       setPressed(root.getAttribute('data-theme'));
@@ -329,6 +389,57 @@
         setPressed(next);
       });
     }
+    // 移动端汉堡菜单
+    var navToggle = document.getElementById('nav-toggle');
+    var navPanel = document.getElementById('nav-panel');
+    if(navToggle && navPanel){
+      function setMenu(open){
+        navPanel.hidden = !open;
+        navPanel.classList.toggle('open', open);
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      }
+      navToggle.addEventListener('click', function(){ setMenu(navPanel.hidden); });
+      navPanel.addEventListener('click', function(e){
+        if(e.target && e.target.tagName === 'A'){ setMenu(false); }
+      });
+    }
+    // 搜索 + 分类筛选
+    var searchInput = document.getElementById('archive-search');
+    var filterPills = Array.prototype.slice.call(document.querySelectorAll('.filter-pill'));
+    var entries = Array.prototype.slice.call(document.querySelectorAll('.timeline .entry'));
+    var countEl = document.getElementById('result-count');
+    var activeCat = 'all';
+    var query = '';
+    function render(){
+      var shown = 0;
+      entries.forEach(function(li){
+        var cat = li.getAttribute('data-cat') || '';
+        var text = (li.textContent || '').toLowerCase();
+        var q = query.toLowerCase();
+        var okCat = (activeCat === 'all') || (cat === activeCat);
+        var okQ = !q || text.indexOf(q) !== -1;
+        var show = okCat && okQ;
+        li.hidden = !show;
+        if(show) shown++;
+      });
+      if(countEl){
+        var label = (activeCat === 'all') ? '全部' : (function(){ for(var i=0;i<filterPills.length;i++){ if(filterPills[i].getAttribute('data-cat')===activeCat) return filterPills[i].textContent.replace(/\d+$/,'').trim(); } return ''; })();
+        countEl.innerHTML = '显示 ' + label + ' <b>' + shown + '</b> 篇';
+      }
+    }
+    filterPills.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        filterPills.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+        btn.setAttribute('aria-pressed', 'true');
+        activeCat = btn.getAttribute('data-cat');
+        render();
+      });
+    });
+    if(searchInput){
+      searchInput.addEventListener('input', function(){ query = searchInput.value; render(); });
+    }
+    render();
   })();
 </script>
 </body>
