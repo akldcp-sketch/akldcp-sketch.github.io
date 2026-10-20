@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-10-20-da-cu-fu-pan",
+    en: { title: "Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill", summary: "GMV is an order metric, not cash. A five-layer net profit breakdown — refunds, take rate, logistics, ads, fixed cost — takes 860K GMV down to net profit with reproducible Python and a SKILL.md template.", tag: "AI Skills" },
+    title: "大促复盘别只看 GMV：五层净利拆解做成 AI 技能包",
+    date: "2026-10-20",
+    tag: "AI 技能包",
+    summary: "GMV 是下单口径不是到账口径。五层净利拆解（退款/扣点/物流/投放/固定成本）从 86 万 GMV 算到 50 万净利，附可复现 Python 代码与 SKILL.md 模板，复盘一次从半天缩到 15 分钟。"
+  },
+  {
     file: "2026-09-02-tong-ji-san-lian-bai",
     en: { title: "Adding Site Analytics Failed Three Times: Test the Client First", summary: "Three analytics services unreachable while all servers returned 200. The problem wasn't the tools — it was the network layer in between.", tag: "Data & Automation" },
     title: "给网站接统计，连败三次后我学会了先测客户端",

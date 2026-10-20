@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 14 Oct 2026 09:50:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>大促复盘别只看 GMV：五层净利拆解做成 AI 技能包</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</guid>
+      <pubDate>Tue, 20 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI 技能包</category>
+      <description>GMV 是下单口径不是到账口径。五层净利拆解（退款/扣点/物流/投放/固定成本）从 86 万 GMV 算到 50 万净利，附可复现 Python 代码与 SKILL.md 模板，复盘一次从半天缩到 15 分钟。</description>
+    </item>
     <item>
       <title>用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</link>

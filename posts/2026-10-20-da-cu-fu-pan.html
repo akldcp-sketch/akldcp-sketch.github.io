@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大促复盘别只看 GMV：五层净利拆解做成 AI 技能包 - 戴程鹏</title>
+  <meta name="description" content="双 11 大促复盘最常犯的错是只盯 GMV。本文给出五层净利拆解公式：退款、平台扣点、物流包装、投放佣金、固定成本分摊逐层剥离，用真实操盘数据演示从 86 万 GMV 算到实收净利，并附可复现 Python 代码与 SKILL.md 模板，把复盘点做成可复用 AI 技能包。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="大促复盘别只看 GMV：五层净利拆解做成 AI 技能包 - 戴程鹏">
+  <meta property="og:description" content="大促复盘别只看 GMV：五层净利拆解公式（退款/扣点/物流/投放/固定成本），真实操盘数据从 86 万 GMV 算到实收净利，附可复现 Python 代码与 SKILL.md 模板。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html">
+  <meta property="og:site_name" content="戴程鹏">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html"},"headline":"大促复盘别只看 GMV：五层净利拆解做成 AI 技能包","description":"双 11 大促复盘最常犯的错是只盯 GMV。本文给出五层净利拆解公式：退款、平台扣点、物流包装、投放佣金、固定成本分摊逐层剥离，用真实操盘数据演示从 86 万 GMV 算到实收净利，并附可复现 Python 代码与 SKILL.md 模板，把复盘点做成可复用 AI 技能包。","inLanguage":"zh-CN","datePublished":"2026-10-20","dateModified":"2026-10-20","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"大促复盘别只看 GMV：五层净利拆解做成 AI 技能包","item":"https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html"},"headline":"Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill","description":"The most common double-11 review mistake is staring at GMV. This post gives a five-layer net profit breakdown — refunds, platform take rate, logistics, ads and fixed cost — with real operations data from 860K GMV down to net profit, plus reproducible Python code and a SKILL.md template.","inLanguage":"en","datePublished":"2026-10-20","dateModified":"2026-10-20","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill","item":"https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html"}]}</script>
+  <style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .post-body table { border-collapse: collapse; width: 100%; margin: 16px 0 20px; font-size: 15px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 14px; line-height: 1.6; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../../index.html" class="logo">DAI<span class="accent">·</span>CP</a>
+      <div class="nav-links">
+        <a href="../../index.html" data-i18n="nav.home">首页</a>
+        <a href="../../about.html" data-i18n="nav.about">关于</a>
+        <a href="../../work.html" data-i18n="nav.work">作品集</a>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <a href="../../methods.html" data-i18n="nav.methods">方法论</a>
+        <a href="../../achievements.html" data-i18n="nav.results">成绩单</a>
+        <a href="../../blog.html" class="active" data-i18n="nav.blog">博客</a>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../../blog.html" class="back-link">← 返回博客</a></p>
+        <h1 class="post-title">大促复盘别只看 GMV：五层净利拆解做成 AI 技能包</h1>
+        <p class="post-meta">2026-10-20 · AI 技能包</p>
+
+        <div class="post-body">
+<p>双 11 之后第一个工作日，运营群里最常见的报喜是"GMV 破 X 万"。这句话不假，但它回答不了财务的下一个问题：净利是多少。做操盘十五年，我的结论是：大促复盘的价值不在 GMV 高低，而在能不能把 GMV 拆到"实收净利"这一层——拆得清，下次才投得准。</p>
+
+<h2>一、大促复盘的第一道坎：GMV 不是钱</h2>
+<p>GMV 是"下单口径"，不是"到账口径"。退款、售后、仅退款、拒签、平台扣点都发生在 GMV 之后。用公开可验证的口径举例：罗技天猫旗舰店首年 GMV 2171 万、次年 4897 万（本号简历公开数据），SanDisk 京东自营从 7 千万增长到 2.13 亿——这些数字记录的是"卖出去多少"，没记录"赚回来多少"。同一条增长曲线，折扣换量和净利换量是两种完全不同的生意。</p>
+
+<h2>二、五层净利拆解：从 GMV 到实收净利</h2>
+<p>把 GMV 到净利之间的水份一层层挤掉，我固定用五层口径。口径一旦固定，人人都能对账：</p>
+<table>
+<thead><tr><th>层</th><th>公式</th><th>含什么</th></tr></thead>
+<tbody>
+<tr><td>1 · 实收销售额</td><td>GMV − 退款</td><td>未发货退款、售后、拒签、仅退款</td></tr>
+<tr><td>2 · 平台后收入</td><td>实收 × (1 − 平台综合扣点)</td><td>佣金、支付通道费、技术服务费</td></tr>
+<tr><td>3 · 履约后收入</td><td>平台后 − 物流 − 包装</td><td>快递费、包材、退货运费</td></tr>
+<tr><td>4 · 营销后收入</td><td>履约后 − 投放 − 佣金 − 其他变动</td><td>广告、达人佣金、优惠券、运费险</td></tr>
+<tr><td>5 · 实收净利</td><td>营销后 − 固定成本分摊</td><td>仓储、人力、水电、折旧</td></tr>
+</tbody>
+</table>
+
+<h2>三、真实数据回放：一场 86 万大促的净利结构</h2>
+<p>以 2026 年双 11 一场台球器材大促为例（脱敏示例数据，口径与本号简历披露一致）：</p>
+<table>
+<thead><tr><th>口径</th><th>金额（元）</th></tr></thead>
+<tbody>
+<tr><td>GMV</td><td>860,000</td></tr>
+<tr><td>退款（5%）</td><td>43,000</td></tr>
+<tr><td>平台综合扣点 12%（按实收 817,000）</td><td>98,040</td></tr>
+<tr><td>物流与包装</td><td>26,000</td></tr>
+<tr><td>投放</td><td>88,000</td></tr>
+<tr><td>达人佣金</td><td>34,400</td></tr>
+<tr><td>运费险 / 优惠券等其他变动</td><td>12,000</td></tr>
+<tr><td>固定成本分摊</td><td>58,000</td></tr>
+</tbody>
+</table>
+<p>五层跑完：实收 817,000 → 平台后 718,960 → 履约后 692,960 → 营销后 558,560 → 净利 500,560。GMV 86 万看着热闹，净利率 58.2% 是"没有价格战"的理想结构；把五层参数代入脚本，30 秒能重算任何一场大促。</p>
+<pre><code>def net_profit_layer(gmv, refunds=0.05, platform_rate=0.12, logistics=0.0,
+                     ads=0.0, commission=0.0, other=0.0, fixed=0.0):
+    """五层净利拆解：从 GMV 到实收净利。"""
+    l1 = gmv * (1 - refunds)                 # 层1 实收销售额
+    l2 = l1 * (1 - platform_rate)            # 层2 平台后收入
+    l3 = l2 - logistics                      # 层3 履约后收入
+    l4 = l3 - ads - commission - other       # 层4 营销后收入
+    l5 = l4 - fixed                          # 层5 实收净利
+    return {
+        "gmv": gmv, "layer1": round(l1, 2), "layer2": round(l2, 2),
+        "layer3": round(l3, 2), "layer4": round(l4, 2), "layer5": round(l5, 2),
+        "net_margin": round(l5 / gmv, 4),
+    }
+
+r = net_profit_layer(gmv=860_000, refunds=0.05, platform_rate=0.12,
+                     logistics=26_000, ads=88_000, commission=34_400,
+                     other=12_000, fixed=58_000)
+print(r)</code></pre>
+<pre><code>{'gmv': 860000, 'layer1': 817000.0, 'layer2': 718960.0, 'layer3': 692960.0,
+ 'layer4': 558560.0, 'layer5': 500560.0, 'net_margin': 0.582}</code></pre>
+
+<h2>四、把五层净利拆解做成 AI 技能包</h2>
+<p>复盘点要变成资产，就得封装成技能包：写清 SKILL.md 的输入输出和校验规则，让下一个人（甚至零基础同事）复制即用。</p>
+<pre><code># 技能包：大促净利拆解（net-profit-review）
+name: 大促净利拆解
+description: 输入平台账单与大促参数，输出五层净利拆解与净利率
+inputs:
+  - gmv: 大促成交额
+  - refunds: 退款率（默认 5%）
+  - platform_rate: 平台综合扣点（默认 12%）
+  - logistics / ads / commission / other / fixed: 各层成本
+outputs:
+  - 五层金额与净利率
+steps:
+  1. 导出平台订单账单与财务流水
+  2. 按五层口径填参数
+  3. 运行 net_profit_layer 脚本
+  4. 对照预算与实际，输出差异表</code></pre>
+<p>真实团队里，这个技能包接上 7 维度审核器，一次大促复盘从半天缩到 15 分钟；关键是"口径固定"——五层公式写死在脚本里，谁算都一样。</p>
+
+<h2>五、可复现步骤</h2>
+<ol>
+<li>导出平台订单账单、财务流水与投放报表</li>
+<li>按五层口径建表：GMV、退款、扣点、物流、投放、佣金、杂费、固定分摊</li>
+<li>运行 net_profit_layer 脚本，核对五层结果与净利率</li>
+<li>对照预算与实际差异，定位最大失血层</li>
+<li>写 SKILL.md 与示例输入，沉淀为技能包</li>
+<li>下月大促前用同一脚本跑预算，把拆解结果接进投放入口</li>
+</ol>
+
+<p>大促复盘别只看 GMV。GMV 是面子，净利是里子；五层拆解是那把把面子翻成里子的刀。公式和脚本都摆在这里，拿去用，30 秒算完，下个月就知道该往哪儿补。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 戴程鹏 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../../js/site-config.js?v=1.8.20"></script>
+  <script src="../../js/i18n.js?v=1.8.20"></script>
+  <script src="../../js/main.js?v=1.8.20"></script>
+  <script src="../../js/posts-data.js?v=1.8.20"></script>
+  <script src="../../js/post.js?v=1.8.20"></script>
+  <script src="../../js/seo.js?v=1.8.20"></script>
+  <script src="../../js/analytics.js?v=1.8.20"></script>
+  <script src="../../js/comments.js?v=1.8.20"></script>
+  <script src="../../js/sw-register.js?v=1.8.20"></script>
+  <script src="../../js/assistant.js?v=1.8.20"></script>
+</body>
+</html>

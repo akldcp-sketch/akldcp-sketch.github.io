@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 14 Oct 2026 09:50:16 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</guid>
+      <pubDate>Tue, 20 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI Skills</category>
+      <description>GMV is an order metric, not cash. A five-layer net profit breakdown — refunds, take rate, logistics, ads, fixed cost — takes 860K GMV down to net profit with reproducible Python and a SKILL.md template. Reviews shrink from half a day to 15 minutes.</description>
+    </item>
     <item>
       <title>Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</link>
