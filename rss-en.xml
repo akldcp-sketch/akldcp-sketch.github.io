@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 20 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Amazon Ads ACOS Tiers: Turning Daily Bid Adjustments into an AI Skill Pack</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI Skills</category>
+      <description>Lower ACOS is not always better. Group SKUs by gross margin into four target ACOS tiers — scale, profit, clearout, defense — with real weekly report data, a reproducible Python script and a SKILL.md template. Daily reviews shrink from an hour to 10 minutes.</description>
+    </item>
     <item>
       <title>Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</link>

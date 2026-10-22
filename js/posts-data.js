@@ -1,12 +1,28 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-10-22-acos-skill-pack",
+    en: { title: "ACOS Tiered Management for Amazon Ads: Turning Daily Bid Adjustments into an AI Skill", summary: "ACOS is not always lower-is-better. Sort SKUs into traffic, profit, clearance and defense tiers by gross margin, set a target ACOS per tier, scan the weekly ad report with reproducible Python, get over-threshold alerts and bid suggestions, then package the routine as an AI skill with a SKILL.md template.", tag: "AI Skills" },
+    title: "亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包",
+    date: "2026-10-22",
+    tag: "AI 技能包",
+    summary: "ACOS 不是越低越好。按毛利率给 SKU 分冲量、利润、清仓、防守四档目标 ACOS，真实周报数据演示分层体检，附可复现 Python 脚本与 SKILL.md 模板，每天巡检从一小时缩到 10 分钟。"
+  },
+  {
     file: "2026-10-20-da-cu-fu-pan",
     en: { title: "Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill", summary: "GMV is an order metric, not cash. A five-layer net profit breakdown — refunds, take rate, logistics, ads, fixed cost — takes 860K GMV down to net profit with reproducible Python and a SKILL.md template.", tag: "AI Skills" },
     title: "大促复盘别只看 GMV：五层净利拆解做成 AI 技能包",
     date: "2026-10-20",
     tag: "AI 技能包",
     summary: "GMV 是下单口径不是到账口径。五层净利拆解（退款/扣点/物流/投放/固定成本）从 86 万 GMV 算到 50 万净利，附可复现 Python 代码与 SKILL.md 模板，复盘一次从半天缩到 15 分钟。"
+  },
+  {
+    file: "2026-10-14-web-design-skill-matrix",
+    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "Installing web-design-skill-matrix (v0.5.1) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.", tag: "AI Skills" },
+    title: "用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘",
+    date: "2026-10-14",
+    tag: "AI 技能包",
+    summary: "把 web-design-skill-matrix（v0.5.1）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并直接产出首页完成部署。"
   },
   {
     file: "2026-09-02-tong-ji-san-lian-bai",

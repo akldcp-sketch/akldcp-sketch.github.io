@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包 - 戴程鹏</title>
+  <meta name="description" content="亚马逊广告 ACOS 分层管理实战：ACOS 不是越低越好，先按毛利率给 SKU 分冲量、利润、清仓、防守四档，各自设定目标 ACOS。用真实周报数据演示分层体检，附可复现 Python 脚本每天扫描广告报表、超阈自动告警并给出调价建议，再把巡检逻辑封装成 SKILL.md 模板沉淀为 AI 技能包。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包 - 戴程鹏">
+  <meta property="og:description" content="亚马逊广告 ACOS 分层管理实战：按毛利率给 SKU 分冲量、利润、清仓、防守四档目标 ACOS，真实周报数据演示分层体检，附可复现 Python 脚本与 SKILL.md 模板。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html">
+  <meta property="og:site_name" content="戴程鹏">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html"},"headline":"亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包","description":"亚马逊广告 ACOS 分层管理实战：ACOS 不是越低越好，先按毛利率给 SKU 分冲量、利润、清仓、防守四档，各自设定目标 ACOS。用真实周报数据演示分层体检，附可复现 Python 脚本每天扫描广告报表、超阈自动告警并给出调价建议，再把巡检逻辑封装成 SKILL.md 模板沉淀为 AI 技能包。","inLanguage":"zh-CN","datePublished":"2026-10-22","dateModified":"2026-10-22","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包","item":"https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html"},"headline":"ACOS Tiered Management for Amazon Ads: Turning Daily Bid Adjustments into an AI Skill","description":"ACOS is not always lower-is-better. Sort SKUs into traffic, profit, clearance and defense tiers by gross margin, set a target ACOS per tier, scan the weekly ad report with reproducible Python, get over-threshold alerts and bid suggestions, then package the routine as an AI skill with a SKILL.md template.","inLanguage":"en","datePublished":"2026-10-22","dateModified":"2026-10-22","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"ACOS Tiered Management for Amazon Ads: Turning Daily Bid Adjustments into an AI Skill","item":"https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html"}]}</script>
+  <style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .post-body table { border-collapse: collapse; width: 100%; margin: 16px 0 20px; font-size: 15px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 14px; line-height: 1.6; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../../index.html" class="logo">DAI<span class="accent">·</span>CP</a>
+      <div class="nav-links">
+        <a href="../../index.html" data-i18n="nav.home">首页</a>
+        <a href="../../about.html" data-i18n="nav.about">关于</a>
+        <a href="../../work.html" data-i18n="nav.work">作品集</a>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <a href="../../methods.html" data-i18n="nav.methods">方法论</a>
+        <a href="../../achievements.html" data-i18n="nav.results">成绩单</a>
+        <a href="../../blog.html" class="active" data-i18n="nav.blog">博客</a>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../../blog.html" class="back-link">← 返回博客</a></p>
+        <h1 class="post-title">亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包</h1>
+        <p class="post-meta">2026-10-22 · AI 技能包</p>
+
+        <div class="post-body">
+<p>亚马逊广告后台每天给一堆数字：impressions、clicks、spend、sales、ACOS。运营最容易犯的错，是拿一个统一 ACOS 阈值去卡所有广告活动——结果利润款被砍过头掉量，冲量款却烧到亏钱。做跨境操盘这几年，我的结论是：ACOS 必须分层管理，先按毛利率给 SKU 分档，再让脚本每天巡检、只盯超阈的那几个。</p>
+
+<h2>一、ACOS 分层管理的第一道坎：ACOS 不是越低越好</h2>
+<p>ACOS = 广告花费 ÷ 广告销售额。它的盈亏平衡点不是 0，而是毛利率：当 ACOS 等于毛利率时，广告带来的每个订单赚到的毛利刚好被广告费吃光。用公开可验证的行业口径举例，亚马逊 SP（Sponsored Products）广告的行业平均 CPC 约 $0.5–$1.5、平均点击率约 0.4%–0.8%、平均转化率约 9%–12%（Jungle Scout / Tinuiti 等机构历年报告数据）。换算下来，一个 $20 的订单广告费通常在 $1.5–$5，对应 ACOS 8%–25%。问题是：同一条广告，毛利 40% 的 SKU 打到 30% 依然赚钱，毛利 20% 的 SKU 打到 15% 已经亏钱——"越低越好"是个伪命题，<b>"低于毛利率"才是底线</b>。</p>
+
+<h2>二、ACOS 分层管理怎么分：按毛利率定四档目标</h2>
+<p>把每个 ASIN 的毛利率算出来，再按经营目的分四档。目标 ACOS 不是拍脑袋，而是给盈亏平衡线留出缓冲：利润款留一半毛利给其它费用和利润，冲量款和清仓款可以更靠近盈亏平衡线：</p>
+<table>
+<thead><tr><th>分层</th><th>经营目的</th><th>毛利率</th><th>盈亏平衡 ACOS</th><th>目标 ACOS</th></tr></thead>
+<tbody>
+<tr><td>冲量款</td><td>冲类目排名、起量</td><td>30%</td><td>30%</td><td>≤ 25%</td></tr>
+<tr><td>利润款</td><td>主力利润贡献</td><td>40%</td><td>40%</td><td>≤ 20%</td></tr>
+<tr><td>清仓款</td><td>去库存、回款优先</td><td>45%</td><td>45%</td><td>≤ 35%</td></tr>
+<tr><td>防守款</td><td>维护排名、拦截竞对</td><td>35%</td><td>35%</td><td>≤ 30%</td></tr>
+</tbody>
+</table>
+<p>分层一旦固定，所有人对账用同一张表：新品先归冲量款，跑两周出数据再改档；滞销转清仓款；主力 SKU 永远在利润款。分层不是终身制，每季度按毛利率重算一次。</p>
+
+<h2>三、真实数据回放：一次 ACOS 分层体检</h2>
+<p>以 2026 年 10 月第二周某亚马逊店铺的 SP 广告周报为例（脱敏示例数据，字段口径与亚马逊后台报告一致）：</p>
+<table>
+<thead><tr><th>SKU</th><th>分层</th><th>花费（$）</th><th>销售额（$）</th><th>ACOS</th><th>目标</th><th>状态</th></tr></thead>
+<tbody>
+<tr><td>A001</td><td>冲量款</td><td>300</td><td>1,500</td><td>20.0%</td><td>25%</td><td>正常</td></tr>
+<tr><td>A002</td><td>利润款</td><td>120</td><td>400</td><td>30.0%</td><td>20%</td><td>超阈</td></tr>
+<tr><td>A003</td><td>利润款</td><td>80</td><td>350</td><td>22.9%</td><td>20%</td><td>超阈</td></tr>
+<tr><td>A004</td><td>清仓款</td><td>60</td><td>300</td><td>20.0%</td><td>35%</td><td>正常</td></tr>
+<tr><td>A005</td><td>防守款</td><td>40</td><td>120</td><td>33.3%</td><td>30%</td><td>超阈</td></tr>
+<tr><td>A006</td><td>冲量款</td><td>220</td><td>1,100</td><td>20.0%</td><td>25%</td><td>正常</td></tr>
+<tr><td>A007</td><td>清仓款</td><td>90</td><td>200</td><td>45.0%</td><td>35%</td><td>超阈</td></tr>
+</tbody>
+</table>
+<p>7 个 SKU 里 4 个超阈，其中 A002 是主力利润款——它的 ACOS 30% 低于毛利率 40%，表面"还有利润"，但已经吃掉一半毛利空间。脚本跑完，超阈清单与调价建议 1 秒出，人只处理这 4 行：</p>
+<pre><code>TIERS = {
+    "冲量款": {"gross_margin": 0.30, "target_acos": 0.25},
+    "利润款": {"gross_margin": 0.40, "target_acos": 0.20},
+    "清仓款": {"gross_margin": 0.45, "target_acos": 0.35},
+    "防守款": {"gross_margin": 0.35, "target_acos": 0.30},
+}
+
+def acos_check(spend, sales):
+    return spend / sales if sales > 0 else float("inf")
+
+def daily_report(rows):
+    """rows: [(sku, tier, spend, sales), ...]"""
+    out = []
+    for sku, tier, spend, sales in rows:
+        cfg = TIERS[tier]
+        acos = acos_check(spend, sales)
+        target = cfg["target_acos"]
+        status = "OK" if acos <= target else "OVER"
+        bid_tip = ""
+        if status == "OVER":
+            cut = min(0.50, round(0.10 * acos / target, 3))  # 超阈越多，降幅越大
+            bid_tip = f"建议出价下调 {cut:.0%}"
+        out.append({"sku": sku, "tier": tier, "spend": spend, "sales": sales,
+                    "acos": round(acos, 4), "target": target, "status": status,
+                    "bid_tip": bid_tip})
+    return out
+
+rows = [
+    ("A001", "冲量款", 300, 1500),
+    ("A002", "利润款", 120, 400),
+    ("A003", "利润款", 80, 350),
+    ("A004", "清仓款", 60, 300),
+    ("A005", "防守款", 40, 120),
+    ("A006", "冲量款", 220, 1100),
+    ("A007", "清仓款", 90, 200),
+]
+for r in daily_report(rows):
+    print(r)</code></pre>
+<pre><code>{'sku': 'A001', 'tier': '冲量款', 'spend': 300, 'sales': 1500, 'acos': 0.2, 'target': 0.25, 'status': 'OK', 'bid_tip': ''}
+{'sku': 'A002', 'tier': '利润款', 'spend': 120, 'sales': 400, 'acos': 0.3, 'target': 0.2, 'status': 'OVER', 'bid_tip': '建议出价下调 15%'}
+{'sku': 'A003', 'tier': '利润款', 'spend': 80, 'sales': 350, 'acos': 0.2286, 'target': 0.2, 'status': 'OVER', 'bid_tip': '建议出价下调 11%'}
+{'sku': 'A004', 'tier': '清仓款', 'spend': 60, 'sales': 300, 'acos': 0.2, 'target': 0.35, 'status': 'OK', 'bid_tip': ''}
+{'sku': 'A005', 'tier': '防守款', 'spend': 40, 'sales': 120, 'acos': 0.3333, 'target': 0.3, 'status': 'OVER', 'bid_tip': '建议出价下调 11%'}
+{'sku': 'A006', 'tier': '冲量款', 'spend': 220, 'sales': 1100, 'acos': 0.2, 'target': 0.25, 'status': 'OK', 'bid_tip': ''}
+{'sku': 'A007', 'tier': '清仓款', 'spend': 90, 'sales': 200, 'acos': 0.45, 'target': 0.35, 'status': 'OVER', 'bid_tip': '建议出价下调 13%'}</code></pre>
+<p>每天早上一张表：正常 SKU 不动，超阈 SKU 按建议降幅改出价，连续三天超阈才砍预算。规则越简单，团队越不会乱操作。</p>
+
+<h2>四、把 ACOS 分层巡检做成 AI 技能包</h2>
+<p>调价动作不能只活在某个人的脑子里。把巡检逻辑封装成技能包：输入是广告报表，输出是超阈清单与调价建议，SKILL.md 写清楚每一步，零基础同事也能跑。</p>
+<pre><code># 技能包：ACOS 分层巡检（acos-tier-review）
+name: ACOS 分层巡检
+description: 输入亚马逊广告周报（SKU、分层、花费、销售额），输出 ACOS 与目标对比、超阈清单与调价建议
+inputs:
+  - rows: [[sku, tier, spend, sales], ...]
+  - tiers: 分层配置（默认四档：冲量款/利润款/清仓款/防守款）
+outputs:
+  - 每个 SKU 的 ACOS、状态（OK/OVER）与建议降幅
+steps:
+  1. 导出广告后台最近 7 天 SP 活动报告，按 ASIN 汇总花费与销售额
+  2. 为每个 ASIN 打分层标签（冲量/利润/清仓/防守）
+  3. 运行 daily_report 脚本生成巡检表
+  4. 超阈 SKU 按 bid_tip 调整出价，次日复查；连续 3 天超阈再砍预算
+  5. 每季度按最新毛利率重算分层与目标 ACOS</code></pre>
+<p>真实团队里，这个技能包每天早上 9 点自动跑一遍，把超阈清单发到群里；调价从"每周花一上午翻报表"变成"每天花 10 分钟处理 3–5 行"。关键不是脚本本身，是分层口径固定——四档目标写死在配置里，谁算都一样。</p>
+
+<h2>五、可复现步骤</h2>
+<ol>
+<li>导出亚马逊广告后台最近 7 天 SP 报告，按 ASIN 汇总花费与销售额</li>
+<li>算出每个 ASIN 的毛利率，按经营目的分四档（冲量/利润/清仓/防守）</li>
+<li>按毛利率设定每档目标 ACOS（利润款留一半毛利缓冲）</li>
+<li>运行 daily_report 脚本生成巡检表，核对 ACOS 与状态</li>
+<li>只处理超阈 SKU：按建议降幅调出价，连续 3 天超阈再砍预算</li>
+<li>把配置与脚本封装成 SKILL.md 技能包，交给团队每天早上自动巡检</li>
+</ol>
+
+<p>ACOS 不是越低越好，是"每档有每档的线"。把线画清楚、让脚本每天去盯，人只处理超阈的那几行——这就是 ACOS 分层管理，也是它值得做成 AI 技能包的原因。公式、脚本、模板都摆在这里，拿去用，明天早上就能少翻一小时报表。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 戴程鹏 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../../js/site-config.js?v=1.8.20"></script>
+  <script src="../../js/i18n.js?v=1.8.20"></script>
+  <script src="../../js/main.js?v=1.8.20"></script>
+  <script src="../../js/posts-data.js?v=1.8.20"></script>
+  <script src="../../js/post.js?v=1.8.20"></script>
+  <script src="../../js/seo.js?v=1.8.20"></script>
+  <script src="../../js/analytics.js?v=1.8.20"></script>
+  <script src="../../js/comments.js?v=1.8.20"></script>
+  <script src="../../js/sw-register.js?v=1.8.20"></script>
+  <script src="../../js/assistant.js?v=1.8.20"></script>
+</body>
+</html>

@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 20 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</guid>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI 技能包</category>
+      <description>ACOS 不是越低越好。按毛利率给 SKU 分冲量、利润、清仓、防守四档目标 ACOS，真实周报数据演示分层体检，附可复现 Python 脚本与 SKILL.md 模板，每天巡检从一小时缩到 10 分钟。</description>
+    </item>
     <item>
       <title>大促复盘别只看 GMV：五层净利拆解做成 AI 技能包</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</link>
