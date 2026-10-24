@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 22 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>现金流底线管理：跨境多店矩阵先算死线再谈增长</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html</guid>
+      <pubDate>Sat, 24 Oct 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>账面赚钱不代表现金安全。月刚性支出×安全月数定出 384 万现金流底线，跨境海运空运资金占用对比，pandas 逐周滚动压力测试模型：模拟物流延误与回款滞后，12 周里 7 周跌破底线自动红灯预警，附完整可复现代码。</description>
+    </item>
     <item>
       <title>亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</link>

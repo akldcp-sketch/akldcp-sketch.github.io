@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-10-24-xian-jin-liu-di-xian",
+    en: { title: "Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling", summary: "Profit on paper is not cash in hand. Define the cash flow baseline as monthly rigid costs times safety months, compare sea vs air capital occupation, and stress-test 12 weeks with pandas — delayed logistics and lagged payments turn 7 of 12 weeks red before cash runs out. Full reproducible code included.", tag: "Business Operations" },
+    title: "现金流底线管理：跨境多店矩阵先算死线再谈增长",
+    date: "2026-10-24",
+    tag: "商业操盘",
+    summary: "账面赚钱不代表现金安全。月刚性支出×安全月数定出 384 万现金流底线，跨境海运空运资金占用对比，pandas 逐周滚动压力测试模型：模拟物流延误与回款滞后，12 周里 7 周跌破底线自动红灯预警，附完整可复现代码。"
+  },
+  {
     file: "2026-10-22-acos-skill-pack",
     en: { title: "ACOS Tiered Management for Amazon Ads: Turning Daily Bid Adjustments into an AI Skill", summary: "ACOS is not always lower-is-better. Sort SKUs into traffic, profit, clearance and defense tiers by gross margin, set a target ACOS per tier, scan the weekly ad report with reproducible Python, get over-threshold alerts and bid suggestions, then package the routine as an AI skill with a SKILL.md template.", tag: "AI Skills" },
     title: "亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包",

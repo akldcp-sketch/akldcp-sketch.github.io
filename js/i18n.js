@@ -199,6 +199,7 @@
     "post.prev": { zh: "← 上一篇", en: "← Previous" },
     "post.next": { zh: "下一篇 →", en: "Next →" },
     "post.related": { zh: "相关阅读", en: "Related" },
+    "post.cashflow.title": { zh: "现金流底线管理：跨境多店矩阵先算死线再谈增长", en: "Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling" },
 
     // ---- 页脚 ----
     "footer.rss": { zh: "RSS 订阅", en: "RSS" },
@@ -213,7 +214,7 @@
     "business.cats": { zh: "个主题分类", en: "Categories" },
     "business.weekly": { zh: "篇/每周更新", en: "Posts / Week" },
     "business.allTitle": { zh: "商业思维 · 全部文章", en: "Business Thinking · All Posts" },
-    "business.allCount": { zh: "23 篇 · 按日期倒序", en: "23 Posts · Reverse Chronological" },
+    "business.allCount": { zh: "24 篇 · 按日期倒序", en: "23 Posts · Reverse Chronological" },
     "business.update": { zh: "以上为本站全部文章，覆盖 7 个主题分类；新文章将每周补充到本列表顶部，并与归档、RSS、sitemap 同步。", en: "All site posts above, covering 7 topic categories; new posts are added to the top weekly and synced with the archive, RSS and sitemap." },
     "business.footerIntro": { zh: "记录真实业务里的 AI 应用与商业操盘方法，所有案例基于公开可验证的实操过程。", en: "Documenting AI applications and business operations methods from real work — every case is based on publicly verifiable practice." },
 
