@@ -34,11 +34,11 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-10-14-web-design-skill-matrix",
-    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "Installing web-design-skill-matrix (v0.5.1) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.", tag: "AI Skills" },
+    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.0: added C-007 dark neon glass-morphism case and navy-blue design-token variant; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.", tag: "AI Skills" },
     title: "用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘",
     date: "2026-10-14",
     tag: "AI 技能包",
-    summary: "把 web-design-skill-matrix（v0.5.1）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并直接产出首页完成部署。"
+    summary: "web-design-skill-matrix 升级 v0.6.0：新增 C-007 深色霓虹玻璃拟态判例与 design-tokens 海军蓝变体；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。"
   },
   {
     file: "2026-09-02-tong-ji-san-lian-bai",

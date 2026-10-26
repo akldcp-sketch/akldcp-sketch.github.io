@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏</title>
-  <meta name="description" content="把 web-design-skill-matrix（v0.5.1）装进本地工作流的一次完整复盘：77 项关联技能从 6 项就绪补齐到 35 项可验证，42 项无公开来源如实列清单不冒充可用，路由校验 24/24 全部通过，并直接产出暗色模式首页、归档页与订阅表单完成部署，全文附 6 步可复现操作清单。">
-  <link rel="stylesheet" href="../../css/style.css?v=1.8.20">
+  <meta name="description" content="把 web-design-skill-matrix（v0.6.0）装进本地工作流的一次完整复盘：77 项关联技能从 6 项就绪补齐到 35 项可验证，42 项无公开来源如实列清单不冒充可用，路由校验 24/24 全部通过；v0.6.0 新增第 7 个实战判例 C-007 深色霓虹玻璃拟态模板与 design-tokens 海军蓝变体，并直接产出暗色模式首页、归档页与订阅表单完成部署，全文附 6 步可复现操作清单。">
+  <link rel="stylesheet" href="../../css/style.css?v=1.8.21">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
   <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
@@ -13,16 +13,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta property="og:title" content="用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏">
-  <meta property="og:description" content="把 web-design-skill-matrix（v0.5.1）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并直接产出首页完成部署。">
+  <meta property="og:description" content="web-design-skill-matrix 升级 v0.6.0：新增 C-007 深色霓虹玻璃拟态判例与 design-tokens 海军蓝变体；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html">
   <meta property="og:site_name" content="戴程鹏">
   <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","description":"把 web-design-skill-matrix（v0.5.1）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并直接产出首页完成部署。","inLanguage":"zh-CN","datePublished":"2026-10-14","dateModified":"2026-10-14","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","description":"把 web-design-skill-matrix（v0.6.0）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，v0.6.0 新增 C-007 深色霓虹玻璃拟态判例，并直接产出首页完成部署。","inLanguage":"zh-CN","datePublished":"2026-10-14","dateModified":"2026-10-14","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","item":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective","description":"Installing web-design-skill-matrix (v0.5.1) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.","inLanguage":"en","datePublished":"2026-10-14","dateModified":"2026-10-14","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective","description":"Installing web-design-skill-matrix (v0.6.0) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, C-007 dark neon glass-morphism case added in v0.6.0, and the homepage shipped.","inLanguage":"en","datePublished":"2026-10-14","dateModified":"2026-10-14","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Landing a Personal Blog with an AI Skill Matrix","item":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"}]}</script>
 </head>
 <body>
@@ -52,7 +52,7 @@
         <p class="post-meta">2026-10-14 · AI 技能包</p>
 
         <div class="post-body">
-<p>这周给本地博客工作流装了一个新东西：<code>web-design-skill-matrix</code>（v0.5.1）。本来只是想"装个技能包"，结果一装就牵出 77 项关联依赖——从 6 项可用补齐到 35 项，剩下 42 项没有来源。整个过程走完，最大的收获不是技能变多了，而是"怎么诚实地知道自己会什么、不会什么"。</p>
+<p>这周给本地博客工作流装了一个新东西：<code>web-design-skill-matrix</code>（v0.6.0）。本来只是想"装个技能包"，结果一装就牵出 77 项关联依赖——从 6 项可用补齐到 35 项，剩下 42 项没有来源。整个过程走完，最大的收获不是技能变多了，而是"怎么诚实地知道自己会什么、不会什么"。</p>
 
 <h2>一、安装之后，先面对 77 项关联技能</h2>
 <p>技能矩阵安装后会自动扫描关联技能清单。第一轮扫描结果很直接：77 项关联技能里只有 6 项在本机就绪，其余大面积缺失。</p>
@@ -70,7 +70,7 @@
 <p>这 42 项既不影响已有技能运行，也不占路由。它们只是提醒我：技能矩阵的价值不是"什么都有"，而是"有什么、缺什么、不确定什么"一目了然。</p>
 
 <h2>三、路由校验 24/24：routing.json 是唯一真源</h2>
-<p>矩阵 v0.5.1 里，所有技能的调用入口都由 routing.json 定义。补齐依赖后跑了一遍路由校验：24 条路由全部通过，一条不多一条不少。</p>
+<p>矩阵 v0.6.0 里，所有技能的调用入口都由 routing.json 定义。补齐依赖后跑了一遍路由校验：24 条路由全部通过，一条不多一条不少。</p>
 <p>这条规则值得记住：routing.json 是唯一真源。技能再多，路由表里没有就不算数；路由表里写了，就必须能校验通过。先定真源、再谈数量，顺序不能反。</p>
 
 <h2>四、实战产出：首页、归档页、订阅就绪态</h2>
@@ -79,13 +79,17 @@
 
 <h2>五、可复现步骤</h2>
 <ol>
-<li>安装 web-design-skill-matrix（v0.5.1），查看关联技能清单与就绪状态</li>
+<li>安装 web-design-skill-matrix（v0.6.0），查看关联技能清单与就绪状态</li>
 <li>对 77 项依赖做三类归档：已就绪 / 可补齐 / 无来源</li>
 <li>按 routing.json 补齐 29 项可验证依赖，重新扫描确认 present=35</li>
 <li>42 项无来源技能单独列清单，标注"未验证"，不写入路由</li>
 <li>执行路由校验，确认 24/24 通过</li>
 <li>用矩阵产出/升级页面，保持零外部依赖与 AA 对比度</li>
 </ol>
+
+<h2>六、v0.6.0 升级：第 7 个实战判例与版本自洽</h2>
+<p>复盘之后矩阵升到 v0.6.0，核心变化是新增第 7 个实战判例 <code>C-007 深色霓虹玻璃拟态视觉模板</code>（<code>cases/dark-neon-glass-nav/</code>，Next.js Pages Router + Tailwind 就绪）：#030523 深海军蓝画布 + 紫/青径向光晕 + 模糊光球动画（blur 静态滤镜、只动 transform、16~22s 错峰、prefers-reduced-motion 降级）+ 玻璃拟态吸顶导航（backdrop-filter + 滚动加深），case.md 含「框架迁移三步」与可复用令牌表。</p>
+<p>同时 <code>references/design-tokens.md</code> 深色轨补「深海军蓝 + 紫/青」变体指针，并同批校齐版本漂移：frontmatter/H1/README 由 0.4.0 对齐至 0.6.0，README 子模块数、优先级串、用例数等陈旧表述一并修正。路由规则与验证逻辑未改动，<code>verify_route.py</code> 仍 24/24——和复盘时一样，真源不变，数量再涨也不乱。</p>
 
 <p>这次复盘的结论只有一句：工具矩阵最大的价值，是让你对"自己会什么"有一个不撒谎的清单。35 项验证过的、42 项存疑的，都摆在那里，比"感觉什么都会"有用得多。</p>
         </div>
@@ -110,15 +114,15 @@
     </div>
   </footer>
 
-    <script src="../../js/site-config.js?v=1.8.20"></script>
-<script src="../../js/i18n.js?v=1.8.20"></script>
-  <script src="../../js/main.js?v=1.8.20"></script>
-  <script src="../../js/posts-data.js?v=1.8.20"></script>
-  <script src="../../js/post.js?v=1.8.20"></script>
-  <script src="../../js/seo.js?v=1.8.20"></script>
-  <script src="../../js/analytics.js?v=1.8.20"></script>
-  <script src="../../js/comments.js?v=1.8.20"></script>
-  <script src="../../js/sw-register.js?v=1.8.20"></script>
-  <script src="../../js/assistant.js?v=1.8.20"></script>
+    <script src="../../js/site-config.js?v=1.8.21"></script>
+<script src="../../js/i18n.js?v=1.8.21"></script>
+  <script src="../../js/main.js?v=1.8.21"></script>
+  <script src="../../js/posts-data.js?v=1.8.21"></script>
+  <script src="../../js/post.js?v=1.8.21"></script>
+  <script src="../../js/seo.js?v=1.8.21"></script>
+  <script src="../../js/analytics.js?v=1.8.21"></script>
+  <script src="../../js/comments.js?v=1.8.21"></script>
+  <script src="../../js/sw-register.js?v=1.8.21"></script>
+  <script src="../../js/assistant.js?v=1.8.21"></script>
 </body>
 </html>

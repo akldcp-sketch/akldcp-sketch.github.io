@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI 技能包</category>
-      <description>把 web-design-skill-matrix（v0.5.1）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并直接产出首页完成部署。</description>
+      <description>web-design-skill-matrix 升级 v0.6.0：新增 C-007 深色霓虹玻璃拟态判例与 design-tokens 海军蓝变体；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。</description>
     </item>
     <item>
       <title>给网站接统计，连败三次后我学会了先测客户端</title>

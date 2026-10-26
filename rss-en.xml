@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
-      <description>Installing web-design-skill-matrix (v0.5.1) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.</description>
+      <description>web-design-skill-matrix upgraded to v0.6.0: added C-007 dark neon glass-morphism case and navy-blue design-token variant; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.</description>
     </item>
     <item>
       <title>Adding Site Analytics Failed Three Times: Test the Client First</title>
