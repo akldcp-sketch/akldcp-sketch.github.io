@@ -34,11 +34,11 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-10-14-web-design-skill-matrix",
-    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.1: added light-themed RGB neon template C-008 with clockwise RGB marquee borders and prefers-reduced-motion fallback, plus a light-track design-token variant — a light/dark sibling to C-007; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.", tag: "AI Skills" },
+    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.2: C-008 light RGB neon template rebuilt per four mobile-side fixes — bright-by-default without theme switching, a red→orange→yellow→green→cyan→blue→purple 7-segment rainbow palette applied across glows/Hero/buttons/icons/card highlights, @property-driven 7-segment clockwise RGB marquee borders (iOS Safari compatible), and 375px portrait-first mobile adaptation; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.", tag: "AI Skills" },
     title: "用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘",
     date: "2026-10-14",
     tag: "AI 技能包",
-    summary: "web-design-skill-matrix 升级 v0.6.1：新增浅色系明亮 RGB 幻彩霓虹模板 C-008（卡片边缘 RGB 跑马灯顺时针循环、prefers-reduced-motion 降级）与 design-tokens 浅色轨变体，与深色 C-007 构成明暗双生；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。"
+    summary: "web-design-skill-matrix 升级 v0.6.2：C-008 浅色 RGB 幻彩霓虹模板按手机端四项修改重构——默认明亮不依赖主题切换、红橙黄绿青蓝紫 7 段多彩幻彩全链路上色、@property 驱动的 7 段卡片边缘 RGB 跑马灯顺时针循环（iOS Safari 兼容）、375px 竖屏优先移动端适配；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。"
   },
   {
     file: "2026-09-02-tong-ji-san-lian-bai",

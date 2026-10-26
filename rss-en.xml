@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
-      <description>web-design-skill-matrix upgraded to v0.6.1: added light-themed RGB neon template C-008 with clockwise RGB marquee borders and prefers-reduced-motion fallback, plus a light-track design-token variant — a light/dark sibling to C-007; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.</description>
+      <description>web-design-skill-matrix upgraded to v0.6.2: C-008 light RGB neon template rebuilt per four mobile-first refinements — bright light theme by default with no theme dependency, 7-segment rainbow (red-orange-yellow-green-cyan-blue-purple) gradients applied across glows/hero/buttons/icons/card highlights, @property-driven 7-segment clockwise RGB marquee borders (iOS Safari compatible, static fallback), and 375px portrait-first mobile adaptation with hamburger nav, ≥44px touch targets, and reduced blur layers; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.</description>
     </item>
     <item>
       <title>Adding Site Analytics Failed Three Times: Test the Client First</title>
