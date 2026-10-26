@@ -34,11 +34,11 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-10-14-web-design-skill-matrix",
-    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.2: C-008 light RGB neon template rebuilt per four mobile-side fixes — bright-by-default without theme switching, a red→orange→yellow→green→cyan→blue→purple 7-segment rainbow palette applied across glows/Hero/buttons/icons/card highlights, @property-driven 7-segment clockwise RGB marquee borders (iOS Safari compatible), and 375px portrait-first mobile adaptation; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.", tag: "AI Skills" },
+    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.3: fixed the visually invisible card-edge RGB marquee in the C-008 light RGB neon template — light bar thickened to 10px via a unified --marquee-width variable (10x the 1px card border), 7-segment palette re-saturated for contrast, red/blue neon box-shadow glow, 3s-per-loop clockwise flow, and @supports-driven conic-gradient detection with equally thick fallback rings on legacy browsers; verified on a 375px mobile viewport (light bar visible, neon glow effective, clockwise flow confirmed); 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.", tag: "AI Skills" },
     title: "用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘",
     date: "2026-10-14",
     tag: "AI 技能包",
-    summary: "web-design-skill-matrix 升级 v0.6.2：C-008 浅色 RGB 幻彩霓虹模板按手机端四项修改重构——默认明亮不依赖主题切换、红橙黄绿青蓝紫 7 段多彩幻彩全链路上色、@property 驱动的 7 段卡片边缘 RGB 跑马灯顺时针循环（iOS Safari 兼容）、375px 竖屏优先移动端适配；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。"
+    summary: "web-design-skill-matrix 升级 v0.6.3：修复 C-008 浅色 RGB 幻彩霓虹模板跑马灯目视不可见问题——光柱加粗至 10px（--marquee-width 变量统一控制，为边框 1px 的 10 倍）、7 段色值提饱和、box-shadow 红蓝霓虹外发光、3s/圈顺时针流动，@supports 检测 conic 兼容降级同为粗环，375px 手机视口实测光柱可见/光晕生效/顺时针流动全部通过；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。"
   },
   {
     file: "2026-09-02-tong-ji-san-lian-bai",
