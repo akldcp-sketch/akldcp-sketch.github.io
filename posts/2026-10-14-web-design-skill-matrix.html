@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏</title>
   <meta name="description" content="把 web-design-skill-matrix（v0.6.0）装进本地工作流的一次完整复盘：77 项关联技能从 6 项就绪补齐到 35 项可验证，42 项无公开来源如实列清单不冒充可用，路由校验 24/24 全部通过；v0.6.0 新增第 7 个实战判例 C-007 深色霓虹玻璃拟态模板与 design-tokens 海军蓝变体，并直接产出暗色模式首页、归档页与订阅表单完成部署，全文附 6 步可复现操作清单。">
-  <link rel="stylesheet" href="../../css/style.css?v=1.8.21">
+  <link rel="stylesheet" href="../../css/style.css?v=1.8.22">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
   <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta property="og:title" content="用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏">
-  <meta property="og:description" content="web-design-skill-matrix 升级 v0.6.0：新增 C-007 深色霓虹玻璃拟态判例与 design-tokens 海军蓝变体；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。">
+  <meta property="og:description" content="web-design-skill-matrix 升级 v0.6.1：新增浅色系明亮 RGB 幻彩霓虹模板 C-008（卡片边缘 RGB 跑马灯顺时针循环、prefers-reduced-motion 降级）与 design-tokens 浅色轨变体，与深色 C-007 构成明暗双生；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html">
   <meta property="og:site_name" content="戴程鹏">
@@ -22,7 +22,7 @@
   <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","description":"把 web-design-skill-matrix（v0.6.0）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，v0.6.0 新增 C-007 深色霓虹玻璃拟态判例，并直接产出首页完成部署。","inLanguage":"zh-CN","datePublished":"2026-10-14","dateModified":"2026-10-14","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","item":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective","description":"Installing web-design-skill-matrix (v0.6.0) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, C-007 dark neon glass-morphism case added in v0.6.0, and the homepage shipped.","inLanguage":"en","datePublished":"2026-10-14","dateModified":"2026-10-14","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective","description":"Installing web-design-skill-matrix (v0.6.1) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, dark C-007 and light C-008 sibling neon glass cases added in v0.6.0/v0.6.1, and the homepage shipped.","inLanguage":"en","datePublished":"2026-10-14","dateModified":"2026-10-27","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Landing a Personal Blog with an AI Skill Matrix","item":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"}]}</script>
 </head>
 <body>
@@ -91,6 +91,16 @@
 <p>复盘之后矩阵升到 v0.6.0，核心变化是新增第 7 个实战判例 <code>C-007 深色霓虹玻璃拟态视觉模板</code>（<code>cases/dark-neon-glass-nav/</code>，Next.js Pages Router + Tailwind 就绪）：#030523 深海军蓝画布 + 紫/青径向光晕 + 模糊光球动画（blur 静态滤镜、只动 transform、16~22s 错峰、prefers-reduced-motion 降级）+ 玻璃拟态吸顶导航（backdrop-filter + 滚动加深），case.md 含「框架迁移三步」与可复用令牌表。</p>
 <p>同时 <code>references/design-tokens.md</code> 深色轨补「深海军蓝 + 紫/青」变体指针，并同批校齐版本漂移：frontmatter/H1/README 由 0.4.0 对齐至 0.6.0，README 子模块数、优先级串、用例数等陈旧表述一并修正。路由规则与验证逻辑未改动，<code>verify_route.py</code> 仍 24/24——和复盘时一样，真源不变，数量再涨也不乱。</p>
 
+<h2>七、v0.6.1 升级：浅色系明亮 RGB 幻彩霓虹模板 C-008</h2>
+<p>深色 C-007 上线后，矩阵紧接着补上它的「明暗双生」搭档：<code>v0.6.1</code> 新增第 8 个实战判例 <code>C-008 浅色系明亮 RGB 幻彩霓虹模板</code>（<code>cases/light-rgb-neon/</code>，单文件 index.html、零外部依赖不引 CDN）：#F6F7FB 浅色明亮画布 + 红绿蓝三原色幻彩渐变与光晕 + 玻璃拟态吸顶导航与 Hero 区块，结构对齐 C-007，可直接对照迁移。</p>
+<p>C-008 最有价值的部分是卡片边缘的 <strong>RGB 幻彩跑马灯</strong>：用 <code>conic-gradient</code> 生成环绕边框的红绿蓝三原色渐变描边，配合 <code>mask + mask-composite: intersect</code> 挖出圆角环带，再对环带做 <code>transform: rotate</code> 匀速旋转，就得到沿卡片边框顺时针循环流动的跑马灯效果。核心复用要点：</p>
+<ul>
+<li><strong>多卡独立</strong>：每张卡片一个 <code>.rgb-marquee</code> 元素 + 一条 <code>@keyframes</code>，各自独立旋转互不干扰；把动画时长与旋转方向做成 CSS 变量（<code>--marquee-duration</code> / <code>--marquee-direction</code>），同款卡片可批量复刻。</li>
+<li><strong>性能与无障碍</strong>：只动 <code>transform</code> 不进重排重绘；<code>prefers-reduced-motion</code> 下自动停转，降级为静态三原色描边，页面可读性不降级。</li>
+<li><strong>可迁移性</strong>：自定义类集中在一个 <code>&lt;style&gt;</code> 块内，复制整块即可搬到任意页面；配合 design-tokens 浅色轨「明亮 RGB 三原色幻彩」变体指针，与 C-007 深色轨「深海军蓝 + 紫/青」遥相呼应。</li>
+</ul>
+<p>同批更新的还有 <code>references/design-tokens.md</code> 浅色轨变体指针、README/SKILL 判例清单（7 例 → 8 例），路由规则与验证逻辑仍未改动，<code>verify_route.py</code> 继续 24/24。</p>
+
 <p>这次复盘的结论只有一句：工具矩阵最大的价值，是让你对"自己会什么"有一个不撒谎的清单。35 项验证过的、42 项存疑的，都摆在那里，比"感觉什么都会"有用得多。</p>
         </div>
       </div>
@@ -114,15 +124,15 @@
     </div>
   </footer>
 
-    <script src="../../js/site-config.js?v=1.8.21"></script>
-<script src="../../js/i18n.js?v=1.8.21"></script>
-  <script src="../../js/main.js?v=1.8.21"></script>
-  <script src="../../js/posts-data.js?v=1.8.21"></script>
-  <script src="../../js/post.js?v=1.8.21"></script>
-  <script src="../../js/seo.js?v=1.8.21"></script>
-  <script src="../../js/analytics.js?v=1.8.21"></script>
-  <script src="../../js/comments.js?v=1.8.21"></script>
-  <script src="../../js/sw-register.js?v=1.8.21"></script>
-  <script src="../../js/assistant.js?v=1.8.21"></script>
+    <script src="../../js/site-config.js?v=1.8.22"></script>
+<script src="../../js/i18n.js?v=1.8.22"></script>
+  <script src="../../js/main.js?v=1.8.22"></script>
+  <script src="../../js/posts-data.js?v=1.8.22"></script>
+  <script src="../../js/post.js?v=1.8.22"></script>
+  <script src="../../js/seo.js?v=1.8.22"></script>
+  <script src="../../js/analytics.js?v=1.8.22"></script>
+  <script src="../../js/comments.js?v=1.8.22"></script>
+  <script src="../../js/sw-register.js?v=1.8.22"></script>
+  <script src="../../js/assistant.js?v=1.8.22"></script>
 </body>
 </html>

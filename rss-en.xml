@@ -5,7 +5,7 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 26 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 27 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Dynamic Ad Budget Reallocation: Move Money by Marginal ROI</title>
@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
-      <description>web-design-skill-matrix upgraded to v0.6.0: added C-007 dark neon glass-morphism case and navy-blue design-token variant; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.</description>
+      <description>web-design-skill-matrix upgraded to v0.6.1: added light-themed RGB neon template C-008 with clockwise RGB marquee borders and prefers-reduced-motion fallback, plus a light-track design-token variant — a light/dark sibling to C-007; 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, 24/24 routing checks passed, and the homepage shipped.</description>
     </item>
     <item>
       <title>Adding Site Analytics Failed Three Times: Test the Client First</title>
