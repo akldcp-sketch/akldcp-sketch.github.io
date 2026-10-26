@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 24 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Dynamic Ad Budget Reallocation: Move Money by Marginal ROI</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-26-dynamic-ad-budget-reallocation-marginal-roi.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-26-dynamic-ad-budget-reallocation-marginal-roi.html</guid>
+      <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI Skills</category>
+      <description>An ad budget is not a one-time split. Reallocate by marginal ROI: a dynamic budget pool with 40/50/10 weights, 5 misallocation signals, and a reproducible Python simulator — same 50K daily budget, 5 iterations lift weighted mROI from 2.47 to 2.77, adding 14,900 RMB of daily profit.</description>
+    </item>
     <item>
       <title>Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html</link>

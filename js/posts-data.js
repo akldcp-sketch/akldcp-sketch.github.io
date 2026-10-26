@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-10-26-dynamic-ad-budget-reallocation-marginal-roi",
+    en: { title: "Dynamic Ad Budget Reallocation: Move Money by Marginal ROI", summary: "An ad budget is not a one-time split. Reallocate by marginal ROI: a dynamic budget pool with 40/50/10 weights, 5 misallocation signals, and a reproducible Python simulator — same 50K daily budget, 5 iterations lift weighted mROI from 2.47 to 2.77, adding 14,900 RMB of daily profit.", tag: "AI Skills" },
+    title: "广告预算再分配：按边际 ROI 把钱挪到刀刃上",
+    date: "2026-10-26",
+    tag: "AI 技能包",
+    summary: "广告预算不是拍脑袋分完就不动。按边际 ROI 做动态预算再分配：预算流动性池 40/50/10 权重、5 个错配信号，附可复现 Python 再分配模拟器——总预算 5 万不变，5 轮迭代加权 mROI 从 2.47 提到 2.77，日增量利润 1.49 万元。"
+  },
+  {
     file: "2026-10-24-xian-jin-liu-di-xian",
     en: { title: "Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling", summary: "Profit on paper is not cash in hand. Define the cash flow baseline as monthly rigid costs times safety months, compare sea vs air capital occupation, and stress-test 12 weeks with pandas — delayed logistics and lagged payments turn 7 of 12 weeks red before cash runs out. Full reproducible code included.", tag: "Business Operations" },
     title: "现金流底线管理：跨境多店矩阵先算死线再谈增长",

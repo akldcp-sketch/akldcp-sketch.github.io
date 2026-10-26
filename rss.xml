@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 24 Oct 2026 10:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 10:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>广告预算再分配：按边际 ROI 把钱挪到刀刃上</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-26-dynamic-ad-budget-reallocation-marginal-roi.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-26-dynamic-ad-budget-reallocation-marginal-roi.html</guid>
+      <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI 技能包</category>
+      <description>广告预算不是拍脑袋分完就不动。按边际 ROI 做动态预算再分配：预算流动性池 40/50/10 权重、5 个错配信号，附可复现 Python 再分配模拟器——总预算 5 万不变，5 轮迭代加权 mROI 从 2.47 提到 2.77，日增量利润 1.49 万元。</description>
+    </item>
     <item>
       <title>现金流底线管理：跨境多店矩阵先算死线再谈增长</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html</link>
