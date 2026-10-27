@@ -292,6 +292,32 @@
   }
   .biz-preview.rgb-card{border:0}
 
+
+  /* ===== C-009 暗色 RGB 霓虹轨（v1.8.28）：近黑底 #05060F + 同款 5px 红蓝霓虹 ===== */
+  html[data-theme="dark"] .rgb-card{
+    background:linear-gradient(180deg,#0B0D18 0%,#05060F 100%);
+    box-shadow:0 12px 40px -18px rgba(0,0,0,.6),0 0 18px 2px rgba(255,51,102,.55),0 0 34px 7px rgba(0,176,255,.45);
+  }
+  html[data-theme="dark"] .rgb-card:hover{box-shadow:0 18px 52px -16px rgba(0,0,0,.7),0 0 22px 3px rgba(255,51,102,.7),0 0 42px 10px rgba(0,176,255,.55)}
+  html[data-theme="dark"] .rgb-marquee{
+    filter:drop-shadow(0 0 12px rgba(255,51,102,.95)) drop-shadow(0 0 26px rgba(0,176,255,.75));
+    box-shadow:0 0 28px -6px rgba(255,51,102,.7),0 0 44px -10px rgba(0,176,255,.55);
+  }
+  html[data-theme="dark"] .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))}
+  /* 无 theme.js 的文章页：跟随系统暗色，排除手动浅色（带 theme-toggle 的页面由上方 data-theme 规则覆盖） */
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]) .rgb-card{
+      background:linear-gradient(180deg,#0B0D18 0%,#05060F 100%);
+      box-shadow:0 12px 40px -18px rgba(0,0,0,.6),0 0 18px 2px rgba(255,51,102,.55),0 0 34px 7px rgba(0,176,255,.45);
+    }
+    html:not([data-theme="light"]) .rgb-card:hover{box-shadow:0 18px 52px -16px rgba(0,0,0,.7),0 0 22px 3px rgba(255,51,102,.7),0 0 42px 10px rgba(0,176,255,.55)}
+    html:not([data-theme="light"]) .rgb-marquee{
+      filter:drop-shadow(0 0 12px rgba(255,51,102,.95)) drop-shadow(0 0 26px rgba(0,176,255,.75));
+      box-shadow:0 0 28px -6px rgba(255,51,102,.7),0 0 44px -10px rgba(0,176,255,.55);
+    }
+    html:not([data-theme="light"]) .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))}
+  }
+
   </style>
 </head>
 <body>
@@ -322,7 +348,7 @@
       <span class="eyebrow" style="display:inline-block; padding:6px 14px; border-radius:var(--radius-pill); background:var(--color-accent-soft); color:var(--color-accent); font-size:var(--fs-xs); font-weight:700; margin-bottom:14px;">全部文章归档</span>
       <h1 id="archive-h" class="text-gradient">文章归档</h1>
       <p>按日期倒序收录全部 25 篇实战文章，每篇附主题分类与摘要。也可以按主题直接跳转到对应分类。</p>
-      <div class="stats" aria-label="归档统计">
+      <div class="stats rgb-card" aria-label="归档统计"><span class="rgb-marquee" aria-hidden="true"></span>
         <div><b>25</b><span>篇文章</span></div>
         <div><b>7</b><span>个主题分类</span></div>
         <div><b>1–2</b><span>篇/每周更新</span></div>
@@ -391,7 +417,7 @@
     <div class="container">
       <h2 id="cat-h">按主题分类</h2>
       <div class="cat-list">
-        <div class="cat-card" id="cat-ai"><h3>AI 技能包 <span style="color:var(--color-muted); font-size:var(--fs-xs);">8 篇</span></h3><ul>
+        <div class="cat-card rgb-card" id="cat-ai"><span class="rgb-marquee" aria-hidden="true"></span><h3>AI 技能包 <span style="color:var(--color-muted); font-size:var(--fs-xs);">8 篇</span></h3><ul>
           <li><time>2026-10-26</time><a href="posts/2026-10-26-dynamic-ad-budget-reallocation-marginal-roi.html">广告预算再分配：按边际 ROI 把钱挪到刀刃上</a></li>
           <li><time>2026-10-22</time><a href="posts/2026-10-22-acos-skill-pack.html">亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包</a></li>
           <li><time>2026-10-20</time><a href="posts/2026-10-20-da-cu-fu-pan.html">大促复盘别只看 GMV：五层净利拆解做成 AI 技能包</a></li>
@@ -401,7 +427,7 @@
           <li><time>2026-08-08</time><a href="posts/2026-08-08-oa.html">钉钉 OA 审批自动化：管理端和员工端分开做</a></li>
           <li><time>2026-07-25</time><a href="posts/2026-07-25-ling-ji-chu.html">让零基础同事用上 AI 技能包</a></li>
         </ul></div>
-        <div class="cat-card" id="cat-data"><h3>数据与自动化 <span style="color:var(--color-muted); font-size:var(--fs-xs);">5 篇</span></h3><ul>
+        <div class="cat-card rgb-card" id="cat-data"><span class="rgb-marquee" aria-hidden="true"></span><h3>数据与自动化 <span style="color:var(--color-muted); font-size:var(--fs-xs);">5 篇</span></h3><ul>
           <li><time>2026-09-02</time><a href="posts/2026-09-02-tong-ji-san-lian-bai.html">给网站接统计，连败三次后我学会了先测客户端</a></li>
           <li><time>2026-09-01</time><a href="posts/2026-09-01-duo-sheet-fen-lei.html">Excel 多 Sheet 报表，先分类再动手</a></li>
           <li><time>2026-08-30</time><a href="posts/2026-08-30-erp-403.html">403 不一定是密钥错了：一次 ERP 接口排查</a></li>

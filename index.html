@@ -365,6 +365,31 @@
   }
   .biz-preview.rgb-card{border:0}
 
+  /* ===== C-009 暗色 RGB 霓虹轨（v1.8.28）：近黑底 #05060F + 同款 5px 红蓝霓虹 ===== */
+  html[data-theme="dark"] .rgb-card{
+    background:linear-gradient(180deg,#0B0D18 0%,#05060F 100%);
+    box-shadow:0 12px 40px -18px rgba(0,0,0,.6),0 0 18px 2px rgba(255,51,102,.55),0 0 34px 7px rgba(0,176,255,.45);
+  }
+  html[data-theme="dark"] .rgb-card:hover{box-shadow:0 18px 52px -16px rgba(0,0,0,.7),0 0 22px 3px rgba(255,51,102,.7),0 0 42px 10px rgba(0,176,255,.55)}
+  html[data-theme="dark"] .rgb-marquee{
+    filter:drop-shadow(0 0 12px rgba(255,51,102,.95)) drop-shadow(0 0 26px rgba(0,176,255,.75));
+    box-shadow:0 0 28px -6px rgba(255,51,102,.7),0 0 44px -10px rgba(0,176,255,.55);
+  }
+  html[data-theme="dark"] .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))}
+  /* 无 theme.js 的文章页：跟随系统暗色，排除手动浅色（带 theme-toggle 的页面由上方 data-theme 规则覆盖） */
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme="light"]) .rgb-card{
+      background:linear-gradient(180deg,#0B0D18 0%,#05060F 100%);
+      box-shadow:0 12px 40px -18px rgba(0,0,0,.6),0 0 18px 2px rgba(255,51,102,.55),0 0 34px 7px rgba(0,176,255,.45);
+    }
+    html:not([data-theme="light"]) .rgb-card:hover{box-shadow:0 18px 52px -16px rgba(0,0,0,.7),0 0 22px 3px rgba(255,51,102,.7),0 0 42px 10px rgba(0,176,255,.55)}
+    html:not([data-theme="light"]) .rgb-marquee{
+      filter:drop-shadow(0 0 12px rgba(255,51,102,.95)) drop-shadow(0 0 26px rgba(0,176,255,.75));
+      box-shadow:0 0 28px -6px rgba(255,51,102,.7),0 0 44px -10px rgba(0,176,255,.55);
+    }
+    html:not([data-theme="light"]) .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))}
+  }
+
   </style>
 </head>
 <body>
@@ -395,9 +420,9 @@
       </div>
       <div class="hero-art" data-reveal style="--d:120ms" aria-label="博客内容示意卡片">
         <div class="art-head"><span>本周精选</span><span class="art-dots"><i></i><i></i><i></i></span></div>
-        <div class="post-card"><span class="tag">投放</span><div class="card-title">达人投放不是请人拍视频，是 ROI 管理</div><div class="meta"><time datetime="2026-08-25">2026-08-25</time> · 4 分钟</div></div>
-        <div class="post-card"><span class="tag b">AI 技能包</span><div class="card-title">让零基础同事用上 AI 技能包</div><div class="meta"><time datetime="2026-07-25">2026-07-25</time> · 4 分钟</div></div>
-        <div class="post-card"><span class="tag c">工程</span><div class="card-title">给 AI 技能签"合同"</div><div class="meta"><time datetime="2026-08-20">2026-08-20</time> · 5 分钟</div></div>
+        <div class="post-card rgb-card"><span class="rgb-marquee" aria-hidden="true"></span><span class="tag">投放</span><div class="card-title">达人投放不是请人拍视频，是 ROI 管理</div><div class="meta"><time datetime="2026-08-25">2026-08-25</time> · 4 分钟</div></div>
+        <div class="post-card rgb-card"><span class="rgb-marquee" aria-hidden="true"></span><span class="tag b">AI 技能包</span><div class="card-title">让零基础同事用上 AI 技能包</div><div class="meta"><time datetime="2026-07-25">2026-07-25</time> · 4 分钟</div></div>
+        <div class="post-card rgb-card"><span class="rgb-marquee" aria-hidden="true"></span><span class="tag c">工程</span><div class="card-title">给 AI 技能签"合同"</div><div class="meta"><time datetime="2026-08-20">2026-08-20</time> · 5 分钟</div></div>
         <a class="art-cta" href="#articles">→ 全部文章见下方列表</a>
       </div>
     </div>
@@ -447,37 +472,37 @@
         <p>按主题与场景拆解，每篇结尾附操作清单，方便直接抄作业。</p>
       </div>
       <div class="articles">
-        <article class="article" data-reveal style="--d:0ms">
+        <article class="article rgb-card" data-reveal style="--d:0ms"><span class="rgb-marquee" aria-hidden="true"></span>
           <div class="tags"><span class="tag">投放</span><span class="tag d">ROI</span></div>
           <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-25-da-ren-roi.html">达人投放不是请人拍视频，是 ROI 管理</a></h3>
           <p class="excerpt">达人投放的评分分层、预算分配与复盘归因，一套可复制的打法。</p>
           <div class="meta"><time datetime="2026-08-25">2026-08-25</time><span class="read">4 分钟阅读</span><span>#商业操盘</span></div>
         </article>
-        <article class="article" data-reveal style="--d:60ms">
+        <article class="article rgb-card" data-reveal style="--d:60ms"><span class="rgb-marquee" aria-hidden="true"></span>
           <div class="tags"><span class="tag b">AI 技能包</span><span class="tag">团队</span></div>
           <h3><a href="https://akldcp-sketch.github.io/posts/2026-07-25-ling-ji-chu.html">让零基础同事用上 AI 技能包</a></h3>
           <p class="excerpt">界面友好、输入最少、失败有兜底——AI 技能包给同事用的三个设计原则。</p>
           <div class="meta"><time datetime="2026-07-25">2026-07-25</time><span class="read">4 分钟阅读</span><span>#AI 工作流</span></div>
         </article>
-        <article class="article" data-reveal style="--d:120ms">
+        <article class="article rgb-card" data-reveal style="--d:120ms"><span class="rgb-marquee" aria-hidden="true"></span>
           <div class="tags"><span class="tag b">AI 技能包</span><span class="tag c">工程</span></div>
           <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-20-skill-contract.html">给 AI 技能签"合同"</a></h3>
           <p class="excerpt">接口合同、退出码、幂等策略——让 AI 技能从能用到可靠。</p>
           <div class="meta"><time datetime="2026-08-20">2026-08-20</time><span class="read">5 分钟阅读</span><span>#AI 工作流</span></div>
         </article>
-        <article class="article" data-reveal style="--d:180ms">
+        <article class="article rgb-card" data-reveal style="--d:180ms"><span class="rgb-marquee" aria-hidden="true"></span>
           <div class="tags"><span class="tag d">数据</span><span class="tag">看板</span></div>
           <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-03-shu-ju-zhong-tai.html">数据中台：从 Excel 到自动化看板</a></h3>
           <p class="excerpt">统一口径、集中存储、看板化——把零散 Excel 和手工报表升级成数据中台的三步走。</p>
           <div class="meta"><time datetime="2026-08-03">2026-08-03</time><span class="read">4 分钟阅读</span><span>#商业操盘</span></div>
         </article>
-        <article class="article" data-reveal style="--d:240ms">
+        <article class="article rgb-card" data-reveal style="--d:240ms"><span class="rgb-marquee" aria-hidden="true"></span>
           <div class="tags"><span class="tag">网站</span><span class="tag c">复盘</span></div>
           <h3><a href="https://akldcp-sketch.github.io/posts/2026-09-02-tong-ji-san-lian-bai.html">给网站接统计，连败三次后我学会了先测客户端</a></h3>
           <p class="excerpt">Umami、GoatCounter、51.la 三次接入全部失败，服务端却都 200 OK——关于"验证客户端可用性"的复盘。</p>
           <div class="meta"><time datetime="2026-09-02">2026-09-02</time><span class="read">5 分钟阅读</span><span>#AI 工作流</span></div>
         </article>
-        <article class="article" data-reveal style="--d:300ms">
+        <article class="article rgb-card" data-reveal style="--d:300ms"><span class="rgb-marquee" aria-hidden="true"></span>
           <div class="tags"><span class="tag d">库存</span><span class="tag">复盘</span></div>
           <h3><a href="https://akldcp-sketch.github.io/posts/2026-08-28-qing-cang.html">8 周清掉 1.4 万支库存：一次清仓的拆解</a></h3>
           <p class="excerpt">整杆 7 SKU 约 13200 支 + 前肢 363 支，8 周清仓的定价与节奏拆解。</p>
