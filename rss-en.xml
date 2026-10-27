@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
-      <description>web-design-skill-matrix upgraded to v0.6.3: fixed the visually invisible card-edge marquee in the C-008 light RGB neon template — light bar thickened to 10px via a unified --marquee-width variable (10x the 1px card border), 7-segment palette re-saturated for contrast on light backgrounds, red/blue neon box-shadow glow (16px/30px halos), 3s-per-loop clockwise flow, and @supports-driven conic-gradient detection with equally thick fallback rings on legacy browsers; verified on a 375px mobile viewport (light bar visible, neon glow effective, clockwise flow confirmed); 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.</description>
+      <description>web-design-skill-matrix upgraded to v0.6.4: added the C-009 dark RGB neon template, pairing with C-008 light as a light/dark duo; the 7-segment RGB marquee halved to 5px via the unified --marquee-width variable (bar visible, neon glow effective, clockwise flow confirmed on a 375px viewport); template previews are now protected as a commercial asset and no longer public.</description>
     </item>
     <item>
       <title>Adding Site Analytics Failed Three Times: Test the Client First</title>

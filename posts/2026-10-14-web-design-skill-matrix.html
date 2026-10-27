@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏</title>
-  <meta name="description" content="把 web-design-skill-matrix（v0.6.0）装进本地工作流的一次完整复盘：77 项关联技能从 6 项就绪补齐到 35 项可验证，42 项无公开来源如实列清单不冒充可用，路由校验 24/24 全部通过；v0.6.0 新增第 7 个实战判例 C-007 深色霓虹玻璃拟态模板与 design-tokens 海军蓝变体，并直接产出暗色模式首页、归档页与订阅表单完成部署，全文附 6 步可复现操作清单。">
-  <link rel="stylesheet" href="../../css/style.css?v=1.8.26">
+  <meta name="description" content="web-design-skill-matrix 升级 v0.6.4：跑马灯光柱 10px→5px 全局减半（C-008 v2.2.0，明暗双轨统一），新增暗色系 RGB 幻彩霓虹判例 C-009（近黑底 + 同款 7 段 RGB 幻彩 + 5px 跑马灯），与 C-008 构成明暗双生模板族；模板作为付费专家技能商业资产，公开预览页已撤下不再在线展示。77 项关联技能从 6 项补齐到 35 项，路由校验 24/24 通过。">
+  <link rel="stylesheet" href="../../css/style.css?v=1.8.27">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
   <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
@@ -13,16 +13,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta property="og:title" content="用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏">
-  <meta property="og:description" content="web-design-skill-matrix 升级 v0.6.3：修复 C-008 浅色 RGB 幻彩霓虹模板跑马灯目视不可见问题——光柱加粗至 10px（--marquee-width 变量统一控制，为边框 1px 的 10 倍）、7 段色值提饱和、box-shadow 红蓝霓虹外发光、3s/圈顺时针流动，@supports 检测 conic 兼容降级同为粗环，375px 手机视口实测光柱可见/光晕生效/顺时针流动全部通过；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。">
+  <meta property="og:description" content="web-design-skill-matrix 升级 v0.6.4：跑马灯光柱 10px→5px 全局减半（C-008 v2.2.0，明暗双轨统一），新增暗色系 RGB 幻彩霓虹判例 C-009（dark-rgb-neon，近黑底 + 同款 7 段 RGB 幻彩 + 5px 跑马灯），与 C-008 构成明暗双生模板族；模板作为付费专家技能商业资产，公开预览页已撤下不再在线展示。77 项关联技能从 6 项补齐到 35 项，路由校验 24/24 通过。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html">
   <meta property="og:site_name" content="戴程鹏">
   <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","description":"把 web-design-skill-matrix（v0.6.3）装进本地工作流：77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过；v0.6.3 修复 C-008 浅色 RGB 幻彩霓虹模板跑马灯目视不可见问题（光柱加粗至 10px、7 段提饱和、box-shadow 红蓝霓虹发光、3s/圈顺时针流动、@supports 兼容降级同为粗环，375px 实测通过），并直接产出首页完成部署。","inLanguage":"zh-CN","datePublished":"2026-10-14","dateModified":"2026-10-27","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","description":"把 web-design-skill-matrix（v0.6.4）装进本地工作流：新增 C-009 暗色 RGB 幻彩霓虹模板，与 C-008 浅色版组成明暗双生；7 段红橙黄绿青蓝紫光柱顺时针跑马灯减半至 5px（--marquee-width 统一控制），375px 手机视口实测光柱可见、光晕生效、顺时针流动全部通过；模板预览已转为商业资产保护不对外公开。","inLanguage":"zh-CN","datePublished":"2026-10-14","dateModified":"2026-10-27","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘","item":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective","description":"Installing web-design-skill-matrix (v0.6.3) into a local workflow: 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed; v0.6.3 fixed the visually invisible card-edge RGB marquee in the C-008 light RGB neon template (light bar thickened to 10px, saturated 7-segment colors, red/blue neon box-shadow glow, 3s clockwise flow, @supports-driven conic detection with equally thick fallback rings, verified on a 375px mobile viewport), and the homepage shipped.","inLanguage":"en","datePublished":"2026-10-14","dateModified":"2026-10-27","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"},"headline":"Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective","description":"Installing web-design-skill-matrix (v0.6.4) into a local workflow: added the C-009 dark RGB neon template pairing with the C-008 light version as a light/dark duo; the 7-segment RGB marquee halved to 5px via the unified --marquee-width variable (light bar visible, neon glow effective, clockwise flow confirmed on a 375px mobile viewport); template previews are now protected as a commercial asset and no longer public.","inLanguage":"en","datePublished":"2026-10-14","dateModified":"2026-10-27","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Landing a Personal Blog with an AI Skill Matrix","item":"https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html"}]}</script>
 </head>
 <body>
@@ -45,10 +45,11 @@
   </header>
 
   <main>
-    <article class="post">
+    <article class="post rgb-card">
+      <span class="rgb-marquee" aria-hidden="true"></span>
       <div class="container post-container">
         <p class="eyebrow"><a href="../../blog.html" class="back-link">← 返回博客</a></p>
-        <h1 class="post-title">用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘</h1>
+        <h1 class="post-title text-gradient">用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘</h1>
         <p class="post-meta">2026-10-14 · AI 技能包</p>
 
         <div class="post-body">
@@ -114,19 +115,20 @@
 <p><strong>实测留证</strong>：375×812 移动视口连拍截图（<code>marquee_t0.png</code> / <code>marquee_t1.png</code>）三项验证全部通过——① 粗渐变光带目视可见；② 光带外侧红蓝霓虹光晕生效；③ 两张连拍四角色块互换，证明光带顺时针流动。</p>
 <p>同批同步版本号全链路：<code>&lt;title&gt;</code> / Hero 徽章 / Footer / 头部注释 / case.md / README / SKILL / design-tokens 统一 v2.1.0 / v0.6.3；路由规则与验证逻辑仍未改动，<code>verify_route.py</code> 继续 24/24。</p>
 
-<h2>九、在线预览：C-008 浅色 RGB 幻彩霓虹模板真实效果</h2>
-<p>模板实体已部署上线，无需再靠截图与文字脑补——下方 iframe 直接加载真实模板页面（单文件零依赖，手机端自动响应式布局），可直接看到明亮浅色画布、7 段红橙黄绿青蓝紫霓虹光晕，以及卡片边缘 10px 粗光柱的顺时针跑马灯流动效果。</p>
-<div style="position:relative;width:100%;border:1px solid var(--border,#e5e7eb);border-radius:12px;overflow:hidden;background:#fff;margin:1rem 0 1.25rem">
-  <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem .875rem;font-size:12px;color:var(--muted,#6b7280);background:linear-gradient(180deg,#fafafa,#f3f4f6);border-bottom:1px solid var(--border,#e5e7eb)">
-    <span style="width:9px;height:9px;border-radius:50%;background:#ff5f57"></span>
-    <span style="width:9px;height:9px;border-radius:50%;background:#febc2e"></span>
-    <span style="width:9px;height:9px;border-radius:50%;background:#28c840"></span>
-    <span style="margin-left:.5rem;font-family:ui-monospace,Menlo,monospace;color:var(--muted,#6b7280)">demos/light-rgb-neon/index.html</span>
-    <a href="https://akldcp-sketch.github.io/demos/light-rgb-neon/" target="_blank" rel="noopener" style="margin-left:auto;font-weight:600;color:var(--accent,#4f46e5);text-decoration:none">新窗口打开 ↗</a>
-  </div>
-  <iframe src="https://akldcp-sketch.github.io/demos/light-rgb-neon/" title="C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3" loading="lazy" style="display:block;width:100%;height:600px;border:0" allowfullscreen></iframe>
-</div>
-<p><strong>手机端提示</strong>：上方 iframe 在窄屏下自动缩放适配；若希望全屏沉浸体验，直接访问 <a href="https://akldcp-sketch.github.io/demos/light-rgb-neon/" target="_blank" rel="noopener">https://akldcp-sketch.github.io/demos/light-rgb-neon/</a>。</p>
+<h2>九、模板预览说明（商业资产保护）</h2>
+<p>web-design-skill-matrix 将作为付费专家技能出售，C-008 浅色 RGB 幻彩霓虹模板与 C-009 暗色系 RGB 幻彩霓虹模板的实现细节（单文件源码、@property 跑马灯实现、7 段色值体系）属于商业资产，公开演示页与文章预览链接已撤下，不再以 iframe 或在线链接形式展示。付费用户将通过交付包获得完整模板、判例文档与迁移指南。此处仅保留文字化描述：</p>
+<ul>
+<li><strong>浅色版 C-008</strong>：明亮浅色画布 #F6F7FB + 7 段红橙黄绿青蓝紫霓虹光晕与渐变标题/按钮/卡片高光 + 卡片边缘 <strong>5px 光柱</strong>顺时针跑马灯（3s/圈、红蓝霓虹外发光）。</li>
+<li><strong>暗色版 C-009</strong>：近黑画布 #05060F + 同款 7 段 RGB 幻彩语言 + 同款 5px 跑马灯，与浅色版构成明暗双生模板族，明暗双轨光柱宽度统一。</li>
+</ul>
+
+<h2>十、v0.6.4 升级：跑马灯光柱减半 + 暗色系 RGB 判例 C-009</h2>
+<p>本轮升级两个焦点：</p>
+<ul>
+<li><strong>① 跑马灯光柱 10px → 5px 全局减半</strong>（C-008 判例内部 v2.1.0 → v2.2.0）：<code>--marquee-width</code> 由 10px 统一改为 5px——<code>padding:var(--marquee-width)</code> 单变量全卡生效，fallback 静态 7 段彩环与 @supports 纯色兜底同步减半，明暗双轨（C-008 浅色 / C-009 暗色）统一为 5px。375px 实测 5px 光柱在浅色与近黑底上均清晰可见、顺时针流动、红蓝光晕生效，观感更克制，适配付费专家模板定位。</li>
+<li><strong>② 新增暗色系 RGB 幻彩霓虹判例 C-009</strong>（<code>cases/dark-rgb-neon/</code>，自包含单文件 index.html + case.md）：暗色底采用近黑 #05060F（比 C-007 #030523 更近黑，RGB 光晕对比更强）+ 与 C-008 完全同款的 7 段 RGB 幻彩语言（--grad-7 / --ring-7 色值一致）+ 同款 5px 跑马灯（@property --angle + conic-gradient(from var(--angle)) 顺时针流动、多卡独立 --marquee-duration/--marquee-direction 变量 + 负延迟错峰、prefers-reduced-motion 停转降级、@supports 纯色兜底）+ 玻璃拟态吸顶导航（移动端 blur 10px / 桌面 20px）+ 375px 竖屏优先（汉堡菜单、触控区 ≥44px、栅格逐级降级、移动端取消卡片 backdrop-filter）。</li>
+</ul>
+<p>元数据同步：<code>references/design-tokens.md</code> 浅色轨变体更新 5px 说明并新增暗色轨「RGB 7 段幻彩」变体；README / SKILL 升 v0.6.4（cases 索引 8→9）；changelog 记录 v0.6.4 与 C-008 内部 v2.2.0。路由规则与验证逻辑未改动，<code>verify_route.py</code> 仍 24/24。</p>
 
 <p>这次复盘的结论只有一句：工具矩阵最大的价值，是让你对"自己会什么"有一个不撒谎的清单。35 项验证过的、42 项存疑的，都摆在那里，比"感觉什么都会"有用得多。</p>
         </div>
@@ -151,15 +153,15 @@
     </div>
   </footer>
 
-    <script src="../../js/site-config.js?v=1.8.26"></script>
-<script src="../../js/i18n.js?v=1.8.26"></script>
-  <script src="../../js/main.js?v=1.8.26"></script>
-  <script src="../../js/posts-data.js?v=1.8.26"></script>
-  <script src="../../js/post.js?v=1.8.26"></script>
-  <script src="../../js/seo.js?v=1.8.26"></script>
-  <script src="../../js/analytics.js?v=1.8.26"></script>
-  <script src="../../js/comments.js?v=1.8.26"></script>
-  <script src="../../js/sw-register.js?v=1.8.26"></script>
-  <script src="../../js/assistant.js?v=1.8.26"></script>
+    <script src="../../js/site-config.js?v=1.8.27"></script>
+<script src="../../js/i18n.js?v=1.8.27"></script>
+  <script src="../../js/main.js?v=1.8.27"></script>
+  <script src="../../js/posts-data.js?v=1.8.27"></script>
+  <script src="../../js/post.js?v=1.8.27"></script>
+  <script src="../../js/seo.js?v=1.8.27"></script>
+  <script src="../../js/analytics.js?v=1.8.27"></script>
+  <script src="../../js/comments.js?v=1.8.27"></script>
+  <script src="../../js/sw-register.js?v=1.8.27"></script>
+  <script src="../../js/assistant.js?v=1.8.27"></script>
 </body>
 </html>

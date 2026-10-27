@@ -2634,3 +2634,75 @@ body::after {
   transform: translateY(-1px);
 }
 .nav-login svg { display: block; }
+
+
+  /* ============================================================
+     C-008/C-009 RGB 幻彩霓虹设计语言（v0.6.4 · 明暗双生）
+     浅色明亮底 + 7 段 RGB 霓虹光晕 + 5px 跑马灯边框（全局统一）
+     @property --angle + conic-gradient 顺时针流动；mask 挖心留
+     --marquee-width:5px 光柱带；双色 drop-shadow 霓虹 glow；
+     @supports 退级纯色粗环；reduced-motion 关闭动画。
+     ============================================================ */
+  @property --angle{
+    syntax:"<angle>";
+    inherits:false;
+    initial-value:0deg;
+  }
+  :root{
+    --grad-7:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);
+    --ring-7:conic-gradient(#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%,#FF3366 100%);
+  }
+  .rgb-card{
+    position:relative;
+    border-radius:1.25rem;
+    background:var(--color-surface);
+    box-shadow:0 12px 40px -18px rgba(30,41,59,.18),
+               0 0 16px 1px rgba(255,51,102,.38),
+               0 0 30px 5px rgba(0,176,255,.3);
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .rgb-card:hover{transform:translateY(-4px);box-shadow:0 18px 52px -16px rgba(30,41,59,.28),0 0 20px 2px rgba(255,51,102,.45),0 0 38px 8px rgba(0,176,255,.38)}
+  .rgb-marquee{
+    --marquee-width:5px;            /* 光柱粗细：v2.2.0 起 10px 减半，明暗双轨全局统一 5px */
+    --marquee-duration:3s;          /* 一圈 3s（2-4s 舒适区间） */
+    --marquee-direction:normal;     /* normal=顺时针（--angle 增大） / reverse=逆时针 */
+    position:absolute;inset:0;border-radius:inherit;padding:var(--marquee-width);
+    filter:drop-shadow(0 0 10px rgba(255,51,102,.85)) drop-shadow(0 0 22px rgba(0,176,255,.65));
+    box-shadow:0 0 24px -6px rgba(255,51,102,.5),0 0 36px -10px rgba(0,176,255,.4);
+    background:conic-gradient(from 0deg,#FF1E56 0%,#FF6D00 14%,#FFEA00 29%,#00FF7A 43%,#00E5D8 57%,#00B8FF 71%,#A944FF 86%,#FF1E56 100%);
+    background:conic-gradient(from var(--angle,0deg),#FF1E56 0%,#FF6D00 14%,#FFEA00 29%,#00FF7A 43%,#00E5D8 57%,#00B8FF 71%,#A944FF 86%,#FF1E56 100%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    mask-composite:exclude;
+    animation:rgb-marquee var(--marquee-duration,3s) linear infinite var(--marquee-direction,normal);
+    pointer-events:none;
+    will-change:transform;
+  }
+  @supports not (background: conic-gradient(from 0deg, red, blue)){
+    .rgb-marquee{
+      background:#FF3366;
+      filter:none;
+      animation:none;
+    }
+  }
+  .rgb-card:nth-child(2n) .rgb-marquee{animation-delay:-1s}
+  .rgb-card:nth-child(3n) .rgb-marquee{animation-delay:-1.9s}
+  @keyframes rgb-marquee{to{--angle:360deg}}
+  .text-gradient{
+    background:var(--grad-7);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:2.75rem;padding:0 1.25rem;border-radius:.875rem;
+    background:var(--grad-7);
+    color:#fff;text-decoration:none;font-weight:600;font-size:.9375rem;
+    box-shadow:0 10px 28px -10px rgba(255,51,102,.55),0 10px 28px -12px rgba(0,176,255,.45);
+    transition:filter .25s ease,transform .25s ease,box-shadow .25s ease;
+  }
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 14px 34px -10px rgba(255,51,102,.6),0 14px 34px -12px rgba(156,39,255,.4)}
+  @media (prefers-reduced-motion: reduce){
+    .rgb-marquee{animation:none;filter:none;box-shadow:none}
+  }
+  .biz-preview.rgb-card{border:0}

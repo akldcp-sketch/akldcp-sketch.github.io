@@ -34,11 +34,11 @@ window.POSTS_DATA = [
   },
   {
     file: "2026-10-14-web-design-skill-matrix",
-    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.3: fixed the visually invisible card-edge RGB marquee in the C-008 light RGB neon template — light bar thickened to 10px via a unified --marquee-width variable (10x the 1px card border), 7-segment palette re-saturated for contrast, red/blue neon box-shadow glow, 3s-per-loop clockwise flow, and @supports-driven conic-gradient detection with equally thick fallback rings on legacy browsers; verified on a 375px mobile viewport (light bar visible, neon glow effective, clockwise flow confirmed); 77 related skills narrowed to 35 verified, 42 unverifiable listed honestly, and 24/24 routing checks passed.", tag: "AI Skills" },
+    en: { title: "Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective", summary: "web-design-skill-matrix upgraded to v0.6.4: added the C-009 dark RGB neon template, pairing with C-008 light as a light/dark duo; the 7-segment RGB marquee halved to 5px via the unified --marquee-width variable (bar visible, neon glow effective, clockwise flow confirmed on a 375px viewport); template previews are now protected as a commercial asset and no longer public.", tag: "AI Skills" },
     title: "用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘",
     date: "2026-10-14",
     tag: "AI 技能包",
-    summary: "web-design-skill-matrix 升级 v0.6.3：修复 C-008 浅色 RGB 幻彩霓虹模板跑马灯目视不可见问题——光柱加粗至 10px（--marquee-width 变量统一控制，为边框 1px 的 10 倍）、7 段色值提饱和、box-shadow 红蓝霓虹外发光、3s/圈顺时针流动，@supports 检测 conic 兼容降级同为粗环，375px 手机视口实测光柱可见/光晕生效/顺时针流动全部通过；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。"
+    summary: "web-design-skill-matrix 升级 v0.6.4：新增 C-009 暗色 RGB 幻彩霓虹模板，与 C-008 浅色版组成明暗双生；7 段红橙黄绿青蓝紫光柱顺时针跑马灯减半至 5px（--marquee-width 统一控制），375px 手机视口实测光柱可见、光晕生效、顺时针流动全部通过；模板预览已转为商业资产保护不对外公开。"
   },
   {
     file: "2026-09-02-tong-ji-san-lian-bai",

@@ -45,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-14-web-design-skill-matrix.html</guid>
       <pubDate>Wed, 14 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI 技能包</category>
-      <description>web-design-skill-matrix 升级 v0.6.3：修复 C-008 浅色 RGB 幻彩霓虹模板跑马灯目视不可见问题——光柱加粗至 10px（--marquee-width 变量统一控制，为边框 1px 的 10 倍）、7 段色值提饱和、box-shadow 红蓝霓虹外发光、3s/圈顺时针流动，@supports 检测 conic 兼容降级同为粗环，375px 手机视口实测光柱可见/光晕生效/顺时针流动全部通过；77 项关联技能从 6 项补齐到 35 项，42 项无来源如实列清单，路由校验 24/24 通过，并产出首页完成部署。</description>
+      <description>web-design-skill-matrix 升级 v0.6.4：新增 C-009 暗色 RGB 幻彩霓虹模板，与 C-008 浅色版组成明暗双生；7 段红橙黄绿青蓝紫光柱顺时针跑马灯减半至 5px（--marquee-width 统一控制），375px 手机视口实测光柱可见、光晕生效、顺时针流动全部通过；模板预览已转为商业资产保护不对外公开。</description>
     </item>
     <item>
       <title>给网站接统计，连败三次后我学会了先测客户端</title>
