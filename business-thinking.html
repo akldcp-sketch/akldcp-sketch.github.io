@@ -159,7 +159,7 @@
   main{min-height:60vh;}
   .business-hero{padding:72px 0 24px;}
   .business-hero p{color:var(--color-muted); max-width:62ch;}
-  .stats{display:flex; gap:28px; flex-wrap:wrap; color:var(--color-muted); font-size:var(--fs-sm); margin-bottom:12px;}
+  .stats{display:flex; gap:28px; flex-wrap:wrap; color:var(--color-muted); font-size:var(--fs-sm); margin-bottom:12px; padding:18px 22px;}
   .stats b{display:block; font-size:22px; color:var(--color-text); line-height:1.3;}
   .business-section{padding:36px 0 8px;}
   .business-section h2{font-size:var(--fs-lg); display:flex; align-items:center; gap:10px;}
@@ -192,9 +192,9 @@
 
   /* ============================================================
      C-008/C-009 RGB 幻彩霓虹设计语言（v0.6.4 · 明暗双生）
-     浅色明亮底 + 7 段 RGB 霓虹光晕 + 5px 跑马灯边框（全局统一）
+     浅色明亮底 + 7 段 RGB 霓虹光晕 + 3px 跑马灯边框（全局统一）
      @property --angle + conic-gradient 顺时针流动；mask 挖心留
-     --marquee-width:5px 光柱带；双色 drop-shadow 霓虹 glow；
+     --marquee-width:3px 光柱带；双色 drop-shadow 霓虹 glow；
      @supports 退级纯色粗环；reduced-motion 关闭动画。
      ============================================================ */
   @property --angle{
@@ -217,7 +217,7 @@
   }
   .rgb-card:hover{transform:translateY(-4px);box-shadow:0 18px 52px -16px rgba(30,41,59,.28),0 0 20px 2px rgba(255,51,102,.45),0 0 38px 8px rgba(0,176,255,.38)}
   .rgb-marquee{
-    --marquee-width:5px;            /* 光柱粗细：v2.2.0 起 10px 减半，明暗双轨全局统一 5px */
+    --marquee-width:3px;            /* 光柱粗细：v2.2.0 起 10px 减半，明暗双轨全局统一 3px */
     --marquee-duration:3s;          /* 一圈 3s（2-4s 舒适区间） */
     --marquee-direction:normal;     /* normal=顺时针（--angle 增大） / reverse=逆时针 */
     position:absolute;inset:0;border-radius:inherit;padding:var(--marquee-width);
@@ -262,7 +262,7 @@
   .biz-preview.rgb-card{border:0}
 
 
-  /* ===== C-009 暗色 RGB 霓虹轨（v1.8.28）：近黑底 #05060F + 同款 5px 红蓝霓虹 ===== */
+  /* ===== C-009 暗色 RGB 霓虹轨（v1.8.29）：近黑底 #05060F + 同款 3px 红蓝霓虹 ===== */
   html[data-theme="dark"] .rgb-card{
     background:linear-gradient(180deg,#0B0D18 0%,#05060F 100%);
     box-shadow:0 12px 40px -18px rgba(0,0,0,.6),0 0 18px 2px rgba(255,51,102,.55),0 0 34px 7px rgba(0,176,255,.45);
@@ -403,9 +403,9 @@
   </div>
 </footer>
 
-<script src="js/site-config.js?v=1.8.28"></script>
-<script src="js/i18n.js?v=1.8.28"></script>
-<script src="js/theme.js?v=1.8.28"></script>
-<script src="js/sw-register.js?v=1.8.28"></script>
+<script src="js/site-config.js?v=1.8.29"></script>
+<script src="js/i18n.js?v=1.8.29"></script>
+<script src="js/theme.js?v=1.8.29"></script>
+<script src="js/sw-register.js?v=1.8.29"></script>
 </body>
 </html>
