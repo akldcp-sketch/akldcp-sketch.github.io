@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3 | 泫溟鲲鹏堂</title>
+<meta name="description" content="C-008 浅色 RGB 幻彩霓虹视觉模板（skill-matrix v0.6.3 / v2.1.0）：明亮浅色底、7 段红橙黄绿青蓝紫霓虹、10px 粗光柱顺时针跑马灯 + 红蓝光晕，单文件零依赖，375px 移动端优先。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3">
+<meta property="og:description" content="浅色 RGB 幻彩霓虹视觉模板：7 段霓虹 + 10px 粗光柱顺时针跑马灯 + 红蓝光晕，单文件零依赖，移动端优先。">
+<meta property="og:url" content="https://akldcp-sketch.github.io/demos/light-rgb-neon/">
+<meta property="og:site_name" content="泫溟鲲鹏堂">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3">
+<meta name="twitter:description" content="浅色 RGB 幻彩霓虹视觉模板：7 段霓虹 + 10px 粗光柱顺时针跑马灯 + 红蓝光晕，单文件零依赖，移动端优先。">
+<!--
+  ============================================================
+  浅色 RGB 幻彩霓虹视觉模板 v2.1.0（移动端优先 · 7 段多彩 · 粗光柱跑马灯）
+  ------------------------------------------------------------
+  目标栈：任意静态站点 / Next.js / Vite（零外部依赖，不引 CDN）
+  v2.1.0 相对 v2.0.0 的跑马灯可及性修复（本轮唯一改动焦点）：
+  1) RGB 光柱加粗：--marquee-width 默认 10px，为卡片视觉边框 1px
+     的 10 倍（> 3 倍要求），375px 手机上肉眼清晰可见。
+  2) 饱和与发光强化：7 段色组提亮提饱和（#FF1E56→#A944FF 全链），
+     双色 drop-shadow 霓虹 glow（红/蓝双光晕，贴合 mask 环带形状）。
+  3) 流动速度适化：默认 3s/圈（2-4s 舒适区间），负延迟错峰。
+  4) 兼容性兜底：@property 支持（Chrome 85+ / Safari 16.4+ / iOS
+     15.4+）平滑旋转；不支持时 --angle 不插值 → 同样 10px 粗的
+     静态 7 段彩环（@supports 显式检测 conic 门槛，再退级纯色粗环）。
+  v2.0.0 相对 v1.0.0 的四项重构（背景，沿用）：
+  1) 默认即明亮浅色主题：html/body 硬编码明亮底，无任何深色因素、
+     无主题切换、不跟随系统偏好（color-scheme: light 显式锁定）。
+  2) 多彩配色比例大幅提升：红/橙/黄/绿/青/蓝/紫 7 段色组，
+     光晕 / Hero 渐变标题 / 主按钮 / 图标 / 卡片高光 / 柱状图全链路上色。
+  3) 跑马灯改为 @property --angle + conic-gradient(from var(--angle))
+     旋转方案：7 段连续渐变沿卡片边框顺时针匀速流动；支持 @property
+     的浏览器平滑插值，不支持的浏览器自动降级为静态 7 段多彩描边；
+     采用 mask xor/exclude 挖心，避开 mask-composite: intersect 等
+     兼容性差的写法；多卡独立 --marquee-duration / --marquee-direction。
+  4) 375px 竖屏优先：汉堡菜单、触控区 >= 44px、栅格逐级降级、
+     低端机减少大 blur 层（移动端降低/取消 backdrop-filter），桌面增强。
+  ============================================================
+-->
+<style>
+  /* ---------- 色板：7 段多彩霓虹（红→橙→黄→绿→青→蓝→紫） ---------- */
+  :root{
+    --page:#F6F7FB;         /* 明亮浅色画布（蓝灰微调，避免纯白刺眼） */
+    --card:#FFFFFF;
+    --ink:#1E293B;          /* 主文字（slate-800，AA 充足） */
+    --muted:#475569;        /* 次要文字（slate-600，AA 充足） */
+    --red:#FF3366;
+    --orange:#FF7A00;
+    --yellow:#FFC400;
+    --green:#00E676;
+    --cyan:#00D4C8;
+    --blue:#00B0FF;
+    --purple:#9C27FF;
+    /* 7 段渐变（按钮 / 标题 / 高光共用一条语言） */
+    --grad-7:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);
+    /* 跑马灯环：360° 上 7 段色 + 首尾衔接回红 */
+    --ring-7:conic-gradient(#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%,#FF3366 100%);
+    color-scheme:light;
+  }
+  /* 默认明亮锁定：不依赖主题切换 / 系统偏好 */
+  html{
+    background:var(--page);
+    color-scheme:light;
+    scroll-behavior:smooth;
+  }
+  body{
+    margin:0;
+    background:var(--page);           /* 强制明亮画布 */
+    color:var(--ink);
+    font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  section[id]{scroll-margin-top:5rem}
+
+  ::selection{background:rgba(0,176,255,.22);color:#0F172A}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(30,41,59,.16);border-radius:8px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(30,41,59,.28)}
+  ::-webkit-scrollbar-track{background:transparent}
+
+  /* 键盘可达：所有交互元素焦点可见（移动端也保留触屏焦点圈） */
+  a:focus-visible,button:focus-visible{
+    outline:2px solid #2979FF;
+    outline-offset:2px;
+    border-radius:6px;
+  }
+
+  /* ---------- 背景层：7 色幻彩光晕（静态 + 呼吸，移动端缩小） ---------- */
+  .bg-layer{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+  .aurora{position:absolute;border-radius:9999px;will-change:transform}
+  .aurora-1{ /* 红→橙 */
+    width:86vw;height:86vw;max-width:920px;max-height:920px;
+    top:-24vw;left:-18vw;
+    background:radial-gradient(circle,rgba(255,51,102,.22) 0%,rgba(255,122,0,.08) 42%,rgba(255,122,0,0) 68%);
+    animation:drift-a 18s ease-in-out infinite alternate;
+  }
+  .aurora-2{ /* 黄→绿 */
+    width:74vw;height:74vw;max-width:840px;max-height:840px;
+    top:-12vw;right:-20vw;
+    background:radial-gradient(circle,rgba(255,196,0,.16) 0%,rgba(0,230,118,.10) 46%,rgba(0,230,118,0) 70%);
+    animation:drift-b 22s ease-in-out infinite alternate;
+    animation-delay:-5s;
+  }
+  .aurora-3{ /* 青→蓝 */
+    width:88vw;height:54vw;max-width:1000px;max-height:540px;
+    bottom:-20vw;left:50%;transform:translateX(-50%);
+    background:radial-gradient(ellipse,rgba(0,212,200,.18) 0%,rgba(0,176,255,.12) 50%,rgba(0,176,255,0) 72%);
+    animation:drift-c 20s ease-in-out infinite alternate;
+    animation-delay:-9s;
+  }
+  .aurora-4{ /* 蓝→紫 */
+    width:56vw;height:56vw;max-width:720px;max-height:720px;
+    bottom:8vw;left:-14vw;
+    background:radial-gradient(circle,rgba(0,176,255,.14) 0%,rgba(156,39,255,.10) 46%,rgba(156,39,255,0) 68%);
+    animation:drift-d 24s ease-in-out infinite alternate;
+    animation-delay:-13s;
+  }
+  @keyframes drift-a{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(60px,40px,0) scale(1.14)}}
+  @keyframes drift-b{from{transform:translate3d(0,0,0) scale(1.06)}to{transform:translate3d(-64px,48px,0) scale(.96)}}
+  @keyframes drift-c{from{transform:translate3d(-50%,0,0) scale(1)}to{transform:translate3d(calc(-50% + 48px),-48px,0) scale(1.16)}}
+  @keyframes drift-d{from{transform:translate3d(0,0,0) scale(.94)}to{transform:translate3d(40px,-32px,0) scale(1.1)}}
+
+  /* ---------- 玻璃拟态吸顶导航（浅色版 · 移动端低 blur） ---------- */
+  .glass-nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.72);
+    border-bottom:1px solid rgba(30,41,59,.08);
+    transition:background .3s ease,box-shadow .3s ease;
+  }
+  .glass-nav.scrolled{
+    background:rgba(255,255,255,.94);
+    box-shadow:0 10px 36px -14px rgba(30,41,59,.18);
+  }
+  .nav-inner{max-width:72rem;margin:0 auto;padding:0 1rem;height:3.5rem;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:.625rem;text-decoration:none;color:var(--ink)}
+  .brand-mark{
+    width:2.125rem;height:2.125rem;border-radius:.625rem;display:flex;align-items:center;justify-content:center;
+    background:var(--ring-7);
+    box-shadow:0 4px 14px -4px rgba(255,51,102,.5);
+  }
+  .brand-name{font-weight:600;letter-spacing:.02em}
+  .nav-links{display:none;gap:1.5rem;font-size:.875rem;color:var(--muted)}
+  .nav-links a{text-decoration:none;color:var(--muted);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-actions{display:flex;align-items:center;gap:.75rem}
+  /* 汉堡按钮：触控区 >= 44px */
+  .menu-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:2.75rem;height:2.75rem;border-radius:.75rem;
+    border:1px solid rgba(30,41,59,.1);background:rgba(255,255,255,.85);
+    color:var(--ink);cursor:pointer;
+  }
+  @media (min-width:768px){
+    .nav-inner{padding:0 1.5rem;height:4rem}
+    .nav-links{display:flex}
+    .menu-btn{display:none}
+  }
+  .mobile-menu{display:none;padding:0 1rem 1rem;border-top:1px solid rgba(30,41,59,.06)}
+  .mobile-menu.open{display:block}
+  .mobile-menu a{display:block;padding:.75rem 0;text-decoration:none;color:var(--muted);font-size:.875rem}
+  .mobile-menu a:hover{color:var(--ink)}
+
+  /* ---------- 玻璃拟态卡片（浅色版 · 移动端取消大 blur 保性能） ---------- */
+  .glass-card{
+    position:relative;
+    background:rgba(255,255,255,.88);
+    border:1px solid rgba(30,41,59,.08);
+    border-radius:1.25rem;
+    box-shadow:0 12px 40px -18px rgba(30,41,59,.16);
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  /* 卡片高光：顶部一条 7 色渐变光带 */
+  .glass-card::before{
+    content:"";position:absolute;top:0;left:8%;right:8%;height:2px;
+    border-radius:9999px;
+    background:var(--grad-7);
+    opacity:.7;pointer-events:none;
+  }
+  .glass-card:hover{transform:translateY(-4px);box-shadow:0 18px 52px -18px rgba(30,41,59,.24)}
+
+  /* ---------- RGB 幻彩跑马灯边框（核心组件 v3 · @property 7 段粗光柱） ---------- */
+  /* 原理：注册 --angle，conic-gradient(from var(--angle)) 画 7 段连续色环，
+     mask(xor/exclude) 挖心留 --marquee-width（默认 10px）粗光柱带——约为
+     卡片视觉边框 1px 的 10 倍（> 3 倍要求），手机上肉眼清晰可见；双色
+     drop-shadow 贴合环带形状叠加霓虹 glow；@keyframes 插值 --angle 0→360deg，
+     色相起点沿环顺时针匀速流动（默认 3s/圈，2-4s 舒适区间）。
+     兼容性：支持 @property 的浏览器（Chrome 85+ / Safari 16.4+ / iOS 15.4+）
+     平滑旋转；不支持时 --angle 不参与插值 → 同样 10px 粗的静态 7 段彩环；
+     @supports 显式检测 conic-gradient 门槛，再退一级为纯色粗环兜底。 */
+  @property --angle{
+    syntax:"<angle>";
+    inherits:false;
+    initial-value:0deg;
+  }
+  .rgb-card{
+    position:relative;
+    border-radius:1.25rem;
+    background:var(--card);
+    box-shadow:0 12px 40px -18px rgba(30,41,59,.18),
+               0 0 16px 1px rgba(255,51,102,.38),
+               0 0 30px 5px rgba(0,176,255,.3);
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .rgb-card:hover{transform:translateY(-4px);box-shadow:0 18px 52px -16px rgba(30,41,59,.28),0 0 20px 2px rgba(255,51,102,.45),0 0 38px 8px rgba(0,176,255,.38)}
+  .rgb-marquee{
+    --marquee-width:10px;           /* 光柱粗细：卡片边框 1px 的 10 倍 */
+    --marquee-duration:3s;          /* 一圈 3s（2-4s 舒适区间） */
+    --marquee-direction:normal;     /* normal=顺时针（--angle 增大） / reverse=逆时针 */
+    position:absolute;inset:0;border-radius:inherit;padding:var(--marquee-width);
+    /* 霓虹发光：双色 drop-shadow 贴合 mask 挖心后的环带形状 + 外溢 box-shadow，
+       浅色底上形成清晰霓虹光晕（红/蓝双色） */
+    filter:drop-shadow(0 0 10px rgba(255,51,102,.85)) drop-shadow(0 0 22px rgba(0,176,255,.65));
+    box-shadow:0 0 24px -6px rgba(255,51,102,.5),0 0 36px -10px rgba(0,176,255,.4);
+    /* fallback：静态 7 段粗彩环（不支持 var() in from 的旧浏览器天然保留，
+       也作为 @property 不参与插值时的静态兜底——光柱同样 10px 粗） */
+    background:conic-gradient(from 0deg,#FF1E56 0%,#FF6D00 14%,#FFEA00 29%,#00FF7A 43%,#00E5D8 57%,#00B8FF 71%,#A944FF 86%,#FF1E56 100%);
+    /* 主实现：from var(--angle) 沿环旋转 */
+    background:conic-gradient(from var(--angle,0deg),#FF1E56 0%,#FF6D00 14%,#FFEA00 29%,#00FF7A 43%,#00E5D8 57%,#00B8FF 71%,#A944FF 86%,#FF1E56 100%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    mask-composite:exclude;
+    animation:rgb-marquee var(--marquee-duration,3s) linear infinite var(--marquee-direction,normal);
+    pointer-events:none;
+    will-change:transform;
+  }
+  /* 能力门槛 @supports：不支持 conic-gradient 的极旧浏览器 → 同宽纯色粗环，
+     保证任何环境下光柱都肉眼可见（不依赖渐变能力） */
+  @supports not (background: conic-gradient(from 0deg, red, blue)){
+    .rgb-marquee{
+      background:#FF3366;
+      filter:none;
+      animation:none;
+    }
+  }
+  /* 多卡错峰：负延迟打散起步相位（顺时针方向一致，节奏各自独立） */
+  .rgb-card:nth-child(2n) .rgb-marquee{animation-delay:-1s}
+  .rgb-card:nth-child(3n) .rgb-marquee{animation-delay:-1.9s}
+  /* 顺时针流动：--angle 从 0 增至 360deg，conic 色相起点沿环旋转一周 */
+  @keyframes rgb-marquee{to{--angle:360deg}}
+
+  /* ---------- 渐变文字 / 按钮（7 段多彩语言 + 发光） ---------- */
+  .text-gradient{
+    background:var(--grad-7);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:2.75rem;padding:0 1.25rem;border-radius:.875rem;
+    background:var(--grad-7);
+    color:#fff;text-decoration:none;font-weight:600;font-size:.9375rem;
+    box-shadow:0 10px 28px -10px rgba(255,51,102,.55),0 10px 28px -12px rgba(0,176,255,.45);
+    transition:filter .25s ease,transform .25s ease,box-shadow .25s ease;
+  }
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 14px 34px -10px rgba(255,51,102,.6),0 14px 34px -12px rgba(156,39,255,.4)}
+  .btn-ghost{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:2.75rem;padding:0 1.25rem;border-radius:.875rem;
+    background:rgba(255,255,255,.85);border:1px solid rgba(30,41,59,.14);
+    color:var(--ink);text-decoration:none;font-weight:500;font-size:.9375rem;
+    transition:background .25s ease,border-color .25s ease;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.97);border-color:rgba(30,41,59,.28)}
+
+  /* ---------- mockup 柱状图（7 色轮转，多彩占比拉满） ---------- */
+  .bar{
+    flex:1;border-radius:6px 6px 2px 2px;opacity:.88;
+  }
+  .bar-1{background:linear-gradient(180deg,#FF3366,#FF7A00)}
+  .bar-2{background:linear-gradient(180deg,#FFC400,#00E676)}
+  .bar-3{background:linear-gradient(180deg,#00E676,#00D4C8)}
+  .bar-4{background:linear-gradient(180deg,#00D4C8,#00B0FF)}
+  .bar-5{background:linear-gradient(180deg,#00B0FF,#9C27FF)}
+  .bar-6{background:linear-gradient(180deg,#9C27FF,#FF3366)}
+  .bar-7{background:linear-gradient(180deg,#FF7A00,#FFC400)}
+
+  /* ---------- 通用排版栅格（零依赖自实现 · 375px 优先逐级升） ---------- */
+  .wrap{max-width:72rem;margin:0 auto;padding:0 1rem}
+  .grid-4{display:grid;gap:1rem;grid-template-columns:repeat(1,1fr)}
+  .grid-2{display:grid;gap:1rem;grid-template-columns:repeat(1,1fr)}
+  @media (min-width:640px){
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-4{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (min-width:1024px){
+    .wrap{padding:0 1.5rem}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+  }
+
+  /* ---------- 入场动画 ---------- */
+  .fade-up{opacity:0;transform:translateY(18px);animation:rise .8s cubic-bezier(.22,.61,.36,1) forwards}
+  .d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.28s}.d4{animation-delay:.4s}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ---------- 低端机性能降级：移动端降低/取消大 blur ---------- */
+  @media (max-width:767px){
+    .glass-nav{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+    .glass-card{-webkit-backdrop-filter:none;backdrop-filter:none}
+  }
+  @media (min-width:768px){
+    .glass-nav{
+      -webkit-backdrop-filter:blur(20px) saturate(1.4);
+      backdrop-filter:blur(20px) saturate(1.4);
+    }
+    .glass-card{
+      -webkit-backdrop-filter:blur(18px);
+      backdrop-filter:blur(18px);
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .aurora{animation:none}
+    .fade-up{animation:none;opacity:1;transform:none}
+    .rgb-marquee{animation:none}
+    /* 降级：保留静态 7 段多彩描边（fallback background 天然生效） */
+  }
+</style>
+</head>
+<body>
+
+<!-- 背景层：7 色幻彩光晕（纯装饰，4 块：红橙 / 黄绿 / 青蓝 / 蓝紫） -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
+  <div class="aurora aurora-4"></div>
+</div>
+
+<!-- 玻璃拟态吸顶导航（浅色 · 移动端汉堡菜单） -->
+<header class="glass-nav" id="siteNav">
+  <nav class="nav-inner" aria-label="主导航">
+    <a href="#" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 14l9 5 9-5" opacity=".7"/>
+        </svg>
+      </span>
+      <span class="brand-name">泫溟鲲鹏堂</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">特性</a>
+      <a href="#stats">指标</a>
+      <a href="#cta">接入</a>
+      <a href="#">文档</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#cta" class="btn-primary" style="height:2.25rem;min-height:2.25rem;padding:0 1rem;border-radius:.625rem;display:none">开始使用</a>
+      <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="mobileMenu" aria-label="打开菜单">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="#features">特性</a>
+    <a href="#stats">指标</a>
+    <a href="#cta">接入</a>
+    <a href="#">文档</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero（375px 优先排版：标题 1.75rem，桌面 2.75rem） -->
+  <section class="wrap" style="padding-top:4rem;padding-bottom:3.5rem">
+    <div style="max-width:48rem">
+      <div class="fade-up" style="display:inline-flex;align-items:center;gap:.5rem;height:1.875rem;padding:0 .75rem;border-radius:9999px;border:1px solid rgba(30,41,59,.1);background:rgba(255,255,255,.75);font-size:.75rem;color:var(--muted)">
+        <span style="width:.375rem;height:.375rem;border-radius:9999px;background:var(--grad-7)"></span>
+        C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3 · 模板内部 v2.1.0
+      </div>
+      <h1 class="fade-up d1" style="margin:.75rem 0 0;font-size:1.75rem;line-height:1.25;letter-spacing:-.02em;font-weight:700">
+        为明亮而生的<br>
+        <span class="text-gradient">RGB 幻彩霓虹 Web 视觉系统</span>
+      </h1>
+      <p class="fade-up d2" style="margin:1.25rem 0 0;font-size:1rem;line-height:1.7;color:var(--muted);max-width:40rem">
+        明亮浅色画布之上，红橙黄绿青蓝紫七段幻彩光晕缓缓呼吸，卡片边缘的多彩描边沿顺时针循环流动。
+        移动端优先，零外部依赖，纯 CSS 实现，复制样式块即可带进任意项目。
+      </p>
+      <div class="fade-up d3" style="margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:.875rem">
+        <a href="#features" class="btn-primary">查看核心组件</a>
+        <a href="#" class="btn-ghost">迁移说明</a>
+      </div>
+    </div>
+
+    <!-- 玻璃拟态 mockup：7 段跑马灯边框展示 -->
+    <div class="fade-up d4 rgb-card" style="margin-top:3rem;max-width:56rem;padding:1.25rem 1.25rem;border-radius:1.25rem">
+      <span class="rgb-marquee" aria-hidden="true"></span>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:.375rem" aria-hidden="true">
+          <span style="width:.625rem;height:.625rem;border-radius:9999px;background:rgba(30,41,59,.12)"></span>
+          <span style="width:.625rem;height:.625rem;border-radius:9999px;background:rgba(30,41,59,.12)"></span>
+          <span style="width:.625rem;height:.625rem;border-radius:9999px;background:rgba(30,41,59,.12)"></span>
+        </div>
+        <span style="font-size:.75rem;color:var(--muted)">prisma · dashboard</span>
+      </div>
+      <div class="grid-2" style="margin-top:1.25rem">
+        <div style="grid-column:1/-1;border-radius:.75rem;background:rgba(30,41,59,.03);border:1px solid rgba(30,41,59,.06);padding:1.125rem">
+          <div style="font-size:.75rem;color:var(--muted)">Weekly Active Users</div>
+          <div style="margin-top:.25rem;display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap">
+            <span style="font-size:1.625rem;font-weight:600;color:var(--ink)">48,201</span>
+            <span style="font-size:.75rem;padding:.125rem .375rem;border-radius:.375rem;background:rgba(0,230,118,.12);color:#047857">+12.4%</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;align-items:flex-end;gap:.375rem;height:6.5rem" aria-hidden="true">
+            <div class="bar bar-1" style="height:35%"></div>
+            <div class="bar bar-2" style="height:52%"></div>
+            <div class="bar bar-3" style="height:44%"></div>
+            <div class="bar bar-4" style="height:66%"></div>
+            <div class="bar bar-5" style="height:58%"></div>
+            <div class="bar bar-6" style="height:86%"></div>
+            <div class="bar bar-7" style="height:64%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 信任条 -->
+  <section class="wrap" style="padding:2rem 0">
+    <p style="text-align:center;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)">Trusted by teams in beta</p>
+    <div style="margin-top:1.25rem;display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;color:var(--muted);font-weight:600;letter-spacing:.2em" aria-hidden="true">
+      <span>VORTEX</span><span>LUMEN</span><span>NEXA</span><span>POLARIS</span><span>QUARK</span>
+    </div>
+  </section>
+
+  <!-- 特性：四个核心视觉组件（7 段多彩跑马灯卡片 + 多色图标） -->
+  <section id="features" class="wrap" style="padding:4rem 0 3.5rem">
+    <div style="max-width:32rem">
+      <p style="font-size:.875rem;letter-spacing:.2em" class="text-gradient" style="font-weight:600">COMPONENTS</p>
+      <h2 style="margin:.75rem 0 0;font-size:1.5rem;line-height:1.3;font-weight:700;letter-spacing:-.01em">四个核心视觉组件</h2>
+      <p style="margin:1rem 0 0;color:var(--muted);line-height:1.7">每个组件都是一段可直接复制的 CSS，无 JS 依赖、无运行时开销。</p>
+    </div>
+    <div class="grid-4" style="margin-top:2.5rem">
+      <div class="rgb-card" style="padding:1.375rem">
+        <span class="rgb-marquee" aria-hidden="true"></span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:.875rem;background:linear-gradient(135deg,#FF3366,#FF7A00);color:#fff;box-shadow:0 6px 16px -6px rgba(255,51,102,.55)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/>
+          </svg>
+        </span>
+        <h3 style="margin:1rem 0 0;font-weight:600;color:var(--ink)">7 段幻彩跑马灯边框</h3>
+        <p style="margin:.5rem 0 0;font-size:.875rem;color:var(--muted);line-height:1.7">
+          conic-gradient 红橙黄绿青蓝紫描边环沿顺时针循环流动，多卡片独立动画，减动效时静帧降级。
+        </p>
+      </div>
+      <div class="rgb-card" style="padding:1.375rem">
+        <span class="rgb-marquee" aria-hidden="true"></span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:.875rem;background:linear-gradient(135deg,#FFC400,#00E676);color:#fff;box-shadow:0 6px 16px -6px rgba(0,230,118,.55)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="11" cy="13" r="6"/><circle cx="17.5" cy="7.5" r="3" opacity=".55"/>
+          </svg>
+        </span>
+        <h3 style="margin:1rem 0 0;font-weight:600;color:var(--ink)">七色幻彩光晕</h3>
+        <p style="margin:.5rem 0 0;font-size:.875rem;color:var(--muted);line-height:1.7">
+          红橙 / 黄绿 / 青蓝 / 蓝紫四块 radial-gradient 大面积铺底，只动 transform，合成器渲染稳定 60fps。
+        </p>
+      </div>
+      <div class="rgb-card" style="padding:1.375rem">
+        <span class="rgb-marquee" aria-hidden="true"></span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:.875rem;background:linear-gradient(135deg,#00D4C8,#00B0FF);color:#fff;box-shadow:0 6px 16px -6px rgba(0,176,255,.55)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>
+          </svg>
+        </span>
+        <h3 style="margin:1rem 0 0;font-weight:600;color:var(--ink)">玻璃拟态吸顶导航</h3>
+        <p style="margin:.5rem 0 0;font-size:.875rem;color:var(--muted);line-height:1.7">
+          移动端 10px 轻 blur、桌面 20px 全 blur 分级降载，滚动超过阈值后自动加深并投影。
+        </p>
+      </div>
+      <div class="rgb-card" style="padding:1.375rem">
+        <span class="rgb-marquee" aria-hidden="true"></span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;border-radius:.875rem;background:linear-gradient(135deg,#00B0FF,#9C27FF);color:#fff;box-shadow:0 6px 16px -6px rgba(156,39,255,.55)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5" opacity=".6"/>
+          </svg>
+        </span>
+        <h3 style="margin:1rem 0 0;font-weight:600;color:var(--ink)">明亮浅色画布</h3>
+        <p style="margin:.5rem 0 0;font-size:.875rem;color:var(--muted);line-height:1.7">
+          #F6F7FB 明亮底 + slate 深色文字，html/body 默认即明亮，无主题切换、不跟随系统偏好。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 指标带（7 色渐变数字） -->
+  <section id="stats" style="border-top:1px solid rgba(30,41,59,.06);border-bottom:1px solid rgba(30,41,59,.06);background:rgba(255,255,255,.55)">
+    <div class="wrap" style="padding:3rem 0;display:grid;grid-template-columns:repeat(2,1fr);gap:1.75rem;text-align:center">
+      <div>
+        <div style="font-size:1.625rem;font-weight:700" class="text-gradient">60fps</div>
+        <div style="margin-top:.25rem;font-size:.8125rem;color:var(--muted)">纯 CSS 动画帧率</div>
+      </div>
+      <div>
+        <div style="font-size:1.625rem;font-weight:700" class="text-gradient">7 色</div>
+        <div style="margin-top:.25rem;font-size:.8125rem;color:var(--muted)">红橙黄绿青蓝紫霓虹主题</div>
+      </div>
+      <div>
+        <div style="font-size:1.625rem;font-weight:700" class="text-gradient">0</div>
+        <div style="margin-top:.25rem;font-size:.8125rem;color:var(--muted)">外部依赖 / CDN</div>
+      </div>
+      <div>
+        <div style="font-size:1.625rem;font-weight:700" class="text-gradient">375px</div>
+        <div style="margin-top:.25rem;font-size:.8125rem;color:var(--muted)">竖屏优先适配</div>
+      </div>
+    </div>
+    <style>
+      @media (min-width:768px){
+        #stats .wrap{grid-template-columns:repeat(4,1fr)}
+        #stats > div > div > div:first-child{font-size:1.875rem}
+      }
+    </style>
+  </section>
+
+  <!-- CTA（7 段跑马灯玻璃面板 + 多色发光按钮） -->
+  <section id="cta" class="wrap" style="padding:4rem 0">
+    <div class="rgb-card" style="position:relative;overflow:hidden;padding:2.5rem 1.25rem;text-align:center">
+      <span class="rgb-marquee" aria-hidden="true"></span>
+      <div style="position:absolute;top:-6rem;left:50%;transform:translateX(-50%);width:420px;height:220px;border-radius:9999px;pointer-events:none" aria-hidden="true"></div>
+      <h2 style="position:relative;margin:0;font-size:1.5rem;line-height:1.3;font-weight:700;color:var(--ink)">把这套幻彩带回你的项目</h2>
+      <p style="position:relative;margin:1rem auto 0;max-width:36rem;color:var(--muted);line-height:1.7">
+        复制样式块与页面结构，五分钟内还原全部效果。零 CDN、零依赖，部署到任意静态托管即可上线。
+      </p>
+      <div style="position:relative;margin-top:1.75rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.875rem">
+        <a href="#" class="btn-primary">复制组件代码</a>
+        <a href="#" class="btn-ghost">查看迁移指南</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 页脚 -->
+<footer style="border-top:1px solid rgba(30,41,59,.06)">
+  <div class="wrap" style="padding:2.25rem 0;display:flex;flex-direction:column;gap:1rem;align-items:center;justify-content:space-between;font-size:.875rem;color:var(--muted)">
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <span class="brand-mark" style="width:1.375rem;height:1.375rem;border-radius:.375rem" aria-hidden="true"></span>
+      泫溟鲲鹏堂 · C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3
+    </div>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#" style="color:var(--muted);text-decoration:none;transition:color .2s">更新日志</a>
+      <a href="#" style="color:var(--muted);text-decoration:none;transition:color .2s">迁移指南</a>
+      <a href="#" style="color:var(--muted);text-decoration:none;transition:color .2s">GitHub</a>
+    </div>
+    <div>Zero-dependency · Mobile-first · Static Ready</div>
+  </div>
+</footer>
+
+<script>
+  // 吸顶导航：滚动后加深底色 + 投影（搬进框架时放 useEffect 并 cleanup）
+  (function () {
+    var nav = document.getElementById('siteNav');
+    var onScroll = function () {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // 移动端菜单开合
+    var btn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
+
+</body>
+</html>

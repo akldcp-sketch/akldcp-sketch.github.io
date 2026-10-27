@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>用 AI 技能矩阵落地个人博客：web-design-skill-matrix 实战复盘 - 戴程鹏</title>
   <meta name="description" content="把 web-design-skill-matrix（v0.6.0）装进本地工作流的一次完整复盘：77 项关联技能从 6 项就绪补齐到 35 项可验证，42 项无公开来源如实列清单不冒充可用，路由校验 24/24 全部通过；v0.6.0 新增第 7 个实战判例 C-007 深色霓虹玻璃拟态模板与 design-tokens 海军蓝变体，并直接产出暗色模式首页、归档页与订阅表单完成部署，全文附 6 步可复现操作清单。">
-  <link rel="stylesheet" href="../../css/style.css?v=1.8.25">
+  <link rel="stylesheet" href="../../css/style.css?v=1.8.26">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
   <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
@@ -114,6 +114,20 @@
 <p><strong>实测留证</strong>：375×812 移动视口连拍截图（<code>marquee_t0.png</code> / <code>marquee_t1.png</code>）三项验证全部通过——① 粗渐变光带目视可见；② 光带外侧红蓝霓虹光晕生效；③ 两张连拍四角色块互换，证明光带顺时针流动。</p>
 <p>同批同步版本号全链路：<code>&lt;title&gt;</code> / Hero 徽章 / Footer / 头部注释 / case.md / README / SKILL / design-tokens 统一 v2.1.0 / v0.6.3；路由规则与验证逻辑仍未改动，<code>verify_route.py</code> 继续 24/24。</p>
 
+<h2>九、在线预览：C-008 浅色 RGB 幻彩霓虹模板真实效果</h2>
+<p>模板实体已部署上线，无需再靠截图与文字脑补——下方 iframe 直接加载真实模板页面（单文件零依赖，手机端自动响应式布局），可直接看到明亮浅色画布、7 段红橙黄绿青蓝紫霓虹光晕，以及卡片边缘 10px 粗光柱的顺时针跑马灯流动效果。</p>
+<div style="position:relative;width:100%;border:1px solid var(--border,#e5e7eb);border-radius:12px;overflow:hidden;background:#fff;margin:1rem 0 1.25rem">
+  <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem .875rem;font-size:12px;color:var(--muted,#6b7280);background:linear-gradient(180deg,#fafafa,#f3f4f6);border-bottom:1px solid var(--border,#e5e7eb)">
+    <span style="width:9px;height:9px;border-radius:50%;background:#ff5f57"></span>
+    <span style="width:9px;height:9px;border-radius:50%;background:#febc2e"></span>
+    <span style="width:9px;height:9px;border-radius:50%;background:#28c840"></span>
+    <span style="margin-left:.5rem;font-family:ui-monospace,Menlo,monospace;color:var(--muted,#6b7280)">demos/light-rgb-neon/index.html</span>
+    <a href="https://akldcp-sketch.github.io/demos/light-rgb-neon/" target="_blank" rel="noopener" style="margin-left:auto;font-weight:600;color:var(--accent,#4f46e5);text-decoration:none">新窗口打开 ↗</a>
+  </div>
+  <iframe src="https://akldcp-sketch.github.io/demos/light-rgb-neon/" title="C-008 浅色 RGB 幻彩霓虹模板 · skill-matrix v0.6.3" loading="lazy" style="display:block;width:100%;height:600px;border:0" allowfullscreen></iframe>
+</div>
+<p><strong>手机端提示</strong>：上方 iframe 在窄屏下自动缩放适配；若希望全屏沉浸体验，直接访问 <a href="https://akldcp-sketch.github.io/demos/light-rgb-neon/" target="_blank" rel="noopener">https://akldcp-sketch.github.io/demos/light-rgb-neon/</a>。</p>
+
 <p>这次复盘的结论只有一句：工具矩阵最大的价值，是让你对"自己会什么"有一个不撒谎的清单。35 项验证过的、42 项存疑的，都摆在那里，比"感觉什么都会"有用得多。</p>
         </div>
       </div>
@@ -137,15 +151,15 @@
     </div>
   </footer>
 
-    <script src="../../js/site-config.js?v=1.8.25"></script>
-<script src="../../js/i18n.js?v=1.8.25"></script>
-  <script src="../../js/main.js?v=1.8.25"></script>
-  <script src="../../js/posts-data.js?v=1.8.25"></script>
-  <script src="../../js/post.js?v=1.8.25"></script>
-  <script src="../../js/seo.js?v=1.8.25"></script>
-  <script src="../../js/analytics.js?v=1.8.25"></script>
-  <script src="../../js/comments.js?v=1.8.25"></script>
-  <script src="../../js/sw-register.js?v=1.8.25"></script>
-  <script src="../../js/assistant.js?v=1.8.25"></script>
+    <script src="../../js/site-config.js?v=1.8.26"></script>
+<script src="../../js/i18n.js?v=1.8.26"></script>
+  <script src="../../js/main.js?v=1.8.26"></script>
+  <script src="../../js/posts-data.js?v=1.8.26"></script>
+  <script src="../../js/post.js?v=1.8.26"></script>
+  <script src="../../js/seo.js?v=1.8.26"></script>
+  <script src="../../js/analytics.js?v=1.8.26"></script>
+  <script src="../../js/comments.js?v=1.8.26"></script>
+  <script src="../../js/sw-register.js?v=1.8.26"></script>
+  <script src="../../js/assistant.js?v=1.8.26"></script>
 </body>
 </html>
