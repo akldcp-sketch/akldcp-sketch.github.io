@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 27 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Ad Creative A/B Testing: Bayesian Decisions on Material Survival</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <category>AI Skills</category>
+      <description>Ad creative testing should not be a gut call. AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes zero-dependency reproducible Python code.</description>
+    </item>
     <item>
       <title>Dynamic Ad Budget Reallocation: Move Money by Marginal ROI</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-26-dynamic-ad-budget-reallocation-marginal-roi.html</link>

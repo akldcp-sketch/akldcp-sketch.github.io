@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>广告素材 A/B 测款：贝叶斯方法决定素材去留 - 戴程鹏</title>
+  <meta name="description" content="广告素材测款别靠感觉。本文给出 AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="广告素材 A/B 测款：贝叶斯方法决定素材去留 - 戴程鹏">
+  <meta property="og:description" content="广告素材 A/B 测款实战：AI 变体批量衍生 + 微预算 72 小时快反 + 贝叶斯后验胜率判定，附零依赖可复现 Python 代码与素材归档规范。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html">
+  <meta property="og:site_name" content="戴程鹏">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"},"headline":"广告素材 A/B 测款：贝叶斯方法决定素材去留","description":"广告素材测款别靠感觉。本文给出 AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码。","inLanguage":"zh-CN","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"广告素材 A/B 测款：贝叶斯方法决定素材去留","item":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"},"headline":"Ad Creative A/B Testing: Bayesian Decisions on Material Survival","description":"Ad creative testing should not be a gut call. This post combines AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes a zero-dependency reproducible Python Bayesian A/B tester and a material archiving workflow.","inLanguage":"en","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Ad Creative A/B Testing: Bayesian Decisions on Material Survival","item":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    .text-gradient{background:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    @media (prefers-color-scheme: dark){ .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))} }
+
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .post-body table { border-collapse: collapse; width: 100%; margin: 16px 0 20px; font-size: 15px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 14px; line-height: 1.6; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+  </style>
+</head>
+<body>
+<header class="site-header">
+    <nav class="nav container">
+      <a href="../../index.html" class="logo">DAI<span class="accent">·</span>CP</a>
+      <div class="nav-links">
+        <a href="../../index.html" data-i18n="nav.home">首页</a>
+        <a href="../../about.html" data-i18n="nav.about">关于</a>
+        <a href="../../work.html" data-i18n="nav.work">作品集</a>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <a href="../../methods.html" data-i18n="nav.methods">方法论</a>
+        <a href="../../achievements.html" data-i18n="nav.results">成绩单</a>
+        <a href="../../blog.html" class="active" data-i18n="nav.blog">博客</a>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.adcreative.title">广告素材 A/B 测款：贝叶斯方法决定素材去留</h1>
+        <p class="post-meta">2026-10-28 · AI 技能包</p>
+
+        <div class="post-body">
+<p>广告素材最常见的浪费，不是做不出来，而是"测不出来"：设计师加班出了 10 张主图，全量投放后 7 天看一次报表，才发现 8 张在烧钱、2 张在漏单——钱花完了，结论还没跑出来。操盘 9 产品线 49 店铺矩阵，我逐步把"人工做图-全量投放-周报复盘"改成"AI 批量衍生-微预算快反-贝叶斯判定"：素材测试周期从 7-14 天压到 72 小时，无效投放成本降 60% 以上。本文给出广告素材 A/B 测款的三步闭环、CTR 衰减率与贝叶斯后验胜率的判定红线，以及零依赖、可复现的 Python 贝叶斯 A/B 测试代码。</p>
+
+<h2>一、素材疲劳与盲投浪费：广告素材测款为什么需要小流量快反</h2>
+<p>跨境电商的素材衰减比很多人想象的快：同一卖点包装 3-5 天后 CTR（点击率）就开始断崖下跌。素材疲劳的后果是"创意内卷"——团队越做越多，但边际效用越来越低；盲投浪费的后果更直接：没有早期筛选机制，预算流向低效素材，等 ROI 崩盘才被动关停，沉没成本已经吃掉利润。</p>
+<p>问题不在素材质量，在测试机制。全量投放是"用真金白银做实验"，一次实验的成本就是整周的广告预算；小流量快反则是"用零花钱做实验"——每个变体只给 3-5 天、几百到上千元的微预算，用统计方法在 72 小时内判断素材生死，赢家再进放量池。测款不是赌运气，是算概率。</p>
+
+<h2>二、AI 素材变体 + 微预算快反：广告素材 A/B 测款的方法骨架</h2>
+<p>三步闭环：先批量衍生，再小流量快反，最后统计判定。</p>
+<ol>
+<li><b>AI 批量衍生素材变体</b>：以验证过的基础素材为种子，用文生图模型调整风格词（极简、生活场景、强烈对比色块、晒图风等）、构图与背景，一次产出 20-50 个视觉变体。核心卖点保持不变，只差异化视觉呈现，保证测的是"表达方式"而不是"产品"。</li>
+<li><b>微预算 72 小时快反</b>：每个变体独立投放，预算控制在每变体 500-1000 元、时长 72 小时。72 小时足以积累数千次曝光、覆盖周末流量波动，又不会被市场噪音拉长决策周期。</li>
+<li><b>统计判定生死</b>：监控每小时 CTR 变化，连续 6 小时低于基准线 20% 触发止损熔断；存活变体跑贝叶斯后验胜率，胜率超过 95% 且期望损失低于 5% 才进放量池。</li>
+</ol>
+<p>合规边界先说清：所有变体必须基于自有版权素材做合规修改；微预算测款是平台广告政策的正常投放行为，不是刷单、不操纵数据。测款解决的是"哪个素材值得放量"的决策问题。</p>
+
+<h2>三、CTR 衰减率与贝叶斯判定：广告素材 A/B 测试怎么定生死</h2>
+<p>判定不能只看绝对 CTR，还要看衰减率——首 12 小时与次 12 小时的 CTR 差。衰减慢的素材说明用户注意力锁定能力强，是放量的信号；CTR 高但 24 小时内掉 30% 的素材，多半是标题党，见光死。</p>
+<p>以下是某家居产品线 7 天测 8 组 AI 变体的脱敏实录（每变体预算约 800 元，72 小时窗口）：</p>
+<table>
+<thead><tr><th>素材编号</th><th>视觉主题</th><th>曝光（次）</th><th>CTR</th><th>CVR</th><th>ROAS</th><th>贝叶斯胜率</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>Base</td><td>纯白底静物</td><td>12,000</td><td>1.8%</td><td>2.1%</td><td>2.4</td><td>—</td><td>对照组</td></tr>
+<tr><td>V-12</td><td>强烈对比色块</td><td>11,400</td><td>3.2%</td><td>2.9%</td><td>4.5</td><td>100.0%</td><td>胜出放量</td></tr>
+<tr><td>V-22</td><td>用户晒图风格</td><td>9,900</td><td>2.8%</td><td>2.5%</td><td>3.8</td><td>100.0%</td><td>胜出放量</td></tr>
+<tr><td>V-15</td><td>节日氛围背景</td><td>7,800</td><td>1.9%</td><td>1.6%</td><td>1.2</td><td>69.6%</td><td>观察</td></tr>
+<tr><td>V-07</td><td>动态使用演示</td><td>9,200</td><td>1.5%</td><td>1.8%</td><td>1.9</td><td>4.8%</td><td>淘汰</td></tr>
+<tr><td>V-25</td><td>抽象几何构图</td><td>6,500</td><td>1.2%</td><td>1.4%</td><td>0.9</td><td>0.1%</td><td>淘汰</td></tr>
+</tbody>
+</table>
+<p>复盘：V-12 第 24 小时 CTR 破 3.0%，72 小时窗口衰减率仅 15%，贝叶斯后验胜率 100%、期望损失 0%，Day 3 预算占比从 10% 提到 40%，成为该周核心放量素材。V-15 与基准差距太小，判定"观察"而不是立刻淘汰——小流量阶段最忌讳拿一点数据就把接近的素材误杀。</p>
+
+<h2>四、贝叶斯 A/B 测试代码：后验胜率与期望损失怎么算</h2>
+<p>频率派 A/B 测试要攒够样本才能下结论，电商快反等不起。贝叶斯派的思路是：把 CTR 当作未知概率，用 Beta 分布描述"它的可能取值"，每来一批点击就更新一次后验，随时可以问"B 胜过 A 的概率是多少"。后验胜率 &gt;95% 且期望损失 &lt;5%，就是放量的充分证据。</p>
+<p>下面是零依赖版本（只用 Python 标准库，无需 pip install 任何包），内置 Marsaglia-Tsang 方法采样 Beta 分布，可直接运行：</p>
+<pre><code># ad_creative_bayesian_ab.py —— 广告素材贝叶斯 A/B 测试（零依赖，直接运行）
+import math, random
+
+def gamma_sample(shape):
+    """Marsaglia-Tsang 方法采样 Gamma(shape, 1)，shape > 0"""
+    if shape < 1.0:
+        return gamma_sample(shape + 1.0) * (random.random() ** (1.0 / shape))
+    d = shape - 1.0 / 3.0
+    c = 1.0 / math.sqrt(9.0 * d)
+    while True:
+        x = random.gauss(0.0, 1.0)
+        v = (1.0 + c * x) ** 3
+        if v &lt;= 0:
+            continue
+        u = random.random()
+        if u &lt; 1.0 - 0.0331 * (x ** 4):
+            break
+        if math.log(u) &lt; 0.5 * x * x + d * (1.0 - v + math.log(v)):
+            break
+    return d * v
+
+def beta_sample(a, b):
+    """Beta(a, b) 采样：X = G_a / (G_a + G_b)"""
+    ga, gb = gamma_sample(a), gamma_sample(b)
+    return ga / (ga + gb)
+
+def bayes_ab(a_click, a_view, b_click, b_view, n=20000, seed=42):
+    """B 素材 vs A 素材：返回后验胜率 P(pB>pA) 与期望损失（选 B 错失的 A 优势比例）"""
+    random.seed(seed)
+    wins, loss_sum = 0, 0.0
+    for _ in range(n):
+        pa = beta_sample(1 + a_click, 1 + a_view - a_click)   # 无信息先验 Beta(1,1)
+        pb = beta_sample(1 + b_click, 1 + b_view - b_click)
+        if pb &gt; pa:
+            wins += 1
+        if pa &gt; pb:
+            loss_sum += (pa - pb) / pa
+    return wins / n, loss_sum / n
+
+def decide(win, loss):
+    if win &gt;= 0.95 and loss &lt;= 0.05:
+        return "Winner 放量"
+    if win &lt;= 0.05:
+        return "Loser 淘汰"
+    return "Uncertain 观察"
+
+if __name__ == "__main__":
+    base = dict(views=12000, clicks=216)                 # Base 纯白底，CTR 1.8%
+    tests = [                                             # (素材名, 曝光, 点击)
+        ("V-12 强烈对比色块", 11400, 365),
+        ("V-22 用户晒图风格",  9900, 277),
+        ("V-15 节日氛围背景",  7800, 148),
+        ("V-07 动态使用演示",  9200, 138),
+        ("V-25 抽象几何构图",  6500,  78),
+    ]
+    print(f"{'素材':&lt;18}{'胜率':&gt;8}{'期望损失':&gt;8}  判定")
+    for name, views, clicks in tests:
+        win, loss = bayes_ab(base["clicks"], base["views"], clicks, views)
+        print(f"{name:&lt;16}{win:&gt;8.1%}{loss:&gt;8.1%}  {decide(win, loss)}")
+</code></pre>
+<pre><code>素材                   胜率    期望损失  判定
+V-12 强烈对比色块      100.0%    0.0%  Winner 放量
+V-22 用户晒图风格      100.0%    0.0%  Winner 放量
+V-15 节日氛围背景       69.6%    2.0%  Uncertain 观察
+V-07 动态使用演示        4.8%   16.3%  Loser 淘汰
+V-25 抽象几何构图        0.1%   32.4%  Loser 淘汰</code></pre>
+<p>注意两点：一是后验要随新数据持续更新——测试跑满 72 小时再判定，中途"胜率超过 90%"不等于最终结论，曝光不足时胜率波动大；二是判定红线（95% / 5%）要根据测试成本调：素材制作成本越低，红线可以放越松，因为试错便宜。</p>
+
+<h2>五、素材库归档与失败沉淀：把测款结果变成组织资产</h2>
+<p>测款最大的隐性价值不在赢家，在失败素材的归档。我们建了一个去中心化素材库，三条规范：</p>
+<ol>
+<li><b>四层标签</b>：风格（极简/鲜艳/暗黑）、情绪（焦虑/愉悦/好奇）、钩子（价格/功能/场景）、AI 参数（Prompt 摘要、种子值、模型版本）。标签决定素材可检索、可复用。</li>
+<li><b>失败素材的"尸检报告"</b>：淘汰素材不删除，写一句失败归因（如"演示过程过长，用户流失率高"），负样本沉淀进负向约束库，后续 AI 生成 Prompt 时作为排除项，避免重复生产同类低效创意。</li>
+<li><b>月度素材复活</b>：每月回看 3-6 个月前的"观察"素材。市场情绪周期轮回，曾经的备胎可能成为新爆款——V-15 这类接近线、又没到淘汰线的素材，是复活池的主力。</li>
+</ol>
+
+<h2>六、可复现步骤</h2>
+<ol>
+<li>挑 1 个验证过的素材当种子，用文生图模型按 4 种风格批量衍生 20-50 个变体，命名带时间戳与变体 ID</li>
+<li>每变体独立投放，预算 500-1000 元、时长 72 小时，受众定向完全一致</li>
+<li>每小时拉一次 CTR，连续 6 小时低于基准 20% 立即暂停（止损熔断）</li>
+<li>72 小时满，用上面的贝叶斯 A/B 测试代码跑胜率与期望损失，按 95% / 5% 红线判 Winner / Loser / Uncertain</li>
+<li>Winner 进放量池逐步加预算，Loser 写尸检报告进负向约束库，Uncertain 留到下月复活池复审</li>
+<li>把整套流程做成 AI 技能包：自动批量生成、自动拉数、自动判定、自动归档，每天巡检从 2 小时缩到 10 分钟</li>
+</ol>
+
+<p>《道德经》讲"合抱之木，生于毫末"——所有爆款素材都不是一次画出来的，而是在一次次小流量测试里长出来的。测款不是多花钱，是让每一分测试预算都变成决策依据。代码拿去跑一遍，你也能在下周的素材池里，找到那个被你埋没的 3.2%。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+<footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 戴程鹏 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../../js/site-config.js?v=1.8.29"></script>
+  <script src="../../js/i18n.js?v=1.8.29"></script>
+  <script src="../../js/main.js?v=1.8.29"></script>
+  <script src="../../js/posts-data.js?v=1.8.29"></script>
+  <script src="../../js/post.js?v=1.8.29"></script>
+  <script src="../../js/seo.js?v=1.8.29"></script>
+  <script src="../../js/analytics.js?v=1.8.29"></script>
+  <script src="../../js/comments.js?v=1.8.29"></script>
+  <script src="../../js/sw-register.js?v=1.8.29"></script>
+  <script src="../../js/assistant.js?v=1.8.29"></script>
+</body>
+</html>

@@ -201,6 +201,7 @@
     "post.related": { zh: "相关阅读", en: "Related" },
     "post.cashflow.title": { zh: "现金流底线管理：跨境多店矩阵先算死线再谈增长", en: "Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling" },
     "post.mroi.title": { zh: "广告预算再分配：按边际 ROI 把钱挪到刀刃上", en: "Dynamic Ad Budget Reallocation: Move Money by Marginal ROI" },
+    "post.adcreative.title": { zh: "广告素材 A/B 测款：贝叶斯方法决定素材去留", en: "Ad Creative A/B Testing: Bayesian Decisions on Material Survival" },
 
     // ---- 页脚 ----
     "footer.rss": { zh: "RSS 订阅", en: "RSS" },
@@ -215,7 +216,7 @@
     "business.cats": { zh: "个主题分类", en: "Categories" },
     "business.weekly": { zh: "篇/每周更新", en: "Posts / Week" },
     "business.allTitle": { zh: "商业思维 · 全部文章", en: "Business Thinking · All Posts" },
-    "business.allCount": { zh: "25 篇 · 按日期倒序", en: "25 Posts · Reverse Chronological" },
+    "business.allCount": { zh: "26 篇 · 按日期倒序", en: "26 Posts · Reverse Chronological" },
     "business.update": { zh: "以上为本站全部文章，覆盖 7 个主题分类；新文章将每周补充到本列表顶部，并与归档、RSS、sitemap 同步。", en: "All site posts above, covering 7 topic categories; new posts are added to the top weekly and synced with the archive, RSS and sitemap." },
     "business.footerIntro": { zh: "记录真实业务里的 AI 应用与商业操盘方法，所有案例基于公开可验证的实操过程。", en: "Documenting AI applications and business operations methods from real work — every case is based on publicly verifiable practice." },
 
@@ -227,7 +228,7 @@
     "aiSkill.cats": { zh: "个主题分类", en: "Category" },
     "aiSkill.weekly": { zh: "篇/每周更新", en: "Posts / Week" },
     "aiSkill.allTitle": { zh: "AI技能包 · 全部实战文章", en: "AI Skill Pack · All Practice Posts" },
-    "aiSkill.allCount": { zh: "8 篇 · 按日期倒序", en: "8 Posts · Reverse Chronological" },
+    "aiSkill.allCount": { zh: "9 篇 · 按日期倒序", en: "9 Posts · Reverse Chronological" },
     "aiSkill.update": { zh: "以上为本站全部 AI 技能包属性文章；新文章将每周补充到本列表顶部，并与归档、RSS、sitemap 同步。", en: "All AI skill pack posts above; new posts are added to the top weekly and synced with the archive, RSS and sitemap." },
     "aiSkill.footerIntro": { zh: "记录真实业务里的 AI 技能包应用方法，所有案例基于公开可验证的实操过程。", en: "Documenting AI skill pack methods from real work — every case is based on publicly verifiable practice." },
     "index.biz.eyebrow": { zh: "商业思维专题", en: "Business Thinking" },

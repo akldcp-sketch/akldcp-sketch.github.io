@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-10-28-ad-creative-bayesian-ab-test",
+    en: { title: "Ad Creative A/B Testing: Bayesian Decisions on Material Survival", summary: "Ad creative testing should not be a gut call. AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes zero-dependency reproducible Python code.", tag: "AI Skills" },
+    title: "广告素材 A/B 测款：贝叶斯方法决定素材去留",
+    date: "2026-10-28",
+    tag: "AI 技能包",
+    summary: "素材测款别靠感觉。AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码与素材归档规范。"
+  },
+  {
     file: "2026-10-26-dynamic-ad-budget-reallocation-marginal-roi",
     en: { title: "Dynamic Ad Budget Reallocation: Move Money by Marginal ROI", summary: "An ad budget is not a one-time split. Reallocate by marginal ROI: a dynamic budget pool with 40/50/10 weights, 5 misallocation signals, and a reproducible Python simulator — same 50K daily budget, 5 iterations lift weighted mROI from 2.47 to 2.77, adding 14,900 RMB of daily profit.", tag: "AI Skills" },
     title: "广告预算再分配：按边际 ROI 把钱挪到刀刃上",
