@@ -1029,6 +1029,10 @@ body::after {
   gap: 48px;
 }
 
+.contact-info {
+  padding: 26px 28px 24px;
+}
+
 .contact-info h2,
 .contact-form h2 {
   font-size: 22px;
