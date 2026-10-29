@@ -8,10 +8,10 @@ window.SITE_CONFIG = {
   siteUrl: "https://akldcp-sketch.github.io",
 
   // 站点主体信息（JSON-LD 与 OG 共用）
-  siteName: "戴程鹏",
-  siteNameEn: "Dai Chengpeng",
-  author: "戴程鹏",
-  authorEn: "Dai Chengpeng",
+  siteName: "泫溟",
+  siteNameEn: "Xuanming",
+  author: "泫溟",
+  authorEn: "Xuanming",
   jobTitle: "商业操盘手 · AI 技能包工程负责人",
   jobTitleEn: "Business Operator · AI Skill Pack Engineer",
   orgName: "万世康伦（KONLLEN）集团",
@@ -20,7 +20,7 @@ window.SITE_CONFIG = {
 
   // 联系方式
   contact: {
-    email: "alextok200@gmail.com",
+    email: "akldcp@gmail.com",
     github: "https://github.com/alextok200",
     // 填二维码图片路径后 contact 页显示（例："assets/img/wechat-qr.webp"），留空显示占位
     wechatQr: "assets/img/wechat-qr.webp"
@@ -38,7 +38,7 @@ window.SITE_CONFIG = {
     webhook: "",
     // 与 Cloudflare Worker 环境变量 INQUIRY_TOKEN 保持一致（见 tools/dingtalk-form-relay.js）
     token: "",
-    formSubmitEmail: "alextok200@gmail.com",
+    formSubmitEmail: "akldcp@gmail.com",
     fallbackMailto: true
   },
 

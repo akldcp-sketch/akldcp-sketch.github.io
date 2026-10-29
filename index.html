@@ -265,9 +265,15 @@
   html[data-theme="dark"] .biz-preview .entry-badge{box-shadow:0 1px 6px rgba(239,68,68,.45);}
   html[data-theme="dark"] .biz-entry{background:linear-gradient(135deg,#111A2E,#0F2E40);}
   html[data-theme="dark"] .biz-entry::after{background:rgba(129,140,248,.14);}
-  .bottom-cta{text-align:center; background:linear-gradient(180deg, transparent, var(--color-surface)); padding:56px 0 72px;}
-  .bottom-cta h2{font-size:var(--fs-2xl);}
-  .bottom-cta p{color:var(--color-muted); max-width:52ch; margin:0 auto 24px;}
+  .bottom-cta{position:relative; overflow:hidden; text-align:center; background:#05060F; display:grid; place-items:center; min-height:clamp(340px, 40vw, 520px); padding:0; isolation:isolate;}
+  .bottom-cta-media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none;}
+  .bottom-cta::after{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(5,6,15,.82) 0%, rgba(5,6,15,.55) 45%, rgba(5,6,15,.9) 100%); pointer-events:none;}
+  .bottom-cta > .container{position:relative; z-index:2; width:100%; padding:64px 0;}
+  .bottom-cta h2{font-size:var(--fs-2xl); color:#fff;}
+  .bottom-cta p{color:rgba(255,255,255,.82); max-width:52ch; margin:0 auto 24px;}
+  .bottom-cta .btn{background:#fff; color:#05060F; border-color:#fff;}
+  .bottom-cta .eyebrow{color:rgba(255,255,255,.72);}
+  @media(max-width:880px){.bottom-cta{min-height:320px;} .bottom-cta > .container{padding:44px 0;}}
   footer{border-top:1px solid var(--color-border); padding:44px 0 56px; color:var(--color-muted); font-size:14px;}
   footer .grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; align-items:flex-start;}
   footer .col h5{margin:0 0 12px; color:var(--color-text); font-size:14px;}
@@ -390,27 +396,6 @@
     html:not([data-theme="light"]) .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))}
   }
 
-  /* ===== 首页展示片（v1.8.31）：640×368 竖屏友好 16:9，安全区 padding ≥ 3px 光柱 + 8px 呼吸 ===== */
-  .showreel{padding:24px 0 0;}
-  .showreel .section-head{margin-bottom:32px;}
-  .showreel-frame{position:relative; margin:0 auto; max-width:960px; padding:14px; border:1px solid var(--color-border); border-radius:var(--radius-lg); background:var(--color-surface); overflow:hidden;}
-  .showreel-screen{position:relative; border-radius:calc(var(--radius-lg) - 8px); overflow:hidden; background:#05060F; aspect-ratio:640 / 368;}
-  .showreel-screen video{display:block; width:100%; height:100%; object-fit:cover; background:#05060F;}
-  .showreel-play{position:absolute; inset:0; z-index:2; width:100%; min-height:44px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; border:0; padding:0; background:rgba(5,6,15,.42); color:#fff; font:inherit; font-size:var(--fs-sm); font-weight:600; cursor:pointer; transition:background .2s ease;}
-  .showreel-play:hover{background:rgba(5,6,15,.28);}
-  .showreel-play:focus-visible{outline:2px solid #fff; outline-offset:-4px;}
-  .showreel-play[hidden]{display:none;}
-  .showreel-play .play-dot{width:56px; height:56px; border-radius:var(--radius-pill); display:grid; place-items:center; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.5); font-size:16px; padding-left:4px;}
-  .showreel-cap{display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:center; margin:16px 0 0; padding:0; list-style:none; font-size:var(--fs-xs); color:var(--color-muted);}
-  .showreel-cap li{position:relative; padding-left:13px;}
-  .showreel-cap li::before{content:""; position:absolute; left:0; top:.62em; width:5px; height:5px; border-radius:50%; background:var(--color-accent);}
-  @media (max-width:880px){
-    .showreel{padding:0;}
-    .showreel-frame{padding:12px;}
-    .showreel .section-head{margin-bottom:22px;}
-    .showreel-cap{gap:6px 14px; font-size:12px;}
-  }
-
   </style>
 </head>
 <body>
@@ -445,35 +430,6 @@
         <div class="post-card rgb-card"><span class="rgb-marquee" aria-hidden="true"></span><span class="tag b">AI 技能包</span><div class="card-title">让零基础同事用上 AI 技能包</div><div class="meta"><time datetime="2026-07-25">2026-07-25</time> · 4 分钟</div></div>
         <div class="post-card rgb-card"><span class="rgb-marquee" aria-hidden="true"></span><span class="tag c">工程</span><div class="card-title">给 AI 技能签"合同"</div><div class="meta"><time datetime="2026-08-20">2026-08-20</time> · 5 分钟</div></div>
         <a class="art-cta" href="#articles">→ 全部文章见下方列表</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="showreel" id="showreel" aria-labelledby="showreel-h">
-    <div class="container">
-      <div class="section-head center" data-reveal>
-        <span class="eyebrow">技能产出实时流</span>
-        <h2 id="showreel-h">60 秒，看清这套技能包在跑什么</h2>
-        <p>自研技能的周产出曲线、七维能力矩阵、134+ 项技能清单——把后台真实在跑的东西摊开成一条片子。</p>
-      </div>
-      <div class="showreel-frame rgb-card" data-reveal style="--d:80ms">
-        <span class="rgb-marquee" aria-hidden="true"></span>
-        <div class="showreel-screen">
-          <video id="showreel-video" poster="assets/video/skill-showcase-poster.webp" width="640" height="368" muted playsinline loop preload="metadata" disablepictureinpicture aria-label="自研技能产出曲线与七维能力矩阵演示，时长 59 秒">
-            <source src="assets/video/skill-showcase.mp4" type="video/mp4">
-            当前浏览器不支持内嵌视频，可<a href="assets/video/skill-showcase.mp4">直接下载观看</a>。
-          </video>
-          <button type="button" class="showreel-play" id="showreel-play" aria-label="播放演示视频">
-            <span class="play-dot" aria-hidden="true">▶</span>
-            <span>播放演示 · 59 秒</span>
-          </button>
-        </div>
-        <ul class="showreel-cap">
-          <li>技能周产出曲线</li>
-          <li>七维能力评估</li>
-          <li>134+ 自研技能</li>
-          <li>数据取自后台真实记录</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -596,7 +552,7 @@
         <span class="eyebrow">订阅更新</span>
         <h2 id="newsletter-h">每周一封，把实战经验送到你邮箱</h2>
         <p>精选本周 1–2 篇深度文章 + 一个可直接复用的操作模板。不灌水、不群发广告，随时一键退订。</p>
-        <form class="form" id="subscribe-form" novalidate action="mailto:alextok100@hotmail.com" method="get">
+        <form class="form" id="subscribe-form" novalidate action="mailto:akldcp@gmail.com" method="get">
           <div style="flex:1; min-width:240px;">
             <label class="visually-hidden" for="email">邮箱地址</label>
             <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="form-hint" />
@@ -610,10 +566,14 @@
     </div>
   </section>
 
-  <section class="bottom-cta" aria-labelledby="cta-h">
+  <section class="bottom-cta" id="showcase" aria-labelledby="cta-h">
+    <video class="bottom-cta-media" id="cta-video" poster="assets/video/skill-showcase-poster.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true" tabindex="-1">
+      <source src="assets/video/skill-showcase.mp4" type="video/mp4">
+    </video>
     <div class="container" data-reveal>
+      <span class="eyebrow">技能产出实时流</span>
       <h2 id="cta-h">别只收藏，跟着做一遍</h2>
-      <p>每一篇都给出可复现的步骤与数据，适合正在操盘或准备入局的你。</p>
+      <p>周产出曲线、七维能力矩阵、134+ 项技能清单都在后台真实运行——每一篇都给出可复现的步骤与数据，适合正在操盘或准备入局的你。</p>
       <a class="btn" href="#newsletter">订阅每周更新<span class="arrow">→</span></a>
     </div>
   </section>
@@ -714,7 +674,7 @@
         err.style.display = 'none';
         var subject = '订阅博客更新';
         var body = '你好，\n\n我想订阅你的博客更新。我的邮箱是：' + val + '\n\n请确认订阅，谢谢！';
-        var mailtoUrl = 'mailto:alextok100@hotmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        var mailtoUrl = 'mailto:akldcp@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         function copyToClipboard(text){
           if(navigator.clipboard && navigator.clipboard.writeText){
             return navigator.clipboard.writeText(text).then(function(){ return true; }, function(){ return fallbackCopy(text); });
@@ -751,50 +711,35 @@
       }
     }
 
-    /* 首页展示片：桌面入视口静音自动播，手机/省流/reduced-motion 走点击播放 */
+    /* 首页底部背景片：静音自动循环；减弱动效/省流时停在海报帧 */
     (function(){
-      var v = document.getElementById('showreel-video');
-      var btn = document.getElementById('showreel-play');
+      var v = document.getElementById('cta-video');
       if(!v) return;
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var narrow = window.matchMedia('(max-width: 880px)').matches;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var conn = navigator.connection || {};
       var saveData = conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '');
-      var auto = !reduce && !narrow && !saveData;
-      if(auto){
-        v.loop = true;
-        if('IntersectionObserver' in window){
-          var vio = new IntersectionObserver(function(entries){
-            entries.forEach(function(e){
-              if(e.isIntersecting){
-                var p = v.play();
-                if(p && p.catch) p.catch(function(){ if(btn) btn.hidden = false; });
-              } else {
-                v.pause();
-              }
-            });
-          }, {threshold: 0.35});
-          vio.observe(v);
-        } else {
-          var p2 = v.play();
-          if(p2 && p2.catch) p2.catch(function(){ if(btn) btn.hidden = false; });
-        }
-        if(btn) btn.hidden = true;
+      if(reduce || saveData){
+        v.removeAttribute('autoplay');
+        v.pause();
+        try { v.preload = 'none'; } catch(e){}
+        return;
       }
-      function enableControls(){
-        v.controls = true;
-        v.loop = true;
+      function play(){
+        var r = v.play();
+        if(r && r.catch) r.catch(function(){});
       }
-      if(btn){
-        btn.addEventListener('click', function(){
-          btn.hidden = true;
-          enableControls();
-          var p = v.play();
-          if(p && p.catch) p.catch(function(){ btn.hidden = false; });
-        });
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){ play(); } else { v.pause(); }
+          });
+        }, {threshold: 0.15}).observe(v);
+      } else {
+        play();
       }
-      v.addEventListener('play', function(){ if(btn) btn.hidden = true; });
-      v.addEventListener('click', function(){ if(!v.controls) enableControls(); });
+      document.addEventListener('visibilitychange', function(){
+        if(document.hidden){ v.pause(); } else { play(); }
+      });
     })();
 
     var toggle = document.getElementById('theme-toggle');

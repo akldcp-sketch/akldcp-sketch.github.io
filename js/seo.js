@@ -55,7 +55,7 @@
       });
       var title = meta
         ? (isEn && meta.en && meta.en.title ? meta.en.title : meta.title)
-        : document.title.replace(/\s*-\s*戴程鹏\s*$/, "").trim();
+        : document.title.replace(/\s*-\s*泫溟\s*$/, "").trim();
       var summary = meta
         ? (isEn && meta.en && meta.en.summary ? meta.en.summary : meta.summary)
         : (document.querySelector('meta[name=description]') || {}).content || "";

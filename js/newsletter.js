@@ -1,6 +1,6 @@
 /* ============================================================
    newsletter.js v1.0.0 —— Newsletter 订阅（仅需 email + honeypot）
-   走 site-config.js 的 formSubmitEmail 通道（默认 alextok200@gmail.com），
+   走 site-config.js 的 formSubmitEmail 通道（默认 akldcp@gmail.com），
    邮件主题固定为 "Newsletter 订阅"，与 inquiry 通道分流。
    邮箱通道同 inquiry.js：留空则降级为本地邮件客户端 / 提示联系邮箱。
    ============================================================ */
