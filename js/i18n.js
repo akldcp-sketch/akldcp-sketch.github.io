@@ -17,7 +17,7 @@
     "nav.contact": { zh: "联系", en: "Contact" },
     "lang.btn": { zh: "EN", en: "中文" },
     "theme.toggle": { zh: "切换明暗主题", en: "Toggle light/dark theme" },
-    "logo": { zh: "DAI·CP", en: "DAI·CP" },
+    "logo": { zh: "扶摇", en: "FY·XM" },
 
     // ---- 页脚 ----
     "footer.copyright": { zh: "© 2026 泫溟 · Powered by GitHub Pages", en: "© 2026 Xuanming · Powered by GitHub Pages" },
