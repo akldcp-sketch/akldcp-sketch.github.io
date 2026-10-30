@@ -189,9 +189,9 @@ def render_detail(meta: dict, body_html: str) -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{meta['title_zh']} - 戴程鹏</title>
+  <title>{meta['title_zh']} - 扶摇</title>
   <meta name="description" content="{meta['summary_zh']}">
-  <meta property="og:title" content="{meta['title_zh']} - 戴程鹏">
+  <meta property="og:title" content="{meta['title_zh']} - 扶摇">
   <meta property="og:description" content="{meta['summary_zh']}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://akldcp-sketch.github.io/methods/{d}-{slug}.html">
@@ -203,13 +203,13 @@ def render_detail(meta: dict, body_html: str) -> str:
   <meta name="theme-color" content="#9333ea">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
-  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{meta['title_zh']}","datePublished":"{d}","dateModified":"{d}","author":{{"@type":"Person","name":"戴程鹏","url":"https://akldcp-sketch.github.io/"}},"publisher":{{"@type":"Person","name":"戴程鹏"}},"inLanguage":"zh-CN","url":"https://akldcp-sketch.github.io/methods/{d}-{slug}.html"}}</script>
+  <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{meta['title_zh']}","datePublished":"{d}","dateModified":"{d}","author":{{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/"}},"publisher":{{"@type":"Person","name":"扶摇"}},"inLanguage":"zh-CN","url":"https://akldcp-sketch.github.io/methods/{d}-{slug}.html"}}</script>
   <script type="application/ld+json">{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"}},{{"@type":"ListItem","position":2,"name":"方法论","item":"https://akldcp-sketch.github.io/methods.html"}},{{"@type":"ListItem","position":3,"name":"{meta['title_zh']}","item":"https://akldcp-sketch.github.io/methods/{d}-{slug}.html"}}]}}</script>
 </head>
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">DAI<span class="accent">·</span>CP</a>
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
       <div class="nav-links">
         <a href="../index.html">首页</a>
         <a href="../about.html">关于</a>
@@ -241,7 +241,7 @@ def render_detail(meta: dict, body_html: str) -> str:
   </main>
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 戴程鹏 · Powered by GitHub Pages</p>
+      <p>© 2026 扶摇 · Powered by GitHub Pages</p>
     </div>
   </footer>
 </body>
@@ -271,9 +271,9 @@ def render_list(articles: list) -> str:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>方法论 - 戴程鹏</title>
+  <title>方法论 - 扶摇</title>
   <meta name="description" content="通用型方法论手册：从知识库同步而来的组织能力沉淀，覆盖技能研发流水线、数据中台、交付物规范、多 Agent 协同等可复用模式。">
-  <meta property="og:title" content="方法论 - 戴程鹏">
+  <meta property="og:title" content="方法论 - 扶摇">
   <meta property="og:description" content="通用型方法论手册——换项目、换业务线都能直接套用的组织能力杠杆资产。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://akldcp-sketch.github.io/methods.html">
@@ -289,7 +289,7 @@ def render_list(articles: list) -> str:
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a href="index.html" class="logo"><img class="logo-mark" src="assets/img/favicon-32.png" alt="">DAI<span class="accent">·</span>CP</a>
+      <a href="index.html" class="logo"><img class="logo-mark" src="assets/img/favicon-32.png" alt="">扶摇</a>
       <div class="nav-links">
         <a href="index.html">首页</a>
         <a href="about.html">关于</a>
@@ -324,7 +324,7 @@ def render_list(articles: list) -> str:
   </main>
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 戴程鹏 · Powered by GitHub Pages</p>
+      <p>© 2026 扶摇 · Powered by GitHub Pages</p>
     </div>
   </footer>
 </body>

@@ -5,8 +5,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG = os.path.join(ROOT, "assets", "img")
-FONT_BOLD = "C:/Windows/Fonts/msyhbd.ttc"
-FONT_REG = "C:/Windows/Fonts/msyh.ttc"
+FONT_BOLD = next((c for c in ["C:/Windows/Fonts/msyhbd.ttc", "/System/Library/Fonts/Hiragino Sans GB.ttc", "/Library/Fonts/Arial Unicode.ttf"] if os.path.exists(c)), "C:/Windows/Fonts/msyhbd.ttc")
+FONT_REG = next((c for c in ["C:/Windows/Fonts/msyh.ttc", "/System/Library/Fonts/Hiragino Sans GB.ttc", "/Library/Fonts/Arial Unicode.ttf"] if os.path.exists(c)), "C:/Windows/Fonts/msyh.ttc")
 
 BG = (9, 7, 17)
 VIOLET = (147, 51, 234)
@@ -51,7 +51,7 @@ def make(size, path, maskable=False):
 
     # 上方品牌字
     f_brand = ImageFont.truetype(FONT_BOLD, int(inner * 0.17))
-    txt = "DAI·CP"
+    txt = "扶摇"
     tb = d.textbbox((0, 0), txt, font=f_brand)
     w = tb[2] - tb[0]
     d.text(((size - w) / 2, pad + inner * 0.28), txt, font=f_brand, fill=WHITE)

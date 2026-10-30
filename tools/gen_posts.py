@@ -9,9 +9,9 @@ import os, io, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://akldcp-sketch.github.io"
-AUTHOR_ZH = '{"@type":"Person","name":"戴程鹏","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]}'
+AUTHOR_ZH = '{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"' + SITE + '/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]}'
 PUBLISHER_ZH = '{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"' + SITE + '/"}'
-AUTHOR_EN = '{"@type":"Person","name":"Dai Chengpeng","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"' + SITE + '/","email":"mailto:alextok200@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]}'
+AUTHOR_EN = '{"@type":"Person","name":"Fuyao","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"' + SITE + '/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]}'
 PUBLISHER_EN = '{"@type":"Organization","name":"KONLLEN Group","url":"' + SITE + '/"}'
 
 # 每篇文章：file / date / title(zh) / titleShort(head 用) / tag / summary / ogDesc / en{title,summary,tag} / body
@@ -230,7 +230,7 @@ def render(p):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{head_title} - 戴程鹏</title>
+  <title>{head_title} - 扶摇</title>
   <meta name="description" content="{ogDesc}">
   <link rel="stylesheet" href="../../css/style.css?v=1.6.24">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -239,11 +239,11 @@ def render(p):
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta property="og:title" content="{head_title} - 戴程鹏">
+  <meta property="og:title" content="{head_title} - 扶摇">
   <meta property="og:description" content="{ogDesc}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="{url}">
-  <meta property="og:site_name" content="戴程鹏">
+  <meta property="og:site_name" content="扶摇">
   <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="{url}">
@@ -255,7 +255,7 @@ def render(p):
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a href="../../index.html" class="logo">DAI<span class="accent">·</span>CP</a>
+      <a href="../../index.html" class="logo">扶摇</a>
       <div class="nav-links">
         <a href="../../index.html" data-i18n="nav.home">首页</a>
         <a href="../../about.html" data-i18n="nav.about">关于</a>
@@ -286,7 +286,7 @@ def render(p):
 
   <footer class="site-footer">
     <div class="container">
-      <p data-i18n="footer.copyright">© 2026 戴程鹏 · Powered by GitHub Pages</p>
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
       <p class="footer-links">
         <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
         <span class="dot">·</span>

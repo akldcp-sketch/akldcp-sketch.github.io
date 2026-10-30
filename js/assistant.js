@@ -7,7 +7,7 @@
     zh: {
       title: "AI 助手",
       welcome: "常见问题马上答。点下方问题，或直接输入关键词。",
-      fallback: "这个问题我答不上，可以到「联系」页留下你的问题，泫溟会亲自回复。",
+      fallback: "这个问题我答不上，可以到「联系」页留下你的问题，扶摇会亲自回复。",
       quick: ["主导过哪些项目", "有哪些能力", "年 GMV 多少", "在招什么岗位", "怎么联系"],
       answers: {
         "代理|经销|加盟|招商|渠道|分销": "商务合作与渠道对接，请在「联系」页说明来意与背景，1-2 个工作日内回复。",
@@ -18,13 +18,13 @@
         "技能|skill|ai|工具|看板|生图|自动化|审批": "20+ AI 技能包，覆盖投流审核、视觉生产、数据看板、OA 审批、视频脚本、复盘模板等。详见「作品集」页。",
         "博客|文章|笔记|blog": "20 篇实战笔记，覆盖 ERP、Temu、OA 审批、达人分析、数据中台等。详见「博客」页。",
         "价格|报价|底价|拿货|进货|成本": "具体商务条款与报价，请在「联系」页说明需求，会尽快回复。",
-        "你|谁|什么|ai|机器人|模型|助手|真|假": "我是这个站点的规则型 AI 助手，跑在浏览器里、零依赖。复杂问题请留联系方式，泫溟本人会回复。"
+        "你|谁|什么|ai|机器人|模型|助手|真|假": "我是这个站点的规则型 AI 助手，跑在浏览器里、零依赖。复杂问题请留联系方式，扶摇本人会回复。"
       }
     },
     en: {
       title: "AI Assistant",
       welcome: "Quick answers to common questions. Tap a chip below or type a keyword.",
-      fallback: "I can't help with that. Use the Contact page to leave a note — Xuanming will reply personally.",
+      fallback: "I can't help with that. Use the Contact page to leave a note — Fuyao will reply personally.",
       quick: ["Featured projects", "Core skills", "Annual GMV", "Open roles", "How to contact"],
       answers: {
         "dealership|distributor|partner|channel|reseller": "For business collaboration, describe your context on the Contact page — reply within 1-2 business days.",
@@ -35,7 +35,7 @@
         "skill|tool|ai|automation|dashboard|approv|agent|script": "20+ AI skill packs: ad review, visual production, dashboards, OA approvals, video scripts. See the Work page.",
         "blog|post|article|note|writing": "Twenty field notes spanning ERP, Temu, OA approvals, influencer analytics and data platforms. See the Blog page.",
         "price|moq|min|order|cost|wholesale": "For commercial terms, describe your needs on the Contact page and you will hear back shortly.",
-        "you|ai|bot|model|who|real|human|robot": "I'm a rules-based assistant running entirely in your browser, no servers. For real complexity, leave a note and Xuanming will reply himself."
+        "you|ai|bot|model|who|real|human|robot": "I'm a rules-based assistant running entirely in your browser, no servers. For real complexity, leave a note and Fuyao will reply himself."
       }
     }
   };

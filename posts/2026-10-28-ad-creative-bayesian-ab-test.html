@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>广告素材 A/B 测款：贝叶斯方法决定素材去留 - 泫溟</title>
+  <title>广告素材 A/B 测款：贝叶斯方法决定素材去留 - 扶摇</title>
   <meta name="description" content="广告素材测款别靠感觉。本文给出 AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码。">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
@@ -11,17 +11,17 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta property="og:title" content="广告素材 A/B 测款：贝叶斯方法决定素材去留 - 泫溟">
+  <meta property="og:title" content="广告素材 A/B 测款：贝叶斯方法决定素材去留 - 扶摇">
   <meta property="og:description" content="广告素材 A/B 测款实战：AI 变体批量衍生 + 微预算 72 小时快反 + 贝叶斯后验胜率判定，附零依赖可复现 Python 代码与素材归档规范。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html">
-  <meta property="og:site_name" content="泫溟">
+  <meta property="og:site_name" content="扶摇">
   <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"},"headline":"广告素材 A/B 测款：贝叶斯方法决定素材去留","description":"广告素材测款别靠感觉。本文给出 AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码。","inLanguage":"zh-CN","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"泫溟","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"},"headline":"广告素材 A/B 测款：贝叶斯方法决定素材去留","description":"广告素材测款别靠感觉。本文给出 AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码。","inLanguage":"zh-CN","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"广告素材 A/B 测款：贝叶斯方法决定素材去留","item":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"},"headline":"Ad Creative A/B Testing: Bayesian Decisions on Material Survival","description":"Ad creative testing should not be a gut call. This post combines AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes a zero-dependency reproducible Python Bayesian A/B tester and a material archiving workflow.","inLanguage":"en","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"Xuanming","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"},"headline":"Ad Creative A/B Testing: Bayesian Decisions on Material Survival","description":"Ad creative testing should not be a gut call. This post combines AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes a zero-dependency reproducible Python Bayesian A/B tester and a material archiving workflow.","inLanguage":"en","datePublished":"2026-10-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"Fuyao","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Ad Creative A/B Testing: Bayesian Decisions on Material Survival","item":"https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html"}]}</script>
 <style>
     :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
@@ -218,7 +218,7 @@ V-25 抽象几何构图        0.1%   32.4%  Loser 淘汰</code></pre>
 
 <footer class="site-footer">
     <div class="container">
-      <p data-i18n="footer.copyright">© 2026 泫溟 · Powered by GitHub Pages</p>
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
       <p class="footer-links">
         <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
         <span class="dot">·</span>
@@ -232,15 +232,15 @@ V-25 抽象几何构图        0.1%   32.4%  Loser 淘汰</code></pre>
       </p>
     </div>
   </footer>
-  <script src="../../js/site-config.js?v=1.8.32"></script>
-  <script src="../../js/i18n.js?v=1.8.32"></script>
-  <script src="../../js/main.js?v=1.8.32"></script>
-  <script src="../../js/posts-data.js?v=1.8.32"></script>
-  <script src="../../js/post.js?v=1.8.32"></script>
-  <script src="../../js/seo.js?v=1.8.32"></script>
-  <script src="../../js/analytics.js?v=1.8.32"></script>
-  <script src="../../js/comments.js?v=1.8.32"></script>
-  <script src="../../js/sw-register.js?v=1.8.32"></script>
-  <script src="../../js/assistant.js?v=1.8.32"></script>
+  <script src="../../js/site-config.js?v=1.8.34"></script>
+  <script src="../../js/i18n.js?v=1.8.34"></script>
+  <script src="../../js/main.js?v=1.8.34"></script>
+  <script src="../../js/posts-data.js?v=1.8.34"></script>
+  <script src="../../js/post.js?v=1.8.34"></script>
+  <script src="../../js/seo.js?v=1.8.34"></script>
+  <script src="../../js/analytics.js?v=1.8.34"></script>
+  <script src="../../js/comments.js?v=1.8.34"></script>
+  <script src="../../js/sw-register.js?v=1.8.34"></script>
+  <script src="../../js/assistant.js?v=1.8.34"></script>
 </body>
 </html>

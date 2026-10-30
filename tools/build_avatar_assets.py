@@ -137,9 +137,9 @@ def make_og_default(src):
     draw = ImageDraw.Draw(canvas)
 
     # 主标题
-    draw.text((600, 130), "戴程鹏", fill=TEXT_WHITE, font=f_title)
+    draw.text((600, 130), "扶摇", fill=TEXT_WHITE, font=f_title)
     # 英文名
-    draw.text((600, 215), "Dai Chengpeng", fill=(120, 130, 170), font=f_sub)
+    draw.text((600, 215), "Fuyao", fill=(120, 130, 170), font=f_sub)
     # tagline（霓虹绿）
     draw.text((600, 290), "商业操盘  ·  团队体系  ·  AI 技能包工程",
               fill=NEON_GREEN, font=f_tag)
