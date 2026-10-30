@@ -5,13 +5,21 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 28 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>退货率不是售后指标：把逆向物流算进净货值的操盘口径</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-10-30-return-rate-net-goods-value.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-30-return-rate-net-goods-value.html</guid>
+      <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>退货率不是售后指标，而是净货值的扣减项。本文拆解退款、逆向物流、包装损耗、客服工时、二次销售折价五块成本，用四款家居收纳 SKU 的月度数据算净货值率：销量第一的壁挂置物架退货率 18.5%，净货值率只有 75.0%，比折叠收纳箱低 16.1 个百分点。附零依赖 Python 计算脚本、退货归因标签与选品准入门槛。</description>
+    </item>
     <item>
       <title>广告素材 A/B 测款：贝叶斯方法决定素材去留</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</link>
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</guid>
-      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI 技能包</category>
       <description>素材测款别靠感觉。AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码与素材归档规范。</description>
     </item>

@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-10-30-return-rate-net-goods-value",
+    en: { title: "Return Rate Is Not an After-Sales Metric: Counting Reverse Logistics into Net Goods Value", summary: "Return rate is a deduction from net goods value, not an after-sales metric. Five cost blocks — refund, reverse logistics, packaging loss, customer-service labor, resale markdown — applied to four home-storage SKUs: the top-selling wall rack has 18.5% returns and only 75.0% net goods value, 16.1 points below the folding box. Includes zero-dependency Python, reason tags and thresholds.", tag: "Business Operations" },
+    title: "退货率不是售后指标：把逆向物流算进净货值的操盘口径",
+    date: "2026-10-30",
+    tag: "商业操盘",
+    summary: "退货率不是售后指标，而是净货值的扣减项。拆解退款、逆向物流、包装损耗、客服工时、二次销售折价五块成本，用四款家居收纳 SKU 月度数据算净货值率：销量第一的壁挂置物架退货率 18.5%、净货值率仅 75.0%，比折叠收纳箱低 16.1 个百分点。附零依赖 Python 脚本、退货归因标签与选品准入门槛。"
+  },
+  {
     file: "2026-10-28-ad-creative-bayesian-ab-test",
     en: { title: "Ad Creative A/B Testing: Bayesian Decisions on Material Survival", summary: "Ad creative testing should not be a gut call. AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes zero-dependency reproducible Python code.", tag: "AI Skills" },
     title: "广告素材 A/B 测款：贝叶斯方法决定素材去留",
