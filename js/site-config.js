@@ -8,10 +8,10 @@ window.SITE_CONFIG = {
   siteUrl: "https://akldcp-sketch.github.io",
 
   // 站点主体信息（JSON-LD 与 OG 共用）
-  siteName: "泫溟",
-  siteNameEn: "Xuanming",
-  author: "泫溟",
-  authorEn: "Xuanming",
+  siteName: "扶摇",
+  siteNameEn: "Fuyao",
+  author: "扶摇",
+  authorEn: "Fuyao",
   jobTitle: "商业操盘手 · AI 技能包工程负责人",
   jobTitleEn: "Business Operator · AI Skill Pack Engineer",
   orgName: "万世康伦（KONLLEN）集团",

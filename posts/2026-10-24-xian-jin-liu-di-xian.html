@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>现金流底线管理：跨境多店矩阵先算死线再谈增长 - 泫溟</title>
+  <title>现金流底线管理：跨境多店矩阵先算死线再谈增长 - 扶摇</title>
   <meta name="description" content="现金流底线管理是跨境多店矩阵的生死线：账面赚钱不代表现金安全，从采购到平台回款资金沉睡 60-90 天，物流延误与回款滞后会在旺季吃光账面利润。本文给出月刚性支出×安全月数的底线公式、海运空运资金占用对比，以及基于 pandas 的现金流压力测试 Python 模型：逐周滚动预测、模拟延误与滞后场景、跌破底线自动红灯预警，并给出停备货、转空运、供应链金融三步预案。">
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
@@ -11,17 +11,17 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta property="og:title" content="现金流底线管理：跨境多店矩阵先算死线再谈增长 - 泫溟">
+  <meta property="og:title" content="现金流底线管理：跨境多店矩阵先算死线再谈增长 - 扶摇">
   <meta property="og:description" content="现金流底线管理实战：月刚性支出×安全月数定死线，跨境物流周期资金占用对比，基于 pandas 的现金流压力测试模型与完整可复现代码。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html">
-  <meta property="og:site_name" content="泫溟">
+  <meta property="og:site_name" content="扶摇">
   <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html"},"headline":"现金流底线管理：跨境多店矩阵先算死线再谈增长","description":"现金流底线管理是跨境多店矩阵的生死线：账面赚钱不代表现金安全，从采购到平台回款资金沉睡 60-90 天，物流延误与回款滞后会在旺季吃光账面利润。本文给出月刚性支出×安全月数的底线公式、海运空运资金占用对比，以及基于 pandas 的现金流压力测试 Python 模型：逐周滚动预测、模拟延误与滞后场景、跌破底线自动红灯预警，并给出停备货、转空运、供应链金融三步预案。","inLanguage":"zh-CN","datePublished":"2026-10-24","dateModified":"2026-10-24","author":{"@type":"Person","name":"泫溟","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html"},"headline":"现金流底线管理：跨境多店矩阵先算死线再谈增长","description":"现金流底线管理是跨境多店矩阵的生死线：账面赚钱不代表现金安全，从采购到平台回款资金沉睡 60-90 天，物流延误与回款滞后会在旺季吃光账面利润。本文给出月刚性支出×安全月数的底线公式、海运空运资金占用对比，以及基于 pandas 的现金流压力测试 Python 模型：逐周滚动预测、模拟延误与滞后场景、跌破底线自动红灯预警，并给出停备货、转空运、供应链金融三步预案。","inLanguage":"zh-CN","datePublished":"2026-10-24","dateModified":"2026-10-24","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"万世康伦（KONLLEN）集团"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"万世康伦（KONLLEN）集团","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"现金流底线管理：跨境多店矩阵先算死线再谈增长","item":"https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html"}]}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html"},"headline":"Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling","description":"Cash flow baseline management is the lifeline of a cross-border multi-store matrix: profit on paper is not cash in hand, funds sleep 60-90 days from purchase to platform settlement, and logistics delays with payment lags quietly eat into book profit during peak season. This article gives a baseline formula of monthly rigid costs x safety months, a sea vs air capital occupation comparison, and a reproducible Python stress-test model that rolls forecasts week by week, simulates delays and lags, and alerts in red when cash drops below the baseline.","inLanguage":"en","datePublished":"2026-10-24","dateModified":"2026-10-24","author":{"@type":"Person","name":"Xuanming","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html"},"headline":"Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling","description":"Cash flow baseline management is the lifeline of a cross-border multi-store matrix: profit on paper is not cash in hand, funds sleep 60-90 days from purchase to platform settlement, and logistics delays with payment lags quietly eat into book profit during peak season. This article gives a baseline formula of monthly rigid costs x safety months, a sea vs air capital occupation comparison, and a reproducible Python stress-test model that rolls forecasts week by week, simulates delays and lags, and alerts in red when cash drops below the baseline.","inLanguage":"en","datePublished":"2026-10-24","dateModified":"2026-10-24","author":{"@type":"Person","name":"Fuyao","jobTitle":"Business Operator · AI Skill Pack Engineer","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","worksFor":{"@type":"Organization","name":"KONLLEN Group"},"sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"KONLLEN Group","url":"https://akldcp-sketch.github.io/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Cash Flow Baseline Management: Stress-Test the Multi-Store Matrix Before Scaling","item":"https://akldcp-sketch.github.io/posts/2026-10-24-xian-jin-liu-di-xian.html"}]}</script>
   <style>
     :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
@@ -231,7 +231,7 @@ W12   594          OK
 
   <footer class="site-footer">
     <div class="container">
-      <p data-i18n="footer.copyright">© 2026 泫溟 · Powered by GitHub Pages</p>
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
       <p class="footer-links">
         <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
         <span class="dot">·</span>
@@ -246,15 +246,15 @@ W12   594          OK
     </div>
   </footer>
 
-  <script src="../../js/site-config.js?v=1.8.32"></script>
-  <script src="../../js/i18n.js?v=1.8.32"></script>
-  <script src="../../js/main.js?v=1.8.32"></script>
-  <script src="../../js/posts-data.js?v=1.8.32"></script>
-  <script src="../../js/post.js?v=1.8.32"></script>
-  <script src="../../js/seo.js?v=1.8.32"></script>
-  <script src="../../js/analytics.js?v=1.8.32"></script>
-  <script src="../../js/comments.js?v=1.8.32"></script>
-  <script src="../../js/sw-register.js?v=1.8.32"></script>
-  <script src="../../js/assistant.js?v=1.8.32"></script>
+  <script src="../../js/site-config.js?v=1.8.34"></script>
+  <script src="../../js/i18n.js?v=1.8.34"></script>
+  <script src="../../js/main.js?v=1.8.34"></script>
+  <script src="../../js/posts-data.js?v=1.8.34"></script>
+  <script src="../../js/post.js?v=1.8.34"></script>
+  <script src="../../js/seo.js?v=1.8.34"></script>
+  <script src="../../js/analytics.js?v=1.8.34"></script>
+  <script src="../../js/comments.js?v=1.8.34"></script>
+  <script src="../../js/sw-register.js?v=1.8.34"></script>
+  <script src="../../js/assistant.js?v=1.8.34"></script>
 </body>
 </html>

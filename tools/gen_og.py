@@ -16,8 +16,14 @@ WHITE = (255, 255, 255)
 DIM = (167, 159, 196)
 BORDER = (42, 32, 64)
 
-FONT_BOLD = "C:/Windows/Fonts/msyhbd.ttc"
-FONT_REG = "C:/Windows/Fonts/msyh.ttc"
+def _pick(cands):
+    for c in cands:
+        if os.path.exists(c):
+            return c
+    return cands[-1]
+
+FONT_BOLD = _pick(["C:/Windows/Fonts/msyhbd.ttc", "/System/Library/Fonts/Hiragino Sans GB.ttc", "/Library/Fonts/Arial Unicode.ttf"])
+FONT_REG = _pick(["C:/Windows/Fonts/msyh.ttc", "/System/Library/Fonts/Hiragino Sans GB.ttc", "/Library/Fonts/Arial Unicode.ttf"])
 
 
 def radial_glow(img, cx, cy, radius, color, strength=0.55):
@@ -47,9 +53,9 @@ def main():
 
     # 主标题
     f_name = ImageFont.truetype(FONT_BOLD, 76)
-    d.text((80, 150), "戴程鹏", font=f_name, fill=WHITE)
+    d.text((80, 150), "扶摇", font=f_name, fill=WHITE)
     f_en = ImageFont.truetype(FONT_REG, 34)
-    d.text((82, 246), "DAI CHENGPENG", font=f_en, fill=DIM)
+    d.text((82, 246), "FUYAO", font=f_en, fill=DIM)
 
     # 身份
     f_role = ImageFont.truetype(FONT_BOLD, 40)

@@ -148,7 +148,7 @@ rows2 = [
      "GoatCounter/Clarity ID、Giscus repo（可选）", "未配置时零脚本加载、配置后一行生效"],
     ["S3 体验品牌", "T12", "PWA 离线支持", "manifest.webmanifest、sw.js、图标 192/512", "是", "无", "Chrome 可安装、离线回退页可用、SW 版本可更新"],
     ["S3 体验品牌", "T13", "OG 默认图 + 社交 meta 补齐", "assets/img/og-default.png、全站 meta", "是", "无", "分享卡片带图带摘要、og:image 无 404"],
-    ["S3 体验品牌", "T14", "电子名片 vCard + 二维码位", "assets/戴程鹏.vcf、contact.html 增强", "是", "微信二维码图片（可选）", "vCard 可导入通讯录、二维码位有明显待补提示"],
+    ["S3 体验品牌", "T14", "电子名片 vCard + 二维码位", "assets/扶摇.vcf、contact.html 增强", "是", "微信二维码图片（可选）", "vCard 可导入通讯录、二维码位有明显待补提示"],
     ["S3 体验品牌", "T15", "AI 问答助手", "js/assistant.js + CSS", "是", "无", "中英关键词命中、未命中引导留资、移动端不遮挡内容"],
     ["S4 发布验收", "T16", "冒烟测试 + 提交发布 + 验收报告", "验收报告、git commit & push", "是", "GitHub 凭据",
      "无 404、无控制台报错、GitHub Pages 线上可访问"],

@@ -24,7 +24,7 @@ RESOURCES = [
     "js/lightfall.js", "js/blog.js", "js/post.js", "js/posts-data.js",
     "js/seo.js", "js/analytics.js", "js/comments.js", "js/sw-register.js",
     "js/inquiry.js", "js/newsletter.js", "js/theme.js", "js/assistant.js", "manifest.webmanifest", "sw.js",
-    "rss.xml", "rss-en.xml", "assets/dai-chengpeng.vcf",
+    "rss.xml", "rss-en.xml", "assets/fuyao.vcf",
     "assets/img/og-default.webp", "assets/img/wechat-qr.webp", "assets/img/favicon-16.png",
     "assets/img/favicon-32.png", "assets/img/favicon-180.png",
     "assets/img/icon-192.png", "assets/img/icon-512.png",
@@ -124,7 +124,7 @@ def main():
     check_count("careers.html", r'class="[^"]*job-card[^"]*"', 4, "招聘岗位数量")
     # newsletter + 主题
     check_contains("index.html", "id=\"subscribe-form\"", "首页 Newsletter 订阅表单")
-    check_contains("index.html", "mailto:alextok100@hotmail.com", "首页订阅 mailto 直发")
+    check_contains("index.html", "mailto:akldcp@gmail.com", "首页订阅 mailto 直发")
     check_contains("blog.html", "newsletter-form", "博客页 Newsletter 订阅表单")
     check_contains("index.html", 'class="theme-toggle"', "首页主题切换按钮")
     check_contains("index.html", "localStorage.getItem('theme')", "首页主题防闪脚本")

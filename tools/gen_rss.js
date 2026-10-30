@@ -51,7 +51,7 @@ function buildFeed(lang) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${isEn ? "Xuanming · Blog" : "泫溟 · 博客"}</title>
+    <title>${isEn ? "Fuyao · Blog" : "扶摇 · 博客"}</title>
     <link>${SITE}/blog.html</link>
     <description>${
       isEn
