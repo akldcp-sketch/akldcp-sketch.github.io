@@ -148,12 +148,18 @@
   html[data-theme="dark"] .btn:hover{background:#7CB8FF; color:#0B1220;}
   html[data-theme="dark"] .nav{background:rgba(11,18,32,.85);}
   html[data-theme="dark"] .hero-art{background:var(--color-surface);}
+  /* 暗色：视频底图压暗后保留动态，遮罩改为深色以保证对比度 */
+  html[data-theme="dark"] .hero-bg{filter:brightness(.52) saturate(.95) contrast(1.04);}
   html[data-theme="dark"] .hero::before{
     background:
-      radial-gradient(600px 300px at var(--mx,85%) var(--my,20%), rgba(129,140,248,.16), transparent 70%),
-      radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(56,189,248,.12), transparent 70%),
-      linear-gradient(180deg, #0B1220, #111A2E);
+      radial-gradient(760px 460px at 6% 46%, rgba(2,6,23,.62), rgba(2,6,23,0) 72%),
+      radial-gradient(600px 300px at var(--mx,85%) var(--my,20%), rgba(129,140,248,.20), transparent 70%),
+      radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(56,189,248,.16), transparent 70%),
+      linear-gradient(180deg, rgba(11,18,32,.52), rgba(11,18,32,.58) 48%, rgba(11,18,32,.74));
   }
+  html[data-theme="dark"] .hero h1,
+  html[data-theme="dark"] .hero .lead,
+  html[data-theme="dark"] .hero .eyebrow{text-shadow:0 1px 16px rgba(2,6,23,.8);}
   html[data-theme="dark"] .newsletter{background:linear-gradient(135deg,#111A2E,#0F2E40);}
   html[data-theme="dark"] .form input{background:#0E1626; color:var(--color-text);}
   html[data-theme="dark"] .article .tag.d{color:#4ADE80; background:#0F2E1F;}
@@ -195,13 +201,25 @@
   .nav nav{display:flex; gap:22px; flex-wrap:wrap;}
   .nav nav a{color:var(--color-muted); font-size:15px; font-weight:600;}
   .nav nav a:hover{color:var(--color-text);}
-  .hero{padding:96px 0 64px; position:relative; overflow:hidden;}
-  .hero::before{content:""; position:absolute; inset:0; z-index:-1;
+  .hero{padding:96px 0 64px; position:relative; overflow:hidden; isolation:isolate; background:var(--color-bg);}
+  /* 首屏视频底图：绝对定位铺满整个 .hero（替代旧 .hero-band 独立黑色腰带区块）
+     background-image 作为 poster 兜底，视频不可播时也不会留空/黑边 */
+  .hero-bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%;
+    z-index:0; display:block; pointer-events:none;
+    background:#F7F9FC url("assets/video/skill-showcase-poster.webp") center/cover no-repeat;}
+  /* 可读性遮罩：叠在视频之上、正文之下；左浓右淡保证标题/正文对比度，同时保留视频动效可见
+     沿用手势光晕变量 --mx/--my */
+  .hero::before{content:""; position:absolute; inset:0; z-index:1;
     background:
-      radial-gradient(600px 300px at var(--mx,85%) var(--my,20%), rgba(79,70,229,.14), transparent 70%),
-      radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(2,132,199,.12), transparent 70%),
-      linear-gradient(180deg, #FFFFFF, #F7F9FC);
+      radial-gradient(760px 460px at 6% 46%, rgba(255,255,255,.72), rgba(255,255,255,0) 72%),
+      radial-gradient(600px 300px at var(--mx,85%) var(--my,20%), rgba(79,70,229,.10), transparent 70%),
+      radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(2,132,199,.09), transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,.46) 0%, rgba(247,249,252,.34) 48%, rgba(255,255,255,.58) 100%);
     transition:background .3s ease;}
+  .hero > .container{position:relative; z-index:2;}
+  /* 视频动帧下保证文字清晰：浅色主题用白色柔光描边承托深色字 */
+  .hero h1, .hero .lead, .hero .eyebrow{text-shadow:0 1px 14px rgba(255,255,255,.92), 0 0 3px rgba(255,255,255,.75);}
+  .hero .hero-art{background:#fff; box-shadow:0 20px 48px -22px rgba(15,23,42,.45), var(--shadow-3);}
   .hero .grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;}
   .eyebrow{display:inline-block; padding:6px 14px; border-radius:var(--radius-pill); background:var(--color-accent-soft); color:var(--color-accent); font-size:var(--fs-xs); font-weight:700; margin-bottom:18px;}
   .hero p.lead{font-size:18px; color:var(--color-muted); max-width:52ch; margin-bottom:26px;}
@@ -270,9 +288,6 @@
   html[data-theme="dark"] .biz-preview .entry-badge{box-shadow:0 1px 6px rgba(239,68,68,.45);}
   html[data-theme="dark"] .biz-entry{background:linear-gradient(135deg,#111A2E,#0F2E40);}
   html[data-theme="dark"] .biz-entry::after{background:rgba(129,140,248,.14);}
-  .hero-band{position:relative; overflow:hidden; height:clamp(180px, 42vw, 360px); background:#05060F; isolation:isolate;}
-  .hero-band-media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%; z-index:0; pointer-events:none; display:block;}
-  .hero-band::after{content:""; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,6,15,.7) 0%, rgba(5,6,15,0) 38%, rgba(5,6,15,.55) 100%);}
   .bottom-cta{position:relative; overflow:hidden; text-align:center; background:#05060F; display:grid; place-items:center; min-height:clamp(340px, 40vw, 520px); padding:0; isolation:isolate;}
   .bottom-cta-media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; pointer-events:none;}
   .bottom-cta::after{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(5,6,15,.82) 0%, rgba(5,6,15,.55) 45%, rgba(5,6,15,.9) 100%); pointer-events:none;}
@@ -301,7 +316,7 @@
   @media (max-width:880px){
     .hero{padding:56px 0 44px;}
     .hero .grid{grid-template-columns:1fr; gap:32px;}
-    .hero-band{height:clamp(170px, 46vw, 250px);}
+    .hero-bg{object-position:center 38%;}
     .articles{grid-template-columns:1fr;}
     .nav nav{display:none;}
     .newsletter{padding:40px 20px;}
@@ -418,6 +433,9 @@
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-h" id="top">
+    <video class="hero-bg" id="hero-band-video" poster="assets/video/skill-showcase-poster.webp" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1">
+      <source src="assets/video/skill-showcase.mp4" type="video/mp4">
+    </video>
     <div class="container grid">
       <div>
         <span class="eyebrow">扶摇 · GitHub Pages 独立博客</span>
@@ -441,12 +459,6 @@
         <a class="art-cta" href="#articles">→ 全部文章见下方列表</a>
       </div>
     </div>
-  </section>
-
-  <section class="hero-band" aria-hidden="true">
-    <video class="hero-band-media" id="hero-band-video" poster="assets/video/skill-showcase-poster.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture tabindex="-1">
-      <source src="assets/video/skill-showcase.mp4" type="video/mp4">
-    </video>
   </section>
 
   <section class="trust" aria-label="信任背书"><div class="container">
@@ -726,36 +738,116 @@
       }
     }
 
-    /* 页头带 / 底部背景片：静音自动循环；减弱动效/省流时停在海报帧 */
+    /* 首屏底图视频（hero-bg）/ 底部 CTA 背景片：静音内联自动循环。
+       ① 硬性补写 muted + playsinline（部分内联/浏览器会丢属性，丢了 iOS 必不自动播）
+       ② play() 被拒（iOS 低电量模式、省电策略）→ load() 后重试
+       ③ 仍失败 → 挂首次用户手势（touchstart/click/scroll/pageshow）补播，播放成功后清除兜底监听
+       ④ prefers-reduced-motion / saveData → 主动停在海报帧，不下载视频 */
     (function(){
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
       var conn = navigator.connection || {};
       var saveData = conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '');
-      ['hero-band-video', 'cta-video'].forEach(function(id){
-        var v = document.getElementById(id);
-        if(!v) return;
-        if(reduce || saveData){
+      var GESTURES = ['touchstart', 'touchend', 'pointerdown', 'click', 'keydown', 'scroll'];
+
+      function isStatic(){
+        return (mq && mq.matches) || saveData;
+      }
+
+      function init(v){
+        /* ① 内联可播属性兜底 */
+        v.muted = true;
+        v.defaultMuted = true;
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', 'true');
+        v.setAttribute('preload', 'auto');
+        try { v.playsInline = true; } catch(e){}
+
+        function stopToPoster(){
           v.removeAttribute('autoplay');
-          v.pause();
+          v.autoplay = false;
+          try { v.pause(); } catch(e){}
           try { v.preload = 'none'; } catch(e){}
-          return;
+          v.classList.add('is-poster-only');
         }
-        function play(){
-          var r = v.play();
-          if(r && r.catch) r.catch(function(){});
+
+        /* ④ 省流 / 减弱动效：停在海报帧 */
+        if(isStatic()){ stopToPoster(); return; }
+
+        try { v.preload = 'auto'; } catch(e){}
+
+        var gestureOff = false;
+        function removeGestures(){
+          if(gestureOff) return;
+          gestureOff = true;
+          GESTURES.forEach(function(ev){
+            document.removeEventListener(ev, onGesture, true);
+            window.removeEventListener(ev, onGesture, true);
+          });
+          window.removeEventListener('pageshow', onGesture, true);
         }
+
+        function attempt(){
+          var p;
+          try { p = v.play(); } catch(e){ return Promise.resolve(false); }
+          if(p && typeof p.then === 'function') return p.then(function(){ return true; }, function(){ return false; });
+          return Promise.resolve(!v.paused);
+        }
+
+        /* ② play() 被拒：重新 load 后重试（iOS 首轮被拒后 reload 常可成功） */
+        function attemptWithReload(){
+          attempt().then(function(ok){
+            if(ok){ removeGestures(); return; }
+            try { v.load(); } catch(e){}
+            var once = function(){
+              v.removeEventListener('loadeddata', once);
+              v.removeEventListener('canplay', once);
+              attempt().then(function(ok2){ if(ok2) removeGestures(); });
+            };
+            v.addEventListener('loadeddata', once);
+            v.addEventListener('canplay', once);
+            setTimeout(function(){ attempt().then(function(ok3){ if(ok3) removeGestures(); }); }, 350);
+          });
+        }
+
+        /* ③ 首次用户手势补播 */
+        function onGesture(){
+          if(!v.paused){ removeGestures(); return; }
+          attemptWithReload();
+        }
+        GESTURES.forEach(function(ev){
+          document.addEventListener(ev, onGesture, {capture:true, passive:true});
+          window.addEventListener(ev, onGesture, {capture:true, passive:true});
+        });
+        window.addEventListener('pageshow', onGesture, {capture:true, passive:true});
+
+        /* 初次尝试（含 bfcache 恢复后的 pageshow 也会再次触发） */
+        if(document.readyState === 'complete'){ attemptWithReload(); }
+        else { window.addEventListener('load', attemptWithReload, {once:true}); }
+
+        /* 视口进入才播，离开即停，省电 */
         if('IntersectionObserver' in window){
           new IntersectionObserver(function(entries){
             entries.forEach(function(e){
-              if(e.isIntersecting){ play(); } else { v.pause(); }
+              if(e.isIntersecting && !isStatic()){ attempt(); }
+              else if(!e.isIntersecting){ try { v.pause(); } catch(err){} }
             });
-          }, {threshold: 0.15}).observe(v);
-        } else {
-          play();
+          }, {threshold: 0.05}).observe(v);
         }
+
         document.addEventListener('visibilitychange', function(){
-          if(document.hidden){ v.pause(); } else { play(); }
+          if(document.hidden){ try { v.pause(); } catch(e){} }
+          else if(!isStatic()){ attempt().then(function(ok){ if(ok) removeGestures(); }); }
         });
+
+        if(mq && mq.addEventListener){
+          mq.addEventListener('change', function(e){ if(e.matches){ stopToPoster(); removeGestures(); } });
+        }
+      }
+
+      ['hero-band-video', 'cta-video'].forEach(function(id){
+        var v = document.getElementById(id);
+        if(v) init(v);
       });
     })();
 

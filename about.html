@@ -16,8 +16,8 @@
       } catch (e) { document.documentElement.setAttribute("data-theme", "dark"); }
     })();
   </script>
-<link rel="stylesheet" href="css/style.css?v=1.8.37">
-<link rel="stylesheet" href="css/patterns.css?v=1.8.37">
+<link rel="stylesheet" href="css/style.css?v=1.8.38">
+<link rel="stylesheet" href="css/patterns.css?v=1.8.38">
 
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
@@ -65,7 +65,7 @@
 
   <main>
     <section class="page-hero page-hero--video">
-      <video class="page-hero-media" id="about-hero-video" poster="assets/video/about-hero-poster.webp" autoplay muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true" tabindex="-1">
+      <video class="page-hero-media" id="about-hero-video" poster="assets/video/about-hero-poster.webp" autoplay muted loop playsinline webkit-playsinline="true" preload="auto" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1" style="background:#05060F url('assets/video/about-hero-poster.webp') center/cover no-repeat;">
         <source src="assets/video/about-hero.mp4" type="video/mp4">
       </video>
       <div class="container">
@@ -242,43 +242,116 @@
     </div>
   </footer>
 
-    <script src="js/site-config.js?v=1.8.37"></script>
-<script src="js/i18n.js?v=1.8.37"></script>
-  <script src="js/main.js?v=1.8.37"></script>
-  <script src="js/seo.js?v=1.8.37"></script>
-  <script src="js/analytics.js?v=1.8.37"></script>
-  <script src="js/comments.js?v=1.8.37"></script>
-  <script src="js/sw-register.js?v=1.8.37"></script>
-  <script src="js/assistant.js?v=1.8.37"></script>
-  <script src="js/theme.js?v=1.8.37"></script>
+    <script src="js/site-config.js?v=1.8.38"></script>
+<script src="js/i18n.js?v=1.8.38"></script>
+  <script src="js/main.js?v=1.8.38"></script>
+  <script src="js/seo.js?v=1.8.38"></script>
+  <script src="js/analytics.js?v=1.8.38"></script>
+  <script src="js/comments.js?v=1.8.38"></script>
+  <script src="js/sw-register.js?v=1.8.38"></script>
+  <script src="js/assistant.js?v=1.8.38"></script>
+  <script src="js/theme.js?v=1.8.38"></script>
   <script>
-    /* 首屏背景片：静音自动循环；减弱动效/省流时停在海报帧 */
+    /* 首屏背景片：静音内联自动循环。
+       ① 硬性补写 muted + playsinline（丢属性 iOS 必不自动播）
+       ② play() 被拒（iOS 低电量模式 / 省电策略）→ load() 后重试
+       ③ 仍失败 → 首次用户手势（touchstart/click/scroll/pageshow）补播，成功后清除兜底监听
+       ④ prefers-reduced-motion / saveData → 主动停在海报帧 */
     (function(){
       var v = document.getElementById('about-hero-video');
       if(!v) return;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
       var conn = navigator.connection || {};
       var saveData = conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '');
-      if(reduce || saveData){
+      var GESTURES = ['touchstart', 'touchend', 'pointerdown', 'click', 'keydown', 'scroll'];
+
+      function isStatic(){ return (mq && mq.matches) || saveData; }
+
+      /* ① 内联可播属性兜底 */
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.setAttribute('webkit-playsinline', 'true');
+      try { v.playsInline = true; } catch(e){}
+
+      function stopToPoster(){
         v.removeAttribute('autoplay');
-        v.pause();
+        v.autoplay = false;
+        try { v.pause(); } catch(e){}
         try { v.preload = 'none'; } catch(e){}
-        return;
+        v.classList.add('is-poster-only');
       }
-      function play(){
-        var r = v.play();
-        if(r && r.catch) r.catch(function(){});
+
+      /* ④ 省流 / 减弱动效：停在海报帧 */
+      if(isStatic()){ stopToPoster(); return; }
+
+      try { v.preload = 'auto'; } catch(e){}
+
+      var gestureOff = false;
+      function removeGestures(){
+        if(gestureOff) return;
+        gestureOff = true;
+        GESTURES.forEach(function(ev){
+          document.removeEventListener(ev, onGesture, true);
+          window.removeEventListener(ev, onGesture, true);
+        });
+        window.removeEventListener('pageshow', onGesture, true);
       }
-      play();
-      document.addEventListener('visibilitychange', function(){
-        if(document.hidden){ v.pause(); } else { play(); }
+
+      function attempt(){
+        var p;
+        try { p = v.play(); } catch(e){ return Promise.resolve(false); }
+        if(p && typeof p.then === 'function') return p.then(function(){ return true; }, function(){ return false; });
+        return Promise.resolve(!v.paused);
+      }
+
+      /* ② play() 被拒：重新 load 后重试 */
+      function attemptWithReload(){
+        attempt().then(function(ok){
+          if(ok){ removeGestures(); return; }
+          try { v.load(); } catch(e){}
+          var once = function(){
+            v.removeEventListener('loadeddata', once);
+            v.removeEventListener('canplay', once);
+            attempt().then(function(ok2){ if(ok2) removeGestures(); });
+          };
+          v.addEventListener('loadeddata', once);
+          v.addEventListener('canplay', once);
+          setTimeout(function(){ attempt().then(function(ok3){ if(ok3) removeGestures(); }); }, 350);
+        });
+      }
+
+      /* ③ 首次用户手势补播 */
+      function onGesture(){
+        if(!v.paused){ removeGestures(); return; }
+        attemptWithReload();
+      }
+      GESTURES.forEach(function(ev){
+        document.addEventListener(ev, onGesture, {capture:true, passive:true});
+        window.addEventListener(ev, onGesture, {capture:true, passive:true});
       });
+      window.addEventListener('pageshow', onGesture, {capture:true, passive:true});
+
+      if(document.readyState === 'complete'){ attemptWithReload(); }
+      else { window.addEventListener('load', attemptWithReload, {once:true}); }
+
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(entries){
           entries.forEach(function(e){
-            if(e.isIntersecting){ play(); } else { v.pause(); }
+            if(e.isIntersecting && !isStatic()){ attempt(); }
+            else if(!e.isIntersecting){ try { v.pause(); } catch(err){} }
           });
-        }, {threshold: 0.1}).observe(v);
+        }, {threshold: 0.05}).observe(v);
+      }
+
+      document.addEventListener('visibilitychange', function(){
+        if(document.hidden){ try { v.pause(); } catch(e){} }
+        else if(!isStatic()){ attempt().then(function(ok){ if(ok) removeGestures(); }); }
+      });
+
+      if(mq && mq.addEventListener){
+        mq.addEventListener('change', function(e){ if(e.matches){ stopToPoster(); removeGestures(); } });
       }
     })();
   </script>
