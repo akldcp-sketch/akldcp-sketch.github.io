@@ -162,6 +162,16 @@
     --focus-ring:0 0 0 3px rgba(96,165,250,.45);
   }
   body,.nav,.hero-art,.post-card,.article,.newsletter,.form input,.form-msg,.faq details,.theme-toggle{transition:background-color .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease;}
+  .nav-toggle{display:none; background:transparent; border:1px solid var(--color-border); color:var(--color-text); border-radius:var(--radius-sm); width:40px; height:40px; cursor:pointer; font-size:18px; line-height:1; align-items:center; justify-content:center;}
+  .nav-toggle:hover{background:var(--color-surface); box-shadow:var(--shadow-1);}
+  .nav-panel{display:none; position:fixed; top:64px; left:0; right:0; z-index:49; background:rgba(255,255,255,.97); border-bottom:1px solid var(--color-border); box-shadow:var(--shadow-3); padding:10px 20px 16px;}
+  html[data-theme="dark"] .nav-panel{background:rgba(11,18,32,.97);}
+  .nav-panel a{display:block; padding:12px 4px; color:var(--color-muted); font-size:16px; font-weight:600; border-bottom:1px solid var(--color-border);}
+  .nav-panel a:last-child{border-bottom:none;}
+  .nav-panel a:hover,.nav-panel a.active{color:var(--color-accent);}
+  .nav-panel[hidden]{display:none !important;}
+  .nav-panel.open{display:block;}
+  .theme-toggle{transition:background-color .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease;}
   html[data-theme="dark"] .btn{color:#0B1220;}
   html[data-theme="dark"] .btn:hover{background:#7CB8FF; color:#0B1220;}
   html[data-theme="dark"] .nav{background:rgba(11,18,32,.85);}
@@ -213,11 +223,12 @@
   .btn:focus-visible,a:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--color-accent-2); outline-offset:3px;}
   .nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.85); backdrop-filter:blur(12px) saturate(140%); border-bottom:1px solid var(--color-border);}
   .nav .row{display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px;}
-  .brand{font-weight:800; font-size:20px; letter-spacing:-.01em;}
+  .brand{font-weight:800; font-size:20px; letter-spacing:-.01em; color:var(--color-text); text-decoration:none;}
   .brand span{color:var(--color-accent);}
   .nav nav{display:flex; gap:22px; flex-wrap:wrap;}
   .nav nav a{color:var(--color-muted); font-size:15px; font-weight:600;}
   .nav nav a:hover{color:var(--color-text);}
+  .nav nav a.active{color:var(--color-accent);}
   .hero{padding:96px 0 64px; position:relative; overflow:hidden; isolation:isolate; background:var(--color-bg);}
   /* 首屏三屏自动轮播：零依赖实现（纯 CSS 渐变叠层 + 原生 JS 切换）
      不使用视频、外部图片或第三方库，切换只做 opacity/transform，稳定不闪 */
@@ -300,6 +311,21 @@
       radial-gradient(500px 260px at var(--mx2,10%) var(--my2,80%), rgba(2,132,199,.09), transparent 70%),
       linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(247,249,252,.06) 48%, rgba(255,255,255,.16) 100%);
     transition:background .3s ease;}
+  /* 明亮模式标题承托：左浓右淡的白色柔光，把渐变文字压在浅底之上（对比度≥4.5）*/
+  html[data-theme="light"] .hero::before{
+    background:
+      radial-gradient(880px 520px at 8% 46%, rgba(255,255,255,.86), rgba(255,255,255,0) 80%),
+      radial-gradient(560px 320px at var(--mx,85%) var(--my,20%), rgba(79,70,229,.06), transparent 70%),
+      radial-gradient(480px 260px at var(--mx2,10%) var(--my2,80%), rgba(2,132,199,.05), transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,.52) 0%, rgba(252,253,255,.42) 50%, rgba(255,255,255,.52) 100%);}
+  @media (prefers-color-scheme: light){
+    html:not([data-theme="dark"]) .hero::before{
+      background:
+        radial-gradient(880px 520px at 8% 46%, rgba(255,255,255,.86), rgba(255,255,255,0) 80%),
+        radial-gradient(560px 320px at var(--mx,85%) var(--my,20%), rgba(79,70,229,.06), transparent 70%),
+        radial-gradient(480px 260px at var(--mx2,10%) var(--my2,80%), rgba(2,132,199,.05), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.52) 0%, rgba(252,253,255,.42) 50%, rgba(255,255,255,.52) 100%);}
+  }
   .hero > .container{position:relative; z-index:2;}
   /* 视频动帧下保证文字清晰：浅色主题用白色柔光描边承托深色字 */
   .hero h1, .hero .lead, .hero .eyebrow{text-shadow:0 1px 14px rgba(255,255,255,.92), 0 0 3px rgba(255,255,255,.75);}
@@ -427,6 +453,7 @@
     .hero .hero-stats{gap:18px; margin-top:24px;}
     .articles{grid-template-columns:1fr;}
     .nav nav{display:none;}
+    .nav-toggle{display:inline-flex;}
     .newsletter{padding:40px 20px;}
     .trust .row{gap:16px; flex-direction:column;}
     .biz-entry{grid-template-columns:1fr; padding:36px 24px; gap:24px;}
@@ -448,7 +475,7 @@
     --grad-7:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);
     /* 明亮模式专用：同一红橙黄绿青蓝紫七色轮，整体压暗到低明度，
        保证在 #E6EEFF~#F4E9FF 这类明亮底纹上对比度 ≥5:1（深色模式仍用 --grad-7） */
-    --grad-7-deep:linear-gradient(92deg,#AD1444 0%,#9A3B0A 14%,#735000 29%,#0E6B3E 43%,#0A6470 57%,#1E3F9E 71%,#54209E 86%);
+    --grad-7-deep:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);
     --ring-7:conic-gradient(#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%,#FF3366 100%);
   }
   .rgb-card{
@@ -492,7 +519,7 @@
     background:var(--grad-7);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  /* 缺陷①修复：明亮模式下七段渐变整体压暗（同色轮），并去掉白/亮色文字阴影
+  /* 缺陷①修复：明亮模式标题渐变——红橙蓝紫贴近原饱和、黄绿青压暗（同色轮），并配轻遮罩保证 ≥4.5:1，并去掉白/亮色文字阴影
      —— 否则高明度渐变 + 高明度底纹叠加会发白过曝，标题读不清 */
   html[data-theme="light"] .text-gradient{background-image:var(--grad-7-deep);text-shadow:none;}
   html[data-theme="light"] .hero .text-gradient{text-shadow:none;}
@@ -544,11 +571,15 @@
 <body>
 <a class="skip" href="#main">跳到主内容</a>
 <header class="nav"><div class="container row">
-  <div class="brand">扶摇<span> × </span>AI 实战</div>
-  <nav aria-label="主导航"><a href="blog.html">最新文章</a><a href="archive.html">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a href="about.html">关于</a></nav>
+  <a class="brand" href="index.html">扶摇<span> × </span>AI 实战</a>
+  <nav aria-label="主导航"><a class="active" href="blog.html" aria-current="page">最新文章</a><a href="archive.html">文汇</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a href="about.html">关于</a></nav>
   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-panel">☰</button>
   <a class="btn" href="newsletter.html">订阅更新</a>
-</div></header>
+</div><div class="nav-panel" id="nav-panel" hidden>
+  <a class="active" href="blog.html" aria-current="page">最新文章</a><a href="archive.html">文汇</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a href="about.html">关于</a>
+</div>
+</header>
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-h" id="top">
@@ -789,6 +820,10 @@
     <div class="col">
       <h5>站点</h5>
       <a href="blog.html">最新文章</a><a href="archive.html">全部文章</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a href="about.html">关于本站</a>
+    </div>
+    <div class="col">
+      <h5>更多</h5>
+      <a href="work.html">作品集</a><a href="brands.html">项目经历</a><a href="methods.html">方法论</a><a href="achievements.html">成绩单</a><a href="contact.html">联系</a>
     </div>
     <div class="copy">© 2026 扶摇 · 由 GitHub Pages 托管 · akldcp-sketch.github.io</div>
   </div>
@@ -1146,6 +1181,20 @@
       });
     }
   })();
+    var navToggle = document.getElementById('nav-toggle');
+    var navPanel = document.getElementById('nav-panel');
+    if(navToggle && navPanel){
+      function setMenu(open){
+        navPanel.hidden = !open;
+        navPanel.classList.toggle('open', open);
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      }
+      navToggle.addEventListener('click', function(){ setMenu(navPanel.hidden); });
+      navPanel.addEventListener('click', function(e){
+        if(e.target && e.target.tagName === 'A'){ setMenu(false); }
+      });
+    }
 </script>
 </body>
 </html>
