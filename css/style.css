@@ -2654,6 +2654,9 @@ body::after {
   }
   :root{
     --grad-7:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);
+    /* 明亮模式专用：与 --grad-7 同色轮（红橙黄绿青蓝紫七段），但整体压暗，
+       避免与高明度浅底（#E6EEFF~#F4E9FF 一类）明度重合导致文字过曝发白 */
+    --grad-7-deep:linear-gradient(92deg,#AD1444 0%,#9A3B0A 14%,#735000 29%,#0E6B3E 43%,#0A6470 57%,#1E3F9E 71%,#54209E 86%);
     --ring-7:conic-gradient(#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%,#FF3366 100%);
   }
   .rgb-card{
@@ -2696,6 +2699,14 @@ body::after {
   .text-gradient{
     background:var(--grad-7);
     -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  /* 明亮模式：渐变文字换压暗色轮（深色模式保持原高明度霓虹） */
+  html[data-theme="light"] .text-gradient{
+    background-image:var(--grad-7-deep);
+    text-shadow:none;
+  }
+  @media (prefers-color-scheme: light){
+    html:not([data-theme="dark"]) .text-gradient{background-image:var(--grad-7-deep);text-shadow:none;}
   }
   .btn-primary{
     display:inline-flex;align-items:center;justify-content:center;

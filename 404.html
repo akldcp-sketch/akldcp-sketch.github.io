@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - 页面未找到 - 扶摇</title>
+  
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+<title>404 - 页面未找到 - 扶摇</title>
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
-  <link rel="stylesheet" href="/css/style.css?v=1.8.39">
+  <link rel="stylesheet" href="/css/style.css?v=1.9.0">
   <style>
     .page-404 {
       min-height: calc(100vh - 200px);
@@ -45,9 +72,14 @@
     <nav class="nav container">
       <a href="/" class="logo"><img class="logo-mark" src="/assets/img/favicon-32.png" alt="">扶摇</a>
       <div class="nav-links">
-        <a href="/">首页</a>
+        <a href="/blog.html">最新文章</a>
+        <a href="/archive.html">归档</a>
+        <a href="/business-thinking.html">商业思维</a>
+        <a href="/ai-skill-practice.html">AI技能包实战</a>
+        <a href="/faq.html">常见问题</a>
+        <a href="/newsletter.html">订阅</a>
         <a href="/about.html">关于</a>
-        <a href="/methods.html">方法论</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
       </div>
     </nav>
   </header>
@@ -69,6 +101,6 @@
     </div>
   </footer>
 
-  <script src="/js/theme.js?v=1.8.39"></script>
+  <script src="/js/theme.js?v=1.9.0"></script>
 </body>
 </html>

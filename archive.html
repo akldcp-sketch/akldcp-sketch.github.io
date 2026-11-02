@@ -3,6 +3,33 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
 <title>文章归档 | 商业操盘 × AI 技能包实战记录</title>
 <meta name="description" content="商业操盘 × AI 技能包实战记录的全部 28 篇文章归档页：按日期倒序完整收录 2026 年 7 月至 10 月实战复盘，覆盖 AI 技能包、数据与自动化、商业操盘、团队管理、达人运营、跨境电商、品牌操盘 7 个主题分类，每篇附一句话摘要与分类标签，支持锚点跳转与 RSS 订阅，每周持续更新。" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -324,25 +351,16 @@
   </style>
 </head>
 <body>
-<script>
-  (function(){
-    var stored = null;
-    try { stored = localStorage.getItem('theme'); } catch(e){}
-    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', theme);
-    var tc = document.querySelector('meta[name="theme-color"]');
-    if(tc) tc.setAttribute('content', theme === 'dark' ? '#0B1220' : '#FFFFFF');
-  })();
-</script>
+
 <a class="skip" href="#main">跳到主内容</a>
 <header class="nav"><div class="container row">
   <div class="brand">商业操盘<span> × </span>AI 实战</div>
-  <nav aria-label="主导航"><a href="index.html">首页</a><a href="index.html#articles">最新文章</a><a href="index.html#faq">常见问题</a><a href="index.html#newsletter">订阅</a><a class="active" href="archive.html" aria-current="page">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a></nav>
+  <nav aria-label="主导航"><a href="index.html">首页</a><a href="blog.html">最新文章</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a class="active" href="archive.html" aria-current="page">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a></nav>
   <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
   <button type="button" class="nav-toggle" id="nav-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="nav-panel">☰</button>
 </div>
 <div class="nav-panel" id="nav-panel" hidden>
-  <a href="index.html">首页</a><a href="index.html#articles">最新文章</a><a href="index.html#faq">常见问题</a><a href="index.html#newsletter">订阅</a><a class="active" href="archive.html" aria-current="page">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a>
+  <a href="index.html">首页</a><a href="blog.html">最新文章</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a class="active" href="archive.html" aria-current="page">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a>
 </div></header>
 
 <main id="main">

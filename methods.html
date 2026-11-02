@@ -1,9 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>方法论 - 扶摇</title>
+  
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+<title>方法论 - 扶摇</title>
   <meta name="description" content="通用型方法论手册：从知识库同步而来的组织能力沉淀，覆盖技能研发流水线、数据中台、交付物规范、多 Agent 协同等可复用模式。">
   <meta property="og:title" content="方法论 - 扶摇">
   <meta property="og:description" content="通用型方法论手册——换项目、换业务线都能直接套用的组织能力杠杆资产。">
@@ -12,8 +39,8 @@
   <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://akldcp-sketch.github.io/methods.html">
-  <link rel="stylesheet" href="css/style.css?v=1.8.39">
-<link rel="stylesheet" href="css/patterns.css?v=1.8.39">
+  <link rel="stylesheet" href="css/style.css?v=1.9.0">
+<link rel="stylesheet" href="css/patterns.css?v=1.9.0">
 
   <link rel="manifest" href="/manifest.webmanifest">
   <meta name="theme-color" content="#9333ea">
@@ -35,6 +62,7 @@
         <a href="business-thinking.html">商业思维</a>
         <a href="ai-skill-practice.html">AI技能包实战</a>
         <a href="contact.html">联系</a>
+        <button type="button" class="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
       </div>
     </nav>
   </header>
@@ -183,5 +211,6 @@
       <p class="footer-links"><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a></p>
     </div>
   </footer>
+  <script src="js/theme.js?v=1.9.0"></script>
 </body>
 </html>

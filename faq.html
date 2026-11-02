@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>常见问题 - 扶摇</title>
+  <meta name="description" content="关于这个博客、文章复现、订阅与版权合作的常见问题解答。">
+  <meta property="og:title" content="常见问题 - 扶摇">
+  <meta property="og:description" content="关于这个博客、文章复现、订阅与版权合作的常见问题解答。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/faq.html">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/faq.html">
+  <link rel="stylesheet" href="css/style.css?v=1.9.0">
+  <link rel="stylesheet" href="css/patterns.css?v=1.9.0">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png">
+  <style>
+    /* 常见问题页：详情手风琴（复用 index.html #faq 的视觉，改用站内 css 变量以适配全站主题） */
+    .faq{max-width:820px; margin:0 auto;}
+    .faq details{background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+      padding:18px 22px; margin-bottom:12px; box-shadow:0 1px 2px rgba(15,23,42,.06);}
+    .faq summary{cursor:pointer; font-weight:700; font-size:1.0625rem; color:var(--text);}
+    .faq summary:hover{color:var(--neon-blue);}
+    .faq details p{margin:10px 0 0; color:var(--text-dim); line-height:1.75;}
+    .faq-group{max-width:820px; margin:0 auto 40px;}
+    .faq-group > h2{font-size:1.25rem; margin:0 0 18px; color:var(--text);}
+    .faq-group > h2 span{color:var(--neon-blue); margin-right:8px;}
+    .faq-cta{max-width:820px; margin:0 auto; text-align:center; padding:34px 26px;
+      border:1px solid var(--border); border-radius:18px; background:var(--bg-card);}
+    .faq-cta h2{font-size:1.35rem; margin:0 0 10px;}
+    .faq-cta p{color:var(--text-dim); margin:0 0 20px;}
+    .faq-cta .btn{margin:0 6px;}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="index.html" class="logo"><img class="logo-mark" src="assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="blog.html">最新文章</a>
+        <a href="archive.html">归档</a>
+        <a href="business-thinking.html">商业思维</a>
+        <a href="ai-skill-practice.html">AI技能包实战</a>
+        <a href="faq.html" class="active" aria-current="page">常见问题</a>
+        <a href="newsletter.html">订阅</a>
+        <a href="about.html">关于</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换深色/浅色模式" aria-pressed="false">☾</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">FAQ</p>
+        <h1 class="text-gradient">常见问题</h1>
+        <p class="hero-sub">关于这个博客、文章复现与订阅的常见疑问，<br>都整理在这里，没找到答案可以直接来信。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <div class="faq-group">
+          <h2><span>01</span>关于这个博客</h2>
+          <div class="faq">
+            <details open>
+              <summary>这个博客写什么内容？</summary>
+              <p>记录商业操盘手用 AI 技能包解决真实业务问题的过程：选品、投放、内容生产与自动化。每篇都包含真实数据、可复现代码与操作步骤。</p>
+            </details>
+            <details>
+              <summary>内容是原创吗？数据从哪来？</summary>
+              <p>全部基于本人真实操盘过程整理，数据来自业务后台与公开可验证的渠道；涉及具体客户与品牌的部分会做脱敏或占位处理，只保留可复用的方法与口径。</p>
+            </details>
+            <details>
+              <summary>适合什么阶段的读者？</summary>
+              <p>适合正在做电商/内容操盘、或准备用 AI 改造业务流程的人。零基础也能跟着步骤走，但需要你愿意动手把流程跑一遍。</p>
+            </details>
+            <details>
+              <summary>文章多久更新一次？</summary>
+              <p>每周至少更新 1–2 篇深度文章。订阅后每周一收到本周精选与一个可直接复用的操作模板。</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <h2><span>02</span>订阅相关</h2>
+          <div class="faq">
+            <details>
+              <summary>订阅需要付费吗？</summary>
+              <p>完全免费。不灌水、不群发广告，随时一键退订。</p>
+            </details>
+            <details>
+              <summary>订阅后多久能收到第一封？</summary>
+              <p>订阅走的是"复制邮箱 + 打开邮件客户端确认"的方式，确认邮件发出后，下一期周报（每周一）就会收到。详见<a href="newsletter.html">订阅说明</a>。</p>
+            </details>
+            <details>
+              <summary>邮箱会被用来做别的事吗？</summary>
+              <p>不会。邮箱只用于发送周报，不做二次分发、不售卖给第三方；页面本身无后端存储，不收集除邮箱外的任何信息。</p>
+            </details>
+            <details>
+              <summary>怎么退订？</summary>
+              <p>直接在任意一期周报底部点击退订，或来信说明邮箱即可，无需理由、即时生效。</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <h2><span>03</span>复现与工具</h2>
+          <div class="faq">
+            <details>
+              <summary>我照着文章操作能复现结果吗？</summary>
+              <p>大部分步骤依赖公开可验证的实操方法与工具，文章会标注数据口径与适用边界，建议先小规模试点再放大。</p>
+            </details>
+            <details>
+              <summary>一定要会写代码吗？</summary>
+              <p>不一定。文章里的自动化部分会给出可直接运行的脚本与提示词模板，按步骤复制即可；需要改动的地方都有注释说明。</p>
+            </details>
+            <details>
+              <summary>文中提到的 AI 技能包是什么？</summary>
+              <p>是把提示词、流程节点、校验规则打包成可重复执行的技能单元，让业务流程能被稳定地复跑。可先看<a href="ai-skill-practice.html">AI 技能包实战</a>栏目里的完整案例。</p>
+            </details>
+            <details>
+              <summary>商业分析类内容在哪一栏？</summary>
+              <p>商业判断、复盘方法与操盘框架集中在<a href="business-thinking.html">商业思维</a>栏目，历史文章可在<a href="archive.html">归档</a>页按分类检索。</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <h2><span>04</span>版权与合作</h2>
+          <div class="faq">
+            <details>
+              <summary>可以转载文章吗？</summary>
+              <p>欢迎转载，请保留原文链接与作者署名，不要删改数据口径；用于商业培训或付费内容前请先来信沟通。</p>
+            </details>
+            <details>
+              <summary>可以约稿或做项目咨询吗？</summary>
+              <p>可以。把业务背景、目标与时间窗口写清楚发到邮箱，我会判断是否适合承接，并给出初步思路。</p>
+            </details>
+            <details>
+              <summary>发现文章里的错误怎么办？</summary>
+              <p>非常欢迎指正。来信附上文章链接与具体位置，核实后我会在文中更正并标注修订日期。</p>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-cta">
+          <h2>没找到你的问题？</h2>
+          <p>直接来信，或者先订阅周报——大部分疑问在往后的实战文章里会自然解开。</p>
+          <a class="btn" href="newsletter.html">去订阅周报 →</a>
+          <a class="btn btn-ghost" href="contact.html">来信提问</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links"><a href="blog.html">最新文章</a><a href="archive.html">归档</a><a href="business-thinking.html">商业思维</a><a href="ai-skill-practice.html">AI技能包实战</a><a href="faq.html">常见问题</a><a href="newsletter.html">订阅</a><a href="about.html">关于</a></p>
+    </div>
+  </footer>
+<script>
+  /* 主题切换（与 index.html 同键 'theme'，跨页一致） */
+  (function(){
+    var toggle = document.getElementById('theme-toggle');
+    var root = document.documentElement;
+    function setThemeIcon(){
+      if(!toggle) return;
+      var isDark = root.getAttribute('data-theme') === 'dark';
+      toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      toggle.textContent = isDark ? '☀' : '☾';
+    }
+    if(toggle){
+      setThemeIcon();
+      toggle.addEventListener('click', function(){
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch(e){}
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if(tc) tc.setAttribute('content', next === 'dark' ? '#0B1220' : '#FFFFFF');
+        setThemeIcon();
+      });
+    }
+  })();
+</script>
+</body>
+</html>
