@@ -1,8 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
   <title>亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包 - 扶摇</title>
   <meta name="description" content="亚马逊广告 ACOS 分层管理实战：ACOS 不是越低越好，先按毛利率给 SKU 分冲量、利润、清仓、防守四档，各自设定目标 ACOS。用真实周报数据演示分层体检，附可复现 Python 脚本每天扫描广告报表、超阈自动告警并给出调价建议，再把巡检逻辑封装成 SKILL.md 模板沉淀为 AI 技能包。">
   <link rel="manifest" href="/manifest.webmanifest">
@@ -43,8 +69,9 @@
     .eyebrow { margin: 0 0 8px; }
     .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
     .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
-    .text-gradient{background:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    @media (prefers-color-scheme: dark){ .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))} }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
 
     .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
     .post-body p { margin: 0 0 18px; }
@@ -62,22 +89,34 @@
     .footer-links a { color: var(--muted); text-decoration: none; }
     .dot { margin: 0 6px; }
     @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
   </style>
 </head>
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a href="../../index.html" class="logo">扶摇</a>
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
       <div class="nav-links">
-        <a href="../../index.html" data-i18n="nav.home">首页</a>
-        <a href="../../about.html" data-i18n="nav.about">关于</a>
-        <a href="../../work.html" data-i18n="nav.work">作品集</a>
-        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
-        <a href="../../methods.html" data-i18n="nav.methods">方法论</a>
-        <a href="../../achievements.html" data-i18n="nav.results">成绩单</a>
-        <a href="../../blog.html" class="active" data-i18n="nav.blog">博客</a>
-        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
-        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
       </div>
     </nav>
@@ -86,7 +125,7 @@
   <main>
     <article class="post">
       <div class="container post-container">
-        <p class="eyebrow"><a href="../../blog.html" class="back-link">← 返回博客</a></p>
+        <p class="eyebrow"><a href="../blog.html" class="back-link">← 返回博客</a></p>
         <h1 class="post-title text-gradient">亚马逊广告 ACOS 分层管理：把每日调价做成 AI 技能包</h1>
         <p class="post-meta">2026-10-22 · AI 技能包</p>
 
@@ -209,28 +248,29 @@ steps:
     <div class="container">
       <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
       <p class="footer-links">
-        <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
         <span class="dot">·</span>
-        <a href="../../rss-en.xml">RSS (EN)</a>
+        <a href="../rss-en.xml">RSS (EN)</a>
         <span class="dot">·</span>
-        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
         <span class="dot">·</span>
-        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
         <span class="dot">·</span>
-        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
       </p>
     </div>
   </footer>
 
-  <script src="../../js/site-config.js?v=1.10.0"></script>
-  <script src="../../js/i18n.js?v=1.10.0"></script>
-  <script src="../../js/main.js?v=1.10.0"></script>
-  <script src="../../js/posts-data.js?v=1.10.0"></script>
-  <script src="../../js/post.js?v=1.10.0"></script>
-  <script src="../../js/seo.js?v=1.10.0"></script>
-  <script src="../../js/analytics.js?v=1.10.0"></script>
-  <script src="../../js/comments.js?v=1.10.0"></script>
-  <script src="../../js/sw-register.js?v=1.10.0"></script>
-  <script src="../../js/assistant.js?v=1.10.0"></script>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
 </body>
 </html>
