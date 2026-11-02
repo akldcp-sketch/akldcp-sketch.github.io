@@ -246,6 +246,18 @@
       radial-gradient(900px 640px at 90% 82%, rgba(124,58,237,.44), transparent 64%),
       radial-gradient(720px 520px at 6% 6%, rgba(244,63,94,.26), transparent 70%),
       linear-gradient(150deg,#120C24 0%,#1D1238 54%,#160E22 100%);}
+  /* 三屏内容叠层：所有面板占用同一个 grid 单元格，容器高度恒等于最高的一屏
+     → 切屏时高度不跳动；用 visibility 而非 display，过渡才播得出来 */
+  .hero-stack{display:grid; grid-template-areas:"stack"; align-items:start;}
+  .hero-panel{grid-area:stack; opacity:0; visibility:hidden; transform:translateY(14px);
+    transition:opacity .48s var(--ease-out), transform .58s var(--ease-out), visibility 0s linear .58s;}
+  .hero-panel.is-active{opacity:1; visibility:visible; transform:none;
+    transition:opacity .48s var(--ease-out) .10s, transform .58s var(--ease-out) .10s, visibility 0s;}
+  /* 第 2/3 屏标题不是 h1，用 role=heading 表达层级，视觉样式与 h1 对齐 */
+  .hero-panel .hero-title{display:block; font-size:var(--fs-hero); font-weight:800; line-height:1.15;
+    letter-spacing:-.02em; margin:0 0 .5em;}
+  .hero-panel .cta-row{margin-bottom:0;}
+  .hero .hero-stats{margin-top:30px;}
   /* 轮播指示器：细长条，可点击跳到对应屏；用 aria-pressed 表达当前态 */
   .hero-dots{position:absolute; top:22px; right:24px; z-index:3; display:flex; align-items:center; gap:7px;
     padding:8px 12px; border-radius:var(--radius-pill);
@@ -367,13 +379,17 @@
     .hero::before{transition:none;}
     .hero-slide{transition:none; transform:none;}
     .hero-slide::after{animation:none;}
+    .hero-panel{transition:none; transform:none;}
     .hero-dots button{transition:none;}
     body,.nav,.hero-art,.post-card,.article,.newsletter,.form input,.form-msg,.faq details,.theme-toggle{transition:none;}
   }
   @media (max-width:880px){
-    .hero{padding:56px 0 44px;}
+    .hero{padding:68px 0 44px;}
     .hero .grid{grid-template-columns:1fr; gap:32px;}
     .hero-dots{top:14px; right:16px;}
+    .hero h1, .hero-panel .hero-title{font-size:clamp(30px,8.4vw,44px);}
+    .hero p.lead{font-size:16px;}
+    .hero .hero-stats{gap:18px; margin-top:24px;}
     .articles{grid-template-columns:1fr;}
     .nav nav{display:none;}
     .newsletter{padding:40px 20px;}
@@ -495,19 +511,41 @@
       <div class="hero-slide s2"></div>
       <div class="hero-slide s3"></div>
     </div>
-    <div class="hero-dots" role="group" aria-label="首屏背景轮播控制">
-      <button type="button" class="is-active" aria-pressed="true" aria-label="第 1 屏背景"></button>
-      <button type="button" aria-pressed="false" aria-label="第 2 屏背景"></button>
-      <button type="button" aria-pressed="false" aria-label="第 3 屏背景"></button>
+    <div class="hero-dots" role="group" aria-label="首屏内容轮播控制">
+      <button type="button" class="is-active" aria-pressed="true" aria-label="第 1 屏：商业操盘与 AI 技能包的实战记录"></button>
+      <button type="button" aria-pressed="false" aria-label="第 2 屏：把 AI 技能包塞进真实业务流程"></button>
+      <button type="button" aria-pressed="false" aria-label="第 3 屏：用数据复盘每一次操盘决策"></button>
     </div>
     <div class="container grid">
-      <div>
-        <span class="eyebrow">扶摇 · GitHub Pages 独立博客</span>
-        <h1 id="hero-h" class="text-gradient">商业操盘与<br>AI 技能包的实战记录</h1>
-        <p class="lead">一个商业操盘手把 AI 技能包用进真实业务的完整笔记：选品、投放、内容与自动化。每篇都带数据、代码与可复用的操作步骤——不写空话，直接照着做。</p>
-        <div class="cta-row">
-          <a class="btn" href="#newsletter">订阅每周更新<span class="arrow">→</span></a>
-          <a class="btn ghost" href="#articles">先读最新文章</a>
+      <div class="hero-copy">
+        <div class="hero-stack" id="hero-stack">
+          <div class="hero-panel is-active" data-screen="1" aria-hidden="false">
+            <span class="eyebrow">扶摇 · GitHub Pages 独立博客</span>
+            <h1 id="hero-h" class="text-gradient">商业操盘与<br>AI 技能包的实战记录</h1>
+            <p class="lead">一个商业操盘手把 AI 技能包用进真实业务的完整笔记：选品、投放、内容与自动化。每篇都带数据、代码与可复用的操作步骤——不写空话，直接照着做。</p>
+            <div class="cta-row">
+              <a class="btn" href="#newsletter">订阅每周更新<span class="arrow">→</span></a>
+              <a class="btn ghost" href="#articles">先读最新文章</a>
+            </div>
+          </div>
+          <div class="hero-panel" data-screen="2" aria-hidden="true">
+            <span class="eyebrow">AI 技能包实战</span>
+            <p class="hero-title text-gradient" role="heading" aria-level="1">把 AI 技能包<br>塞进真实业务流程</p>
+            <p class="lead">从选题到落地，把提示词、脚本、评审标准打包成可交付技能包；每份都写清输入、输出与验收口径，同事照着就能跑。</p>
+            <div class="cta-row">
+              <a class="btn" href="ai-skill-practice.html">进入专题<span class="arrow">→</span></a>
+              <a class="btn ghost" href="#articles">看技能包案例</a>
+            </div>
+          </div>
+          <div class="hero-panel" data-screen="3" aria-hidden="true">
+            <span class="eyebrow">商业思维</span>
+            <p class="hero-title text-gradient" role="heading" aria-level="1">用数据复盘<br>每一次操盘决策</p>
+            <p class="lead">选品、投放、库存、现金流，全部回到数据层面拆解；不讲励志故事，只讲在什么条件下、用什么杠杆、换来什么结果。</p>
+            <div class="cta-row">
+              <a class="btn" href="business-thinking.html">进入专题<span class="arrow">→</span></a>
+              <a class="btn ghost" href="#articles">读操盘笔记</a>
+            </div>
+          </div>
         </div>
         <div class="hero-stats" aria-label="博客数据概览">
           <div><b data-count="48">0</b><span>+ 篇实战文章</span></div>
@@ -915,46 +953,97 @@
       });
     })();
 
-    /* 首屏三屏自动轮播：原生 JS，零第三方依赖
-       ① 每 6s 自动切屏，只切 opacity/transform，不触发重排、不闪
-       ② 悬停首屏、聚焦指示器、切到后台标签页时暂停，离开即恢复
-       ③ prefers-reduced-motion 用户不自动播，仅保留手动点选
-       ④ 指示器可点击直达对应屏，aria-pressed 同步当前屏 */
+    /* 首屏三屏内容轮播：原生 JS，零第三方依赖
+       ① 每 7s 自动切屏；背景层与文案层共用同一个 index，永远同步
+       ② 悬停首屏、聚焦首屏内元素、切到后台标签页时暂停，离开即恢复
+       ③ prefers-reduced-motion 用户不自动播，仅保留手动切换
+       ④ 指示器点击 / 左右方向键 / 触摸横滑都能切屏
+       ⑤ 非活动屏 aria-hidden + inert，h1 始终只有当前屏那一处可访问 */
     (function(){
+      var hero = document.querySelector('.hero');
       var slider = document.querySelector('.hero-slider');
-      if(!slider) return;
-      var slides = [].slice.call(slider.querySelectorAll('.hero-slide'));
+      var stack = document.querySelector('.hero-stack');
+      if(!hero || !slider || !stack) return;
+      var bgs = [].slice.call(slider.querySelectorAll('.hero-slide'));
+      var panels = [].slice.call(stack.querySelectorAll('.hero-panel'));
       var dots = [].slice.call(document.querySelectorAll('.hero-dots button'));
-      if(!slides.length) return;
+      if(!panels.length) return;
 
-      var DURATION = 6000, index = 0, timer = null, hovered = false;
+      var DURATION = 7000, index = 0, timer = null, hovered = false;
       var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
 
       function render(){
-        slides.forEach(function(s, i){ s.classList.toggle('is-active', i === index); });
+        bgs.forEach(function(el, i){ el.classList.toggle('is-active', i === index); });
+        panels.forEach(function(el, i){
+          var on = i === index;
+          el.classList.toggle('is-active', on);
+          el.setAttribute('aria-hidden', on ? 'false' : 'true');
+          if(on){ el.removeAttribute('inert'); } else { el.setAttribute('inert', ''); }
+        });
         dots.forEach(function(d, i){
           d.classList.toggle('is-active', i === index);
           d.setAttribute('aria-pressed', i === index ? 'true' : 'false');
         });
+        hero.setAttribute('data-active-screen', String(index + 1));
       }
-      function go(next){ index = (next + slides.length) % slides.length; render(); }
+      function go(next){
+        var n = panels.length;
+        index = ((next % n) + n) % n;
+        render();
+      }
+      function nextSlide(){ go(index + 1); }
+      function prevSlide(){ go(index - 1); }
       function stop(){ if(timer){ clearInterval(timer); timer = null; } }
       function start(){
         stop();
         if((mq && mq.matches) || document.hidden || hovered) return;
-        timer = setInterval(function(){ go(index + 1); }, DURATION);
+        timer = setInterval(nextSlide, DURATION);
       }
+      function restart(){ go(index); start(); }
 
+      /* 指示器 */
       dots.forEach(function(d, i){
         d.addEventListener('click', function(){ go(i); start(); });
-        d.addEventListener('focus', stop);
-        d.addEventListener('blur', start);
       });
-      var hero = slider.parentElement;
-      if(hero){
-        hero.addEventListener('mouseenter', function(){ hovered = true; stop(); });
-        hero.addEventListener('mouseleave', function(){ hovered = false; start(); });
-      }
+
+      /* 悬停 / 聚焦暂停：focusin 覆盖指示器与 CTA 链接的键盘 Tab 焦点 */
+      hero.addEventListener('mouseenter', function(){ hovered = true; stop(); });
+      hero.addEventListener('mouseleave', function(){ hovered = false; start(); });
+      hero.addEventListener('focusin', stop);
+      hero.addEventListener('focusout', function(e){
+        if(!hero.contains(e.relatedTarget)) start();
+      });
+
+      /* 方向键切屏：输入类元素里不拦截，避免抢键盘 */
+      document.addEventListener('keydown', function(e){
+        if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        if(e.altKey || e.ctrlKey || e.metaKey) return;
+        var t = e.target;
+        if(t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+        if(window.getSelection && String(window.getSelection()).length) return;
+        if(e.key === 'ArrowRight') nextSlide(); else prevSlide();
+        e.preventDefault();
+        start();
+      });
+
+      /* 触摸横滑：水平位移 >45px 且明显大于垂直位移才判定为切屏 */
+      var tx = 0, ty = 0, tracking = false;
+      hero.addEventListener('touchstart', function(e){
+        if(e.touches.length !== 1) { tracking = false; return; }
+        tracking = true; tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+      }, {passive:true});
+      hero.addEventListener('touchend', function(e){
+        if(!tracking) return;
+        tracking = false;
+        var t = e.changedTouches && e.changedTouches[0];
+        if(!t) return;
+        var dx = t.clientX - tx, dy = t.clientY - ty;
+        if(Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+        if(dx < 0) nextSlide(); else prevSlide();
+        start();
+      }, {passive:true});
+
+      /* 页面隐藏暂停 */
       document.addEventListener('visibilitychange', function(){
         if(document.hidden){ stop(); } else { start(); }
       });
@@ -963,8 +1052,10 @@
         if(mq.addEventListener) mq.addEventListener('change', onMq);
         else if(mq.addListener) mq.addListener(onMq);
       }
+
       render();
       start();
+      window.__heroSlider = {go:go, next:nextSlide, prev:prevSlide, get index(){return index;}, restart:restart};
     })();
 
     var toggle = document.getElementById('theme-toggle');
