@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 30 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>SKU Turnover Layering: Layer First, Cut Later When Pruning the Long Tail</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html</guid>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>Inventory is cash already spent. Layer SKU turnover and cut SKUs on separate conventions: 30 live SKUs sliced by cumulative revenue at 70/90/99, layer A holds 5 SKUs with 71.2% of revenue at 0.74 monthly turns, while 20 SKUs in layers C+D tie up 23.0% of inventory value on 9.1% of revenue. A dual gate of 0.3 turns and 3,000 yuan isolates 17 hits, 10 exemptions and 7 real cuts, releasing 54,515 yuan (9.4% of total), with three exemption rules and a zero-dependency Python layering script.</description>
+    </item>
     <item>
       <title>Return Rate Is Not an After-Sales Metric: Counting Reverse Logistics into Net Goods Value</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-30-return-rate-net-goods-value.html</link>

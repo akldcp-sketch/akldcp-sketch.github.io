@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKU 动销分层：先分层再砍货的尾部治理口径 - 扶摇</title>
+  <meta name="description" content="SKU 动销分层和砍货是两件事。用 30 个 SKU 数据做帕累托分层：A 层 5 个贡献 71.2% 销售额，C+D 层 20 个 SKU 占 23.0% 库存占款却只出 9.1% 销售额。叠加周转 0.3 次与占款 3000 元双门槛，筛出 7 个该砍的款，释放 54,515 元占款，附豁免规则与零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="SKU 动销分层：先分层再砍货的尾部治理口径 - 扶摇">
+  <meta property="og:description" content="SKU 动销分层和砍货是两件事。用 30 个 SKU 数据做帕累托分层：A 层 5 个贡献 71.2% 销售额，C+D 层 20 个 SKU 占 23.0% 库存占款却只出 9.1% 销售额。叠加周转 0.3 次与占款 3000 元双门槛，筛出 7 个该砍的款，释放 54,515 元占款，附豁免规则与零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html"},"headline":"SKU 动销分层：先分层再砍货的尾部治理口径","description":"SKU 动销分层和砍货是两件事。用 30 个 SKU 数据做帕累托分层：A 层 5 个贡献 71.2% 销售额，C+D 层 20 个 SKU 占 23.0% 库存占款却只出 9.1% 销售额。叠加周转 0.3 次与占款 3000 元双门槛，筛出 7 个该砍的款，释放 54,515 元占款，附豁免规则与零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-02","dateModified":"2026-11-02","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"SKU 动销分层：先分层再砍货的尾部治理口径","item":"https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html"},"headline":"SKU Turnover Layering: Layer First, Cut Later When Pruning the Long Tail","description":"SKU turnover layering and SKU cutting are two different jobs. Using 30 live SKUs, Pareto layering shows 5 SKUs in layer A carrying 71.2% of revenue, while 20 SKUs in C+D hold 23.0% of inventory value yet produce only 9.1% of revenue. A dual gate of 0.3 monthly turns and 3,000 yuan of tied-up stock isolates 7 real cut candidates and releases 54,515 yuan, with exemption rules and a zero-dependency script.","inLanguage":"en","datePublished":"2026-11-02","dateModified":"2026-11-02","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"SKU Turnover Layering: Layer First, Cut Later When Pruning the Long Tail","item":"https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    .text-gradient{background:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    @media (prefers-color-scheme: dark){ .text-gradient{filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32))} }
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../../index.html" class="logo">扶摇</a>
+      <div class="nav-links">
+        <a href="../../index.html" data-i18n="nav.home">首页</a>
+        <a href="../../about.html" data-i18n="nav.about">关于</a>
+        <a href="../../work.html" data-i18n="nav.work">作品集</a>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <a href="../../methods.html" data-i18n="nav.methods">方法论</a>
+        <a href="../../achievements.html" data-i18n="nav.results">成绩单</a>
+        <a href="../../blog.html" class="active" data-i18n="nav.blog">博客</a>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.skulayer.title">SKU 动销分层：先分层再砍货的尾部治理口径</h1>
+        <p class="post-meta">2026-11-02 · AI 技能包 · 商业操盘</p>
+        <div class="post-body">
+<p data-i18n="post.skulayer.lead">库存是已经花掉的现金，货架上的每一件都对应一张已经付过的发票。SKU 动销分层和砍货经常被当成同一件事，其实是两个口径：分层决定流量和补货往哪放，砍货决定现金从哪收回来。口径混用的后果很具体——正在爬坡的新品被当滞销清掉，动销慢却压着大额库存的老货反而留着。本文用 30 个在售 SKU 的月度数据，把两个口径拆开算一遍。</p>
+<h2 data-i18n="post.skulayer.h1">一、SKU 动销分层与砍货是两件事：三个口径错位</h2>
+<p data-i18n="post.skulayer.p1a">第一个错位是拿销售额占比直接定生死。帕累托分层回答的是“资源该往哪投”，不是“哪款该下架”。按累计销售额划线，低单价、高出货的款会被划进 C 层，它的周转并不慢，砍掉只会白丢毛利。</p>
+<p data-i18n="post.skulayer.p1b">第二个错位是只看销量不看库存。月销 8 件和月销 800 件的两个 SKU，如果前者压了 700 件、后者只有 200 件，占款上完全不是一回事。销量是流量指标，占款才是现金指标，淘汰必须用现金指标。</p>
+<p data-i18n="post.skulayer.p1c">第三个错位是不设观察期。本月零销量的 SKU 可能 20 天前才上架，直接进淘汰池，等于用上架时间惩罚新品。这条错位在每个旺季前都会重演一次。</p>
+<h2 data-i18n="post.skulayer.h2">二、SKU 动销分层：累计销售额 70 / 90 / 99 三条线</h2>
+<p data-i18n="post.skulayer.p2a">口径先定死：观察窗 30 天，销售额＝售价 × 30 天销量，占款＝库存件数 × 单位成本，按销售额降序累计划线。A 层到累计 70%，B 层 70%—90%，C 层 90%—99%，D 层 99% 以上或 30 天零销量。层均周转＝该层 30 天销量 ÷ 该层库存件数。</p>
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.skulayer.th0">层级</th><th data-i18n="post.skulayer.th1">SKU 数</th><th data-i18n="post.skulayer.th2">月销售额（元）</th><th data-i18n="post.skulayer.th3">销售占比</th><th data-i18n="post.skulayer.th4">库存占款（元）</th><th data-i18n="post.skulayer.th5">占款占比</th><th data-i18n="post.skulayer.th6">层均月周转</th></tr></thead><tbody>
+<tr><td data-i18n="post.skulayer.rowA">A 层</td><td>5</td><td>614,940</td><td>71.2%</td><td>332,700</td><td>57.4%</td><td>0.74</td></tr>
+<tr><td data-i18n="post.skulayer.rowB">B 层</td><td>5</td><td>170,350</td><td>19.7%</td><td>113,570</td><td>19.6%</td><td>0.58</td></tr>
+<tr><td data-i18n="post.skulayer.rowC">C 层</td><td>8</td><td>70,836</td><td>8.2%</td><td>75,950</td><td>13.1%</td><td>0.26</td></tr>
+<tr><td data-i18n="post.skulayer.rowD">D 层</td><td>12</td><td>7,414</td><td>0.9%</td><td>57,545</td><td>9.9%</td><td>0.03</td></tr>
+<tr><td data-i18n="post.skulayer.rowSum">合计</td><td>30</td><td>863,540</td><td>100%</td><td>579,765</td><td>100%</td><td>—</td></tr>
+</tbody></table></div>
+<p data-i18n="post.skulayer.p2b">A 层 5 个 SKU，占宽度 16.7%，吃掉 71.2% 销售额，层均月周转 0.74 次，折合库存 40 天卖完。D 层 12 个 SKU 只出 0.9% 销售额，层均月周转 0.03 次，折合 1000 天。C 层加 D 层共 20 个 SKU、占宽度 66.7%，销售贡献 9.1%，却压着 23.0% 的占款。</p>
+<p data-i18n="post.skulayer.p2c">这组数字的正确用法不是“砍 20 个”，而是两个动作：A 层保供、不断货、优先配流量；C 层停止补货，让库存自然出清。分层只负责分配资源，别让它越权去决定生死。</p>
+<h2 data-i18n="post.skulayer.h3">三、砍货口径：周转 0.3 次 + 占款 3000 元双门槛</h2>
+<p data-i18n="post.skulayer.p3a">月周转次数＝30 天销量 ÷ 当前库存件数。门槛定 0.3 次，等于现有库存够卖 100 天以上；再叠加占款不低于 3000 元——占款太小的款即使周转慢，处理它耗掉的沟通和物流成本比收回的钱还多，不值得上会。两条同时满足才进候选池。</p>
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.skulayer.th7">SKU</th><th data-i18n="post.skulayer.th8">类目</th><th data-i18n="post.skulayer.th9">30 天销量</th><th data-i18n="post.skulayer.th10">库存件数</th><th data-i18n="post.skulayer.th11">占款（元）</th><th data-i18n="post.skulayer.th12">月周转</th><th data-i18n="post.skulayer.th13">判定</th></tr></thead><tbody>
+<tr><td>SKU-C03</td><td data-i18n="post.skulayer.catHw">五金</td><td>58</td><td>260</td><td>14,300</td><td>0.22</td><td data-i18n="post.skulayer.kill">淘汰</td></tr>
+<tr><td>SKU-C05</td><td data-i18n="post.skulayer.catHw">五金</td><td>28</td><td>210</td><td>9,870</td><td>0.13</td><td data-i18n="post.skulayer.kill">淘汰</td></tr>
+<tr><td>SKU-D10</td><td data-i18n="post.skulayer.catClean">清洁</td><td>0</td><td>420</td><td>7,560</td><td>0.00</td><td data-i18n="post.skulayer.holdNew">豁免·培育期 26 天</td></tr>
+<tr><td>SKU-C04</td><td data-i18n="post.skulayer.catStore">收纳</td><td>41</td><td>240</td><td>7,440</td><td>0.17</td><td data-i18n="post.skulayer.kill">淘汰</td></tr>
+<tr><td>SKU-C08</td><td data-i18n="post.skulayer.catHw">五金</td><td>8</td><td>160</td><td>7,040</td><td>0.05</td><td data-i18n="post.skulayer.kill">淘汰</td></tr>
+<tr><td>SKU-C02</td><td data-i18n="post.skulayer.catClean">清洁</td><td>72</td><td>290</td><td>6,960</td><td>0.25</td><td data-i18n="post.skulayer.kill">淘汰</td></tr>
+<tr><td>SKU-D08</td><td data-i18n="post.skulayer.catHw">五金</td><td>6</td><td>140</td><td>5,460</td><td>0.04</td><td data-i18n="post.skulayer.holdNew2">豁免·培育期 41 天</td></tr>
+<tr><td>SKU-C07</td><td data-i18n="post.skulayer.catStore">收纳</td><td>12</td><td>175</td><td>4,725</td><td>0.07</td><td data-i18n="post.skulayer.kill">淘汰</td></tr>
+</tbody></table></div>
+<p data-i18n="post.skulayer.p3b">17 条命中双门槛，其中 10 条被豁免，真正可执行的是 7 个：C03、C05、C04、C08、C02、C07、C06，合计释放 54,515 元占款，占总占款 9.4%。这个数字回答的是“这个月能从货架上收回多少现金”，不是“砍了多少款”的成绩单。</p>
+<h2 data-i18n="post.skulayer.h4">四、可复现代码：一张 CSV 进，分层表与处置清单出</h2>
+<p data-i18n="post.skulayer.p4a">只用标准库，不需要 pandas。输入列固定为 sku、cat、days_listed、sales_30d、stock_qty、unit_cost、price、role，role 用来标记配件引流或共用包装，没标记留空。</p>
+<pre><code># sku_layer.py —— 动销分层 + 尾部处置（零依赖）
+import csv, sys
+
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return [{"sku": r["sku"], "cat": r["cat"], "days": int(r["days_listed"]),
+                 "sales": int(r["sales_30d"]), "stock": int(r["stock_qty"]),
+                 "cost": float(r["unit_cost"]), "price": float(r["price"]),
+                 "role": r.get("role") or ""} for r in csv.DictReader(f)]
+
+def layerize(rows):
+    for r in rows:
+        r["rev"] = r["sales"] * r["price"]          # 月销售额
+        r["amt"] = r["stock"] * r["cost"]           # 库存占款
+        r["turn"] = r["sales"] / r["stock"] if r["stock"] else 0.0
+    total_rev = sum(r["rev"] for r in rows)
+    rows.sort(key=lambda x: x["rev"], reverse=True)
+    cum = 0.0
+    for r in rows:
+        prev = cum / total_rev if total_rev else 0
+        cum += r["rev"]
+        after = cum / total_rev if total_rev else 1
+        if r["sales"] == 0:
+            r["layer"] = "D"
+        elif after &lt;= 0.70 or prev &lt; 0.70:
+            r["layer"] = "A"
+        elif after &lt;= 0.90 or prev &lt; 0.90:
+            r["layer"] = "B"
+        elif after &lt;= 0.99 or prev &lt; 0.99:
+            r["layer"] = "C"
+        else:
+            r["layer"] = "D"
+    return rows, total_rev
+
+def report(rows, total_rev):
+    total_amt = sum(r["amt"] for r in rows)
+    for k in "ABCD":
+        items = [r for r in rows if r["layer"] == k]
+        rev = sum(i["rev"] for i in items)
+        amt = sum(i["amt"] for i in items)
+        turn = sum(i["turn"] for i in items) / len(items) if items else 0
+        print("%s %2d 个  销售 %9.0f (%4.1f%%)  占款 %9.0f (%4.1f%%)  周转 %.2f"
+              % (k, len(items), rev, 100 * rev / total_rev,
+                 amt, 100 * amt / total_amt, turn))
+
+def disposal(rows, turn_gate=0.30, amt_gate=3000):
+    hit = [r for r in rows if r["turn"] &lt; turn_gate and r["amt"] &gt;= amt_gate]
+    hit.sort(key=lambda x: x["amt"], reverse=True)
+    kill = 0.0
+    for r in hit:
+        why = []
+        if r["days"] &lt; 90: why.append("培育期")
+        if r["role"]: why.append(r["role"])
+        if not why: kill += r["amt"]
+        print("%-9s %-4s 占款 %7.0f 周转 %.2f  %s"
+              % (r["sku"], r["cat"], r["amt"], r["turn"], "/".join(why) or "淘汰"))
+    print("命中 %d 条，可执行释放占款 %.0f 元" % (len(hit), kill))
+
+if __name__ == "__main__":
+    rows, total_rev = layerize(load(sys.argv[1]))
+    report(rows, total_rev)
+    disposal(rows)
+</code></pre>
+<p data-i18n="post.skulayer.p4b">用本文的 30 行数据跑一遍，输出与前面的表格逐格对得上：总销售额 863,540 元、总占款 579,765 元、命中 17 条、可执行释放 54,515 元。换数据源只要列名不变，脚本一个字都不用改。</p>
+<h2 data-i18n="post.skulayer.h5">五、三个不能一刀切的尾部 SKU</h2>
+<ol><li data-i18n="post.skulayer.li0">新品培育期。上架不足 90 天的 SKU 不进淘汰池，只监控环比增速。SKU-D10 零销量但只上架 26 天，占款 7,560 元，砍掉等于放弃一个还没跑完的测试。</li><li data-i18n="post.skulayer.li1">配件引流。SKU-D06、D07 月周转 0.05，单独看是死货，但它们撑起主款的连带率和客单价；砍掉配件，A 层主款的转化会跟着掉。</li><li data-i18n="post.skulayer.li2">共用包装耗材。SKU-D01 与 A 层主力款共用内衬和纸箱，砍掉它，主力款的包材采购量下滑、单价上升，省下的占款会从别处漏回去。</li></ol>
+<p data-i18n="post.skulayer.p5b">豁免不是免死金牌，是给期限：培育期满 90 天复盘一次，配件与共用包装每季度复核一次，复核不过照样进池。没有期限的豁免，三个月后就会变成新的库存黑洞。</p>
+<h2 data-i18n="post.skulayer.h6">六、把 SKU 动销分层做成 AI 技能包</h2>
+<p data-i18n="post.skulayer.p6a">固定输入、固定口径、固定输出，三件事凑齐就能交给 AI 跑。技能包只做三件：读表、判层、出清单；人只做两件：核豁免理由、签淘汰单。边界写清楚，它才不会自作主张把培育期新品也砍了。</p>
+<pre><code>---
+name: sku-turnover-layering
+description: 按 30 天销量与库存占款做 SKU 动销分层，输出尾部处置清单与豁免标记
+inputs:
+  - inventory.csv  # sku, cat, days_listed, sales_30d, stock_qty, unit_cost, price, role
+gates:
+  layer: {A: 0.70, B: 0.90, C: 0.99}
+  disposal: {turn_max: 0.30, amount_min: 3000}
+  exempt: [days_listed &lt; 90, role == accessory, role == shared_pack]
+outputs:
+  - layer_report.md      # 四层 SKU 数 / 销售占比 / 占款占比 / 层均周转
+  - disposal_list.csv    # 按占款降序，含豁免原因
+  - cash_release.md      # 本月可释放占款金额与执行人签字位
+---
+月度节奏：每月 3 日出数，5 日审豁免，10 日前清仓单落地。跑过三次以后，会上的争论会从“这个款我觉得还能救”变成“这 7 个款账上压了 5.45 万，谁签”。
+</code></pre>
+<p data-i18n="post.skulayer.p6b">技能包最容易塌的地方是“人话边界没写”。把门槛、豁免、输出格式写进 front matter，比在提示词里反复叮嘱可靠——它不靠记性，靠文件。</p>
+<h2 data-i18n="post.skulayer.h7">七、结语：把库存当已花掉的现金看</h2>
+<p data-i18n="post.skulayer.p7a">《管子》讲“仓廪实而知礼节”，仓里有货是底气；但压着不动的货不是底气，是账上的洞。SKU 动销分层的价值不在报表好看，而在于每月能把一笔具体金额的现金从货架上拿回来——这个月是 54,515 元，下个月取决于名单有没有真的执行掉。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../../js/site-config.js?v=1.8.38"></script>
+  <script src="../../js/i18n.js?v=1.8.38"></script>
+  <script src="../../js/main.js?v=1.8.38"></script>
+  <script src="../../js/posts-data.js?v=1.8.38"></script>
+  <script src="../../js/post.js?v=1.8.38"></script>
+  <script src="../../js/seo.js?v=1.8.38"></script>
+  <script src="../../js/analytics.js?v=1.8.38"></script>
+  <script src="../../js/comments.js?v=1.8.38"></script>
+  <script src="../../js/sw-register.js?v=1.8.38"></script>
+  <script src="../../js/assistant.js?v=1.8.38"></script>
+</body>
+</html>

@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-02-sku-turnover-layering",
+    en: { title: "SKU Turnover Layering: Layer First, Cut Later When Pruning the Long Tail", summary: "Inventory is cash already spent. Layer SKU turnover and cut SKUs on separate conventions: 30 live SKUs sliced by cumulative revenue at 70/90/99, layer A holds 5 SKUs with 71.2% of revenue at 0.74 monthly turns, while 20 SKUs in layers C+D tie up 23.0% of inventory value on 9.1% of revenue. A dual gate of 0.3 turns and 3,000 yuan isolates 17 hits, 10 exemptions and 7 real cuts, releasing 54,515 yuan (9.4% of total), with three exemption rules and a zero-dependency Python layering script.", tag: "Business Operations" },
+    title: "SKU 动销分层：先分层再砍货的尾部治理口径",
+    date: "2026-11-02",
+    tag: "商业操盘",
+    summary: "库存是已经花掉的现金。SKU 动销分层和砍货要分开算：30 个在售 SKU 按累计销售额 70/90/99 三条线分层，A 层 5 个贡献 71.2% 销售额、层均月周转 0.74；C+D 层 20 个占 23.0% 库存占款却只出 9.1% 销售额。叠加周转 0.3 次与占款 3000 元双门槛，17 条命中、10 条豁免、7 个可砍，释放 54,515 元占款（占总额 9.4%），附三类豁免规则与零依赖 Python 分层脚本。"
+  },
+  {
     file: "2026-10-30-return-rate-net-goods-value",
     en: { title: "Return Rate Is Not an After-Sales Metric: Counting Reverse Logistics into Net Goods Value", summary: "Return rate is a deduction from net goods value, not an after-sales metric. Five cost blocks — refund, reverse logistics, packaging loss, customer-service labor, resale markdown — applied to four home-storage SKUs: the top-selling wall rack has 18.5% returns and only 75.0% net goods value, 16.1 points below the folding box. Includes zero-dependency Python, reason tags and thresholds.", tag: "Business Operations" },
     title: "退货率不是售后指标：把逆向物流算进净货值的操盘口径",
