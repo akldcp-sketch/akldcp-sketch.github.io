@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 02 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2026 01:09:38 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>现金转换周期 CCC 不是报表指标，而是操盘手的流动性体检。6 店合计月销 860 万元、成本 602 万元，DSO 10.9 天、DIO 26.3 天、DPO 9.8 天，CCC 27.4 天，营运资金占用 786 万元；切到店铺层，F 店以 4.0% 销售额压 14.1% 资金、CCC 97.8 天。压 DIO 到 30 天释放 67.4 万元，附四个取数坑与零依赖脚本。</description>
+    </item>
     <item>
       <title>SKU 动销分层：先分层再砍货的尾部治理口径</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html</link>
@@ -21,13 +29,13 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-30-return-rate-net-goods-value.html</guid>
       <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
       <category>商业操盘</category>
-      <description>退货率不是售后指标，而是净货值的扣减项。本文拆解退款、逆向物流、包装损耗、客服工时、二次销售折价五块成本，用四款家居收纳 SKU 的月度数据算净货值率：销量第一的壁挂置物架退货率 18.5%，净货值率只有 75.0%，比折叠收纳箱低 16.1 个百分点。附零依赖 Python 计算脚本、退货归因标签与选品准入门槛。</description>
+      <description>退货率不是售后指标，而是净货值的扣减项。拆解退款、逆向物流、包装损耗、客服工时、二次销售折价五块成本，用四款家居收纳 SKU 月度数据算净货值率：销量第一的壁挂置物架退货率 18.5%、净货值率仅 75.0%，比折叠收纳箱低 16.1 个百分点。附零依赖 Python 脚本、退货归因标签与选品准入门槛。</description>
     </item>
     <item>
       <title>广告素材 A/B 测款：贝叶斯方法决定素材去留</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</link>
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</guid>
-      <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI 技能包</category>
       <description>素材测款别靠感觉。AI 素材变体批量衍生 + 微预算 72 小时快反 + CTR 衰减率与贝叶斯 A/B 判定：某家居产品线 7 天测 8 组素材，强烈对比色块 CTR 3.2%、ROAS 4.5、胜率 100% 胜出放量，淘汰素材进负向约束库。附零依赖可复现 Python 贝叶斯 A/B 测试代码与素材归档规范。</description>
     </item>

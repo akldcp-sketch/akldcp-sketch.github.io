@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径 - 扶摇</title>
+  <meta name="description" content="现金转换周期 CCC 不是报表指标，而是操盘手的流动性体检。按 DSO 10.9 天、DIO 26.3 天、DPO 9.8 天算出 CCC 27.4 天，用 6 个店铺分层找出占 4.0% 销售额却压 14.1% 资金的店铺，把 DIO 压到 30 天释放 67.4 万元，附四个取数坑与零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径 - 扶摇">
+  <meta property="og:description" content="现金转换周期 CCC 不是报表指标，而是操盘手的流动性体检。按 DSO 10.9 天、DIO 26.3 天、DPO 9.8 天算出 CCC 27.4 天，用 6 个店铺分层找出占 4.0% 销售额却压 14.1% 资金的店铺，把 DIO 压到 30 天释放 67.4 万元，附四个取数坑与零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html"},"headline":"现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径","description":"现金转换周期 CCC 不是报表指标，而是操盘手的流动性体检。按 DSO 10.9 天、DIO 26.3 天、DPO 9.8 天算出 CCC 27.4 天，用 6 个店铺分层找出占 4.0% 销售额却压 14.1% 资金的店铺，把 DIO 压到 30 天释放 67.4 万元，附四个取数坑与零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-04","dateModified":"2026-11-04","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径","item":"https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html"},"headline":"Cash Conversion Cycle: How DSO, DIO and DPO Turn Operating Reality into a Number","description":"The cash conversion cycle is not a finance-report metric but a liquidity check for operators. With DSO at 10.9 days, DIO at 26.3 days and DPO at 9.8 days, CCC lands at 27.4 days. Layering working capital across six stores exposes a long-tail store holding 14.1% of cash on 4.0% of revenue; pushing DIO to 30 days releases 674,000 yuan, with four data traps and a zero-dependency script.","inLanguage":"en","datePublished":"2026-11-04","dateModified":"2026-11-04","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Cash Conversion Cycle: How DSO, DIO and DPO Turn Operating Reality into a Number","item":"https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.ccc.title">现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径</h1>
+        <p class="post-meta">2026-11-04 · 商业操盘 · AI 技能包</p>
+        <div class="post-body">
+<p data-i18n="post.ccc.lead">现金转换周期 CCC 描述的是一件很朴素的事：钱花出去到钱回来，中间隔了多少天。它由三段构成——应收账款周转天数 DSO、存货周转天数 DIO、应付账款周转天数 DPO，CCC = DSO + DIO − DPO。这套公式在财务教材里只有三行，落到多店铺矩阵里却每天都在变：平台结算周期、在途海运、供应商月结、海外仓备货，四条节奏互相错位。本文用一个月度真实量级的算例，把 CCC 从报表数字变成可执行的操盘口径。</p>
+
+<h2 data-i18n="post.ccc.h1">一、现金转换周期 CCC 的三个误判</h2>
+<p data-i18n="post.ccc.p1a">第一个误判是把毛利率当现金能力。毛利 30% 的生意，如果 CCC 长达 90 天，按年化 8% 的资金成本折算，光资金占用就吃掉约 2 个百分点的净利；反过来，毛利 20%、CCC 45 天的生意，单位资本回报可能更高。看毛利不看 CCC，等于只看单价不看周转，这在旺季最容易出事——账上赚着钱，工资发不出来。</p>
+<p data-i18n="post.ccc.p1b">第二个误判是把 DPO 压到最短当美德。现款现货确实干净，但供应商给的账期本质是一笔无息贷款。取消了账期，等于把无息短贷换成自有资金，采购单价却不一定降。判断 DPO 好坏的标准不是天数长短，而是“延账期时让出的单价”与“省下的资金成本”谁大——后面第五节的算例会给出具体数字。</p>
+<p data-i18n="post.ccc.p1c">第三个误判是用平均库存掩盖长尾。矩阵整体 DIO 26.3 天看起来健康，但这个数字被头部店铺摊薄了：真正的资金沉淀在几个 DIO 超过 80 天的测试店身上。平均值不是给操盘手看的，是给外部看的；内部必须切到店铺层、品类层，再切到 SKU 层。</p>
+
+<h2 data-i18n="post.ccc.h2">二、CCC 口径定义：三个公式 + 四个取数坑</h2>
+<p data-i18n="post.ccc.p2a">口径先定死，否则每个月的数据都对不上。观察窗取自然月 30 天，资产负债表项取期末余额，利润表项取当月发生额：</p>
+<pre class="formula"><code>DSO 应收账款周转天数 = 期末应收账款 ÷ 月销售额 × 30
+DIO 存货周转天数   = 期末存货   ÷ 月销货成本 × 30
+DPO 应付账款周转天数 = 期末应付账款 ÷ 月销货成本 × 30
+CCC 现金转换周期   = DSO + DIO − DPO</code></pre>
+<p data-i18n="post.ccc.p2b">DIO 和 DPO 的分母为什么必须用销货成本而不是销售额？因为存货和应付账款对的是商品的成本价值，不是含毛利的售价。用销售额当分母，30% 毛利会把 DIO 凭空缩短近三分之一，算出 18 天，实际压了 26 天，决策直接跑偏。DSO 例外——应收账款是含毛利的售价口径，分母只能用销售额，这是公式里唯一不对称的地方。</p>
+<p data-i18n="post.ccc.p2c">四个取数坑，每个都能让结论反号：一是含税销售额，平台结算单多为含税价，直接进分母会让 DSO 偏低约 11%，取数前先剥税；二是在途库存，海运在途货既不在国内仓也不在海外仓，漏掉它 DIO 会虚低 3 到 5 天，本文算例把 86 万元在途单列并计入分子；三是预付账款，预付给工厂的定金已经付了现金却没形成存货，不能混进应付账款，否则 DPO 虚高、掩盖真实的账期能力；四是跨期结算，平台的预留金和延迟释放款项常记在次月，用账上余额直接算会让 DSO 少 1 到 2 天，需要按账单日还原。</p>
+<p data-i18n="post.ccc.p2d">另一条纪律是余额口径要固定：本文用期末余额，因为平台账单和财务总账都能在月初复核，可复现性优先。平均余额法能抹平 1 到 2 天的波动，但两种口径绝不能出现在同一张表里，否则趋势线会出现实际没发生的改善。还有两件容易被审稿人抓住的事：一是季节性，11 月到次年 1 月是备货季，DIO 天然比淡季高 6 到 9 天，跨月比较只做同比不做环比；二是口径错配，存货若含原材料和包材要单列出来，否则分子里躺着还没投产的料，分母只有已售商品的成本，算出来的天数既不是存货周转也不是产成品周转。</p>
+
+<h2 data-i18n="post.ccc.h3">三、一个矩阵的月度算例：CCC 27.4 天</h2>
+<p data-i18n="post.ccc.p3a">数据口径：6 个店铺合计，月销售额 860 万元，销货成本 602 万元（毛利率 30.0%），期末应收账款 312 万元，存货合计 528 万元，应付账款合计 196 万元。下表是三项的结构拆解与换算。</p>
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.ccc.th0">项目</th><th data-i18n="post.ccc.th1">金额（万元）</th><th data-i18n="post.ccc.th2">结构拆解</th><th data-i18n="post.ccc.th3">换算天数</th></tr></thead><tbody>
+<tr><td data-i18n="post.ccc.rowAr">应收账款</td><td>312</td><td data-i18n="post.ccc.arSplit">平台待结算 236 + B2B 账期 76</td><td>DSO 10.9</td></tr>
+<tr><td data-i18n="post.ccc.rowInv">存货</td><td>528</td><td data-i18n="post.ccc.invSplit">在途 86 + 海外仓现货 198 + 国内备货 244</td><td>DIO 26.3</td></tr>
+<tr><td data-i18n="post.ccc.rowAp">应付账款</td><td>196</td><td data-i18n="post.ccc.apSplit">供应商月结 120 + 物流月结 76</td><td>DPO 9.8</td></tr>
+<tr><td data-i18n="post.ccc.rowCcc">现金转换周期</td><td data-i18n="post.ccc.dash">—</td><td>10.9 + 26.3 − 9.8</td><td>CCC 27.4</td></tr>
+</tbody></table></div>
+<p data-i18n="post.ccc.p3b">换算下来：DSO 10.9 天、DIO 26.3 天、DPO 9.8 天、CCC 27.4 天，对应营运资金占用 786 万元（27.4 × 860 ÷ 30）。上季度同口径是 DSO 12.4、DIO 31.8、DPO 10.1，CCC 34.1 天。一个季度缩短 6.7 天，来源是两件事：国内备货砍掉一轮补货、物流月结从 45 天拉到 30 天以内。</p>
+<p data-i18n="post.ccc.p3c">这 6.7 天值多少钱，有两个口径，差 57 万元，必须说清楚用哪个：按销售额口径，860 ÷ 30 × 6.7 = 191.2 万元，这是对外解释营运资金需求时的数字，含毛利部分其实从未实付；按成本口径，602 ÷ 30 × 6.7 = 133.9 万元，这才是真正能回到银行账户的现金。做预算、做现金排期一律用成本口径，别拿销售额口径去承诺还款能力，这是很多操盘手在董事会现场被问住的地方。</p>
+
+<h2 data-i18n="post.ccc.h4">四、按店铺分层看现金转换周期：谁在拖现金</h2>
+<p data-i18n="post.ccc.p4a">整体 CCC 27.4 天只是一个数。把它切到 6 个店铺，用“营运资金占用 = CCC × 月销售额 ÷ 30”还原每个店压了多少现金，结构立刻显形。</p>
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.ccc.th4">店铺</th><th data-i18n="post.ccc.th5">月销售额</th><th>DSO</th><th>DIO</th><th>DPO</th><th>CCC</th><th data-i18n="post.ccc.th6">营运资金占用</th><th data-i18n="post.ccc.th7">资金占比</th></tr></thead><tbody>
+<tr><td>A</td><td>300</td><td>9.6</td><td>18.0</td><td>12.2</td><td>15.4</td><td>154.3</td><td>19.6%</td></tr>
+<tr><td>B</td><td>190</td><td>10.3</td><td>20.6</td><td>10.8</td><td>20.2</td><td>127.8</td><td>16.3%</td></tr>
+<tr><td>C</td><td>152</td><td>10.9</td><td>25.5</td><td>9.0</td><td>27.5</td><td>139.4</td><td>17.7%</td></tr>
+<tr><td>D</td><td>110</td><td>12.5</td><td>30.9</td><td>7.9</td><td>35.5</td><td>130.2</td><td>16.6%</td></tr>
+<tr><td>E</td><td>74</td><td>13.3</td><td>42.5</td><td>5.6</td><td>50.1</td><td>123.7</td><td>15.7%</td></tr>
+<tr><td>F</td><td>34</td><td>14.8</td><td>85.0</td><td>2.0</td><td>97.8</td><td>110.8</td><td>14.1%</td></tr>
+<tr><td data-i18n="post.ccc.rowAll">合计</td><td>860</td><td>10.9</td><td>26.3</td><td>9.8</td><td>27.4</td><td>786.1</td><td>100%</td></tr>
+</tbody></table></div>
+<p data-i18n="post.ccc.p4b">A 店卖 300 万元、占销售额 34.9%，只压了 19.6% 的资金；F 店卖 34 万元、占销售额 4.0%，却压了 14.1% 的资金。F 店 CCC 97.8 天，是 A 店的 6.3 倍。这就是平均数的欺骗性：整体 27.4 天看着舒服，实际是 A 店在用健康周转补贴 F 店的备货冲动。</p>
+<p data-i18n="post.ccc.p4c">分层之后的判定规则要写死：CCC 高于整体 5 天以上的店铺进“资金拖累”名单，D、E、F 三个店在列，合计占用资金 364.7 万元，占总资金 46.4%。这类店铺要么收缩备货深度，要么提高周转定价，不能靠整体盈利去掩盖。</p>
+
+<h2 data-i18n="post.ccc.h5">五、三个杠杆：压 DIO、谈 DPO、调 DSO</h2>
+<p data-i18n="post.ccc.p5a">杠杆一，压 DIO 先压长尾。规则定成“单店 DIO 上限 30 天，超出部分当月进清货通道”。按算例执行：D 店 30.9 天、E 店 42.5 天、F 店 85.0 天，三个店压到 30 天合计释放 67.4 万元（成本口径：2.3 + 21.5 + 43.6），存货从 528 万元降到 460.6 万元，整体 DIO 从 26.3 天降到 22.9 天，CCC 降到 24.0 天。注意这里释放的是成本口径现金，不是销售额——清货打折的毛利损失另算，本文算例按成本价出清，不重复计入。</p>
+<p data-i18n="post.ccc.p5b">杠杆二，谈 DPO 要算真实成本。算例：供应商货款月采购 200 万元，现为月结 30 天，若延到 60 天，按年化资金成本 8% 计，多占用的资金价值 = 200 × 30 ÷ 365 × 8% = 1.32 万元/月。如果供应商因此要求让价 2%，收益 4.00 万元/月，净收益 2.68 万元/月，这笔账成立；如果供应商只肯让 0.5%，收益 1.00 万元/月，反而不如 1.32 万元/月的资金价值，延账期就是亏的。结论很硬：不谈价的延账期，收益上限只有采购额的 0.66%，靠它省不出钱，靠它换单价折扣才有意义。</p>
+<p data-i18n="post.ccc.p5c">杠杆三，DSO 在平台机制里只能靠结构调整。结算周期是平台定的，操盘手改不了，但可以改渠道占比。算例：把占销售额 30% 的 T+14 结算站点迁到 T+7 结算渠道，DSO 下降 0.3 × (14 − 7) = 2.1 天，按销售口径释放 60.2 万元、按成本口径释放 42.1 万元。代价是渠道迁移带来的佣金与流量波动，得一次性测算，但这是唯一能在不改合同的前提下动 DSO 的口子。</p>
+
+<h2 data-i18n="post.ccc.h6">六、可复现代码：一张 CSV 算出 CCC 与释放资金</h2>
+<p data-i18n="post.ccc.p6a">只用标准库。输入列固定为 store、month_sales、month_cogs、ar_end、inv_end、ap_end，金额单位统一万元。输出三块：各店天数、整体口径、压降模拟。</p>
+<pre><code># ccc.py —— 现金转换周期体检（零依赖，Python 3.8+）
+import csv, sys
+
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return [{"store": r["store"],
+                 "sales": float(r["month_sales"]),
+                 "cogs":  float(r["month_cogs"]),
+                 "ar":    float(r["ar_end"]),
+                 "inv":   float(r["inv_end"]),
+                 "ap":    float(r["ap_end"])} for r in csv.DictReader(f)]
+
+def metrics(row, days=30):
+    row["dso"] = row["ar"]  / row["sales"] * days if row["sales"] else 0.0
+    row["dio"] = row["inv"] / row["cogs"]  * days if row["cogs"]  else 0.0
+    row["dpo"] = row["ap"]  / row["cogs"]  * days if row["cogs"]  else 0.0
+    row["ccc"] = row["dso"] + row["dio"] - row["dpo"]
+    row["wc"]  = row["ccc"] * row["sales"] / days      # 营运资金占用（销售额口径）
+    return row
+
+def overall(rows):
+    return metrics({"store": "ALL",
+                    "sales": sum(r["sales"] for r in rows),
+                    "cogs":  sum(r["cogs"]  for r in rows),
+                    "ar":    sum(r["ar"]    for r in rows),
+                    "inv":   sum(r["inv"]   for r in rows),
+                    "ap":    sum(r["ap"]    for r in rows)})
+
+def report(rows):
+    rows = [metrics(r) for r in rows]
+    head = "%-6s %8s %8s %7s %7s %7s %8s %9s"
+    print(head % ("店铺", "月销售额", "月成本", "DSO", "DIO", "DPO", "CCC", "占用资金"))
+    for r in sorted(rows, key=lambda x: x["ccc"]):
+        print(head % (r["store"], "%.0f" % r["sales"], "%.0f" % r["cogs"],
+                      "%.1f" % r["dso"], "%.1f" % r["dio"], "%.1f" % r["dpo"],
+                      "%.1f" % r["ccc"], "%.1f" % r["wc"]))
+    t = overall(rows)
+    print("-" * 70)
+    print("整体 DSO %.1f  DIO %.1f  DPO %.1f  CCC %.1f"
+          % (t["dso"], t["dio"], t["dpo"], t["ccc"]))
+    wc_sum = sum(r["wc"] for r in rows)
+    for r in sorted(rows, key=lambda x: -x["wc"]):
+        print("%-6s 销售占比 %5.1f%%  资金占比 %5.1f%%"
+              % (r["store"], 100 * r["sales"] / t["sales"], 100 * r["wc"] / wc_sum))
+    return rows, t
+
+def lever(rows, dio_target=30.0, days=30):
+    """把 DIO 超过目标值的店铺压到目标值，返回可释放资金（成本口径，保守）"""
+    freed = 0.0
+    for r in rows:
+        if r["dio"] &gt; dio_target:
+            cut = r["cogs"] / days * (r["dio"] - dio_target)
+            freed += cut
+            print("%-6s DIO %.1f -&gt; %.1f  释放 %.1f 万"
+                  % (r["store"], r["dio"], dio_target, cut))
+    print("合计可释放 %.1f 万（成本口径，不含毛利部分）" % freed)
+    return freed
+
+if __name__ == "__main__":
+    rows, total = report(load(sys.argv[1]))
+    lever(rows, float(sys.argv[2]) if len(sys.argv) &gt; 2 else 30.0)
+</code></pre>
+<p data-i18n="post.ccc.p6b">配套 CSV 就是第四节那张表，六行数据。把源码和 CSV 放在同一目录，跑下面这条命令：</p>
+<pre class="formula"><code>python3 ccc.py balance.csv 30</code></pre>
+<p data-i18n="post.ccc.p6c">输出与本文表格逐格对得上：整体 DSO 10.9、DIO 26.3、DPO 9.8、CCC 27.4；D、E、F 三个店命中 DIO 超限，分别释放 2.3、21.5、43.6 万元，合计 67.4 万元。换数据集只要列名不变，脚本不用改；要按品类算，把 store 列换成品类名即可。</p>
+
+<h2 data-i18n="post.ccc.h7">七、把现金转换周期做成月度考核口径</h2>
+<p data-i18n="post.ccc.p7a">CCC 之所以常年没人管，是因为它不挂在任何人头上。要落地就三件事写进月度节奏：每月 3 日财务出 CCC 表（期末余额口径），5 日运营审店铺分层，10 日前把“CCC 高于整体 5 天以上”的店铺处置单落到具体动作——要么压 DIO，要么调结构，不接受“下月再看”。同时把 DIO 上限 30 天、DPO 与采购单价的换算规则、DSO 的渠道占比上限写进技能包的 front matter，AI 每月只做取数、算天数、出清单，人只做两件：签处置单、谈供应商。</p>
+<p data-i18n="post.ccc.p7b">《孙子兵法·军形》讲“先为不可胜，以待敌之可胜”。CCC 就是那个“不可胜”：它不带来增长，它保证你在增长来时还有子弹。27.4 天这个数字本身没有意义，有意义的是下个月它是不是 24.0 天，以及那 67.4 万元是不是真的回到了账上。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

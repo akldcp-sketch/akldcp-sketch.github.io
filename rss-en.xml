@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 02 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2026 01:09:38 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Cash Conversion Cycle: How DSO, DIO and DPO Turn Operating Reality into a Number</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>The cash conversion cycle is a liquidity check for operators, not a report metric. Six stores combined: monthly revenue 8.60M, cost of goods sold 6.02M, DSO 10.9 days, DIO 26.3 days, DPO 9.8 days, CCC 27.4 days, tied-up working capital 7.86M. Layered by store, store F holds 14.1% of the cash on 4.0% of revenue at 97.8 days of CCC. Capping DIO at 30 days releases 674,000 yuan, with four data traps and a zero-dependency script.</description>
+    </item>
     <item>
       <title>SKU Turnover Layering: Layer First, Cut Later When Pruning the Long Tail</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-02-sku-turnover-layering.html</link>
@@ -21,13 +29,13 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-30-return-rate-net-goods-value.html</guid>
       <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
       <category>Business Operations</category>
-      <description>Return rate is not an after-sales metric but a deduction from net goods value. This post breaks returns into five cost blocks — refund, reverse logistics, packaging loss, customer-service labor and resale markdown — then computes the net goods value rate for four home-storage SKUs: the top-selling wall rack has an 18.5% return rate but only a 75.0% net goods value rate, 16.1 points below the folding box. Includes zero-dependency Python, return reason tags and an assortment threshold.</description>
+      <description>Return rate is a deduction from net goods value, not an after-sales metric. Five cost blocks — refund, reverse logistics, packaging loss, customer-service labor, resale markdown — applied to four home-storage SKUs: the top-selling wall rack has 18.5% returns and only 75.0% net goods value, 16.1 points below the folding box. Includes zero-dependency Python, reason tags and thresholds.</description>
     </item>
     <item>
       <title>Ad Creative A/B Testing: Bayesian Decisions on Material Survival</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</link>
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-28-ad-creative-bayesian-ab-test.html</guid>
-      <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
       <description>Ad creative testing should not be a gut call. AI-generated material variants, micro-budget 72-hour rapid tests, CTR decay rate and Bayesian A/B decisions: in 7 days one home-goods line tested 8 material sets; a high-contrast color block won with 3.2% CTR, 4.5 ROAS and 100% posterior win probability, while losers went into a negative-constraint library. Includes zero-dependency reproducible Python code.</description>
     </item>
@@ -48,12 +56,12 @@
       <description>Profit on paper is not cash in hand. Define the cash flow baseline as monthly rigid costs times safety months, compare sea vs air capital occupation, and stress-test 12 weeks with pandas — delayed logistics and lagged payments turn 7 of 12 weeks red before cash runs out. Full reproducible code included.</description>
     </item>
     <item>
-      <title>Amazon Ads ACOS Tiers: Turning Daily Bid Adjustments into an AI Skill Pack</title>
+      <title>ACOS Tiered Management for Amazon Ads: Turning Daily Bid Adjustments into an AI Skill</title>
       <link>https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</link>
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-22-acos-skill-pack.html</guid>
       <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
-      <description>Lower ACOS is not always better. Group SKUs by gross margin into four target ACOS tiers — scale, profit, clearout, defense — with real weekly report data, a reproducible Python script and a SKILL.md template. Daily reviews shrink from an hour to 10 minutes.</description>
+      <description>ACOS is not always lower-is-better. Sort SKUs into traffic, profit, clearance and defense tiers by gross margin, set a target ACOS per tier, scan the weekly ad report with reproducible Python, get over-threshold alerts and bid suggestions, then package the routine as an AI skill with a SKILL.md template.</description>
     </item>
     <item>
       <title>Don't Just Review GMV: A Five-Layer Net Profit Breakdown as an AI Skill</title>
@@ -61,7 +69,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-10-20-da-cu-fu-pan.html</guid>
       <pubDate>Tue, 20 Oct 2026 00:00:00 GMT</pubDate>
       <category>AI Skills</category>
-      <description>GMV is an order metric, not cash. A five-layer net profit breakdown — refunds, take rate, logistics, ads, fixed cost — takes 860K GMV down to net profit with reproducible Python and a SKILL.md template. Reviews shrink from half a day to 15 minutes.</description>
+      <description>GMV is an order metric, not cash. A five-layer net profit breakdown — refunds, take rate, logistics, ads, fixed cost — takes 860K GMV down to net profit with reproducible Python and a SKILL.md template.</description>
     </item>
     <item>
       <title>Landing a Personal Blog with an AI Skill Matrix: web-design-skill-matrix Retrospective</title>

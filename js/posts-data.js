@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-04-cash-conversion-cycle-ccc",
+    en: { title: "Cash Conversion Cycle: How DSO, DIO and DPO Turn Operating Reality into a Number", summary: "The cash conversion cycle is a liquidity check for operators, not a report metric. Six stores combined: monthly revenue 8.60M, cost of goods sold 6.02M, DSO 10.9 days, DIO 26.3 days, DPO 9.8 days, CCC 27.4 days, tied-up working capital 7.86M. Layered by store, store F holds 14.1% of the cash on 4.0% of revenue at 97.8 days of CCC. Capping DIO at 30 days releases 674,000 yuan, with four data traps and a zero-dependency script.", tag: "Business Operations" },
+    title: "现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径",
+    date: "2026-11-04",
+    tag: "商业操盘",
+    summary: "现金转换周期 CCC 不是报表指标，而是操盘手的流动性体检。6 店合计月销 860 万元、成本 602 万元，DSO 10.9 天、DIO 26.3 天、DPO 9.8 天，CCC 27.4 天，营运资金占用 786 万元；切到店铺层，F 店以 4.0% 销售额压 14.1% 资金、CCC 97.8 天。压 DIO 到 30 天释放 67.4 万元，附四个取数坑与零依赖脚本。"
+  },
+  {
     file: "2026-11-02-sku-turnover-layering",
     en: { title: "SKU Turnover Layering: Layer First, Cut Later When Pruning the Long Tail", summary: "Inventory is cash already spent. Layer SKU turnover and cut SKUs on separate conventions: 30 live SKUs sliced by cumulative revenue at 70/90/99, layer A holds 5 SKUs with 71.2% of revenue at 0.74 monthly turns, while 20 SKUs in layers C+D tie up 23.0% of inventory value on 9.1% of revenue. A dual gate of 0.3 turns and 3,000 yuan isolates 17 hits, 10 exemptions and 7 real cuts, releasing 54,515 yuan (9.4% of total), with three exemption rules and a zero-dependency Python layering script.", tag: "Business Operations" },
     title: "SKU 动销分层：先分层再砍货的尾部治理口径",
