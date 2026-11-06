@@ -5,8 +5,17 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 04 Nov 2026 01:09:38 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>A Discount Is Not a Discount: Equivalent Rate and the Margin Floor Behind Promo Spend</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <category>AI Skill Packs</category>
+      <description>Promo spend cannot be budgeted off the nominal rate. Across six stores and 24 order tiers, a 25% threshold promo is worth only 18.87% while a flat 12% cut costs 12.00%; the portfolio effective rate is 9.29% on 1.858M yuan of discounts. Solving the discount ceiling from the cost structure flags store S5 at 18.87% against a 16.00% ceiling with CM1 at 9.34%; stacking in low-margin stores takes CM1 from 21.12 to 3.45 yuan, and a flat 12% cut adds 173,000 yuan a month. Includes a zero-dependency Python script.</description>
+    </item>
     <item>
       <title>Cash Conversion Cycle: How DSO, DIO and DPO Turn Operating Reality into a Number</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html</link>

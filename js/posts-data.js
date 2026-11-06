@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-06-promo-equivalent-discount-margin-floor",
+    en: { title: "A Discount Is Not a Discount: Equivalent Rate and the Margin Floor Behind Promo Spend", summary: "Promo spend cannot be budgeted off the nominal rate. Across six stores and 24 order tiers, a 25% threshold promo is worth only 18.87% while a flat 12% cut costs 12.00%; the portfolio effective rate is 9.29% on 1.858M yuan of discounts. Solving the discount ceiling from the cost structure flags store S5 at 18.87% against a 16.00% ceiling with CM1 at 9.34%; stacking in low-margin stores takes CM1 from 21.12 to 3.45 yuan, and a flat 12% cut adds 173,000 yuan a month. Includes a zero-dependency Python script.", tag: "Business Operations" },
+    title: "满减不等于直降：等效折扣率与毛利稀释底线的测算口径",
+    date: "2026-11-06",
+    tag: "商业操盘",
+    summary: "促销折扣不能按标称值做预算。6 家店、24 条订单档位的月度算例：满减标称 25% 实付等效只有 18.87%，直降 12% 就是 12.00%；全店等效折扣率 9.29%，实付优惠 185.8 万元。按成本结构反解折扣上限，S5 越过 16.00% 上限、CM1 率只剩 9.34%；凑单在低毛利店把 CM1 从 21.12 元压到 3.45 元，改直降 12% 每月多 17.3 万元。附零依赖 Python 脚本与月度落地口径。"
+  },
+  {
     file: "2026-11-04-cash-conversion-cycle-ccc",
     en: { title: "Cash Conversion Cycle: How DSO, DIO and DPO Turn Operating Reality into a Number", summary: "The cash conversion cycle is a liquidity check for operators, not a report metric. Six stores combined: monthly revenue 8.60M, cost of goods sold 6.02M, DSO 10.9 days, DIO 26.3 days, DPO 9.8 days, CCC 27.4 days, tied-up working capital 7.86M. Layered by store, store F holds 14.1% of the cash on 4.0% of revenue at 97.8 days of CCC. Capping DIO at 30 days releases 674,000 yuan, with four data traps and a zero-dependency script.", tag: "Business Operations" },
     title: "现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径",

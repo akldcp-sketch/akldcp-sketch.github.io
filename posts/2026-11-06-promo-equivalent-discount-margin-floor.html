@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>满减不等于直降：等效折扣率与毛利稀释底线的测算口径 - 扶摇</title>
+  <meta name="description" content="满 100 减 25 的标称折扣是 25%，实际等效只有 18.9%。用 6 家店、24 条订单档位、月 GMV 2000.2 万元的算例，拆出等效折扣率、毛利稀释底线与凑单边际账：S5 等效 18.9% 越过 16.0% 上限，CM1 率只剩 9.3%，改直降每月多 17.3 万元。附零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="满减不等于直降：等效折扣率与毛利稀释底线的测算口径 - 扶摇">
+  <meta property="og:description" content="满 100 减 25 的标称折扣是 25%，实际等效只有 18.9%。用 6 家店、24 条订单档位、月 GMV 2000.2 万元的算例，拆出等效折扣率、毛利稀释底线与凑单边际账：S5 等效 18.9% 越过 16.0% 上限，CM1 率只剩 9.3%，改直降每月多 17.3 万元。附零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html"},"headline":"满减不等于直降：等效折扣率与毛利稀释底线的测算口径","description":"满 100 减 25 的标称折扣是 25%，实际等效只有 18.9%。用 6 家店、24 条订单档位、月 GMV 2000.2 万元的算例，拆出等效折扣率、毛利稀释底线与凑单边际账：S5 等效 18.9% 越过 16.0% 上限，CM1 率只剩 9.3%，改直降每月多 17.3 万元。附零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-06","dateModified":"2026-11-06","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"满减不等于直降：等效折扣率与毛利稀释底线的测算口径","item":"https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html"},"headline":"A Discount Is Not a Discount: Equivalent Rate and the Margin Floor Behind Promo Spend","description":"A 100-yuan threshold with 25 off reads as 25% but actually costs 18.9%; a flat 12% cut costs every point of it. With six stores, 24 order tiers and 20.00M yuan of monthly GMV, this piece separates the equivalent discount rate, the margin floor and the stack-up ledger: store S5 at 18.9% already breaches its 16.0% ceiling with CM1 squeezed to 9.3%, while a flat 12% cut adds 173,000 yuan a month. Includes a zero-dependency Python script.","inLanguage":"en","datePublished":"2026-11-06","dateModified":"2026-11-06","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"A Discount Is Not a Discount: Equivalent Rate and the Margin Floor Behind Promo Spend","item":"https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.promo.title">满减不等于直降：等效折扣率与毛利稀释底线的测算口径</h1>
+        <p class="post-meta">2026-11-06 · 商业操盘 · AI 技能包</p>
+        <div class="post-body">
+<p data-i18n="post.promo.lead">满 100 减 25 的标称折扣是 25%，实际让掉的只有 18.9%；另一家店直降 12%，一分不少。这不是文字游戏——它决定你这个月是花 185.8 万元买到 2000.2 万元 GMV，还是按 260 万元做预算、只花出去 185.8 万元，然后在季末急急忙忙把钱补成一堆无效促销。本文用 6 家店、24 条订单档位、月 GMV 2000.2 万元的算例，把等效折扣率、毛利稀释底线与凑单的边际账拆成可执行口径，附零依赖脚本，输出与表格逐格对得上。</p>
+
+<h2 data-i18n="post.promo.h1">一、标称折扣率不能用来做预算：三个误判</h2>
+
+<p data-i18n="post.promo.p1a">第一个误判是把“满 A 减 B”里的 B/A 当折扣率。它只在一种情况下成立：每笔订单金额恰好等于 A。真实订单分布里有两类反例——未达门槛的订单优惠为零，把整体等效折扣率往下拉；超出门槛的订单，溢出部分不享受额外优惠，同样稀释等效率。S1 店“满 1200 减 120”标称 10.0%，实际等效只有 6.54%，差 3.46 个百分点，折到 520.1 万元 GMV 上是 18.0 万元预算虚高。</p>
+
+<p data-i18n="post.promo.p1b">第二个误判是把等效折扣率当让利幅度。折扣率不是成本，可控边际贡献（CM1）才是成本。同一个 18.87% 的等效折扣，把 S5 的 CM1 率从 24.00% 压到 9.34%，掉 14.65 个百分点；放到 S1 身上只从 47.00% 压到 38.16%，掉 8.84 个百分点。成本率越高，同样的折扣打得越深——因为折扣抬高了“成本 ÷ 实收”这个比值。</p>
+
+<p data-i18n="post.promo.p1c">第三个误判是把满减和直降放在同一把尺子上比。满减有稀释、也有凑单杠杆；直降没有稀释、也没有杠杆。S4 店直降 12%，等效就是 12.00%，一分不差——这既是“直降看起来更贵”的数学原因，也是它在低毛利店里反而更安全的理由。</p>
+
+<h2 data-i18n="post.promo.h2">二、等效折扣率的算法：按订单档位加权</h2>
+
+<p data-i18n="post.promo.p2a">定义很直白：等效折扣率 = 实际让出的优惠总额 ÷ 优惠前 GMV。满减按“每满 A 减 B”判定叠加档数，直降按比例计提。关键是分子必须来自订单金额分布，不能用标称值反推。</p>
+
+<pre class="formula"><code>eq = Σ(订单数 × 单笔优惠) / Σ(订单数 × 单笔金额)
+
+满减：单笔优惠 = floor(单笔金额 / 门槛) × 减免额
+直降：单笔优惠 = 单笔金额 × 直降比例</code></pre>
+
+<p data-i18n="post.promo.p2b">两个细节决定结论。第一是叠加：S1 的 2680 元订单按“每满 1200 减 120”付两档、减 240 元，等效 8.96%，低于单档口径的 10.0%。第二是门槛达成：S1 有 18% 的订单落在 980 元档，一笔都没减。两个效应叠加，把 10.0% 压成 6.54%。所以等效折扣率不是运营拍出来的，是订单金额分布算出来的。</p>
+
+<p data-i18n="post.promo.p2c">口径上还有一条必须钉死：分母是“优惠前 GMV”，不是实收。不少团队用实收做分母，等效折扣率会被系统性高估——同一个 S5 会从 18.87% 变成 23.26%，判定立刻失真，处置动作也会跟着做错。</p>
+
+<h2 data-i18n="post.promo.h3">三、六个月度算例：2000 万 GMV 的折扣真相</h2>
+
+<p data-i18n="post.promo.p3a">数据是 24 条订单档位（6 店 × 4 档），每档含订单数、单笔均价、促销类型、成本率与变动费用率。表 1 是脚本跑出来的店铺级结果，合计行是加总后的整体口径。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="t1h0">店铺</th><th data-i18n="t1h1">GMV（万元）</th><th data-i18n="t1h2">标称折扣率</th><th data-i18n="t1h3">等效折扣率</th><th data-i18n="t1h4">优惠额（万元）</th><th data-i18n="t1h5">实收（万元）</th><th data-i18n="t1h6">CM1 率</th><th data-i18n="t1h7">折扣上限</th><th data-i18n="t1h8">判定</th></tr></thead><tbody>
+<tr><td>S1</td><td>520.1</td><td>10.00%</td><td>6.54%</td><td>34.0</td><td>486.1</td><td>44.34%</td><td>47.95%</td><td><strong style="color:#16a34a" data-i18n="post.promo.safe">安全</strong></td></tr>
+<tr><td>S2</td><td>480.1</td><td>10.00%</td><td>6.00%</td><td>28.8</td><td>451.2</td><td>39.19%</td><td>38.89%</td><td><strong style="color:#16a34a" data-i18n="post.promo.safe">安全</strong></td></tr>
+<tr><td>S3</td><td>310.0</td><td>10.00%</td><td>6.02%</td><td>18.7</td><td>291.4</td><td>35.99%</td><td>34.72%</td><td><strong style="color:#16a34a" data-i18n="post.promo.safe">安全</strong></td></tr>
+<tr><td>S4</td><td>240.0</td><td>12.00%</td><td>12.00%</td><td>28.8</td><td>211.2</td><td>27.91%</td><td>30.67%</td><td><strong style="color:#16a34a" data-i18n="post.promo.safe">安全</strong></td></tr>
+<tr><td>S5</td><td>290.0</td><td>25.00%</td><td>18.87%</td><td>54.7</td><td>235.3</td><td>9.34%</td><td>16.00%</td><td><strong style="color:#dc2626" data-i18n="post.promo.breach">击穿</strong></td></tr>
+<tr><td>S6</td><td>160.0</td><td>20.00%</td><td>12.99%</td><td>20.8</td><td>139.2</td><td>17.34%</td><td>19.44%</td><td><strong style="color:#16a34a" data-i18n="post.promo.safe">安全</strong></td></tr>
+<tr><td>合计</td><td>2000.2</td><td>—</td><td>9.29%</td><td>185.8</td><td>1814.4</td><td>33.20%</td><td>—</td><td></td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.promo.p3b">三个结论。第一，全店等效折扣率 9.29%，不等于任何一家店的标称值；实付优惠 185.8 万元，若按标称折算会算成 260 万元以上，预算虚高四成。第二，标称最高的 S5（25.0%）实付优惠 54.7 万元，标称只有 10.0% 的 S1 实付 34.0 万元——花多少钱由 GMV 决定，不由标称决定。第三，六家里只有 S5 击穿：等效 18.87% 比该店 16.00% 的上限高出 2.87 个百分点，CM1 率被压到 9.34%，低于 12% 的经营底线；其余五家还有 6 到 41 个点的缓冲。</p>
+
+<h2 data-i18n="post.promo.h4">四、毛利稀释底线：把折扣率上限反解出来</h2>
+
+<p data-i18n="post.promo.p4a">底线不该拍成“折扣不超过 X%”，而应按成本结构反解。CM1 率（对实收）= (1 − 变动费用率) − 成本率 ÷ (1 − 等效折扣率)，注意分母是实收不是 GMV，成本率越高，折扣对它的放大越明显。给定期望的 CM1 率 m（本文取 12%），就能解出该店能承受的等效折扣率上限。</p>
+
+<pre class="formula"><code>eq_max = 1 − 成本率 / (1 − 变动费用率 − m)
+
+CM1 率（对实收）= (1 − 变动费用率) − 成本率 / (1 − 等效折扣率)</code></pre>
+
+<p data-i18n="post.promo.p4b">这个式子把责任分清了：成本率高的店，上限自动收紧。S5 成本率 0.63、变动费用率 0.13，在 12% 的 CM1 底线口径下上限只有 16.00%；S1 成本率 0.38、变动费用率 0.15，上限 47.95%。同一个 18.87% 的等效折扣，放在 S1 是毛毛雨，放在 S5 就是击穿。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="t2h0">店铺</th><th data-i18n="t2h1">成本率</th><th data-i18n="t2h2">变动费用率</th><th data-i18n="t2h3">折扣上限</th><th data-i18n="t2h4">实际等效</th><th data-i18n="t2h5">缓冲（百分点）</th></tr></thead><tbody>
+<tr><td>S1</td><td>0.38</td><td>0.15</td><td>47.95%</td><td>6.54%</td><td>+41.41</td></tr>
+<tr><td>S2</td><td>0.44</td><td>0.14</td><td>38.89%</td><td>6.00%</td><td>+32.89</td></tr>
+<tr><td>S3</td><td>0.47</td><td>0.14</td><td>34.72%</td><td>6.02%</td><td>+28.70</td></tr>
+<tr><td>S4</td><td>0.52</td><td>0.13</td><td>30.67%</td><td>12.00%</td><td>+18.67</td></tr>
+<tr><td>S5</td><td>0.63</td><td>0.13</td><td>16.00%</td><td>18.87%</td><td>−2.87</td></tr>
+<tr><td>S6</td><td>0.58</td><td>0.16</td><td>19.44%</td><td>12.99%</td><td>+6.45</td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.promo.p4c">看表 2 时注意两列不能混：上限是折扣率，实际等效也是折扣率，缓冲是两者之差，单位是百分点。S5 的缓冲是 −2.87 个百分点，这不是一个抽象符号，它对应“每多卖一块钱实收，边际贡献就往回退”的具体处境。</p>
+
+<h2 data-i18n="post.promo.h5">五、凑单的边际账：低毛利店凑单等于送钱</h2>
+
+<p data-i18n="post.promo.p5a">满减真正的作用是抬客单，但抬客单不等于赚。以 S5 的“满 100 减 25”为例：一笔 88 元的订单不享优惠，实收 88.00 元，成本 55.44 元，变动费用 11.44 元，CM1 = 21.12 元；顾客为凑门槛加到 105 元，减 25 元后实收 80.00 元，成本 66.15 元，变动费用 10.40 元，CM1 = 3.45 元。GMV 涨了 19.3%，CM1 少了 17.67 元。</p>
+
+<p data-i18n="post.promo.p5b">同样的动作放到 S1 就成立：980 元订单凑到 1450 元，实收从 980.00 涨到 1330.00，成本从 372.40 涨到 551.00，变动费用从 147.00 涨到 199.50，CM1 从 460.60 涨到 579.50，增量 +118.90 元。差别不在门槛设计，在成本率——凑单加的是“增量实收 × (1 − 变动费用率) − 增量成本”，成本率高的店，这个式子天然为负。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="t3h0">场景</th><th data-i18n="t3h1">订单金额</th><th data-i18n="t3h2">优惠</th><th data-i18n="t3h3">实收</th><th data-i18n="t3h4">成本</th><th data-i18n="t3h5">变动费用</th><th data-i18n="t3h6">CM1</th></tr></thead><tbody>
+<tr><td>S5 不凑单</td><td>88.00</td><td>0.00</td><td>88.00</td><td>55.44</td><td>11.44</td><td>21.12</td></tr>
+<tr><td>S5 凑到门槛</td><td>105.00</td><td>25.00</td><td>80.00</td><td>66.15</td><td>10.40</td><td>3.45</td></tr>
+<tr><td>S1 不凑单</td><td>980.00</td><td>0.00</td><td>980.00</td><td>372.40</td><td>147.00</td><td>460.60</td></tr>
+<tr><td>S1 凑到门槛</td><td>1450.00</td><td>120.00</td><td>1330.00</td><td>551.00</td><td>199.50</td><td>579.50</td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.promo.p5c">所以门槛不是越低越好，也不是越高越好，而是要让“跨过门槛后的实收”仍高于“不凑单时的实收 + 增量成本”。S5 的 100 元门槛跨过去，实收反而从 88.00 掉到 80.00——这是结构错了，不是运营不努力。</p>
+
+<h2 data-i18n="post.promo.h6">六、四种该立刻改掉的促销结构</h2>
+
+<p data-i18n="post.promo.p6a">第一种，用标称折扣率做预算。六店逐个比对：S2 高估 19.2 万元、S1 高估 18.0 万元、S5 高估 17.8 万元、S3 高估 12.3 万元、S6 高估 11.2 万元，合计 78.5 万元。按这个数字申请预算，要么花不出去，要么在季末被“冲促销”乱花掉——两种结局都难看，且都会在下个月的报表上追责到运营头上。</p>
+
+<p data-i18n="post.promo.p6b">第二种，用统一折扣率管全店。同一条 12% 的折扣线，S1 还有 41.4 个点缓冲，S5 已经翻负 2.87 个点。折扣权限必须按店给，按职级给等于让高毛利店替低毛利店背锅。</p>
+
+<p data-i18n="post.promo.p6c">第三种，拿 GMV 当促销成功指标。S5 月 GMV 290.0 万元，在矩阵里排第四，CM1 只有 22.0 万元——它用 14.5% 的 GMV 只贡献了 3.7% 的 CM1。促销考核只看 GMV，等于奖励把钱花得最狠的那家店。</p>
+
+<p data-i18n="post.promo.p6d">第四种，不做结构替换。把 S5 从“满 100 减 25”换成直降 12%：实收 255.2 万元（+19.9 万元），CM1 39.3 万元（15.4%），比现状多 17.3 万元/月，年化 207.8 万元。代价是客单价会掉、凑单效应消失；但只要该店客单价本来就低、凑单增量为负，这个代价就是假代价。</p>
+
+<h2 data-i18n="post.promo.h7">七、脚本与月度落地口径</h2>
+
+<p data-i18n="post.promo.p7a">脚本只用标准库。输入列固定：store、tier、orders、avg_amount、promo_type、threshold、reduction、discount_rate、cost_rate、vfee_rate。promo_type 取 MB（满减）或 DR（直降），直降填写 discount_rate，满减填写 threshold 与 reduction。</p>
+
+<pre><code># -*- coding: utf-8 -*-
+&quot;&quot;&quot;满减 / 直降 等效折扣率与毛利稀释底线测算（零依赖）&quot;&quot;&quot;
+import csv
+import sys
+
+TARGET_CM = 0.12  # 目标 CM1 率（对实收），按季度经营目标调整
+
+
+def load(path):
+    with open(path, encoding=&quot;utf-8&quot;) as f:
+        return [dict(r) for r in csv.DictReader(f)]
+
+
+def tier_metrics(r):
+    gmv = int(r[&quot;orders&quot;]) * float(r[&quot;avg_amount&quot;])
+    if r[&quot;promo_type&quot;] == &quot;MB&quot;:
+        th, red = float(r[&quot;threshold&quot;]), float(r[&quot;reduction&quot;])
+        units = int(float(r[&quot;avg_amount&quot;]) // th)        # 每满可叠加
+        disc = units * red * int(r[&quot;orders&quot;])
+        nominal = red / th
+    else:                                               # DR 直降
+        nominal = float(r[&quot;discount_rate&quot;])
+        disc = gmv * nominal
+    return {&quot;store&quot;: r[&quot;store&quot;], &quot;orders&quot;: int(r[&quot;orders&quot;]), &quot;gmv&quot;: gmv,
+            &quot;disc&quot;: disc, &quot;eq&quot;: disc / gmv if gmv else 0.0, &quot;nominal&quot;: nominal,
+            &quot;cost_rate&quot;: float(r[&quot;cost_rate&quot;]), &quot;vfee_rate&quot;: float(r[&quot;vfee_rate&quot;])}
+
+
+def store_metrics(rows):
+    gmv = sum(r[&quot;gmv&quot;] for r in rows)
+    disc = sum(r[&quot;disc&quot;] for r in rows)
+    nominal = sum(r[&quot;nominal&quot;] * r[&quot;gmv&quot;] for r in rows) / gmv   # 按 GMV 加权
+    cost_rate, vfee_rate = rows[0][&quot;cost_rate&quot;], rows[0][&quot;vfee_rate&quot;]
+    eq = disc / gmv
+    net = gmv - disc
+    cm1 = net - gmv * cost_rate - net * vfee_rate
+    eq_max = 1 - cost_rate / (1 - vfee_rate - TARGET_CM)         # 反解折扣上限
+    return {&quot;store&quot;: rows[0][&quot;store&quot;], &quot;gmv&quot;: gmv, &quot;disc&quot;: disc, &quot;eq&quot;: eq,
+            &quot;nominal&quot;: nominal, &quot;net&quot;: net, &quot;cost&quot;: gmv * cost_rate,
+            &quot;cm1&quot;: cm1, &quot;cm1_rate&quot;: cm1 / net, &quot;eq_max&quot;: eq_max,
+            &quot;breach&quot;: eq &gt; eq_max}
+
+
+def report(tiers):
+    groups = {}
+    for t in tiers:
+        groups.setdefault(t[&quot;store&quot;], []).append(t)
+    out = [store_metrics(v) for _, v in sorted(groups.items())]
+    head = &quot;%-4s %8s %7s %7s %7s %8s %7s %7s  %s&quot;
+    print(head % (&quot;店&quot;, &quot;GMV万&quot;, &quot;标称&quot;, &quot;等效&quot;, &quot;优惠万&quot;, &quot;实收万&quot;, &quot;CM1率&quot;, &quot;上限&quot;, &quot;判定&quot;))
+    for r in out:
+        print(head % (r[&quot;store&quot;], &quot;%.1f&quot; % (r[&quot;gmv&quot;] / 1e4), &quot;%.1f%%&quot; % (r[&quot;nominal&quot;] * 100),
+                      &quot;%.1f%%&quot; % (r[&quot;eq&quot;] * 100), &quot;%.1f&quot; % (r[&quot;disc&quot;] / 1e4),
+                      &quot;%.1f&quot; % (r[&quot;net&quot;] / 1e4), &quot;%.1f%%&quot; % (r[&quot;cm1_rate&quot;] * 100),
+                      &quot;%.1f%%&quot; % (r[&quot;eq_max&quot;] * 100), &quot;击穿&quot; if r[&quot;breach&quot;] else &quot;安全&quot;))
+    g = sum(r[&quot;gmv&quot;] for r in out); d = sum(r[&quot;disc&quot;] for r in out)
+    n = sum(r[&quot;net&quot;] for r in out); c = sum(r[&quot;cost&quot;] for r in out)
+    m = sum(r[&quot;cm1&quot;] for r in out)
+    print(&quot;合计 GMV %.1f 万 优惠 %.1f 万 等效 %.2f%% 实收 %.1f 万 CM1 %.1f 万（%.2f%%）&quot;
+          % (g / 1e4, d / 1e4, d / g * 100, n / 1e4, m / 1e4, m / n * 100))
+    return out
+
+
+if __name__ == &quot;__main__&quot;:
+    path = sys.argv[1] if len(sys.argv) &gt; 1 else &quot;promo.csv&quot;
+    report([tier_metrics(r) for r in load(path)])</code></pre>
+
+<p data-i18n="post.promo.p7b">跑法：python3 promo_eq.py promo.csv。用本文 24 行数据跑，输出与表 1、表 2 逐格对得上：合计 GMV 2000.2 万元、优惠 185.8 万元、等效 9.29%、实收 1814.4 万元、成本 954.9 万元、CM1 602.3 万元（33.20%），S5 唯一击穿。换数据源只要列名不变，脚本一个字不用改。</p>
+
+<p data-i18n="post.promo.p7c">月度节奏就三件事：每月 2 日拉上月订单金额分布（店铺 × 金额档），3 日出等效折扣率与上限对照表，5 日处置击穿店——只有三个选项：改结构（满减换直降）、降档（门槛上调）、收窄适用（限品类或限会员），不接受“下月再看”。把公式、判定规则、输出格式写进技能包的 front matter，AI 每月只做取数、算率、出清单；人只做两件：签处置单、跟平台谈资源置换。</p>
+
+<h2 data-i18n="post.promo.h8">八、结语：促销是对现金的支取</h2>
+
+<p data-i18n="post.promo.p8a">《孙子兵法·计篇》讲“夫未战而庙算胜者，得算多也”。促销既是给顾客的承诺，也是一次对现金的支取；庙算不细，月底账上就只剩一句“我们做了活动”。2000.2 万元的 GMV 里，让出去的 185.8 万元是能一笔一笔算出来的——算不清的那部分，才是真正贵的那部分。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

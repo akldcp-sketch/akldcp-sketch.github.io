@@ -5,8 +5,17 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 04 Nov 2026 01:09:38 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>满减不等于直降：等效折扣率与毛利稀释底线的测算口径</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <category>AI 技能包</category>
+      <description>促销折扣不能按标称值做预算。6 家店、24 条订单档位的月度算例：满减标称 25% 实付等效只有 18.87%，直降 12% 就是 12.00%；全店等效折扣率 9.29%，实付优惠 185.8 万元。按成本结构反解折扣上限，S5 越过 16.00% 上限、CM1 率只剩 9.34%；凑单在低毛利店把 CM1 从 21.12 元压到 3.45 元，改直降 12% 每月多 17.3 万元。附零依赖 Python 脚本与月度落地口径。</description>
+    </item>
     <item>
       <title>现金转换周期 CCC：DSO、DIO、DPO 三条时间线的操盘口径</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-04-cash-conversion-cycle-ccc.html</link>
