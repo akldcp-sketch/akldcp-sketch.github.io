@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>运费从不按你称的重量收：体积重审计与包装改造的回本期 - 扶摇</title>
+  <meta name="description" content="实重 0.90 公斤的靠垫计费重 12.50 公斤，单件运费 92.75 元、占售价 31.0%。用 6 个 SKU、8,740 单的算例拆体积重与渠道抛比：按实重做预算低估 117,130 元（54.39%）；压箱规加分渠道后月运费从 332,495 元降到 236,060 元，省 96,435 元，相当于净利的 91.2%。附零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="运费从不按你称的重量收：体积重审计与包装改造的回本期 - 扶摇">
+  <meta property="og:description" content="实重 0.90 公斤的靠垫计费重 12.50 公斤，单件运费 92.75 元、占售价 31.0%。用 6 个 SKU、8,740 单的算例拆体积重与渠道抛比：按实重做预算低估 117,130 元（54.39%）；压箱规加分渠道后月运费从 332,495 元降到 236,060 元，省 96,435 元，相当于净利的 91.2%。附零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html"},"headline":"运费从不按你称的重量收：体积重审计与包装改造的回本期","description":"实重 0.90 公斤的靠垫计费重 12.50 公斤，单件运费 92.75 元、占售价 31.0%。用 6 个 SKU、8,740 单的算例拆体积重与渠道抛比：按实重做预算低估 117,130 元（54.39%）；压箱规加分渠道后月运费从 332,495 元降到 236,060 元，省 96,435 元，相当于净利的 91.2%。附零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-08","dateModified":"2026-11-08","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"运费从不按你称的重量收：体积重审计与包装改造的回本期","item":"https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html"},"headline":"Shipping Never Bills the Weight You Measure: A Dimensional-Weight Audit and the Repack Payback","description":"A cushion that weighs 0.90kg bills at 12.50kg and costs 92.75 yuan a parcel, 31.0% of its 299-yuan price tag. With six SKUs, 8,740 orders and 1.76M yuan of monthly GMV, this piece separates volumetric weight, 0.5kg rounding, first-weight tiers and carrier divisors: a weight-only budget understates freight by 117,130 yuan (54.39%), while shrinking cartons and splitting carriers takes monthly freight from 332,495 to 236,060 yuan, a 96,435-yuan saving equal to 91.2% of net profit. Includes a zero-dependency Python script.","inLanguage":"en","datePublished":"2026-11-08","dateModified":"2026-11-08","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Shipping Never Bills the Weight You Measure: A Dimensional-Weight Audit and the Repack Payback","item":"https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.dimwt.title">运费从不按你称的重量收：体积重审计与包装改造的回本期</h1>
+        <p class="post-meta">2026-11-08 · 商业操盘</p>
+        <div class="post-body">
+<p data-i18n="post.dimwt.lead">SKU-B 的实重是 0.90 公斤，计费重 12.50 公斤，单件运费 92.75 元——售价 299 元的 31.0%。它一个月出 1,460 件，吃掉 135,415 元，占整个仓运费的 40.7%，而报表上它只是一只轻飘飘的毛绒靠垫。本文用 6 个 SKU、8,740 单、月 GMV 1,762,460 元的算例，把体积重、0.5 公斤取整、首重续重与渠道抛比拆成可执行口径：按实重做的运费预算低估 117,130 元，偏差 54.39%；把 B 的箱规压到 50×50×12、再按货物密度分派三条渠道，月运费从 332,495 元压到 236,060 元，省下 96,435 元，等于 6% 净利率下净利的 91.2%。附零依赖脚本，输出与表格逐格对得上。</p>
+
+<h2 data-i18n="post.dimwt.h1">一、按实重做的运费预算，为什么会系统性偏乐观</h2>
+
+<p data-i18n="post.dimwt.p1a">第一层误判是不上秤。产品净重 0.62 公斤的靠垫，包装后上秤 0.90 公斤，差 45%，这一层还能靠称补救；真正的问题是这个 0.90 公斤渠道根本不用——它用的是体积重。用净重、用毛重、用“大概一公斤”，三种做法在轻泡货上会得到三个都错的答案，而且都偏乐观。</p>
+
+<p data-i18n="post.dimwt.p1b">第二层误判是把抛比当行业常数。同一只 50×50×30 的箱子，抛比取 6000 算出体积重 12.50 公斤，取 8000 只算 9.38 公斤，计费重 12.5 对 9.5，一票差 17.25 元。抛比写在哪张合同上、旺季会不会被临时收紧，不先去问清楚，运费模型就是猜的。</p>
+
+<p data-i18n="post.dimwt.p1c">第三层误判是把 0.5 公斤取整当零头。六个 SKU 全仓一个月，被取整吃掉的部分是 9,321 元，年化 111,852 元。这个数字不算大，可它是白付的：换不回任何交付、任何时效、任何客诉减少。</p>
+
+<h2 data-i18n="post.dimwt.h2">二、体积重与计费重的四步算法</h2>
+
+<p data-i18n="post.dimwt.p2a">口径是四步，缺一步就错，且四步的错误方向全部指向“低估”。第一步量外箱最大长宽高，不是产品尺寸，也不是内托尺寸；第二步算体积重；第三步取实重与体积重的较大值，再向上取整到渠道步长；第四步套首重续重。</p>
+
+<pre class="formula"><code>体积重(kg) = 长(cm) × 宽(cm) × 高(cm) ÷ 抛比
+计费重(kg) = ceil( max(实重, 体积重) ÷ 步长 ) × 步长      # 步长常见 0.5kg 或 1kg
+运费(元)   = 首重费 + max(0, 计费重 − 首重kg) × 续重费</code></pre>
+
+<p data-i18n="post.dimwt.p2b">抛比换成密度更好记：6000 意味着每立方米按 166.7 公斤收费，5000 按 200 公斤，8000 按 125 公斤。渠道给你 8000，等于默许你的轻泡货按更低的等效密度过账；给你 5000，等于每立方米多收 33 公斤的钱。同一个箱子换一条渠道，运费能从 92.75 元变成 98.50 元，跟包装一点关系都没有。</p>
+
+<p data-i18n="post.dimwt.p2c">取整只进不退，加上首重门槛，会把低单价轻小件的运费率顶到荒唐的位置：SKU-E 实重 0.45 公斤、体积重 0.88 公斤，计费重 1.0 公斤，18 元首重照付，占 79 元售价的 22.8%。它的病灶不是抛重，是首重。</p>
+
+<h2 data-i18n="post.dimwt.h3">三、六个 SKU 的月度算例：抛重吃掉了谁的利润</h2>
+
+<p data-i18n="post.dimwt.p3a">数据是 6 个 SKU 的上秤毛重与外箱尺寸，渠道口径固定为抛比 6000、首重 1 公斤 18 元、续重每公斤 6.5 元、0.5 公斤取整。表 1 是脚本跑出来的结果，合计行是加总口径。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.dimwt.t1h0">SKU</th><th data-i18n="post.dimwt.t1h1">外箱尺寸（cm）</th><th data-i18n="post.dimwt.t1h2">实重（kg）</th><th data-i18n="post.dimwt.t1h3">体积重（kg）</th><th data-i18n="post.dimwt.t1h4">计费重（kg）</th><th data-i18n="post.dimwt.t1h5">单件运费（元）</th><th data-i18n="post.dimwt.t1h6">月单量</th><th data-i18n="post.dimwt.t1h7">月运费（元）</th><th data-i18n="post.dimwt.t1h8">运费/售价</th></tr></thead><tbody>
+<tr><td>SKU-A</td><td>60×40×15</td><td>4.20</td><td>6.00</td><td>6.0</td><td>50.50</td><td>820</td><td>41,410</td><td>7.2%</td></tr>
+<tr><td>SKU-B</td><td>50×50×30</td><td>0.90</td><td>12.50</td><td>12.5</td><td>92.75</td><td>1,460</td><td>135,415</td><td><strong style="color:#dc2626">31.0%</strong></td></tr>
+<tr><td>SKU-C</td><td>25×18×10</td><td>2.60</td><td>0.75</td><td>3.0</td><td>31.00</td><td>2,100</td><td>65,100</td><td><strong style="color:#dc2626">31.3%</strong></td></tr>
+<tr><td>SKU-D</td><td>30×22×18</td><td>3.40</td><td>1.98</td><td>3.5</td><td>34.25</td><td>640</td><td>21,920</td><td>18.1%</td></tr>
+<tr><td>SKU-E</td><td>35×25×6</td><td>0.45</td><td>0.88</td><td>1.0</td><td>18.00</td><td>3,200</td><td>57,600</td><td>22.8%</td></tr>
+<tr><td>SKU-F</td><td>20×15×12</td><td>1.25</td><td>0.60</td><td>1.5</td><td>21.25</td><td>520</td><td>11,050</td><td>6.5%</td></tr>
+<tr><td>合计</td><td>—</td><td>—</td><td>—</td><td>—</td><td>38.04</td><td>8,740</td><td>332,495</td><td>18.87%</td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.dimwt.p3b">三个结论。第一，全仓月运费 332,495 元、占 GMV 1,762,460 元的 18.87%、单均 38.04 元；其中 B 一家占 40.7%，它只出了 16.7% 的单。第二，按实重口径做的预算只有 215,365 元，低估 117,130 元、偏差 54.39%——这不是小数点的误差，是一个店在旺季能不能扛住现金流的问题。第三，抛重不是“轻货才有的问题”：A 的体积重 6.00 公斤超过实重 4.20 公斤，也在按体积付费，只是幅度还温和。</p>
+
+<h2 data-i18n="post.dimwt.h4">四、判定用三条阈值，不用一条</h2>
+
+<p data-i18n="post.dimwt.p4a">阈值一，体积重 ÷ 实重 ≥ 2.0，判抛货。B 是 13.89，E 是 1.94，A 是 1.43，C、D、F 都在 1 以下。这条线管的是“包材有没有救”。</p>
+
+<p data-i18n="post.dimwt.p4b">阈值二，单件运费 ÷ 售价 ≥ 20%，判运费击穿。C 的抛比只有 0.29，按第一条判它是实重货，一票通过；但它的 31.00 元运费占 99 元售价的 31.3%，比 B 还高一点。这类问题改箱规无效，要改定价或包邮门槛。</p>
+
+<p data-i18n="post.dimwt.p4c">阈值三，计费重 − 实重 ≥ 1.0 公斤，判处置优先级。B 差 11.60 公斤，改一次箱规省一半运费；C 差 0.40 公斤，那 0.40 公斤全是 0.5 取整与首重造成的地板，改包材白花钱。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.dimwt.t2h0">SKU</th><th data-i18n="post.dimwt.t2h1">体积重/实重</th><th data-i18n="post.dimwt.t2h2">运费占售价比</th><th data-i18n="post.dimwt.t2h3">计费重−实重（kg）</th><th data-i18n="post.dimwt.t2h4">判定</th><th data-i18n="post.dimwt.t2h5">处置动作</th></tr></thead><tbody>
+<tr><td>SKU-A</td><td>1.43</td><td>7.2%</td><td>+1.80</td><td>轻度抛货</td><td>箱规微调</td></tr>
+<tr><td>SKU-B</td><td>13.89</td><td>31.0%</td><td>+11.60</td><td><strong style="color:#dc2626">重度抛货</strong></td><td>压箱规（第一优先）</td></tr>
+<tr><td>SKU-C</td><td>0.29</td><td>31.3%</td><td>+0.40</td><td>实重货 · 运费击穿</td><td>改定价或包邮门槛</td></tr>
+<tr><td>SKU-D</td><td>0.58</td><td>18.1%</td><td>+0.10</td><td>正常</td><td>不动</td></tr>
+<tr><td>SKU-E</td><td>1.94</td><td>22.8%</td><td>+0.13</td><td>首重致病</td><td>合并装或多件装</td></tr>
+<tr><td>SKU-F</td><td>0.48</td><td>6.5%</td><td>+0.25</td><td>正常</td><td>不动</td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.dimwt.p4d">三条阈值各管一件事：抛重强度、定价空间、处置优先级。只用第一条会放过 C，把 31.3% 的运费率当正常；只用第二条会把 C 判成抛货，压箱规压到最后一分钱没省。</p>
+
+<h2 data-i18n="post.dimwt.h5">五、包装改造：先看实重有没有托底</h2>
+
+<p data-i18n="post.dimwt.p5a">B 的箱规从 50×50×30 压到 50×50×12，体积重 12.50 降到 5.00 公斤，计费重 12.5 降到 5.0，单件运费 92.75 降到 44.00 元，降幅 52.6%，月省 71,175 元。真空压缩袋 1.2 元/件、月耗材成本 1,752 元，加一次性 8,000 元，回本期 3.4 天。</p>
+
+<p data-i18n="post.dimwt.p5b">A 的箱规从 60×40×15 压到 60×40×10，体积重 6.00 降到 4.00 公斤，但实重 4.20 公斤托底，计费重只从 6.0 降到 4.5，单件运费 50.50 降到 40.75 元，省 9.75 元、月省 7,995 元；内托改模一次性 12,000 元，回本期 45 天。</p>
+
+<p data-i18n="post.dimwt.p5c">同样是压箱规，一个 3.4 天回本，一个 45 天回本——差别不在包材工艺，在实重有没有托底。A 的收益天花板由 4.20 公斤锁死，把体积压到 4.00 公斤以下一分钱也不再多省。改造前先算这一步，能省掉一整轮无效打样。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.dimwt.t3h0">SKU</th><th data-i18n="post.dimwt.t3h1">改造前箱规</th><th data-i18n="post.dimwt.t3h2">改造后箱规</th><th data-i18n="post.dimwt.t3h3">体积重（kg）</th><th data-i18n="post.dimwt.t3h4">计费重（kg）</th><th data-i18n="post.dimwt.t3h5">单件运费（元）</th><th data-i18n="post.dimwt.t3h6">月省（元）</th><th data-i18n="post.dimwt.t3h7">回本期</th></tr></thead><tbody>
+<tr><td>SKU-B</td><td>50×50×30</td><td>50×50×12</td><td>12.50 → 5.00</td><td>12.5 → 5.0</td><td>92.75 → 44.00</td><td>71,175</td><td>3.4 天</td></tr>
+<tr><td>SKU-A</td><td>60×40×15</td><td>60×40×10</td><td>6.00 → 4.00</td><td>6.0 → 4.5</td><td>50.50 → 40.75</td><td>7,995</td><td>45 天</td></tr>
+<tr><td>合计</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>79,170</td><td>—</td></tr>
+</tbody></table></div>
+
+<h2 data-i18n="post.dimwt.h6">六、渠道：抛比不是越松越好</h2>
+
+<p data-i18n="post.dimwt.p6a">三条渠道摆在一起看，最容易踩的坑是只看续重。CH-B 的续重 5.0 元是全仓最低，但抛比收紧到 5000，全量跑下来 341,950 元，比 CH-A 还贵 9,455 元——抛比收紧一档，续重省下来的钱全吐回去还不够。</p>
+
+<p data-i18n="post.dimwt.p6b">CH-C 抛比 8000、首重 15 元、续重 9.0 元，全量 323,160 元。它对轻泡货有利（B 91.50 对 92.75、E 15.00 对 18.00），对重货不利（C 33.00 对 31.00、D 37.50 对 34.25）。没有一条渠道在所有 SKU 上都赢，所以“统一走最便宜那条”本身就是错的。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.dimwt.t4h0">渠道</th><th data-i18n="post.dimwt.t4h1">抛比</th><th data-i18n="post.dimwt.t4h2">首重费（1kg）</th><th data-i18n="post.dimwt.t4h3">续重费（元/kg）</th><th data-i18n="post.dimwt.t4h4">全量月运费（元）</th><th data-i18n="post.dimwt.t4h5">占 GMV</th><th data-i18n="post.dimwt.t4h6">相对 CH-A</th></tr></thead><tbody>
+<tr><td>CH-A</td><td>6000</td><td>18.00</td><td>6.5</td><td>332,495</td><td>18.87%</td><td>基准</td></tr>
+<tr><td>CH-B</td><td>5000</td><td>20.00</td><td>5.0</td><td>341,950</td><td>19.40%</td><td>+9,455</td></tr>
+<tr><td>CH-C</td><td>8000</td><td>15.00</td><td>9.0</td><td>323,160</td><td>18.34%</td><td>−9,335</td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.dimwt.p6c">分派规则一句话：看计费重由谁决定。由体积决定的 SKU 走松抛比渠道，由实重决定的 SKU 走低续重渠道。改造后 A、C、D 走 CH-B（单件 40.00、30.00、32.50 元），B、E、F 走 CH-C（42.00、15.00、19.50 元）。这不是拍脑袋的组合，是 6 个 SKU × 3 条渠道 18 个格子逐个比出来的最小值。</p>
+
+<h2 data-i18n="post.dimwt.h7">七、四个方案摆在一起，钱是谁挣的</h2>
+
+<p data-i18n="post.dimwt.p7a">只切渠道省 21,025 元（6.32%）；只改包装省 79,170 元（23.81%）；两件一起做省 96,435 元（29.00%）。包装改造贡献了 82.1%，渠道分派贡献 17.9%。渠道是谈来的，箱规是自己能定的——先做能定的那件。</p>
+
+<div class="table-wrap"><table><thead><tr><th data-i18n="post.dimwt.t5h0">方案</th><th data-i18n="post.dimwt.t5h1">月运费（元）</th><th data-i18n="post.dimwt.t5h2">占 GMV</th><th data-i18n="post.dimwt.t5h3">月省（元）</th><th data-i18n="post.dimwt.t5h4">降幅</th></tr></thead><tbody>
+<tr><td>现状：全量 CH-A</td><td>332,495</td><td>18.87%</td><td>—</td><td>—</td></tr>
+<tr><td>只切渠道</td><td>311,470</td><td>17.67%</td><td>21,025</td><td>6.32%</td></tr>
+<tr><td>只改包装（全量 CH-A）</td><td>253,325</td><td>14.37%</td><td>79,170</td><td>23.81%</td></tr>
+<tr><td>改包装 + 分渠道</td><td><strong>236,060</strong></td><td><strong>13.39%</strong></td><td><strong>96,435</strong></td><td><strong>29.00%</strong></td></tr>
+</tbody></table></div>
+
+<p data-i18n="post.dimwt.p7b">96,435 元放在 1,762,460 元 GMV、6.0% 净利率的盘子上，等于净利从 105,748 元抬到 202,183 元，涨幅 91.2%。运费率从 18.87% 降到 13.39%，靠的是两件都不性感的事：重打一张刀模、重排一张分派表。</p>
+
+<h2 data-i18n="post.dimwt.h8">八、脚本与月度落地口径</h2>
+
+<p data-i18n="post.dimwt.p8a">脚本只用标准库。输入列固定：sku、L_cm、W_cm、H_cm、weight_kg（上秤毛重）、divisor、first_fee、addl_fee、orders、price。实重口径那一列是故意留的对照——它就是大多数团队现在用的算法，跑出来的差值就是被抛重吃掉的利润。</p>
+
+<pre><code># -*- coding: utf-8 -*-
+"""计费重量审计：体积重 / 抛货 / 运费偏差（零依赖）"""
+import csv
+import math
+import sys
+
+STEP = 0.5          # 计费重取整步长（kg），按渠道合同
+ALERT_RATIO = 2.0   # 体积重 / 实重 超过 2 倍即判抛货
+
+
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return [dict(r) for r in csv.DictReader(f)]
+
+
+def dim_weight(L, W, H, divisor):
+    return L * W * H / divisor
+
+
+def billable(weight, vol_weight):
+    base = max(weight, vol_weight)
+    return math.ceil(base / STEP) * STEP
+
+
+def freight(bill, first_kg, first_fee, addl_fee):
+    return first_fee + max(0.0, bill - first_kg) * addl_fee
+
+
+def audit(rows):
+    out = []
+    for r in rows:
+        L, W, H = float(r["L_cm"]), float(r["W_cm"]), float(r["H_cm"])
+        w = float(r["weight_kg"])
+        dv = float(r["divisor"])
+        vol = dim_weight(L, W, H, dv)
+        bill = billable(w, vol)
+        weight_only = billable(w, 0.0)                  # 只按实重的错误口径
+        fee = freight(bill, 1.0, float(r["first_fee"]), float(r["addl_fee"]))
+        fee_w = freight(weight_only, 1.0, float(r["first_fee"]), float(r["addl_fee"]))
+        n = int(r["orders"])
+        price = float(r["price"])
+        out.append({
+            "sku": r["sku"], "vol": vol, "bill": bill, "weight_only": weight_only,
+            "ratio": vol / w, "fee": fee, "fee_w": fee_w, "orders": n,
+            "month": fee * n, "gap": (fee - fee_w) * n,
+            "share": fee / price, "alert": vol / w >= ALERT_RATIO,
+        })
+    return out
+
+
+def report(rows):
+    gmv = sum(float(r["price"]) * int(r["orders"]) for r in rows)
+    head = "%-6s %7s %7s %7s %7s %7s %8s %7s %6s  %s"
+    print(head % ("SKU", "体积重", "计费重", "实重口径", "单件费", "体积占比",
+                  "月运费", "费用/价", "抛比", "判定"))
+    total = gap = 0.0
+    for r in audit(rows):
+        total += r["month"]
+        gap += r["gap"]
+        print(head % (r["sku"], "%.2f" % r["vol"], "%.1f" % r["bill"],
+                      "%.1f" % r["weight_only"], "%.2f" % r["fee"],
+                      "%.2f" % r["ratio"], "%.0f" % r["month"],
+                      "%.1f%%" % (r["share"] * 100), "%.2f" % r["ratio"],
+                      "抛货" if r["alert"] else "实重"))
+    print("合计 月运费 %.0f 元 占 GMV %.2f%%  实重口径低估 %.0f 元（%.2f%%）"
+          % (total, total / gmv * 100, gap, gap / (total - gap) * 100))
+
+
+if __name__ == "__main__":
+    report(load(sys.argv[1] if len(sys.argv) > 1 else "sku.csv"))</code></pre>
+
+<p data-i18n="post.dimwt.p8b">跑法：python3 dim_weight_audit.py sku.csv。用本文 6 行数据跑，输出与表 1 逐格对得上：合计月运费 332,495 元、占 GMV 18.87%、实重口径低估 117,130 元（54.39%）。换渠道只要改 divisor、first_fee、addl_fee 三列，脚本一个字不用动。</p>
+
+<p data-i18n="post.dimwt.p8c">月度节奏三件事：每月 3 日拉上月上秤毛重与外箱最大尺寸（不是产品规格书上的数字）；4 日出抛比、运费率、判定三张表；6 日处置——抛货改箱规、运费率击穿的改定价或包邮门槛、两样都不改的写进选品淘汰名单。把字段和阈值写进技能包的 front matter，AI 每月只做取数、算重、出清单；人只做两件：签包材改动单、带着计费重分布去找渠道谈抛比。</p>
+
+<h2 data-i18n="post.dimwt.h9">九、结语：运费在你画刀模那天就定了</h2>
+
+<p data-i18n="post.dimwt.p9a">《孙子兵法·作战篇》讲“国之贫于师者远输，远输则百姓贫”。两千五百年前说的是粮道，今天说的是箱规与抛比。运费不是财务科目，是产品结构的一部分——它的高低在画包装刀模那一刻就定了，只是账单晚一个月才到。晚看一步，就是一个月 11.7 万元的差额。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

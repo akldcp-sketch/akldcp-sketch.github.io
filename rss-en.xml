@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 06 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 01:05:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Shipping Never Bills the Weight You Measure: A Dimensional-Weight Audit and the Repack Payback</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>A cushion that weighs 0.90kg bills at 12.50kg and costs 92.75 yuan a parcel, 31.0% of its 299-yuan price tag. With six SKUs, 8,740 orders and 1.76M yuan of monthly GMV, this piece separates volumetric weight, 0.5kg rounding, first-weight tiers and carrier divisors: a weight-only budget understates freight by 117,130 yuan (54.39%), while shrinking cartons and splitting carriers takes monthly freight from 332,495 to 236,060 yuan, a 96,435-yuan saving equal to 91.2% of net profit. Includes a zero-dependency Python script.</description>
+    </item>
     <item>
       <title>A Discount Is Not a Discount: Equivalent Rate and the Margin Floor Behind Promo Spend</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</link>

@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-08-dimensional-weight-audit",
+    en: { title: "Shipping Never Bills the Weight You Measure: A Dimensional-Weight Audit and the Repack Payback", summary: "A cushion that weighs 0.90kg bills at 12.50kg and costs 92.75 yuan a parcel, 31.0% of its 299-yuan price tag. With six SKUs, 8,740 orders and 1.76M yuan of monthly GMV, this piece separates volumetric weight, 0.5kg rounding, first-weight tiers and carrier divisors: a weight-only budget understates freight by 117,130 yuan (54.39%), while shrinking cartons and splitting carriers takes monthly freight from 332,495 to 236,060 yuan, a 96,435-yuan saving equal to 91.2% of net profit. Includes a zero-dependency Python script.", tag: "Business Operations" },
+    title: "运费从不按你称的重量收：体积重审计与包装改造的回本期",
+    date: "2026-11-08",
+    tag: "商业操盘",
+    summary: "实重 0.90 公斤的靠垫，计费重 12.50 公斤，单件运费 92.75 元占售价 31.0%。用 6 个 SKU、8,740 单、月 GMV 1,762,460 元的算例，拆出体积重、0.5 公斤取整、首重续重与渠道抛比：按实重做预算低估 117,130 元（54.39%）；压箱规加分渠道后月运费从 332,495 元降到 236,060 元，省下 96,435 元，等于净利的 91.2%。附零依赖脚本。"
+  },
+  {
     file: "2026-11-06-promo-equivalent-discount-margin-floor",
     en: { title: "A Discount Is Not a Discount: Equivalent Rate and the Margin Floor Behind Promo Spend", summary: "Promo spend cannot be budgeted off the nominal rate. Across six stores and 24 order tiers, a 25% threshold promo is worth only 18.87% while a flat 12% cut costs 12.00%; the portfolio effective rate is 9.29% on 1.858M yuan of discounts. Solving the discount ceiling from the cost structure flags store S5 at 18.87% against a 16.00% ceiling with CM1 at 9.34%; stacking in low-margin stores takes CM1 from 21.12 to 3.45 yuan, and a flat 12% cut adds 173,000 yuan a month. Includes a zero-dependency Python script.", tag: "Business Operations" },
     title: "满减不等于直降：等效折扣率与毛利稀释底线的测算口径",
