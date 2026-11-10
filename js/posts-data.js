@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-10-safety-stock-z-value",
+    en: { title: "Stop Sizing Safety Stock in Days: Service Level, Lead-Time Variance and the Stockout Cost Triangle", summary: "Safety stock set at 21 days implies z values from 1.45 to 5.04 and real service levels from 92.7% to 100% across six SKUs, at 74,857 yuan a year. Lead-time variance is 94.1% of demand-over-lead-time variance; ignore it and a 95% service level is understated by 76.9% (3,254 units computed as 753). Pricing holding against stockout cost puts optimal z at 2.47 to 2.59, cutting annual cost to 48,223 yuan (-35.58%) while capital rises from 172,221 to 194,338; with capital frozen, a uniform z of 2.22 still saves 23,861. Fixing three SKUs moves net capital 27 yuan and cuts cost 18,668. Includes a zero-dependency script.", tag: "Business Operations" },
+    title: "安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账",
+    date: "2026-11-10",
+    tag: "商业操盘",
+    summary: "按 21 天拍的安全库存，6 个 SKU 的隐含 z 值从 1.45 到 5.04、实际服务水平 92.7% 到 100%，年成本 74,857 元。交期波动占交期需求方差 94.1%，漏掉它，95% 口径的安全库存少算 76.9%（3,254 件算成 753 件）。把持有成本与缺货成本放进同一把尺子，逐 SKU 最优 z 落在 2.47 到 2.59，年成本降到 48,223 元（降 35.58%），资金从 172,221 元涨到 194,338 元；资金不许涨，统一 z=2.22 仍省 23,861 元。只调 3 个 SKU，净资金只动 27 元、年成本降 18,668 元。附零依赖脚本。"
+  },
+  {
     file: "2026-11-08-dimensional-weight-audit",
     en: { title: "Shipping Never Bills the Weight You Measure: A Dimensional-Weight Audit and the Repack Payback", summary: "A cushion that weighs 0.90kg bills at 12.50kg and costs 92.75 yuan a parcel, 31.0% of its 299-yuan price tag. With six SKUs, 8,740 orders and 1.76M yuan of monthly GMV, this piece separates volumetric weight, 0.5kg rounding, first-weight tiers and carrier divisors: a weight-only budget understates freight by 117,130 yuan (54.39%), while shrinking cartons and splitting carriers takes monthly freight from 332,495 to 236,060 yuan, a 96,435-yuan saving equal to 91.2% of net profit. Includes a zero-dependency Python script.", tag: "Business Operations" },
     title: "运费从不按你称的重量收：体积重审计与包装改造的回本期",

@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 08 Nov 2026 01:05:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 01:14:22 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html</guid>
+      <pubDate>Tue, 10 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>按 21 天拍的安全库存，6 个 SKU 的隐含 z 值从 1.45 到 5.04、实际服务水平 92.7% 到 100%，年成本 74,857 元。交期波动占交期需求方差 94.1%，漏掉它，95% 口径的安全库存少算 76.9%（3,254 件算成 753 件）。把持有成本与缺货成本放进同一把尺子，逐 SKU 最优 z 落在 2.47 到 2.59，年成本降到 48,223 元（降 35.58%），资金从 172,221 元涨到 194,338 元；资金不许涨，统一 z=2.22 仍省 23,861 元。只调 3 个 SKU，净资金只动 27 元、年成本降 18,668 元。附零依赖脚本。</description>
+    </item>
     <item>
       <title>运费从不按你称的重量收：体积重审计与包装改造的回本期</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html</link>
@@ -21,7 +29,6 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</guid>
       <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
       <category>商业操盘</category>
-      <category>AI 技能包</category>
       <description>促销折扣不能按标称值做预算。6 家店、24 条订单档位的月度算例：满减标称 25% 实付等效只有 18.87%，直降 12% 就是 12.00%；全店等效折扣率 9.29%，实付优惠 185.8 万元。按成本结构反解折扣上限，S5 越过 16.00% 上限、CM1 率只剩 9.34%；凑单在低毛利店把 CM1 从 21.12 元压到 3.45 元，改直降 12% 每月多 17.3 万元。附零依赖 Python 脚本与月度落地口径。</description>
     </item>
     <item>

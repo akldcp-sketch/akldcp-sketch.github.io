@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Nov 2026 01:05:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 01:14:22 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Stop Sizing Safety Stock in Days: Service Level, Lead-Time Variance and the Stockout Cost Triangle</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html</guid>
+      <pubDate>Tue, 10 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>Safety stock set at 21 days implies z values from 1.45 to 5.04 and real service levels from 92.7% to 100% across six SKUs, at 74,857 yuan a year. Lead-time variance is 94.1% of demand-over-lead-time variance; ignore it and a 95% service level is understated by 76.9% (3,254 units computed as 753). Pricing holding against stockout cost puts optimal z at 2.47 to 2.59, cutting annual cost to 48,223 yuan (-35.58%) while capital rises from 172,221 to 194,338; with capital frozen, a uniform z of 2.22 still saves 23,861. Fixing three SKUs moves net capital 27 yuan and cuts cost 18,668. Includes a zero-dependency script.</description>
+    </item>
     <item>
       <title>Shipping Never Bills the Weight You Measure: A Dimensional-Weight Audit and the Repack Payback</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html</link>
@@ -21,7 +29,6 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-06-promo-equivalent-discount-margin-floor.html</guid>
       <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
       <category>Business Operations</category>
-      <category>AI Skill Packs</category>
       <description>Promo spend cannot be budgeted off the nominal rate. Across six stores and 24 order tiers, a 25% threshold promo is worth only 18.87% while a flat 12% cut costs 12.00%; the portfolio effective rate is 9.29% on 1.858M yuan of discounts. Solving the discount ceiling from the cost structure flags store S5 at 18.87% against a 16.00% ceiling with CM1 at 9.34%; stacking in low-margin stores takes CM1 from 21.12 to 3.45 yuan, and a flat 12% cut adds 173,000 yuan a month. Includes a zero-dependency Python script.</description>
     </item>
     <item>

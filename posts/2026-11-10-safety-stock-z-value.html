@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账 - 扶摇</title>
+  <meta name="description" content="按 21 天定安全库存，6 个 SKU 的隐含 z 值从 1.45 到 5.04、服务水平 92.7% 到 100%，年成本 74,857 元。漏掉交期波动项，95% 口径的安全库存少算 76.9%。按边际成本逐 SKU 选 z，成本降 35.58%；资金受限统一 z=2.22 仍省 23,861 元。附零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账 - 扶摇">
+  <meta property="og:description" content="按 21 天定安全库存，6 个 SKU 的隐含 z 值从 1.45 到 5.04、服务水平 92.7% 到 100%，年成本 74,857 元。漏掉交期波动项，95% 口径的安全库存少算 76.9%。按边际成本逐 SKU 选 z，成本降 35.58%；资金受限统一 z=2.22 仍省 23,861 元。附零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html"},"headline":"安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账","description":"按 21 天定安全库存，6 个 SKU 的隐含 z 值从 1.45 到 5.04、服务水平 92.7% 到 100%，年成本 74,857 元。漏掉交期波动项，95% 口径的安全库存少算 76.9%。按边际成本逐 SKU 选 z，成本降 35.58%；资金受限统一 z=2.22 仍省 23,861 元。附零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-10","dateModified":"2026-11-10","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账","item":"https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html"},"headline":"Stop Sizing Safety Stock in Days: Service Level, Lead-Time Variance and the Stockout Cost Triangle","description":"Six SKUs and 7.71M yuan of annual GMV: safety stock set at 21 days of demand implies z values from 1.45 to 5.04, i.e. actual service levels from 92.7% to 100%. Lead-time variance accounts for 94.1% of demand-over-lead-time variance; drop that term and a 95% service level is understated by 76.9% (3,254 units computed as 753). Pricing holding cost against stockout cost puts the optimal z at 2.47 to 2.59, cutting annual cost from 74,857 to 48,223 yuan while inventory capital rises from 172,221 to 194,338 yuan. Under a flat capital budget a uniform z of 2.22 still saves 23,861 yuan. Includes a zero-dependency Python script.","inLanguage":"en","datePublished":"2026-11-10","dateModified":"2026-11-10","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"Stop Sizing Safety Stock in Days: Service Level, Lead-Time Variance and the Stockout Cost Triangle","item":"https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.safestock.title">安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账</h1>
+        <p class="post-meta">2026-11-10 · 商业操盘</p>
+        <div class="post-body">
+<p class="lead" data-i18n="post.safestock.lead">6 个 SKU、年 GMV 770.9 万元的跨境算例，交期 30 至 55 天、交期标准差 4 至 14 天。按 21 天拍出来的安全库存，隐含 z 值从 1.45 到 5.04，实际服务水平从 92.7% 到 100%——同一张表，一头把资金锁死，一头在裸奔。忽略交期波动项，95% 口径的安全库存要少算 76.9%（3,254 件算成 753 件）。把持有成本与缺货成本放进同一把尺子，逐 SKU 最优 z 落在 2.47 至 2.59：年总成本从 74,857 元降到 48,223 元，降 35.58%，代价是库存资金从 172,221 元涨到 194,338 元。资金不许涨，统一 z=2.22 仍省 23,861 元。只动 3 个错得最离谱的 SKU，净资金只动 27 元，年成本降 18,668 元。附零依赖脚本，输出与表格逐格对得上。</p>
+<h2 data-i18n="post.safestock.h1">一、21 天这张表，藏着 1.45 到 5.04 的隐含 z 值</h2>
+<p data-i18n="post.safestock.p1a">“安全库存留 21 天”是这一行最常见的写法，写起来也最省事。但它有一个不写在纸上的前提：它把安全库存等同于日均需求的固定倍数，而在统计口径里，安全库存是 z 值乘上交期需求的标准差。两个式子对照，天数法的隐含 z 就是「日均需求 × 天数 ÷ 交期需求标准差」。分母里既有需求波动，也有交期波动，每个 SKU 都不一样，于是同一张天数表落到不同 SKU 上，隐含的置信度相差极大。</p>
+<p data-i18n="post.safestock.p1b">表 1 是 6 个 SKU 的结果。按 21 天算出的安全库存，F 款对应 z=5.04，服务水平 100.0%，1,491 件安全库存压着 25,347 元资金，用来防一个概率近乎为零的缺货；E 款对应 z=1.45，服务水平 92.7%，按年补货 12.17 次算，平均每 8 次补货就有 1 次可能踩空。同一个规则、同一个仓、同一个采购，两端的富余与欠账差了 3.5 倍。</p>
+<h2 data-i18n="post.safestock.h2">二、交期波动项：94.1% 的方差来自供应商，而不是客户</h2>
+<p data-i18n="post.safestock.p2a">交期需求的方差由两项构成：交期天数乘以需求方差，加上日均需求平方乘以交期方差。第一项是客户买的，第二项是供应商交的。跨境长交期生意的现实是第二项压倒第一项——6 个 SKU 里，交期波动占交期需求方差的比重从 86.8% 到 98.4%，均值 94.1%。换句话说，你为需求预测模型做的所有精细活儿，加起来只解释不到 14% 的波动。</p>
+<p data-i18n="post.safestock.p2b">这一项之所以长期被漏掉，不是不会算，是拿不到数。ERP 里存的是承诺交期，不是实际到仓日期；采购表里填的是合同 L 值，没有一个字段记 σ_L。要把它补上，动作只有一个：把最近 8 到 12 次实际到仓日期拉出来，和合同交期逐票对比，算这批差值的标准差。这个数字不进任何报表首页，但它决定的资金量比首页上大部分指标都大。</p>
+<h2 data-i18n="post.safestock.h3">三、漏掉交期波动，95% 口径的安全库存少算 76.9%</h2>
+<p data-i18n="post.safestock.p3a">把交期波动项去掉，只留「交期天数开根号乘需求标准差」，看起来只是少了一项，实际是把标准差从 274 到 385 的量级砍到 42 到 136。表 3 是逐 SKU 的对照：95% 服务水平下，安全库存应该合计 3,254 件，按忽略交期项的口径只算得出 753 件，少算 2,502 件，缺口 76.9%；单 SKU 缺口从 63.7% 到 87.5%。</p>
+<p data-i18n="post.safestock.p3b">这解释了一个反复出现的现象：方案评审时都说按 95% 服务水平备货，实际旺季一来就断。不是执行走样，是分母少了一项。你以为买的是 95%，买到手的是 80% 出头，而且断得最狠的恰好是交期最飘的那几个 SKU——交期飘的货，恰恰也正是最需要安全垫的货。</p>
+<h2 data-i18n="post.safestock.h4">四、把天数法的账拆开：37,889 元持有成本，36,968 元缺货成本</h2>
+<p data-i18n="post.safestock.p4a">只比“有没有断货”没有意义，要把两笔钱放在一张表里。持有成本按单位成本乘 22% 的年持有率算，含资金、仓储、保险与损耗；缺货成本按单位毛利乘 2.0 算，把客户流失与加急补货溢价一起算进去。6 个 SKU 在 21 天口径下，年总成本 74,857 元，其中持有 37,889 元、缺货 36,968 元，两笔几乎相等。</p>
+<p data-i18n="post.safestock.p4b">一半钱花在压货上，一半钱花在赔付断货上，两头都没买好。这是拍天数的典型账单：它不是保守，也不是激进，它是把钱平均分给了两个错误。而真正该问的问题不是“要不要多备”，是“哪一件多备、多备几件、这笔钱多久回来”。</p>
+<h2 data-i18n="post.safestock.h5">五、一刀切 95% 服务水平更贵：87,890 元，反而升了 17.41%</h2>
+<p data-i18n="post.safestock.p5a">既然天数法的隐含服务水平有高有低，最自然的修法是统一到 95%。这一步方向对，结果是错的：安全库存从 5,229 件降到 3,254 件，资金从 172,221 元降到 127,163 元，省下 45,058 元资金，但缺货成本从 36,968 元冲到 59,915 元，年总成本升到 87,890 元，比天数法还贵 13,034 元，升幅 17.41%。</p>
+<p class="table-cap" data-i18n="post.safestock.tcap1">表 1：6 个 SKU 的参数、交期波动占比，以及天数法与最优 z 的安全库存对照。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.safestock.t1c0">SKU</th><th data-i18n="post.safestock.t1c1">日均需求（件）</th><th data-i18n="post.safestock.t1c2">需求σ</th>
+<th data-i18n="post.safestock.t1c3">交期（天）</th><th data-i18n="post.safestock.t1c4">交期σ</th><th data-i18n="post.safestock.t1c5">交期波动占比</th>
+<th data-i18n="post.safestock.t1c6">σ_RL</th><th data-i18n="post.safestock.t1c7">21 天安全库存</th><th data-i18n="post.safestock.t1c8">天数法隐含 z</th>
+<th data-i18n="post.safestock.t1c9">实际服务水平</th><th data-i18n="post.safestock.t1c10">最优 z</th><th data-i18n="post.safestock.t1c11">最优安全库存</th>
+</tr></thead>
+<tbody>
+<tr><td>A</td><td>42</td><td>11</td><td>45</td><td>9</td><td>96.3%</td><td>385.14</td><td>882</td><td>2.29</td><td>98.9%</td><td>2.47</td><td>952</td></tr>
+<tr><td>B</td><td>26</td><td>8</td><td>52</td><td>12</td><td>96.7%</td><td>317.29</td><td>546</td><td>1.72</td><td>95.7%</td><td>2.51</td><td>795</td></tr>
+<tr><td>C</td><td>58</td><td>22</td><td>38</td><td>6</td><td>86.8%</td><td>373.49</td><td>1,218</td><td>3.26</td><td>99.9%</td><td>2.59</td><td>967</td></tr>
+<tr><td>D</td><td>33</td><td>6</td><td>48</td><td>10</td><td>98.4%</td><td>332.61</td><td>693</td><td>2.08</td><td>98.1%</td><td>2.49</td><td>828</td></tr>
+<tr><td>E</td><td>19</td><td>9</td><td>55</td><td>14</td><td>94.1%</td><td>274.25</td><td>399</td><td>1.45</td><td>92.7%</td><td>2.52</td><td>690</td></tr>
+<tr><td>F</td><td>71</td><td>15</td><td>30</td><td>4</td><td>92.3%</td><td>295.65</td><td>1,491</td><td>5.04</td><td>100.0%</td><td>2.59</td><td>766</td></tr>
+</tbody></table>
+<p data-i18n="post.safestock.p5b">原因不复杂：95% 是按人拍的，不是按钱算的。E 款缺一件的损失是 192 元，F 款只有 64 元；A 款持有一件一年要 8.36 元，F 款只要 3.74 元。同一句“统一 95%”，对 E 款是省钱，对 F 款是浪费。服务水平是价格，不是口号；标价不同的东西，不能统一定价。</p>
+<p class="table-cap" data-i18n="post.safestock.tcap2">表 2：四种口径的年成本与库存资金。逐 SKU 最优 z 成本最低但资金最高。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.safestock.t2c0">口径</th><th data-i18n="post.safestock.t2c1">持有成本（元）</th><th data-i18n="post.safestock.t2c2">缺货成本（元）</th>
+<th data-i18n="post.safestock.t2c3">年总成本（元）</th><th data-i18n="post.safestock.t2c4">安全库存（件）</th><th data-i18n="post.safestock.t2c5">库存资金（元）</th>
+</tr></thead>
+<tbody>
+<tr><td data-i18n="post.safestock.t2r1">天数法 21 天</td><td>37,889</td><td>36,968</td><td>74,857</td><td>5,229</td><td>172,221</td></tr>
+<tr><td data-i18n="post.safestock.t2r2">一刀切 95% 服务水平</td><td>27,976</td><td>59,915</td><td>87,890</td><td>3,254</td><td>127,163</td></tr>
+<tr><td data-i18n="post.safestock.t2r3">逐 SKU 最优 z</td><td>42,754</td><td>5,469</td><td>48,223</td><td>4,997</td><td>194,338</td></tr>
+<tr><td data-i18n="post.safestock.t2r4">资金受限，统一 z=2.22</td><td>37,757</td><td>13,239</td><td>50,996</td><td>4,392</td><td>171,623</td></tr>
+</tbody></table>
+<h2 data-i18n="post.safestock.h6">六、最优 z 值有解析解：1 − Φ(z*) = h·c ÷ (cs·N)</h2>
+<p data-i18n="post.safestock.p6a">年成本可以写成两个函数相加：持有成本是 h·c·z·σ，随 z 线性上升；缺货成本是 cs·N·σ·L(z)，随 z 加速下降，其中 L(z) 是单位正态期望缺货量，它的导数正好是 −(1−Φ(z))。令导数为零，得到一个很干净的等式：h·c = cs·N·(1−Φ(z*))。左边是持有一件的年成本，右边是多提一档 z 换回来的缺货减少，边际相等时最优。</p>
+<p class="table-cap" data-i18n="post.safestock.tcap3">表 3：忽略交期波动项后，95% 口径的安全库存被低估 76.9%。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.safestock.t3c0">SKU</th><th data-i18n="post.safestock.t3c1">σ_RL（含交期）</th><th data-i18n="post.safestock.t3c2">σ_RL（忽略交期）</th>
+<th data-i18n="post.safestock.t3c3">应备（95%）</th><th data-i18n="post.safestock.t3c4">只算需求波动</th><th data-i18n="post.safestock.t3c5">少算比例</th>
+</tr></thead>
+<tbody>
+<tr><td>A</td><td>385.14</td><td>73.79</td><td>634</td><td>121</td><td>80.8%</td></tr>
+<tr><td>B</td><td>317.29</td><td>57.69</td><td>522</td><td>95</td><td>81.8%</td></tr>
+<tr><td>C</td><td>373.49</td><td>135.62</td><td>614</td><td>223</td><td>63.7%</td></tr>
+<tr><td>D</td><td>332.61</td><td>41.57</td><td>547</td><td>68</td><td>87.5%</td></tr>
+<tr><td>E</td><td>274.25</td><td>66.75</td><td>451</td><td>110</td><td>75.7%</td></tr>
+<tr><td>F</td><td>295.65</td><td>82.16</td><td>486</td><td>135</td><td>72.2%</td></tr>
+<tr><td data-i18n="post.safestock.t3rsum">合计</td><td>—</td><td>—</td><td>3,254</td><td>753</td><td>76.9%</td></tr>
+</tbody></table>
+<p data-i18n="post.safestock.p6b">这个式子最大的用处是把争论变成两个数。表 5 给出临界尾概率，A 款 0.674%、E 款 0.593%、C 款 0.482%，对应 z* 分别是 2.471、2.516、2.588，与逐 0.01 扫描的结果一致，误差小于 0.005。要动 z 值，先动这两个数：一是不许断货的品类就把 cs 调高，二是把 h 换成财务实际资金成本，改完重算，不用再开会。</p>
+<p data-i18n="post.safestock.p6c">这里有个与直觉相反的地方，值得单独说。决定 z* 的不是货值高低，而是「缺一件的损失 ÷ 持有一件的年成本」，也就是 cs 与 h·c 的比值。这次算例里这个比值从 12.2 到 17.1：比值越高的 SKU 越该多备，与单价无关。所以单件 38 元的 A 款 z*=2.47，反而低于单件 17 元的 F 款 z*=2.59。“贵货多备、贱货少备”这句经验，在缺货成本与货值不成比例时是错的。</p>
+<p class="table-cap" data-i18n="post.safestock.tcap4">表 4：统一 z 的敏感性。2.22 是资金不超过天数法水平时的最优点，2.80 已越过成本谷底。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.safestock.t4c0">统一 z</th><th data-i18n="post.safestock.t4c1">服务水平</th><th data-i18n="post.safestock.t4c2">库存资金（元）</th>
+<th data-i18n="post.safestock.t4c3">年总成本（元）</th><th data-i18n="post.safestock.t4c4">相对天数法</th>
+</tr></thead>
+<tbody>
+<tr><td>1.65</td><td>95.1%</td><td>127,557</td><td>87,250</td><td>+12,393</td></tr>
+<tr><td>2.00</td><td>97.7%</td><td>154,615</td><td>58,367</td><td>−16,490</td></tr>
+<tr><td>2.22</td><td>98.7%</td><td>171,623</td><td>50,996</td><td>−23,861</td></tr>
+<tr><td>2.50</td><td>99.4%</td><td>193,269</td><td>48,267</td><td>−26,590</td></tr>
+<tr><td>2.80</td><td>99.7%</td><td>216,461</td><td>49,804</td><td>−25,052</td></tr>
+</tbody></table>
+<h2 data-i18n="post.safestock.h7">七、三角账的第三边：资金占用不进成本，但卡住现金流</h2>
+<p data-i18n="post.safestock.p7a">前面只算了两边。第三边是资金占用，它和持有成本不是一回事：持有成本按年率折进损益，资金占用是一次性压在资产负债表上的现金。逐 SKU 最优方案的库存资金是 194,338 元，比天数法的 172,221 元多 22,117 元，涨 12.84%。年成本降了 26,633 元，但要多拿出 22,117 元现金——对一家账上随时要付头程与关税的跨境店，这不是可以随口答应的条件。</p>
+<p class="table-cap" data-i18n="post.safestock.tcap5">表 5：解析解与逐 SKU 处置明细。E 款追加资金 18,335 元、年省 15,537 元，回本期 1.18 年。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.safestock.t5c0">SKU</th><th data-i18n="post.safestock.t5c1">临界尾概率</th><th data-i18n="post.safestock.t5c2">解析最优 z</th>
+<th data-i18n="post.safestock.t5c3">缺货/持有比</th><th data-i18n="post.safestock.t5c4">z 调整</th><th data-i18n="post.safestock.t5c5">安全库存变化</th>
+<th data-i18n="post.safestock.t5c6">资金变化（+释放／−追加）</th><th data-i18n="post.safestock.t5c7">年成本变化（元）</th>
+</tr></thead>
+<tbody>
+<tr><td>A</td><td>0.674%</td><td>2.471</td><td>12.2</td><td>2.29→2.47</td><td>882→952</td><td>−2,648</td><td>−171</td></tr>
+<tr><td>B</td><td>0.610%</td><td>2.506</td><td>13.5</td><td>1.72→2.51</td><td>546→795</td><td>−13,956</td><td>−6,807</td></tr>
+<tr><td>C</td><td>0.482%</td><td>2.588</td><td>17.0</td><td>3.26→2.59</td><td>1,218→967</td><td>+6,031</td><td>−766</td></tr>
+<tr><td>D</td><td>0.639%</td><td>2.490</td><td>12.9</td><td>2.08→2.49</td><td>693→828</td><td>−5,540</td><td>−987</td></tr>
+<tr><td>E</td><td>0.593%</td><td>2.516</td><td>13.9</td><td>1.45→2.52</td><td>399→690</td><td>−18,335</td><td>−15,537</td></tr>
+<tr><td>F</td><td>0.480%</td><td>2.590</td><td>17.1</td><td>5.04→2.59</td><td>1,491→766</td><td>+12,331</td><td>−2,365</td></tr>
+</tbody></table>
+<p data-i18n="post.safestock.p7b">表 4 是统一 z 的敏感性，底线在第 4 行：资金上限锁在天数法水平（172,221 元）时，最优统一 z 是 2.22，服务水平 98.7%，资金 171,623 元，年成本 50,996 元，省 23,861 元，降 31.88%。也就是说，一分钱不多拿，仍能拿下全量最优收益（26,633 元）的 89.6%。</p>
+<p data-i18n="post.safestock.p7c">表 4 还露出一个细节：z 从 2.50 提到 2.80，资金多 43,192 元，年成本却从 48,267 元回升到 49,804 元。曲线底部是平的，左侧每提一档都便宜，右侧每提一档都在赔钱。这就是“服务水平越高越好”这个念头最贵的地方——它让你在曲线右侧追加投入，还以为自己在买保险。</p>
+<h2 data-i18n="post.safestock.h8">八、个案：E 款该追加 18,335 元，F 款该退 12,331 元</h2>
+<p data-i18n="post.safestock.p8a">全量重算对多数团队太重。更实用的做法是先动“错得最离谱”的三个，表 5 后半段是逐款明细。E 款 z 从 1.45 提到 2.52，安全库存从 399 件加到 690 件，追加资金 18,335 元，年缺货从 108 件降到 6 件，年成本从 26,322 元降到 10,785 元，降 15,537 元，追加资金的回本期是 1.18 年（14.2 个月）。</p>
+<p data-i18n="post.safestock.p8b">F 款是反方向：z 从 5.04 降到 2.59，安全库存从 1,491 件退到 766 件，释放 12,331 元资金，年成本还降 2,365 元。这一笔不需要决策——释放资金且成本下降，没有取舍，只有执行。C 款同理，退 251 件、释放 6,031 元，年成本降 766 元。</p>
+<p data-i18n="post.safestock.p8c">三笔合起来才是有意思的地方：追加 18,335 元、释放 12,331 元、释放 6,031 元，净资金变化只有 27 元，等于没动；年成本降 15,537 + 2,365 + 766 = 18,668 元，等于全量最优收益（26,633 元）的 70.1%。换句话说，不动一分钱净资金、只调三个 SKU，就能拿到七成收益。多数团队卡住的不是算不出最优解，是没做过这一步试算。</p>
+<h2 data-i18n="post.safestock.h9">九、落地节奏：每月三张表、一条回本期线、一个动作</h2>
+<p data-i18n="post.safestock.p9a">第一张表是到仓时效表：最近 8 至 12 次实际到仓日期对合同交期，算均值与标准差。这张表不进 ERP，用一张 Sheet 就够，但它是全部计算的地基——交期标准差取供应商承诺值，等于把 94.1% 的方差当成零。第二张表是安全库存表：σ_d、σ_L、σ_RL、z*、SS、资金六列，z* 用解析式算，一行 Excel 也能写：尾概率取 z 的临界值，再乘 σ_RL 就是件数。第三张表是处置单：谁加、加几件、追加多少资金、回本期几个月。</p>
+<p data-i18n="post.safestock.p9b">阈值只需要一条线：回本期 12 个月以内直接执行，12 至 18 个月排进下季度资金计划，超过 18 个月不做。E 款 14.2 个月落在第二档，F 款和 C 款属于“释放资金且成本下降”，不需要过线。人只签两件事：追加资金的那一栏，和去找供应商谈交期条款的那一次会议。其余取数、算 z、出处置单，写进技能包的 front matter 就该跑起来。</p>
+<p data-i18n="post.safestock.p9c">和站内那篇讲库存告警阈值的文章不冲突，分工也不同：那篇解决“什么时候该看”，三层阈值是触发线；这篇解决“看的时候该备多少”，z 值是目标线。真要对接，把那张阈值表里“安全库存天数”一列换成本文算出的 SS 件数，剩下的阈值逻辑照旧能用。</p>
+<pre><code># 安全库存参数化：天数法反算 z、交期波动项、按边际成本选 z（零依赖）
+import math
+
+H, M = 0.22, 2.0          # 年持有成本率、缺货成本 = 单位毛利 x 倍数
+ROWS = [                  # sku, 售价, 成本, 日均需求, 需求σ, 交期均值, 交期σ, 批量天数
+    (&quot;A&quot;,  89, 38, 42, 11, 45,  9, 30),
+    (&quot;B&quot;, 139, 56, 26,  8, 52, 12, 30),
+    (&quot;C&quot;,  69, 24, 58, 22, 38,  6, 30),
+    (&quot;D&quot;,  99, 41, 33,  6, 48, 10, 30),
+    (&quot;E&quot;, 159, 63, 19,  9, 55, 14, 30),
+    (&quot;F&quot;,  49, 17, 71, 15, 30,  4, 30),
+]
+
+Phi = lambda z: 0.5 * (1 + math.erf(z / math.sqrt(2)))
+phi = lambda z: math.exp(-z * z / 2) / math.sqrt(2 * math.pi)
+Lz  = lambda z: phi(z) - z * (1 - Phi(z))          # 单位正态期望缺货量
+sig_rl = lambda d, sd, lead, sdl: math.sqrt(lead * sd ** 2 + (d * sdl) ** 2)
+cycles = lambda bd: 365.0 / bd
+
+def annual(z, d, lead, bd, sig, cost, cs):
+    hold  = H * cost * z * sig                     # 持有成本（进损益）
+    short = cs * cycles(bd) * sig * Lz(z)          # 缺货成本（进损益）
+    return hold + short, hold, short
+
+def z_opt(cost, cs, bd):                           # 解析解：1 - Phi(z*) = H*C/(cs*N)
+    tail, lo, hi = H * cost / (cs * cycles(bd)), 0.0, 6.0
+    for _ in range(80):
+        mid = (lo + hi) / 2
+        lo, hi = (mid, hi) if 1 - Phi(mid) &gt; tail else (lo, mid)
+    return lo
+
+tot = dict(day_c=0, day_k=0, opt_c=0, opt_k=0)
+for sku, price, cost, d, sd, lead, sdl, bd in ROWS:
+    cs, sig = (price - cost) * M, sig_rl(d, sd, lead, sdl)
+    z_d, z_o = d * 21 / sig, z_opt(cost, cs, bd)   # 天数法隐含 z / 最优 z
+    for tag, z in ((&quot;day&quot;, z_d), (&quot;opt&quot;, z_o)):
+        c, hold, short = annual(z, d, lead, bd, sig, cost, cs)
+        tot[tag + &quot;_c&quot;] += c
+        tot[tag + &quot;_k&quot;] += z * sig * cost          # 安全库存资金占用
+    print(f&quot;{sku} σ_RL={sig:7.2f} z法={z_d:5.2f} z*={z_o:5.2f} &quot;
+          f&quot;SS {d*21:5.0f}→{z_o*sig:5.0f} 件&quot;)
+
+print(f&quot;天数法：年成本 {tot[&#x27;day_c&#x27;]:,.0f} 元，资金 {tot[&#x27;day_k&#x27;]:,.0f} 元&quot;)
+print(f&quot;最优z ：年成本 {tot[&#x27;opt_c&#x27;]:,.0f} 元，资金 {tot[&#x27;opt_k&#x27;]:,.0f} 元&quot;)
+print(f&quot;降幅 {100*(tot[&#x27;opt_c&#x27;]-tot[&#x27;day_c&#x27;])/tot[&#x27;day_c&#x27;]:.2f}%&quot;)</code></pre>
+<p data-i18n="post.safestock.p10a">上面这段是全部核心逻辑，零依赖，粘贴即可运行，输出三行：天数法年成本 74,857 元、资金 172,221 元；最优 z 年成本 48,223 元、资金 194,338 元；降幅 −35.58%，与表 1、表 2 逐格对得上。要换自己的数据，只改 ROWS 八列；要改假设，只动 H 与 M 两个常数，结论方向不变，只变幅度。</p>
+<h2 data-i18n="post.safestock.h10">十、结语：兵法说的委积，就是你的安全库存</h2>
+<p data-i18n="post.safestock.p10a2">《孙子兵法·军争篇》讲“军无辎重则亡，无粮食则亡，无委积则亡”。委积是囤在后方的那点存货，多备了败于持有，少备了败于断货，中间那一段不是拍出来的，是算出来的。拍天数的成本不是零，它一年 74,857 元里，37,889 元花在你不缺的货上，36,968 元赔在你缺的货上。</p>
+<p data-i18n="post.safestock.p10b">最后留一句实在话：这套算法管的是钱，管不了供应商。σ_L 能不能压下来，取决于你敢不敢拿订单量去换交期确定性。算 z 只是把账算清楚，真正的降本从谈交期那天开始。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>
