@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 10 Nov 2026 01:14:22 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html</guid>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>6 个 SKU、月营收 1,237.0 万元的算例：按最高档预提返利，账面毛利 542.1 万元、43.82%，实际到账 514.3 万元、41.58%，虚高 27.8 万元、2.25 个百分点，年化 333.6 万元；满档返利 67.29 万元只兑现 39.50 万元，兑现率 58.69%。按 12 个月达成频率给档位加权，残差压到 3.8 万元、误差收缩 86.2%；Q4 单量 +18% 后虚高降到 16.1 万元、兑现率 79.76%。附零依赖脚本。</description>
+    </item>
     <item>
       <title>安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html</link>

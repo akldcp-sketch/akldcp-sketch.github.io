@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径 - 扶摇</title>
+  <meta name="description" content="6 个 SKU、月营收 1,237.0 万元算例：按最高档预提返利，账面毛利 542.1 万元、43.82%，到账 514.3 万元、41.58%，虚高 27.8 万元、2.25 个百分点；满档返利 67.29 万元只兑现 39.50 万元，兑现率 58.69%。按达成频率加权，误差收缩 86.2%，附零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径 - 扶摇">
+  <meta property="og:description" content="6 个 SKU、月营收 1,237.0 万元算例：按最高档预提返利，账面毛利 542.1 万元、43.82%，到账 514.3 万元、41.58%，虚高 27.8 万元、2.25 个百分点；满档返利 67.29 万元只兑现 39.50 万元，兑现率 58.69%。按达成频率加权，误差收缩 86.2%，附零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html"},"headline":"返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径","description":"6 个 SKU、月营收 1,237.0 万元算例：按最高档预提返利，账面毛利 542.1 万元、43.82%，到账 514.3 万元、41.58%，虚高 27.8 万元、2.25 个百分点；满档返利 67.29 万元只兑现 39.50 万元，兑现率 58.69%。按达成频率加权，误差收缩 86.2%，附零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-12","dateModified":"2026-11-12","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径","item":"https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html"},"headline":"A Rebate You Have Not Collected Is Not Margin: Ladder Rebates, Realization Rate and the Restated Gross Margin","description":"Six SKUs on 12.37M yuan of monthly revenue: accruing rebates at the top tier books 5.421M of gross profit at 43.82%, while cash actually received is 5.143M at 41.58% — 278K yuan and 2.25 points of fiction, 3.336M annualised. Of 672.9K accrued rebate only 395.0K arrives, a realization rate of 58.69%. Weighting tiers by twelve-month hit frequency cuts the error to 38K yuan, an 86.2% reduction. Includes a zero-dependency script.","inLanguage":"en","datePublished":"2026-11-12","dateModified":"2026-11-12","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"A Rebate You Have Not Collected Is Not Margin: Ladder Rebates, Realization Rate and the Restated Gross Margin","item":"https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.rebate.title">返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径</h1>
+        <p class="post-meta">2026-11-12 · 商业操盘</p>
+        <div class="post-body">
+<p class="lead" data-i18n="post.rebate.lead">6 个 SKU、月营收 1,237.0 万元、采购额 762.2 万元的算例。财务图省事，按合同最高档费率预提返利，账面毛利 542.1 万元、毛利率 43.82%；按实际达成档位算，毛利 514.3 万元、41.58%。两条线之间 27.8 万元、2.25 个百分点，年化 333.6 万元。同一个月，满档返利 67.29 万元只到账 39.50 万元，兑现率 58.69%。按过去 12 个月的达成频率给档位加权，残差压到 3.8 万元，误差收缩 86.2%。附零依赖脚本，输出与表格逐格对得上。</p>
+<h2 data-i18n="post.rebate.h1">一、返利为什么会在毛利表上提前兑现</h2>
+<p data-i18n="post.rebate.p1a">返利的会计动作是冲减采购成本，不是营业外收入。一笔 8% 的进货返点落地，等于把这批货的 COGS 从 100 降到 92，毛利率随之上移。问题出在时点：返点按年度或季度达成结算，而毛利表按月出。财务为了让月度毛利率不跳变，最常用的办法是直接按合同上的最高档费率预提。省事是真的，代价是把一个概率事件写成了一个确定事件。</p>
+<p data-i18n="post.rebate.p1b">这个做法有一个不写在纸上的前提：销量必然打满顶档。落到 6 个 SKU 上，这个前提不成立。A 款采购额 216.0 万元，落在 5% 档，距下一档 250 万元还差 15.7%；C 款 192.5 万元，落 8% 档，距 220 万元差 14.3%；D 款 99.0 万元，落 3% 档，距 120 万元差 21.2%。单据上写着最高档 8%、12%、9%，实际到账的分别是 5%、8%、3%。</p>
+<h2 data-i18n="post.rebate.h2">二、满档计提把毛利率抬了 2.25 个百分点</h2>
+<p data-i18n="post.rebate.p2a">先把口径说清楚：返利 = 采购额 × 费率，冲减 COGS，因此毛利 = 基础毛利 + 采购额 × 费率，基础毛利是（售价 − 成本）× 销量。6 个 SKU 合计基础毛利 474.8 万元、基础毛利率 38.38%。满档计提后毛利 542.1 万元、毛利率 43.82%；按实际档位算 514.3 万元、41.58%。差额 27.8 万元、2.25 个百分点，全部来自 6 个 SKU 上「满档费率 − 实际费率」那一段。</p>
+<p data-i18n="post.rebate.p2b">2.25 个百分点在毛利表上不显眼，落到年度是 333.6 万元。更要紧的是它会往下传导：费用预算通常按毛利率倒推。按 15% 的广告费率算，满档口径批下来的月度预算是 81.3 万元，按到账毛利实际能承受 77.1 万元，每月超支 4.2 万元，超支率 5.4%，全年 50.0 万元。这笔钱不是被谁花掉的，是从预算批下来的那天起就不存在。</p>
+<p data-i18n="post.rebate.p2c">虚高的分布并不均匀。C 款 7.70 万元、A 款 6.48 万元、D 款 5.94 万元，三款合计 20.12 万元，占 27.8 万元里的 72.4%，其余三款合计 7.68 万元。这条分布直接决定动作顺序：先修正错得最狠的三款，七成收益就到位，不需要全量重算。</p>
+<p class="table-cap" data-i18n="post.rebate.tcap1">表 1：6 个 SKU 的采购额、实际档位与满档费率对照，含距下一档的差距、达成概率与返利差额。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.rebate.t1c0">SKU</th>
+<th data-i18n="post.rebate.t1c1">采购额（万元）</th>
+<th data-i18n="post.rebate.t1c2">实际费率</th>
+<th data-i18n="post.rebate.t1c3">满档费率</th>
+<th data-i18n="post.rebate.t1c4">距下一档</th>
+<th data-i18n="post.rebate.t1c5">达成概率</th>
+<th data-i18n="post.rebate.t1c6">实际返利（万元）</th>
+<th data-i18n="post.rebate.t1c7">满档返利（万元）</th>
+<th data-i18n="post.rebate.t1c8">差额（万元）</th>
+</tr></thead>
+<tbody>
+<tr><td>A</td><td>216.0</td><td>5%</td><td>8%</td><td>15.7%</td><td>16.7%</td><td>10.80</td><td>17.28</td><td>6.48</td></tr>
+<tr><td>B</td><td>72.0</td><td>2%</td><td>4%</td><td>38.9%</td><td>8.3%</td><td>1.44</td><td>2.88</td><td>1.44</td></tr>
+<tr><td>C</td><td>192.5</td><td>8%</td><td>12%</td><td>14.3%</td><td>25.0%</td><td>15.40</td><td>23.10</td><td>7.70</td></tr>
+<tr><td>D</td><td>99.0</td><td>3%</td><td>9%</td><td>21.2%</td><td>8.3%</td><td>2.97</td><td>8.91</td><td>5.94</td></tr>
+<tr><td>E</td><td>25.2</td><td>4%</td><td>10%</td><td>58.7%</td><td>8.3%</td><td>1.01</td><td>2.52</td><td>1.51</td></tr>
+<tr><td>F</td><td>157.5</td><td>5%</td><td>8%</td><td>39.7%</td><td>8.3%</td><td>7.88</td><td>12.60</td><td>4.72</td></tr>
+<tr><td data-i18n="post.rebate.t1sum">合计</td><td>762.2</td><td>—</td><td>—</td><td>—</td><td>—</td><td>39.50</td><td>67.29</td><td>27.79</td></tr>
+</tbody></table>
+<h2 data-i18n="post.rebate.h3">三、兑现率 58.69%：67.29 万元满档返利只到账 39.50 万元</h2>
+<p data-i18n="post.rebate.p3a">把 6 个 SKU 并表，满档返利 67.29 万元，实际到账 39.50 万元，兑现率 58.69%。也就是说，每计提 100 元返利，到账 58.69 元，41.31 元留在账面上。这个数字不写在任何一张报表里，但它是这叠毛利表的折旧率——毛利看起来在涨，涨的那部分有一半是纸。</p>
+<p data-i18n="post.rebate.p3b">兑现率不能跨 SKU 平均着看。D 款 33.3% 最低，E 款 40.1%，B 款 50.0%，A 款与 F 款同为 62.5%，C 款 66.7%。同一张计提表下，最低与最高差出 33.4 个百分点，差这一截的不是运气，是档位跨度。</p>
+<p data-i18n="post.rebate.p3c">D 款是最刺眼的一例：采购额 99.0 万元，实际 3% 档，预提 9% 档，返利差额 5.94 万元，兑现率 33.3%。它的档位从 3% 一路排到 9%，跨了三档、6 个百分点，而销量恰好贴在最低那一档上——这类 SKU 是满档计提的放大器，档位越宽，纸面毛利越好看。</p>
+<h2 data-i18n="post.rebate.h4">四、按达成概率加权档位，误差收缩 86.2%</h2>
+<p data-i18n="post.rebate.p4a">修法不是把满档换成当前档。那是把虚高换成低估，钟摆摆到另一端，同样失真。正确做法是把档位当成一个概率分布，按期望费率计提。式子只有一行：期望费率 = 当前档费率 + p ×（下一档费率 − 当前档费率），p 是下一档的达成概率。</p>
+<p data-i18n="post.rebate.p4b">p 不该拍脑袋。取最近 12 个月的同比增幅分布，数一下有多少个月跨过了「到下一档还差多少」这条线。A 款差 15.7%，过去 12 个月里 2 个月增幅不低于 15.7%，p=16.7%；C 款差 14.3%，3 个月达标，p=25.0%；B、D、E、F 各只有 1 个月，p=8.3%。表 1 第六列就是这组数。它们不是假设，是从自家销量表里数出来的。</p>
+<p data-i18n="post.rebate.p4c">加权后总体毛利 518.1 万元、毛利率 41.89%，与到账的 514.3 万元差 3.8 万元、0.31 个百分点；同一张表上满档计提差 27.8 万元、2.25 个百分点，误差收缩 86.2%。E 款最直白：要涨 58.7% 才够下一档，历史上只有大促那个月翻过这条线，p=8.3%，期望费率 4.25%，而合同上印的是 10%。</p>
+<p class="table-cap" data-i18n="post.rebate.tcap2">表 2：四种计提口径的毛利与毛利率。加权计提把毛利率偏差从 2.25 个百分点压到 0.31 个百分点。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.rebate.t2c0">计提口径</th>
+<th data-i18n="post.rebate.t2c1">毛利（万元）</th>
+<th data-i18n="post.rebate.t2c2">毛利率</th>
+<th data-i18n="post.rebate.t2c3">与到账差额（万元）</th>
+<th data-i18n="post.rebate.t2c4">毛利率偏差（百分点）</th>
+</tr></thead>
+<tbody>
+<tr><td data-i18n="post.rebate.t2r1">基础毛利（不计返利）</td><td>474.8</td><td>38.38%</td><td>—</td><td>—</td></tr>
+<tr><td data-i18n="post.rebate.t2r2">满档计提</td><td>542.1</td><td>43.82%</td><td>+27.8</td><td>+2.25</td></tr>
+<tr><td data-i18n="post.rebate.t2r3">概率加权计提</td><td>518.1</td><td>41.89%</td><td>+3.8</td><td>+0.31</td></tr>
+<tr><td data-i18n="post.rebate.t2r4">实际到账口径</td><td>514.3</td><td>41.58%</td><td>0</td><td>0</td></tr>
+</tbody></table>
+<h2 data-i18n="post.rebate.h5">五、返利不单列，现金流预警就晚一个季度</h2>
+<p data-i18n="post.rebate.p5a">第二件事不是算法，是科目。返利在到账之前是一笔应收，性质上更接近对供应商的债权，而不是本期已经实现的毛利。继续把它混在 COGS 里冲减，结果是毛利表好看、现金表难看，而两张表之间的时间差，在账上没有任何字段提示。</p>
+<p data-i18n="post.rebate.p5b">口径落地简单到近乎无聊：预提的返利单列一行「待结算返利」，进应收类科目；毛利表里照旧冲减成本，但同一张报表的第二页必须能看到「已计提未到账」余额和兑现率。加上这两列，管理层看到的就不是「这个月毛利涨了」，而是「这个月毛利涨了，其中多少还在别人账上」。</p>
+<p data-i18n="post.rebate.p5c">这一步改的不是数字，是问法。原来问「这个月毛利多少」，现在问「这个月毛利里有多少到账了」。两个问法对应两种动作：前者加预算，后者先查兑现。多数行业里的现金断档，不是赚得少，是问错了问题。</p>
+<h2 data-i18n="post.rebate.h6">六、季度滚动重算：Q4 单量 +18%，虚高从 27.8 万元降到 16.1 万元</h2>
+<p data-i18n="post.rebate.p6a">计提模型不是一次定终身。表 3 是 Q4 单量环比 +18% 后的重算：A 款采购额 254.9 万元，越过 250 万元门槛，实际费率从 5% 升到 8%；C 款 227.2 万元，越过 220 万元门槛，从 8% 升到 12%；B、D、E、F 四款档位不动。</p>
+<p data-i18n="post.rebate.p6b">结果：虚高从月度 27.8 万元降到 16.1 万元，兑现率从 58.69% 升到 79.76%。方向对，但 16.1 万元仍然是钱——Q4 基础毛利 560.3 万元，满档毛利 639.7 万元，到账 623.6 万元。旺季跑量能把兑现率抬起来，抬不到 100%：B 款要涨 38.9%、F 款要涨 39.7% 才够下一档。</p>
+<p data-i18n="post.rebate.p6c">这解释了一个反复出现的困惑：大促做完，毛利表好看，现金没跟上。旺季兑现率确实更高，79.76% 对 58.69%，但虚高绝对额仍有 16.1 万元；淡季反过来，兑现率跌回 58.69%，虚高反而更大。所以档位必须按季度重算，p 用最近的同比分布刷新，别拿年初那张表跑完一年。</p>
+<p class="table-cap" data-i18n="post.rebate.tcap3">表 3：Q4 单量环比 +18% 后的档位重算。只有两款升档，兑现率升到 79.76%。</p>
+<table>
+<thead><tr>
+<th data-i18n="post.rebate.t3c0">SKU</th>
+<th data-i18n="post.rebate.t3c1">Q4 采购额（万元）</th>
+<th data-i18n="post.rebate.t3c2">原费率</th>
+<th data-i18n="post.rebate.t3c3">Q4 费率</th>
+<th data-i18n="post.rebate.t3c4">档位变化</th>
+</tr></thead>
+<tbody>
+<tr><td>A</td><td>254.9</td><td>5%</td><td>8%</td><td data-i18n="post.rebate.t3up">升档</td></tr>
+<tr><td>B</td><td>85.0</td><td>2%</td><td>2%</td><td data-i18n="post.rebate.t3flat">不变</td></tr>
+<tr><td>C</td><td>227.2</td><td>8%</td><td>12%</td><td data-i18n="post.rebate.t3up">升档</td></tr>
+<tr><td>D</td><td>116.8</td><td>3%</td><td>3%</td><td data-i18n="post.rebate.t3flat">不变</td></tr>
+<tr><td>E</td><td>29.7</td><td>4%</td><td>4%</td><td data-i18n="post.rebate.t3flat">不变</td></tr>
+<tr><td>F</td><td>185.8</td><td>5%</td><td>5%</td><td data-i18n="post.rebate.t3flat">不变</td></tr>
+</tbody></table>
+<h2 data-i18n="post.rebate.h7">七、落地：两张表、一条线、一个动作</h2>
+<p data-i18n="post.rebate.p7a">第一张表是返利台账：SKU、采购额、档位门槛、当前费率、下一档门槛与费率、距下一档的百分比、过去 12 个月达成频率。八个字段，一张 Sheet，不进 ERP 也能跑。第二张表是计提表：期望费率、期望返利、已到账返利、已计提未到账、兑现率。第三样只有一行规则：兑现率低于 60% 的 SKU，下一季度计提一律回到当前档，不再上浮。</p>
+<p data-i18n="post.rebate.p7b">动作只有一个：每季度末拿实际到账金额回填，核对预提误差。误差超过 0.5 个百分点就调 p，连续两个季度误差在 0.3 个百分点以内，这款 SKU 就固定用加权费率，不再逐月折腾。对人来说，真正要签字的只有一件事——把「待结算返利」单列到报表第二页。这件事不花一分钱，但它决定了上面的27.8 万元是三个月后才被看见，还是当月就被看见。</p>
+<h2 data-i18n="post.rebate.h8">八、结语：千丈之堤，以蝼蚁之穴溃</h2>
+<p data-i18n="post.rebate.p8a">《韩非子·喻老》说「千丈之堤，以蝼蚁之穴溃」。2.25 个百分点就是那个穴：单看一个月不痛，一年 333.6 万元，还要拖着 50.0 万元的预算超支一起走。数字本身不咬人，咬人的是它不出现在任何一张需要被签字的表上。</p>
+<p data-i18n="post.rebate.p8b">最后一句实话：返利是供应商给的，兑现率是采购谈的，毛利是这两件事的下游。会计口径只决定你多早看见它，不决定它存不存在。把概率写进档位那张表，比在复盘会上解释毛利为什么没兑现，成本低得多。</p>
+<pre><code># 阶梯返利兑现率与账面毛利还原（零依赖）
+SKUS = [
+    # code, price, cost, qty/month, [(gate in 10k yuan, rate)], yoy growth of last 12 months
+    ("A", 200, 120, 18000, [(100, .03), (180, .05), (250, .08)], [3,5,-2,8,12,18,-4,6,9,22,-1,4]),
+    ("B", 150,  90,  8000, [(50, .02), (100, .04)], [10,-5,25,8,12,40,-3,15,6,9,20,-8]),
+    ("C", 500, 350,  5500, [(100, .05), (160, .08), (220, .12)], [6,14,-9,20,11,5,26,-2,8,16,13,4]),
+    ("D",  80,  45, 22000, [(60, .03), (120, .06), (180, .09)], [12,4,-6,9,18,7,-3,22,5,11,-9,6]),
+    ("E", 300, 210,  1200, [(20, .04), (40, .07), (60, .10)], [55,12,-20,30,8,-15,60,22,10,-8,18,5]),
+    ("F",  60,  35, 45000, [(80, .02), (150, .05), (220, .08)], [8,-3,15,6,11,20,-5,9,4,13,45,7]),
+]
+tot = dict(rev=0.0, base=0.0, max=0.0, act=0.0, exp=0.0, reb_max=0.0, reb_act=0.0)
+for code, p, c, q, tiers, yoy in SKUS:
+    spend = c * q / 10000.0                       # purchasing value, 10k yuan
+    base, rev = (p - c) * q, p * q
+    act_rate, act_i = 0.0, -1
+    for i, (gate, rate) in enumerate(tiers):       # tier actually reached
+        if spend &gt;= gate:
+            act_rate, act_i = rate, i
+    max_rate = tiers[-1][1]                        # the tier the accountant assumes
+    if act_i + 1 &lt; len(tiers):                     # gap to next gate -&gt; hit frequency
+        nxt_gate, nxt_rate = tiers[act_i + 1]
+        gap = nxt_gate / spend - 1
+        p_hit = len([g for g in yoy if g &gt;= gap * 100]) / len(yoy)
+    else:
+        nxt_rate, gap, p_hit = act_rate, 0.0, 0.0
+    exp_rate = act_rate + p_hit * (nxt_rate - act_rate)   # expected rate
+    for k, v in (("rev", rev), ("base", base)):
+        tot[k] += v
+    tot["max"] += base + spend * 10000 * max_rate
+    tot["act"] += base + spend * 10000 * act_rate
+    tot["exp"] += base + spend * 10000 * exp_rate
+    tot["reb_max"] += spend * 10000 * max_rate
+    tot["reb_act"] += spend * 10000 * act_rate
+    print(f"{code} spend={spend:7.1f} act={act_rate:.0%} max={max_rate:.0%} "
+          f"exp={exp_rate:.2%} p={p_hit:.1%}")
+print(f"revenue {tot['rev']/1e4:,.1f}w  base {tot['base']/1e4:,.1f}w")
+print(f"top-tier {tot['max']/1e4:,.1f}w ({tot['max']/tot['rev']:.2%})  "
+      f"cash {tot['act']/1e4:,.1f}w ({tot['act']/tot['rev']:.2%})")
+print(f"weighted {tot['exp']/1e4:,.1f}w ({tot['exp']/tot['rev']:.2%})")
+print(f"realization {tot['reb_act']/tot['reb_max']:.2%}")</code></pre>
+<p data-i18n="post.rebate.p9a">上面这段是全部核心逻辑，零依赖，粘贴即可跑，输出五行：6 个 SKU 的采购额、实际费率与期望费率；营收 1,237.0 万元；满档计提毛利 542.1 万元、43.82%；到账毛利 514.3 万元、41.58%；加权毛利 518.1 万元、41.89%；兑现率 58.69%，与表 1、表 2 逐格对得上。要换自己的数据，只改 SKUS 六行；要改假设，只动档位门槛，结论方向不变，只变幅度。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

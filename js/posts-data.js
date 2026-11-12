@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-12-rebate-realization-margin",
+    en: { title: "A Rebate You Have Not Collected Is Not Margin: Ladder Rebates, Realization Rate and the Restated Gross Margin", summary: "Six SKUs on 12.37M yuan of monthly revenue: top-tier accrual books 5.421M of gross profit at 43.82% while cash received is 5.143M at 41.58% — 278K yuan and 2.25 points of fiction, 3.336M annualised. Of 672.9K accrued rebate only 395.0K arrives, a 58.69% realization rate; 15% ad budget built on accrued margin overruns by 42K a month. Weighting tiers by twelve-month hit frequency cuts the error to 38K yuan (86.2% reduction), and 18% Q4 volume growth lifts realization to 79.76%. Includes a zero-dependency Python script.", tag: "Business Operations" },
+    title: "返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径",
+    date: "2026-11-12",
+    tag: "商业操盘",
+    summary: "6 个 SKU、月营收 1,237.0 万元的算例：按最高档预提返利，账面毛利 542.1 万元、43.82%，实际到账 514.3 万元、41.58%，虚高 27.8 万元、2.25 个百分点，年化 333.6 万元；满档返利 67.29 万元只兑现 39.50 万元，兑现率 58.69%。按 12 个月达成频率给档位加权，残差压到 3.8 万元、误差收缩 86.2%；Q4 单量 +18% 后虚高降到 16.1 万元、兑现率 79.76%。附零依赖脚本。"
+  },
+  {
     file: "2026-11-10-safety-stock-z-value",
     en: { title: "Stop Sizing Safety Stock in Days: Service Level, Lead-Time Variance and the Stockout Cost Triangle", summary: "Safety stock set at 21 days implies z values from 1.45 to 5.04 and real service levels from 92.7% to 100% across six SKUs, at 74,857 yuan a year. Lead-time variance is 94.1% of demand-over-lead-time variance; ignore it and a 95% service level is understated by 76.9% (3,254 units computed as 753). Pricing holding against stockout cost puts optimal z at 2.47 to 2.59, cutting annual cost to 48,223 yuan (-35.58%) while capital rises from 172,221 to 194,338; with capital frozen, a uniform z of 2.22 still saves 23,861. Fixing three SKUs moves net capital 27 yuan and cuts cost 18,668. Includes a zero-dependency script.", tag: "Business Operations" },
     title: "安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账",
