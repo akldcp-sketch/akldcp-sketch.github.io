@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-14-skill-pack-regression-wilson-control-limit",
+    en: { title: "An AI Skill Pack Is Not Finished When It Runs: Golden-Set Wilson Bounds and Weekly Control Limits as the Regression Gate", summary: "A regression post-mortem on a margin-diagnosis skill pack: 60 golden cases in four groups of 15, 43/60 (71.67%) on the first build, 57/60 (95.00%) after three repair rounds. A 95.00% point estimate only supports an 86.30% Wilson 95% lower bound, and clearing 95% needs 73 cases even with a perfect run. Over twelve weekly reruns W9 (51 cases) and W11 (50) break the 3-sigma limit, while a flat 95% line false-alarms twice in the eight-week baseline. 1,470 yuan of repair buys 14,784 yuan of monthly avoided loss, paid back in 2.98 days. Zero-dependency script included.", tag: "AI Skill Packs" },
+    title: "AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门",
+    date: "2026-11-14",
+    tag: "AI 技能包",
+    summary: "一个毛利诊断类技能包的上线复盘：60 条金标用例分 4 组各 15 条，初版 43/60、71.67%，三轮修到 57/60、95.00%。但 95.00% 的点估计只撑得住 86.30% 的 95% 置信下界，全过也要 73 条才能声明 95%。12 周周度重跑，W9（51 条）与 W11（50 条）跌破 3σ 控制限，固定 95% 线在 8 周基线期就误报 2 次。1,470 元修复投入换 14,784 元月止损，2.98 天回本。附零依赖脚本。"
+  },
+  {
     file: "2026-11-12-rebate-realization-margin",
     en: { title: "A Rebate You Have Not Collected Is Not Margin: Ladder Rebates, Realization Rate and the Restated Gross Margin", summary: "Six SKUs on 12.37M yuan of monthly revenue: top-tier accrual books 5.421M of gross profit at 43.82% while cash received is 5.143M at 41.58% — 278K yuan and 2.25 points of fiction, 3.336M annualised. Of 672.9K accrued rebate only 395.0K arrives, a 58.69% realization rate; 15% ad budget built on accrued margin overruns by 42K a month. Weighting tiers by twelve-month hit frequency cuts the error to 38K yuan (86.2% reduction), and 18% Q4 volume growth lifts realization to 79.76%. Includes a zero-dependency Python script.", tag: "Business Operations" },
     title: "返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径",

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门 - 扶摇</title>
+  <meta name="description" content="技能包回归复盘：60 条金标用例，初版 43/60、71.67%，三轮修到 57/60、95.00%，但点估计只撑住 86.30% 的 95% 下界，全过也要 73 条。12 周重跑 W9、W11 跌破 3σ 控制限，固定 95% 线在基线期误报 2 次。1,470 元换 14,784 元月止损，2.98 天回本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门 - 扶摇">
+  <meta property="og:description" content="技能包回归复盘：60 条金标用例，初版 43/60、71.67%，三轮修到 57/60、95.00%，但点估计只撑住 86.30% 的 95% 下界，全过也要 73 条。12 周重跑 W9、W11 跌破 3σ 控制限，固定 95% 线在基线期误报 2 次。1,470 元换 14,784 元月止损，2.98 天回本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html"},"headline":"AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门","description":"技能包回归复盘：60 条金标用例，初版 43/60、71.67%，三轮修到 57/60、95.00%，但点估计只撑住 86.30% 的 95% 下界，全过也要 73 条。12 周重跑 W9、W11 跌破 3σ 控制限，固定 95% 线在基线期误报 2 次。1,470 元换 14,784 元月止损，2.98 天回本。","inLanguage":"zh-CN","datePublished":"2026-11-14","dateModified":"2026-11-14","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"博客","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门","item":"https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html"},"headline":"An AI Skill Pack Is Not Finished When It Runs: Golden-Set Wilson Bounds and Weekly Control Limits as the Regression Gate","description":"A regression post-mortem on a margin-diagnosis skill pack: 60 golden cases in four groups, 43/60 (71.67%) on the first build, 57/60 (95.00%) after three repair rounds. But a 95.00% point estimate only supports an 86.30% Wilson 95% lower bound, and proving 95% needs 73 all-pass cases. Over twelve weekly runs, two weeks break the 3-sigma limit, while a flat 95% line already false-alarms twice during the eight-week baseline. 1,470 yuan of repair buys 14,784 yuan of monthly avoided loss, paid back in 2.98 days. Zero-dependency script included.","inLanguage":"en","datePublished":"2026-11-14","dateModified":"2026-11-14","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://akldcp-sketch.github.io/blog.html"},{"@type":"ListItem","position":3,"name":"An AI Skill Pack Is Not Finished When It Runs: Golden-Set Wilson Bounds and Weekly Control Limits as the Regression Gate","item":"https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../blog.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.skillreg.title">AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门</h1>
+        <p class="post-meta"><time datetime="2026-11-14">2026-11-14</time> · <span data-i18n="post.skillreg.tag">回归测试</span></p>
+        <div class="post-body">
+<p data-i18n="post.skillreg.lead">一个毛利诊断类技能包的上线复盘：60 条金标用例、4 个分组各 15 条，初版 43 条通过、71.67%，三轮修完 57 条、95.00%。但 95.00% 的点估计只撑得住 86.30% 的 95% 置信下界；要让下界站上 95%，60 条全部答对也不够——全过需要 73 条。之后 12 周每周重跑，2 处跌破 3σ 控制限；若按固定 95% 线判，8 周基线期就要误报 2 次。1,470 元修复投入换 14,784 元月止损，2.98 天回本。附零依赖脚本，输出与四张表逐格对得上。</p>
+
+<h2 data-i18n="post.skillreg.h1">一、金标集不是测试集：60 条用例分成四组才有诊断力</h2>
+<p data-i18n="post.skillreg.p1a">技能包上线前的验收，多数团队停在"看着对"。这条路走不通的原因不在态度，在结构：技能包输出的是一段口径推理，对错不体现在某个字段上，而体现在结论方向。所以金标集不能抓一批问题随机测，得把技能包里每一条口径规则拆出来，逐条配一个可判定对错的算例。</p>
+<p data-i18n="post.skillreg.p1b">这份金标集 60 条，四组各 15 条：G1 毛利口径还原、G2 折扣等效率、G3 运费计费重、G4 返利与库存。每组 15 条不是为了好看——一组 5 条时错 1 条就是 20 个百分点的抖动，噪声盖过信号；一组 50 条时每轮定位成本翻三倍。15 条是一轮能看完、又不至于被单条噪声带偏的规模。全套执行 60 秒（每条 1 秒），解析 2 分钟，单轮固定成本 5 分钟。</p>
+<p class="table-cap" data-i18n="post.skillreg.tcap1">表 1：四轮回归的分组通过条数（每组 15 条）。G2 与 G4 是主要战场，定稿阶段四个组全部落到 14 条以上。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.skillreg.t1c0">分组</th><th data-i18n="post.skillreg.t1c1">用例数</th><th data-i18n="post.skillreg.t1c2">R1 初版</th><th data-i18n="post.skillreg.t1c3">R2 第一轮</th><th data-i18n="post.skillreg.t1c4">R3 第二轮</th><th data-i18n="post.skillreg.t1c5">R4 定稿</th></tr></thead>
+<tbody>
+<tr><td data-i18n="post.skillreg.t1r1">G1 毛利口径还原</td><td>15</td><td>12</td><td>14</td><td>14</td><td>15</td></tr>
+<tr><td data-i18n="post.skillreg.t1r2">G2 折扣等效率</td><td>15</td><td>10</td><td>12</td><td>14</td><td>14</td></tr>
+<tr><td data-i18n="post.skillreg.t1r3">G3 运费计费重</td><td>15</td><td>11</td><td>13</td><td>14</td><td>14</td></tr>
+<tr><td data-i18n="post.skillreg.t1r4">G4 返利与库存</td><td>15</td><td>10</td><td>13</td><td>13</td><td>14</td></tr>
+<tr><td data-i18n="post.skillreg.t1r5">合计</td><td>60</td><td>43</td><td>52</td><td>55</td><td>57</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.skillreg.h2">二、四轮回归：从 71.67% 到 95.00% 的三步修法</h2>
+<p data-i18n="post.skillreg.p2a">初版 43/60、71.67%。17 条失败不是散在四处的，是两种同源错误：G2 的 5 条全部把满减标称折扣当成实付等效折扣，G4 的 5 条全部把合同最高档返利当成实际到账兑现率。剩下 G3 4 条、G1 3 条属字段取错，改一个字段映射就过。</p>
+<p data-i18n="post.skillreg.p2b">三轮修的路径不含技巧：第一轮把口径约束写进提示词（必须先算等效值再报数），52/60、86.67%；第二轮往技能包上下文补 4 个反例，55/60、91.67%；第三轮把"先声明口径、再给结论"做成输出格式硬约束，57/60、95.00%。剩下 3 条错的是同一种毛病：输入缺关键字段时，技能包不报缺，直接按默认值算出来给你。这类错在提示词层面修不掉，只能加一道输入校验。</p>
+
+<h2 data-i18n="post.skillreg.h3">三、Wilson 95% 下界：点估计 95.00% 只撑得住 86.30%</h2>
+<p data-i18n="post.skillreg.p3a">95.00% 这个数不能直接拿去当验收结论。60 条样本里错 3 条，换一次抽样可能是错 0 条，也可能是错 6 条。Wilson 区间给的是这个抖动的边界：57/60 的 95% 区间是 [86.30%, 98.29%]。翻译成人话——这套技能包的真实通过率，有 5% 的概率低于 86.30%。这是你要对老板、对下游业务方说的数字，不是 95.00%。</p>
+<p data-i18n="post.skillreg.p3b">四轮的下界分别是 59.23%、75.83%、81.93%、86.30%，区间半宽从 11.13 个百分点收到 5.99 个百分点。区间变窄不是安慰奖，它说明"修"这个动作在实打实地压缩不确定性；而拍一个 95% 的通过率，一个百分点的不确定性都没压缩。</p>
+
+<h2 data-i18n="post.skillreg.h4">四、60 条撑不起 95% 验收线：全过也要 73 条</h2>
+<p data-i18n="post.skillreg.p4a">把"下界 ≥ 95%"当验收线，60 条的问题立刻现形：57 过、下界 86.30%，差 8.70 个百分点。就算 60 条全过，下界也只有 93.98%——全对也证明不了 95%。解不等式 19z² 得出 n ≥ 72.99，向上取整 73 条：n=73 时下界 95.0006%，n=72 时 94.93%，差一条就差了那 0.07 个百分点。</p>
+<p data-i18n="post.skillreg.p4b">换条验收线结论一样。要下界 ≥ 90%、且真实通过率按 95% 算：30 条的下界 78.68%，60 条 86.30%，80 条 87.84%，120 条 89.52%，到 127 条才站上 90.08%。这也解释了为什么技能包验收不能照抄质检那套"抽 30 条看看"——30 条里错 2 条、93.33% 的点估计，下界只有 78.68%。</p>
+<p class="table-cap" data-i18n="post.skillreg.tcap2">表 2：同一套技能包在不同样本量下的 95% 下界。是金标集规模决定你敢声明哪条验收线，反过来不成立。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.skillreg.t2c0">样本量 n</th><th data-i18n="post.skillreg.t2c1">通过 k</th><th data-i18n="post.skillreg.t2c2">点估计</th><th data-i18n="post.skillreg.t2c3">95% 下界</th><th data-i18n="post.skillreg.t2c4">点估计与下界差</th></tr></thead>
+<tbody>
+<tr><td>30</td><td>28</td><td>93.33%</td><td>78.68%</td><td>14.66 个百分点</td></tr>
+<tr><td>60</td><td>57</td><td>95.00%</td><td>86.30%</td><td>8.70 个百分点</td></tr>
+<tr><td>60</td><td>60</td><td>100.00%</td><td>93.98%</td><td>6.02 个百分点</td></tr>
+<tr><td>80</td><td>76</td><td>95.00%</td><td>87.84%</td><td>7.16 个百分点</td></tr>
+<tr><td>120</td><td>114</td><td>95.00%</td><td>89.52%</td><td>5.48 个百分点</td></tr>
+<tr><td>127</td><td>121</td><td>95.28%</td><td>90.08%</td><td>5.20 个百分点</td></tr>
+<tr><td>200</td><td>190</td><td>95.00%</td><td>91.04%</td><td>3.96 个百分点</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.skillreg.h5">五、周度回归别拍阈值：2.87 个百分点的 σ 与 3σ 控制限</h2>
+<p data-i18n="post.skillreg.p5a">定稿不等于结束，上线后每周重跑全部 60 条。60 条的通过率只能是 1/60 的整数倍，一跳 1.67 个百分点，这就是分辨率的物理下限。前 8 周基线：57、58、56、57、55、57、58、57，均值 56.88 条、94.79%；二项标准差 σ = √(0.9479×0.0521/60) = 2.87 个百分点。3σ 控制下限落在 86.19%，折 51.71 条——掉到 51 条及以下才算真跌。</p>
+<p data-i18n="post.skillreg.p5b">拍一条固定 95%（=57 条）会出什么事：8 周基线里 W3 的 56 条、W5 的 55 条双双被判失败，误报率 25%。按控制限判，这两周都在正常波动内。真正该报警的是 W9 的 51 条、85.00% 首次跌破，和 W11 的 50 条、83.33% 再次跌破且更深；W10 的 54 条、W12 的 55 条低于中心线但在限内。结论很直白：拍阈值的结果是正常周天天报警，真跌了反而淹没在报警堆里。</p>
+<p class="table-cap" data-i18n="post.skillreg.tcap3">表 3：12 周周度回归序列与 3σ 判定。前 8 周建基线，W9 与 W11 跌破控制限。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.skillreg.t3c0">周次</th><th data-i18n="post.skillreg.t3c1">通过条数</th><th data-i18n="post.skillreg.t3c2">通过率</th><th data-i18n="post.skillreg.t3c3">3σ 判定</th></tr></thead>
+<tbody>
+<tr><td>W1</td><td>57</td><td>95.00%</td><td data-i18n="post.skillreg.t3ok">正常</td></tr>
+<tr><td>W2</td><td>58</td><td>96.67%</td><td data-i18n="post.skillreg.t3ok2">正常</td></tr>
+<tr><td>W3</td><td>56</td><td>93.33%</td><td data-i18n="post.skillreg.t3low">低于中心线</td></tr>
+<tr><td>W4</td><td>57</td><td>95.00%</td><td data-i18n="post.skillreg.t3ok3">正常</td></tr>
+<tr><td>W5</td><td>55</td><td>91.67%</td><td data-i18n="post.skillreg.t3low2">低于中心线</td></tr>
+<tr><td>W6</td><td>57</td><td>95.00%</td><td data-i18n="post.skillreg.t3ok4">正常</td></tr>
+<tr><td>W7</td><td>58</td><td>96.67%</td><td data-i18n="post.skillreg.t3ok5">正常</td></tr>
+<tr><td>W8</td><td>57</td><td>95.00%</td><td data-i18n="post.skillreg.t3ok6">正常</td></tr>
+<tr><td>W9</td><td>51</td><td>85.00%</td><td data-i18n="post.skillreg.t3alert">跌破控制限</td></tr>
+<tr><td>W10</td><td>54</td><td>90.00%</td><td data-i18n="post.skillreg.t3low3">低于中心线</td></tr>
+<tr><td>W11</td><td>50</td><td>83.33%</td><td data-i18n="post.skillreg.t3alert2">跌破控制限</td></tr>
+<tr><td>W12</td><td>55</td><td>91.67%</td><td data-i18n="post.skillreg.t3low4">低于中心线</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.skillreg.h6">六、告警怎么处置：单点查数据，连点才冻结变更</h2>
+<p data-i18n="post.skillreg.p6a">W9 跌破控制限，第一个动作不是回滚技能包。先查输入：那一周上游接口有 3 次 5xx，5 条失败里 4 条是超时与空返回，属执行层失败而非口径错。剔除后复算 56/60，回到限内。这一步 4 分钟，代价是零；若先回滚，你要为一次上游抖动回退一个已验证的版本。</p>
+<p data-i18n="post.skillreg.p6b">W11 再跌破就是另一回事了：50 条，5 条失败里 3 条是口径错，而且 W9、W10、W11 连续三点在中心线以下。连续点规则（判异准则里的"三点同侧"）比 3σ 更早给信号——单点跌破可能是噪声，连续三点同侧是趋势。此时才动作：冻结技能包版本变更，回溯那一周的提示词、上下文注入与依赖升级记录。</p>
+<p data-i18n="post.skillreg.p6c">顺序不能颠倒。先冻结再查数据，会在噪声周白拦一次正常发布；先查数据再冻结，可能把趋势恶化拖到第二周。判断依据只有一条：跌破是否伴随输入异常。这条规则写进流程，比任何自动化告警都值钱，因为它不依赖工具，只依赖先看数据的习惯。</p>
+
+<h2 data-i18n="post.skillreg.h7">七、成本账：1,470 元修复投入，2.98 天回本</h2>
+<p data-i18n="post.skillreg.p7a">时薪 180 元折每分钟 3 元。单轮回归固定 5 分钟，失败项人工定位每条 4 分钟：初版 17 条失败 73 分钟、219 元；R2 8 条 37 分钟、111 元；R3 5 条 25 分钟、75 元；定稿 3 条 17 分钟、51 元。三轮修复含改写提示词、补反例、改输出格式硬约束，共 490 分钟、1,470 元。</p>
+<p data-i18n="post.skillreg.p7b">收益侧按保守口径估：月调用 4,800 次、错答被采信比例 8%、单次采信错答平均损失 165 元。初版错答率 28.33%（17/60），月内 1,360 次错答、采信 108.8 次，月损失 17,952 元；定稿错答率 5.00%，月损失 3,168 元。月止损 14,784 元，1,470 元投入 2.98 天回本。稳定期守门费每周 17 分钟、51 元，月 221 元，与止损额之比 1 : 66.9。</p>
+<p data-i18n="post.skillreg.p7c">成本不对称决定阈值往哪边偏。漏检一次 165 元，误报一次复核 12 元，比值 13.8 倍。所以控制限宁松勿紧：松了多花 12 元复核，紧了可能放走 165 元。这条不对称，比任何一套指标都该写进验收文档——它管的是你在模糊地带敢不敢下判断。</p>
+<p class="table-cap" data-i18n="post.skillreg.tcap4">表 4：分轮回归成本与月度止损。三轮修复 1,470 元，对应月止损 14,784 元。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.skillreg.t4c0">项目</th><th data-i18n="post.skillreg.t4c1">耗时（分钟）</th><th data-i18n="post.skillreg.t4c2">成本（元）</th></tr></thead>
+<tbody>
+<tr><td data-i18n="post.skillreg.t4r1">R1 初版（17 条失败）</td><td>73</td><td>219</td></tr>
+<tr><td data-i18n="post.skillreg.t4r2">R4 定稿（3 条失败）</td><td>17</td><td>51</td></tr>
+<tr><td data-i18n="post.skillreg.t4r3">三轮修复（提示词 / 反例 / 格式约束）</td><td>490</td><td>1,470</td></tr>
+<tr><td data-i18n="post.skillreg.t4r4">稳定期周守门</td><td>17</td><td>51</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.skillreg.h8">八、结语：凡事豫则立，不豫则废</h2>
+<p data-i18n="post.skillreg.p8a">《礼记·中庸》讲"凡事豫则立，不豫则废"。技能包的"豫"不是多写几段提示词，是上线前就把"什么叫做对"写成 60 条可判定的算例，把"什么叫做坏"写成一条控制限。两样东西加起来不到一天工程量，1,470 元。</p>
+<p data-i18n="post.skillreg.p8b">最后一句实话：验收线不是拍给老板看的数字，是出事那天你能拿出来的第一份证据。95.00% 写在 PPT 上没人拦你，但它撑不住"那 86.30% 怎么解释"这一问；而 86.30% 这个下界，恰恰是你敢上线、也敢在趋势变坏时冻结变更的底气。</p>
+
+<p class="table-cap" data-i18n="post.skillreg.codecap">附：零依赖复现脚本（Python 3，无第三方包）</p>
+<pre><code>import math
+from statistics import mean
+
+Z = 1.96
+
+def wilson(k, n):
+    p = k / n
+    z2 = Z * Z
+    d = 1 + z2 / n
+    c = p + z2 / (2 * n)
+    h = Z * math.sqrt(p * (1 - p) / n + z2 / (4 * n * n))
+    return (c - h) / d, (c + h) / d
+
+# 1) 四轮回归：4 个分组 x 15 条金标用例
+ROUNDS = [(12, 10, 11, 10), (14, 12, 13, 13), (14, 14, 14, 13), (15, 14, 14, 14)]
+for i, r in enumerate(ROUNDS, 1):
+    k = sum(r)
+    lo, hi = wilson(k, 60)
+    print(f"R{i} {k}/60 = {k/60:.2%}  Wilson95% [{lo:.2%}, {hi:.2%}]")
+
+# 2) 全通过时要声明 95% 下界，需要多少条
+n = math.ceil(19 * Z * Z)
+print(f"all-pass n={n}  lower={n/(n+Z*Z):.4%}")
+
+# 3) 周度 p 控制限：前 8 周建基线，每周 60 条
+W = [57, 58, 56, 57, 55, 57, 58, 57, 51, 54, 50, 55]
+pbar = mean(W[:8]) / 60
+sig = math.sqrt(pbar * (1 - pbar) / 60)
+lcl = pbar - 3 * sig
+print(f"pbar={pbar:.4%} sigma={sig:.4%} LCL={lcl:.4%} ({lcl*60:.2f} passes)")
+for i, k in enumerate(W, 1):
+    flag = "ALERT" if k / 60 &lt; lcl else ("low" if k / 60 &lt; pbar else "ok")
+    print(f"W{i:02d} {k}/60 {k/60:.2%} {flag}")</code></pre>
+<p data-i18n="post.skillreg.p9a">跑出来三块输出：四轮的通过率与 Wilson 区间（71.67%/86.67%/91.67%/95.00%，下界 59.23%/75.83%/81.93%/86.30%）；全通过所需样本量 73 条、下界 95.0006%；周度中心线 94.79%、σ 2.87%、控制下限 86.19%（51.71 条），以及 W9、W11 两处 ALERT。与表 1、表 2、表 3 逐格对得上。换自己的数据只改 ROUNDS 与 W 两行；要改验收线只动 Z 与目标通过率，方向不变，只变样本量门槛。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

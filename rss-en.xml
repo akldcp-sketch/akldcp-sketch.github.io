@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 12 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>An AI Skill Pack Is Not Finished When It Runs: Golden-Set Wilson Bounds and Weekly Control Limits as the Regression Gate</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html</guid>
+      <pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate>
+      <category>AI Skill Packs</category>
+      <description>A regression post-mortem on a margin-diagnosis skill pack: 60 golden cases in four groups of 15, 43/60 (71.67%) on the first build, 57/60 (95.00%) after three repair rounds. A 95.00% point estimate only supports an 86.30% Wilson 95% lower bound, and clearing 95% needs 73 cases even with a perfect run. Over twelve weekly reruns W9 (51 cases) and W11 (50) break the 3-sigma limit, while a flat 95% line false-alarms twice in the eight-week baseline. 1,470 yuan of repair buys 14,784 yuan of monthly avoided loss, paid back in 2.98 days. Zero-dependency script included.</description>
+    </item>
     <item>
       <title>A Rebate You Have Not Collected Is Not Margin: Ladder Rebates, Realization Rate and the Restated Gross Margin</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html</link>

@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 12 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html</guid>
+      <pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate>
+      <category>AI 技能包</category>
+      <description>一个毛利诊断类技能包的上线复盘：60 条金标用例分 4 组各 15 条，初版 43/60、71.67%，三轮修到 57/60、95.00%。但 95.00% 的点估计只撑得住 86.30% 的 95% 置信下界，全过也要 73 条才能声明 95%。12 周周度重跑，W9（51 条）与 W11（50 条）跌破 3σ 控制限，固定 95% 线在 8 周基线期就误报 2 次。1,470 元修复投入换 14,784 元月止损，2.98 天回本。附零依赖脚本。</description>
+    </item>
     <item>
       <title>返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html</link>

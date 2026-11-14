@@ -64,6 +64,7 @@
       "name": "商业操盘 × AI 技能包实战记录",
       "inLanguage": "zh-CN",
       "blogPost": [
+                        { "@type": "BlogPosting", "headline": "AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门", "datePublished": "2026-11-14", "url": "https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html" },
                         { "@type": "BlogPosting", "headline": "返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径", "datePublished": "2026-11-12", "url": "https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html" },
                         { "@type": "BlogPosting", "headline": "安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账", "datePublished": "2026-11-10", "url": "https://akldcp-sketch.github.io/posts/2026-11-10-safety-stock-z-value.html" },
                         { "@type": "BlogPosting", "headline": "运费从不按你称的重量收：体积重审计与包装改造的回本期", "datePublished": "2026-11-08", "url": "https://akldcp-sketch.github.io/posts/2026-11-08-dimensional-weight-audit.html" },
@@ -375,7 +376,7 @@
       <h1 id="archive-h" class="text-gradient">文汇</h1>
       <p>按日期倒序收录全部 31 篇实战文章，每篇附主题分类与摘要。也可以按主题直接跳转到对应分类。</p>
       <div class="stats rgb-card" aria-label="文汇统计"><span class="rgb-marquee" aria-hidden="true"></span>
-        <div><b>31</b><span>篇文章</span></div>
+        <div><b>32</b><span>篇文章</span></div>
         <div><b>7</b><span>个主题分类</span></div>
         <div><b>1–2</b><span>篇/每周更新</span></div>
       </div>
@@ -392,7 +393,7 @@
         <button type="button" class="filter-pill" data-cat="cross" aria-pressed="false">跨境电商 <span class="pill-count">2</span></button>
         <button type="button" class="filter-pill" data-cat="brand" aria-pressed="false">品牌操盘 <span class="pill-count">2</span></button>
       </div>
-      <p class="result-count" id="result-count" aria-live="polite">显示全部 <b>31</b> 篇</p>
+      <p class="result-count" id="result-count" aria-live="polite">显示全部 <b>32</b> 篇</p>
       <nav class="cat-nav" aria-label="按主题分类跳转">
         <a class="cat-chip" href="#cat-ai">AI 技能包</a>
         <a class="cat-chip" href="#cat-data">数据与自动化</a>
@@ -407,9 +408,10 @@
 
   <section class="archive-section" aria-labelledby="all-h">
     <div class="container">
-      <h2 id="all-h">文汇 · 全部文章 <span class="count">33 篇 · 按日期倒序</span></h2>
+      <h2 id="all-h">文汇 · 全部文章 <span class="count">34 篇 · 按日期倒序</span></h2>
       <ul class="timeline rgb-card">
         <span class="rgb-marquee" aria-hidden="true"></span>
+        <li class="entry" data-cat="ai"><time datetime="2026-11-14">2026-11-14</time><div class="entry-main"><h3><a href="posts/2026-11-14-skill-pack-regression-wilson-control-limit.html">AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门</a></h3><p class="entry-desc">一个毛利诊断类技能包的上线复盘：60 条金标用例分 4 组各 15 条，初版 43/60、71.67%，三轮修到 57/60、95.00%。但 95.00% 的点估计只撑得住 86.30% 的 95% 置信下界，全过也要 73 条才能声明 95%。12 周周度重跑，W9（51 条）与 W11（50 条）跌破 3σ 控制限，固定 95% 线在 8 周基线期就误报 2 次。1,470 元修复投入换 14,784 元月止损，2.98 天回本。附零依赖脚本。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
         <li class="entry" data-cat="ecom"><time datetime="2026-11-12">2026-11-12</time><div class="entry-main"><h3><a href="posts/2026-11-12-rebate-realization-margin.html">返利没到账，毛利就先涨了：阶梯返利兑现率与账面毛利的还原口径</a></h3><p class="entry-desc">6 个 SKU、月营收 1,237.0 万元的算例：按最高档预提返利，账面毛利 542.1 万元、43.82%，实际到账 514.3 万元、41.58%，虚高 27.8 万元、2.25 个百分点，年化 333.6 万元；满档返利 67.29 万元只兑现 39.50 万元，兑现率 58.69%。按 12 个月达成频率给档位加权，残差压到 3.8 万元、误差收缩 86.2%；Q4 单量 +18% 后虚高降到 16.1 万元、兑现率 79.76%。附零依赖脚本。</p></div></li>
         <li class="entry" data-cat="ai"><time datetime="2026-11-10">2026-11-10</time><div class="entry-main"><h3><a href="posts/2026-11-10-safety-stock-z-value.html">安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账</a></h3><p class="entry-desc">按 21 天拍的安全库存，6 个 SKU 的隐含 z 值从 1.45 到 5.04、实际服务水平 92.7% 到 100%，年成本 74,857 元。交期波动占交期需求方差 94.1%，漏掉它，95% 口径的安全库存少算 76.9%（3,254 件算成 753 件）。把持有成本与缺货成本放进同一把尺子，逐 SKU 最优 z 落在 2.47 到 2.59，年成本降到 48,223 元（降 35.58%），资金从 172,221 元涨到 194,338 元；资金不许涨，统一 z=2.22 仍省 23,861 元。只调 3 个 SKU，净资金只动 27 元、年成本降 18,668 元。附零依赖脚本。</p><span class="tag tag-ai" data-cat="ai">AI 技能包</span></div></li>
         <li class="entry" data-cat="ecom data"><time datetime="2026-11-08">2026-11-08</time><div class="entry-main"><h3><a href="posts/2026-11-08-dimensional-weight-audit.html">运费从不按你称的重量收：体积重审计与包装改造的回本期</a></h3><p class="entry-desc">实重 0.90 公斤的靠垫，计费重 12.50 公斤，单件运费 92.75 元占售价 31.0%。用 6 个 SKU、8,740 单、月 GMV 1,762,460 元的算例，拆出体积重、0.5 公斤取整、首重续重与渠道抛比：按实重做预算低估 117,130 元（54.39%）；压箱规加分渠道后月运费从 332,495 元降到 236,060 元，省下 96,435 元，等于净利的 91.2%。附零依赖脚本。</p><span class="tag">商业操盘</span></div></li>
@@ -451,7 +453,8 @@
     <div class="container">
       <h2 id="cat-h">按主题分类</h2>
       <div class="cat-list">
-        <div class="cat-card rgb-card" id="cat-ai"><span class="rgb-marquee" aria-hidden="true"></span><h3>AI 技能包 <span style="color:var(--color-muted); font-size:var(--fs-xs);">11 篇</span></h3><ul>
+        <div class="cat-card rgb-card" id="cat-ai"><span class="rgb-marquee" aria-hidden="true"></span><h3>AI 技能包 <span style="color:var(--color-muted); font-size:var(--fs-xs);">12 篇</span></h3><ul>
+          <li><time>2026-11-14</time><a href="posts/2026-11-14-skill-pack-regression-wilson-control-limit.html">AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门</a></li>
           <li><time>2026-11-10</time><a href="posts/2026-11-10-safety-stock-z-value.html">安全库存别拍天数：服务水平 z 值、交期波动与断货成本的三角账</a></li>
           <li><time>2026-11-08</time><a href="posts/2026-11-08-dimensional-weight-audit.html">运费从不按你称的重量收：体积重审计与包装改造的回本期</a></li>
           <li><time>2026-11-06</time><a href="posts/2026-11-06-promo-equivalent-discount-margin-floor.html">满减不等于直降：等效折扣率与毛利稀释底线的测算口径</a></li>
