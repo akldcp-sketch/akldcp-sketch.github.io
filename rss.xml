@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 14 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>审批不该等一天：三地团队的工单排队账与批次数最优点</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html</guid>
+      <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>四类审批工单、日均 81 单、5 个审批台的算例：分工池利用率 0.28 到 0.64，Kingman 近似下加权排队 15.85 分钟，池化只 1.009 分钟、差 15.7 倍；真正吃掉 94% 时间的是每天只开一批的 240 分钟批次等待。批次 1 加到 4，月延迟成本 166,582 元降到 55,125 元、零加人；再上专职岗只多省 17,347 元、回本 17.6 个月。附零依赖脚本。</description>
+    </item>
     <item>
       <title>AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-14-skill-pack-regression-wilson-control-limit.html</link>

@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-16-approval-queue-batch-latency",
+    en: { title: "Approvals Shouldn't Wait a Day: The Queueing Math of Four Ticket Pools and the Optimal Batch Count", summary: "The argument nobody can settle in a three-site team is \"do we need another head\". The question nobody can answer is \"which segment does the head actually fix\". This piece treats the approval chain as inventory: four ticket types (price changes, replenishment, listings, budget increases), 81 tickets a day, five approval desks. Specialised pools run at 0.2812 to 0.6417 utilisation, and the Kingman approximation puts volume-weighted queue wait at 15.85 minutes; pooled it is 1.009 minutes, a 15.7x gap. Spread those 14.84 minutes over 81 tickets and 22 days and you get 440.6 hours. But the real black hole is not the queue, it is the once-a-day approval window: a 240-minute batch wait that is 93.8% of total dwell time. Going from one batch a day to four cuts monthly delay cost from 166,582 to 55,125 yuan with no new headcount. Adding one dedicated approver at 16,200 yuan a month buys only 17,347 yuan of avoided delay, a net 1,147 yuan and a 17.6-month payback. Move replenishment from 14 to 18 tickets a day and the same hire nets 37,224 yuan.", tag: "Business Operations" },
+    title: "审批不该等一天：三地团队的工单排队账与批次数最优点",
+    date: "2026-11-16",
+    tag: "商业操盘",
+    summary: "四类审批工单、日均 81 单、5 个审批台的算例：分工池利用率 0.28 到 0.64，Kingman 近似下加权排队 15.85 分钟，池化只 1.009 分钟、差 15.7 倍；真正吃掉 94% 时间的是每天只开一批的 240 分钟批次等待。批次 1 加到 4，月延迟成本 166,582 元降到 55,125 元、零加人；再上专职岗只多省 17,347 元、回本 17.6 个月。附零依赖脚本。"
+  },
+  {
     file: "2026-11-14-skill-pack-regression-wilson-control-limit",
     en: { title: "An AI Skill Pack Is Not Finished When It Runs: Golden-Set Wilson Bounds and Weekly Control Limits as the Regression Gate", summary: "A regression post-mortem on a margin-diagnosis skill pack: 60 golden cases in four groups of 15, 43/60 (71.67%) on the first build, 57/60 (95.00%) after three repair rounds. A 95.00% point estimate only supports an 86.30% Wilson 95% lower bound, and clearing 95% needs 73 cases even with a perfect run. Over twelve weekly reruns W9 (51 cases) and W11 (50) break the 3-sigma limit, while a flat 95% line false-alarms twice in the eight-week baseline. 1,470 yuan of repair buys 14,784 yuan of monthly avoided loss, paid back in 2.98 days. Zero-dependency script included.", tag: "AI Skill Packs" },
     title: "AI 技能包不是写完就上线：金标集 Wilson 下界与周度控制限的回归闸门",

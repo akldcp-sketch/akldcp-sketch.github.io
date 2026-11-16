@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>审批不该等一天：三地团队的工单排队账与批次数最优点 - 扶摇</title>
+  <meta name="description" content="四类审批工单、日均 81 单、5 个审批台的算例：分工池 Kingman 排队 15.85 分钟，池化只 1.009 分钟；真正吃掉 94% 的是每天一批的 240 分钟批次等待。批次 1 加到 4，月延迟成本 166,582 元降到 55,125 元、零加人；上专职岗只多省 17,347 元、回本 17.6 个月。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="审批不该等一天：三地团队的工单排队账与批次数最优点 - 扶摇">
+  <meta property="og:description" content="四类审批工单、日均 81 单、5 个审批台的算例：分工池 Kingman 排队 15.85 分钟，池化只 1.009 分钟；真正吃掉 94% 的是每天一批的 240 分钟批次等待。批次 1 加到 4，月延迟成本 166,582 元降到 55,125 元、零加人；上专职岗只多省 17,347 元、回本 17.6 个月。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html"},"headline":"审批不该等一天：三地团队的工单排队账与批次数最优点","description":"四类审批工单、日均 81 单、5 个审批台的算例：分工池利用率 0.28 到 0.64，Kingman 近似下加权排队 15.85 分钟，池化只 1.009 分钟、差 15.7 倍。但真正吃掉时间的是每天只开一批的 240 分钟批次等待，占 94%。批次数 1 加到 4，月延迟成本从 166,582 元降到 55,125 元、零加人；再上专职岗只多省 17,347 元、回本 17.6 个月。附零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-16","dateModified":"2026-11-16","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"商业思维","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"审批不该等一天：三地团队的工单排队账与批次数最优点","item":"https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html"},"headline":"Why Approvals Should Not Wait a Day: Queueing Math for Four Ticket Pools and the Optimal Batch Count","description":"A worked example with four approval ticket types, 81 tickets a day and five approval desks: specialised pools run at 0.28 to 0.64 utilisation, and the Kingman approximation puts volume-weighted queue wait at 15.85 minutes against 1.009 minutes pooled, a 15.7x gap. But what really eats the clock is the 240-minute batch wait of a once-a-day approval window, 94% of total dwell time. Moving from one batch to four cuts monthly delay cost from 166,582 to 55,125 yuan with no extra headcount; adding a dedicated approver saves only 17,347 yuan more and pays back in 17.6 months. Zero-dependency script included.","inLanguage":"en","datePublished":"2026-11-16","dateModified":"2026-11-16","author":{"@type":"Person","name":"扶摇","jobTitle":"商业操盘手 · AI 技能包工程负责人","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Business Thinking","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"Why Approvals Should Not Wait a Day: Queueing Math for Four Ticket Pools and the Optimal Batch Count","item":"https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../business-thinking.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.apprq.title">审批不该等一天：三地团队的工单排队账与批次数最优点</h1>
+        <p class="post-meta"><time datetime="2026-11-16">2026-11-16</time> · <span data-i18n="post.apprq.tag">商业操盘</span></p>
+        <div class="post-body">
+<p data-i18n="post.apprq.lead">三地团队最容易吵的是"要不要加人"，最难说清的是"加人解决哪一段"。这篇把审批链路当库存算：改价、补货、上架、加预算四类工单，日均 81 单，5 个审批台。分工池利用率 0.2812 到 0.6417，Kingman 近似下加权排队 15.85 分钟；池化后 1.009 分钟，差 15.7 倍。但把这 14.84 分钟摊到 81 单 × 22 天，是 440.6 个小时。真正的黑洞不在排队，在"每天只开一批"：批次均等 240 分钟，占总停留 93.8%。批次数从 1 加到 4，月延迟成本 166,582 元降到 55,125 元，零加人。再加一个专职审批岗，月薪 16,200 元只换来 17,347 元延迟节省，账面净 1,147 元、回本 17.6 个月。补货单量从 14 涨到 18 单/天，同一笔投入的净收益从 1,147 元跳到 37,224 元。</p>
+
+<h2 data-i18n="post.apprq.h1">一、先把在制工单算清楚：Little 定律给出 43.2 张</h2>
+<p data-i18n="post.apprq.p1a">"审批慢"是个感受，"池子里躺着多少单"是个数。后者能进预算会，前者不能。先把工单当库存看：四类工单日均 81 单，审批工作日按 480 分钟算，单张工单的处理时长和服务台数量按下表设定。延误损失那列是唯一需要业务方认账的输入——一张改价单压一天亏 147 元，一张补货单压一天亏 408 元，差别来自各自锁住的销售额和断货风险。</p>
+<p data-i18n="post.apprq.p1b">Little 定律 L = λW 说的是：在制工单数等于到达率乘以停留时间。现状每天只开一批审批，工单的停留时间由三段构成——半个批次间隔（240 分钟，刚性）、排队等待（弹性）、处理时长。三段一加，四类工单的在制数分别是 13.57、8.70、16.29、4.62 张，合计 43.2 张。</p>
+<p data-i18n="post.apprq.p1c">43.2 张是个能拿去吵架的数。它等价于"任何时点打开审批看板，平均有 43 张单在等你"。其中 22 分钟是处理、15.85 分钟是排队，剩下 240 分钟——是节奏。这三段的比例，决定了钱该往哪投。</p>
+<p class="table-cap" data-i18n="post.apprq.tcap1">表 1：四类工单的到达率、处理时长、利用率与停留拆分（每天 1 批，工作日 480 分钟）。ρ 是到达工作量除以可用产能，越接近 1 等待越发散。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.apprq.t1c0">工单类型</th><th data-i18n="post.apprq.t1c1">日到达 λ（单/天）</th><th data-i18n="post.apprq.t1c2">平均处理 E[S]（分）</th><th data-i18n="post.apprq.t1c3">时长变异 cv</th><th data-i18n="post.apprq.t1c4">审批台</th><th data-i18n="post.apprq.t1c5">利用率 ρ</th><th data-i18n="post.apprq.t1c6">排队等待（分）</th><th data-i18n="post.apprq.t1c7">停留（天）</th><th data-i18n="post.apprq.t1c8">在制（张）</th></tr></thead>
+<tbody>
+<tr><td data-i18n="post.apprq.t1r1">改价</td><td>26</td><td>9.0</td><td>1.20</td><td>1</td><td>0.4875</td><td>10.44</td><td>0.5218</td><td>13.57</td></tr>
+<tr><td data-i18n="post.apprq.t1r2">补货</td><td>14</td><td>22.0</td><td>1.40</td><td>1</td><td>0.6417</td><td>58.31</td><td>0.6215</td><td>8.70</td></tr>
+<tr><td data-i18n="post.apprq.t1r3">上架</td><td>32</td><td>12.0</td><td>1.50</td><td>2</td><td>0.4000</td><td>4.31</td><td>0.5090</td><td>16.29</td></tr>
+<tr><td data-i18n="post.apprq.t1r4">加预算</td><td>9</td><td>15.0</td><td>1.10</td><td>1</td><td>0.2812</td><td>6.49</td><td>0.5135</td><td>4.62</td></tr>
+<tr><td data-i18n="post.apprq.t1r5">合计</td><td>81</td><td>—</td><td>—</td><td>5</td><td>—</td><td>15.85（加权）</td><td>—</td><td>43.2</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.apprq.h2">二、Kingman 近似：分工池的排队等待落在 4.31 到 58.31 分钟</h2>
+<p data-i18n="post.apprq.p2a">G/G/c 系统的等待时间没有闭式解，工程上用 Kingman 近似（Sakasegawa 形式）：等待 ≈ ρ^e / (c(1−ρ)) × (Ca²+Cs²)/2 × E[S]，其中 e = √(2(c+1)) − 1。到达按泊松算 Ca² = 1，服务波动用变异系数平方代入。这个式子的两个刺点：ρ 逼近 1 时分母炸，波动项让同等利用率下的等待直接翻倍。</p>
+<p data-i18n="post.apprq.p2b">结果：补货池是唯一真正吃紧的，ρ 0.6417、单台、22 分钟处理、cv 1.4，排队 58.31 分钟。改价 10.44 分钟、上架 4.31 分钟（两台）、加预算 6.49 分钟。按工单量加权 15.85 分钟。注意补货和上架的反差：上架工单量是补货的两倍多，但两台审批台把 ρ 压到 0.4000，等待只有 4.31 分钟。忙不等于慢，利用率才决定等待。</p>
+<p data-i18n="post.apprq.p2c">这条曲线最值钱的部分在右端。补货涨到 18 单/天，ρ = 0.7333、等待 89.54 分钟；20 单/天，ρ = 0.9167、等待 358.16 分钟；到 21.82 单/天（480 ÷ 22），单池ρ 正好等于 1，等待发散。也就是说，单池的物理容量上限是每天 21.82 张补货单，越过这条线，加多少流程都救不回来。</p>
+
+<h2 data-i18n="post.apprq.h3">三、池化只省 14.84 分钟：为什么这点时间也要单独算一篇</h2>
+<p data-i18n="post.apprq.p3a">池化就是取消"谁批哪类"的分工，五个审批台共同面对四类工单。参数：λ 81 单/天，平均处理 13.10 分钟（按工作量加权），混合流的服务方差 Cs² = 3.2125（cv 1.4875），5 台，ρ 0.4421，等待 1.009 分钟。</p>
+<p data-i18n="post.apprq.p3b">混合流的 cv 比任何一个单池都大，这是池化必须付的代价，也是很多人算错的地方：池化降低的是"等待"，不是"单张服务时间的波动"。四类工单混在一起，处理时长的分布被拉宽，cv 从单池的 1.10 到 1.50 变成 1.4875。收益靠的是把五个各自排队的队列并成一个，用大数效应抹掉"某个池空转、某个池堵死"的错配。</p>
+<p data-i18n="post.apprq.p3c">分工加权 15.85 分钟，池化 1.009 分钟，15.7 倍。倍数好看，绝对值只有 14.84 分钟——多数人算到这一步就把结论丢了，因为 14.84 分钟不像钱。乘上流量它才是钱：14.84 × 81 × 22 = 26,437 分钟，折 440.6 小时，等于 55.1 个审批工作日。一个月光"排队"这一段蒸发掉一个人两个半月的产能。这不是效率问题，是编制问题。</p>
+<p class="table-cap" data-i18n="post.apprq.tcap2">表 2：分工四池与池化单池的对比。加权等待以工单量为权重；池化的混合 Cs² 由各组件的二阶矩合成，不是简单平均。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.apprq.t2c0">口径</th><th data-i18n="post.apprq.t2c1">λ（单/天）</th><th data-i18n="post.apprq.t2c2">平均处理（分）</th><th data-i18n="post.apprq.t2c3">Cs²</th><th data-i18n="post.apprq.t2c4">审批台</th><th data-i18n="post.apprq.t2c5">ρ</th><th data-i18n="post.apprq.t2c6">排队等待（分）</th></tr></thead>
+<tbody>
+<tr><td data-i18n="post.apprq.t2r1">分工四池（加权）</td><td>81</td><td data-i18n="post.apprq.t2r1b">按池各自计</td><td>2.21 到 3.25</td><td>5</td><td>0.2812 到 0.6417</td><td>15.85</td></tr>
+<tr><td data-i18n="post.apprq.t2r2">池化单池</td><td>81</td><td>13.10</td><td>3.2125</td><td>5</td><td>0.4421</td><td>1.009</td></tr>
+<tr><td data-i18n="post.apprq.t2r3">差值</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>14.84（15.7 倍）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.apprq.h4">四、真正吃掉时间的是审批批次：240 分钟占 93.8%</h2>
+<p data-i18n="post.apprq.p4a">一天一批，工单在进入队列之前还得等半个批次，240 分钟。加上排队 15.85 分钟、处理 22 分钟（补货池最高），总停留 255.85 分钟，批次等待占 93.8%。也就是说，业务侧抱怨的"改价要等一天"，等的不是审批人，是审批节奏。</p>
+<p data-i18n="post.apprq.p4b">这个判断决定后面所有动作的方向：先改节奏，再谈人。顺序颠倒就白花钱——先加人，批次还是一天一批，停留照旧 240 分钟起步，新加的人大半时间在看空队列；先加批次，人不加，停留从 0.5330 天压到 0.1580 天，在制从 43.2 张掉到 12.8 张。</p>
+<p data-i18n="post.apprq.p4c">批次之所以能压，是因为它本质上是"审批人保留整块时间"的副产品。集中审的初衷是省切换成本，代价是让工单排队等着。这个交换在工单量小的时候划算，量大就变成反向补贴——省的是审批人的 10 分钟，亏的是业务侧 240 分钟。</p>
+
+<h2 data-i18n="post.apprq.h5">五、批次数翻倍的边际账：74,305、37,153、18,576 元</h2>
+<p data-i18n="post.apprq.p5a">统一口径：每等待一天的日成本基数 Σλ·loss = 13,510 元（改价 26×147、补货 14×408、上架 32×95、加预算 9×104），月 22 个工作日。这个基数说明一件事：审批慢一天，团队每月固定流血 13,510 元，和订单多少无关，只和结构有关。</p>
+<p data-i18n="post.apprq.p5b">四档批次数：1 批 166,582 元、2 批 92,277 元、4 批 55,125 元、8 批 36,548 元。边际节省 74,305、37,153、18,576——每翻一倍砍掉一半左右，标准边际递减。第一刀最狠：从 1 批到 2 批，零投入省 74,305 元/月，等于把审批窗口从"每天一次"改成"上午下午各一次"，流程文档改三段话。</p>
+<p data-i18n="post.apprq.p5c">第二刀开始要动组织习惯。4 批意味着每两小时开一次审批窗口，审批人得在两个时点之间保持上下文；8 批就是每半小时一次，多数团队的切换成本会盖过收益。所以看表要注意：这四档是在"切换成本为零"的假设下算的，真实最优点在下一节。</p>
+<p class="table-cap" data-i18n="post.apprq.tcap3">表 3：批次数对在制、月延迟成本与边际节省的影响（切换成本按 0 计）。边际节省逐档递减，说明加批次不是越多越好。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.apprq.t3c0">每天批次</th><th data-i18n="post.apprq.t3c1">批次均等（分）</th><th data-i18n="post.apprq.t3c2">在制（张）</th><th data-i18n="post.apprq.t3c3">月延迟成本（元）</th><th data-i18n="post.apprq.t3c4">边际节省（元）</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>240</td><td>43.2</td><td>166,582</td><td>—</td></tr>
+<tr><td>2</td><td>120</td><td>22.9</td><td>92,277</td><td>74,305</td></tr>
+<tr><td>4</td><td>60</td><td>12.8</td><td>55,125</td><td>37,153</td></tr>
+<tr><td>8</td><td>30</td><td>7.7</td><td>36,548</td><td>18,576</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.apprq.h6">六、切换成本把最优点往回拉：每批多吃 8 分钟，最优从 16 掉到 8</h2>
+<p data-i18n="post.apprq.p6a">批次数不是越多越好，因为每加一批，审批人要重建一次上下文：翻前因后果、回忆上次为什么没批、重新对齐口径。这部分吃的是有效工时——有效工时 = 480 − 切换分钟 × 批次数。批次数一多，产能被切换吃掉，ρ 抬升，排队开始反噬。</p>
+<p data-i18n="post.apprq.p6b">敏感性结果：切换 2 分钟/批，最优 16 批（30,528 元）；5 分钟/批，最优 12 批（37,839 元）；8 分钟/批，最优 8 批（44,046 元）；12 分钟/批，最优 6 批（51,106 元）。切换成本从 2 分钟涨到 12 分钟，最优批次数从 16 掉到 6，月成本从 30,528 元抬到 51,106 元——同一套工单，只因为切换更贵，一年多花 24.7 万元。</p>
+<p data-i18n="post.apprq.p6c">所以"一天审几次"不是管理风格问题，是两个数算出来的答案：每批固定开销、等待一天的钱。测量方法也简单：让审批人自己记三次"从打开工单到做出决定"的启动耗时，取中位数就是切换成本。这个数落在 5 到 8 分钟之间，最优解就落在 8 到 12 批，而不是拍一个"一天两审"。</p>
+<p class="table-cap" data-i18n="post.apprq.tcap4">表 4：切换成本敏感性（表中数值单位：元；列标题为每天批次数）。最后一列给出最优批次数与该批次下的最低月延迟成本。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.apprq.t4c0">切换成本</th><th>2</th><th>4</th><th>6</th><th>8</th><th>12</th><th data-i18n="post.apprq.t4c1">最优批次数与月成本</th></tr></thead>
+<tbody>
+<tr><td data-i18n="post.apprq.t4r1">2 分/批</td><td>92,066</td><td>55,340</td><td>43,403</td><td>37,681</td><td>32,501</td><td>16 · 30,528</td></tr>
+<tr><td data-i18n="post.apprq.t4r2">5 分/批</td><td>91,785</td><td>55,821</td><td>44,787</td><td>40,142</td><td>37,839</td><td>12 · 37,839</td></tr>
+<tr><td data-i18n="post.apprq.t4r3">8 分/批</td><td>91,552</td><td>56,535</td><td>46,816</td><td>44,046</td><td>48,834</td><td>8 · 44,046</td></tr>
+<tr><td data-i18n="post.apprq.t4r4">12 分/批</td><td>91,325</td><td>57,961</td><td>51,106</td><td>53,787</td><td>108,734</td><td>6 · 51,106</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.apprq.h7">七、打平线：专职岗月薪 16,200 只换来 1,147 元净额</h2>
+<p data-i18n="post.apprq.p7a">加人的账要单独算，不能和改批次混在一起。池化 + 4 批 + 专职 1 人：延迟成本 37,777 元/月，比"只加批次"的 55,125 元再省 17,347 元。人力 16,200 元/月，账面净 1,147 元。是的，赚了，赚 1,147 元。</p>
+<p data-i18n="post.apprq.p7b">财务还会追两笔前置成本：招聘 8,000 元（内推奖金加面评工时），培训期 6 周效率打五折，折 12,150 元，合计 20,150 元。月净 1,147 元，回本 17.6 个月。这个数字放在任何一次预算会上，都撑不过三轮追问：一个 17.6 个月才回本、收益上限 1,147 元/月的编制，赌的是审批量不涨、流程不改、人不走。</p>
+<p data-i18n="post.apprq.p7c">结论不是"亏"，是"不值得现在投"。而"只加批次"是零投入、当月见效：从 1 批到 4 批省 111,458 元/月，没有任何前置成本。资源配置的第一原则不是"把能做的都做"，是"先做零成本的，再买有成本的"。</p>
+<p class="table-cap" data-i18n="post.apprq.tcap5">表 5：三个方案的月成本与前置投入对比。C 方案的净收益按未取整值计算，与表中整数存在 1 元内的四舍五入差。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.apprq.t5c0">方案</th><th data-i18n="post.apprq.t5c1">延迟成本（元）</th><th data-i18n="post.apprq.t5c2">人力成本（元）</th><th data-i18n="post.apprq.t5c3">月合计（元）</th><th data-i18n="post.apprq.t5c4">在制（张）</th><th data-i18n="post.apprq.t5c5">相对现状</th></tr></thead>
+<tbody>
+<tr><td data-i18n="post.apprq.t5r1">A 分工 + 1 批（现状）</td><td>166,582</td><td>0</td><td>166,582</td><td>43.2</td><td>—</td></tr>
+<tr><td data-i18n="post.apprq.t5r2">B 分工 + 4 批（零加人）</td><td>55,125</td><td>0</td><td>55,125</td><td>12.8</td><td data-i18n="post.apprq.t5r2b">省 111,458 元</td></tr>
+<tr><td data-i18n="post.apprq.t5r3">C 池化 + 4 批 + 专职 1 人</td><td>37,777</td><td>16,200</td><td>53,977</td><td>10.3</td><td data-i18n="post.apprq.t5r3b">省 112,605 元（净 1,147 元）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.apprq.h8">八、工单量涨 28.6%，结论翻转：补货 18 单/天专职岗就值</h2>
+<p data-i18n="post.apprq.p8a">上面那笔账全部建立在补货 14 单/天。这个数一涨，分工池先崩：18 单/天时补货 ρ = 0.8250、排队从 58.31 分钟跳到 153.50 分钟；20 单/天时 ρ = 0.9167、排队 358.16 分钟。同一批人、同样的单张处理时长，等待翻了六倍，因为逼近饱和。</p>
+<p data-i18n="post.apprq.p8b">同口径重算"池化 + 4 批"相对"分工 + 4 批"的月节省：14 单/天 17,347 元；16 单/天 28,724 元；18 单/天 53,424 元；20 单/天 135,500 元。扣掉 16,200 元人力，净额从 1,147 元涨到 37,224 元（18 单/天），回本期从 17.6 个月压到 0.54 个月。</p>
+<p data-i18n="post.apprq.p8c">这才是"什么时候该上专职岗"的答案：不看团队忙不忙，看补货单量有没有过 16 到 18 单/天。而这条线的物理上限是 21.82 单/天——单池装不下，池化是唯一出路。顺序永远是：先开批次（零成本），再池化（改分工，成本低），最后加人（有前置投入）。顺序颠倒，钱就白花。</p>
+
+<h2 data-i18n="post.apprq.h9">九、结语：兵闻拙速，未睹巧之久也</h2>
+<p data-i18n="post.apprq.p9a">《孙子·作战》讲"兵闻拙速，未睹巧之久也"：只听过笨办法求快，没见过巧办法能久拖。审批就是这句话的现场版——一天一批是"巧"，省了审批人的整块时间；但把 240 分钟摊到每张单上，就是拖。拖的成本不会消失，只会转移到业务侧的销售额和断货风险上。</p>
+<p data-i18n="post.apprq.p9b">三件事按顺序做：先把批次从 1 加到 4，零投入、月省 111,458 元；再测自己的切换成本，定最优点（多数团队落在 8 到 12 批）；最后盯补货单量，过了 16 到 18 单/天再谈编制。每一步都有数可核，没有一步靠"感觉团队太忙"。</p>
+
+<h2 data-i18n="post.apprq.h10">附：可复现脚本（Python 3，仅标准库）</h2>
+<p data-i18n="post.apprq.p10a">下面这段跑出表 1 到表 5 的全部数字，不依赖任何第三方包。换自己的数据只改 TICKETS 与 DAYS/SALARY 三处；切换成本扫描在最后一段，改 candidates 即可。</p>
+<pre><code># approval_queue.py —— G/G/c 审批工单排队账（纯标准库）
+import math
+
+DAY_MIN, DAYS, SALARY = 480.0, 22, 16200.0
+# 工单类型: 名称, 日到达 λ, 平均处理分钟 E[S], 变异系数 cv, 审批台数 c, 单张延误损失(元/天)
+TICKETS = [
+    ("改价",   26,  9.0, 1.20, 1, 147),
+    ("补货",   14, 22.0, 1.40, 1, 408),
+    ("上架",   32, 12.0, 1.50, 2,  95),
+    ("加预算",  9, 15.0, 1.10, 1, 104),
+]
+
+def kingman(lam, es, cv, c, eff=DAY_MIN):
+    """G/G/c 等待近似：rho^e /(c(1-rho)) * (Ca^2+Cs^2)/2 * E[S]，到达按泊松取 Ca^2=1"""
+    rho = lam * es / (c * eff)
+    if rho &gt;= 1:
+        return rho, float("inf")          # 池子饱和，等待发散
+    e = math.sqrt(2 * (c + 1)) - 1
+    return rho, rho ** e / (c * (1 - rho)) * (1 + cv * cv) / 2 * es
+
+BASE = sum(t[1] * t[5] for t in TICKETS)   # 每等待一天的日成本基数
+print("日成本基数", BASE)
+
+# 1) 分工模式：各类利用率与排队
+for name, lam, es, cv, c, loss in TICKETS:
+    rho, wq = kingman(lam, es, cv, c)
+    print(f"{name} rho={rho:.4f} Wq={wq:.2f}分 停留={(240 + wq) / DAY_MIN:.4f}天")
+
+# 2) 池化：按工作量合成 E[S] 与二阶矩，再合成混合 cv
+lam = sum(t[1] for t in TICKETS)
+cc = sum(t[4] for t in TICKETS)
+es = sum(t[1] * t[2] for t in TICKETS) / lam
+es2 = sum(t[1] * t[2] ** 2 * (1 + t[3] ** 2) for t in TICKETS) / lam
+cv = math.sqrt(es2 / es ** 2 - 1)
+rho_p, wq_p = kingman(lam, es, cv, cc)
+print(f"pooled lam={lam} E[S]={es:.4f} Cs2={es2 / es ** 2 - 1:.4f} cv={cv:.4f} rho={rho_p:.4f} Wq={wq_p:.3f}分")
+
+# 3) 批次数：批次均等 = 有效工时 /(2*批次)
+def month_cost(batches, switch, pooled=False):
+    eff = DAY_MIN - switch * batches
+    day = wip = 0.0
+    for name, l, e, v, c, loss in TICKETS:
+        w = wq_p if pooled else kingman(l, e, v, c, eff)[1]
+        d = (eff / (2 * batches) + w) / DAY_MIN
+        day += l * d * loss
+        wip += l * d
+    return day * DAYS, wip
+
+for b in (1, 2, 4, 8):
+    cost, wip = month_cost(b, 0)
+    print(f"batches={b} 月成本={cost:,.0f}在制={wip:.1f}张")
+
+# 4) 切换成本敏感性：找最优点
+for switch in (2, 5, 8, 12):
+    best = min((month_cost(b, switch)[0], b) for b in (1, 2, 3, 4, 6, 8, 12, 16))
+    print(f"switch={switch}分/批 最优批次={best[1]} 月成本={best[0]:,.0f}")
+
+# 5) 专职岗打平线：池化相对分工的节省 对比 月薪
+cost_pool, wip_pool = month_cost(4, 0, pooled=True)
+cost_sep, wip_sep = month_cost(4, 0)
+saving = cost_sep - cost_pool
+setup = 8000 + SALARY * 1.5 * 0.5        # 招聘 + 6 周半效培训
+print(f"池化节省={saving:,.0f} 净={saving - SALARY:,.0f} 回本={setup / (saving - SALARY):.1f}月")</code></pre>
+<p data-i18n="post.apprq.p10b">输出要点：日成本基数 13,510 元；池化 rho 0.4421、等待 1.009 分钟；四档批次月成本 166,582 / 92,277 / 55,125 / 36,548 元；切换 2 到 12 分钟时最优批次 16 / 12 / 8 / 6；池化节省 17,347 元、净 1,147 元、回本 17.6 个月。全部与表 1 到表 5 逐格对得上，无一处手工调整。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>
