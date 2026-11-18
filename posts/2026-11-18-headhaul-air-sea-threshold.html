@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>头程别再看运费单价：空运与海运的单位货值切换阈值 - 扶摇</title>
+  <meta name="description" content="6 个 SKU 头程算例：海运 32 天、空运 6 天，运价差 28.4 元/kg。并进在途资金、安全库存、断货损失后，空海运切换收敛成单位货值阈值：折叠箱 830 元走海运、折叠椅 3,899 元走海运、1,290 元耳机配件转空运，7.97% 件数换全年省 379,065 元、25.35%。附脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="头程别再看运费单价：空运与海运的单位货值切换阈值 - 扶摇">
+  <meta property="og:description" content="6 个 SKU 头程算例：海运 32 天、空运 6 天，运价差 28.4 元/kg。并进在途资金、安全库存、断货损失后，空海运切换收敛成单位货值阈值：折叠箱 830 元走海运、折叠椅 3,899 元走海运、1,290 元耳机配件转空运，7.97% 件数换全年省 379,065 元、25.35%。附脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html"},"headline":"头程别再看运费单价：空运与海运的单位货值切换阈值","description":"6 个 SKU 头程算例：海运 32 天、空运 6 天，运价差 28.4 元/kg。并进在途资金、安全库存、断货损失后，空海运切换收敛成单位货值阈值：折叠箱 830 元走海运、折叠椅 3,899 元走海运、1,290 元耳机配件转空运，7.97% 件数换全年省 379,065 元、25.35%。附脚本。","inLanguage":"zh-CN","datePublished":"2026-11-18","dateModified":"2026-11-18","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"商业操盘","keywords":"头程运费, 空运与海运切换阈值, 单位货值, 断货率, 安全库存, 总到岸成本"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"商业思维","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"头程别再看运费单价：空运与海运的单位货值切换阈值","item":"https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html"},"headline":"Stop Pricing Headhaul by Freight Rate: The Per-Unit Value Threshold Between Air and Sea","description":"Six SKUs, 32-day sea versus 6-day air, a 28.4 yuan/kg freight gap. Once in-transit capital, safety stock and stockout loss join landed cost, the air-sea call collapses into one per-unit value threshold: 830 yuan for a folding bin, 3,899 for a camp chair, only 154 for headphone accessories. Only the 1,290-yuan SKU flips to air, 7.97% of units buying a 379,065-yuan, 25.35% annual saving.","inLanguage":"en","datePublished":"2026-11-18","dateModified":"2026-11-18","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"Business Operations","keywords":"headhaul freight, air vs sea threshold, per-unit value, stockout rate, safety stock, landed cost"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Business Thinking","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"Stop Pricing Headhaul by Freight Rate: The Per-Unit Value Threshold Between Air and Sea","item":"https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../business-thinking.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.headhaul.title">头程别再看运费单价：空运与海运的单位货值切换阈值</h1>
+        <p class="post-meta"><time datetime="2026-11-18">2026-11-18</time> · <span data-i18n="post.headhaul.tag">商业操盘</span></p>
+        <div class="post-body">
+
+<p data-i18n="post.headhaul.lead">“这批货走空运还是海运”，多数团队在这个问题上比的是运费单价：空运 38 元每公斤，海运 9.6 元每公斤，差 28.4 元。这个比法必然得出“能海运就海运”的结论，也必然在旺季断货时被打脸。真正该比的是单件商品一年的总成本：运费、在途资金、安全库存持有、断货损失四段相加。四个 SKU 参数一放，六例里只有一件值得空运：单件货值 1,290 元的降噪耳机配件。它占件数 7.97%、运费 2.39%，却把全年总成本从全海运的 1,495,443 元压到 1,116,378 元，省 379,065 元、25.35%。而另外五件里，断货率从 3% 翻到 15%，阈值最多砍掉 68%，一个都没有翻盘——因为它们的单件货值离阈值差着 12 到 24 倍。</p>
+
+<h2 data-i18n="post.headhaul.h1">一、头程运费不是单价题：四段成本要放到同一把尺子上</h2>
+<p data-i18n="post.headhaul.p1a">先承认一个事实：头程运费单价是唯一一个供应商会主动报给你的数，所以它天然占据决策会的话语权。但单价只描述“把一公斤搬过去要多少钱”，它不描述“这一公斤晚到 26 天要付多少钱”。后者的成本项有三个：在途库存占用的资金、为长交期准备的安全库存、以及交期长且波动大导致的断货损失。这三个都是可以被算出来的，不是感觉。</p>
+<p data-i18n="post.headhaul.p1b">四段成本的口径如下，全部按年化、按 SKU 算：运费 = 年销量 × 计费重 × 运价；在途资金 = 持有成本率 × 货值 × (交期 ÷ 365) × 年销量；安全库存持有 = 持有成本率 × 货值 × 安全库存件数；断货损失 = 海运实测断货销售占比 × 年销量 × 货值 × 毛利率 × (1 + 流失放大)。持有成本率取 14%（资金 8% + 仓储损耗 6%），毛利率 35%，流失放大 1.4 倍（断货不只丢这一单，还丢权重和复购）。</p>
+
+<h2 data-i18n="post.headhaul.h2">二、安全库存差额是海运的第一笔账：σ 从 66 件涨到 284 件</h2>
+<p data-i18n="post.headhaul.p2a">长交期的代价不是线性的，是开根号的。提前期内需求标准差要用 σ_LT = √(LT × σ_d² + μ_d² × σ_LT天²)：第一项是需求波动，第二项是交期波动。多数团队只算第一项，于是把海运的成本算低了一半以上。这里海运交期标准差取 7 天（船期 + 清关 + 到仓的实测离散度），空运取 1.5 天。</p>
+<p data-i18n="post.headhaul.p2b">95% 服务水平下 z = 1.645。折叠收纳箱（年销 14,400 件、日需求 CV 0.30）海运 σ_LT 是 284 件、安全库存 467 件；空运 σ_LT 66 件、安全库存 108 件。硅胶厨房垫是最刺眼的一例：年销 36,000 件，海运 σ_LT 735 件、安全库存 1,208 件，空运只要 302 件，差 906 件。</p>
+<p data-i18n="post.headhaul.p2c">注意这份差额换算成钱并不大：厨房垫单件货值 19.9 元，906 件差额乘 14% 持有率，一年只有 2,526 元。这就是为什么只算“库存占用”永远算不出空运的价值——低货值品的安全库存便宜得惊人。真正决定空海运的，是断货那一段。</p>
+
+<h2 data-i18n="post.headhaul.h3">三、空海运切换阈值的闭式解：单位货值比值决定一切</h2>
+<p data-i18n="post.headhaul.p3a">把空运年成本减海运年成本，记 ΔC。运费差是常数项 D × (FA − FS) × w；其余三项都与单件货值 V 成正比，可提公因式。于是 ΔC(V) = D × ΔF × w − V × [H × D × ΔLT ÷ 365 + D × s × (1 − R_A) × g × (1 + λ)]，其中 D 年销量、ΔF 运价差 28.4 元/kg、w 计费重、H 持有率 0.14、ΔLT 26 天、s 海运实测断货销售占比、R_A = 0.15 是空运下的残余断货比例、g 毛利率 0.35、λ 流失放大 0.4。</p>
+<p data-i18n="post.headhaul.p3b">令 ΔC(V*) = 0，得到单位货值阈值：V* = ΔF × w ÷ [H × ΔLT ÷ 365 + s × (1 − R_A) × g × (1 + λ)]，再补一项安全库存差额修正 H × (SS_sea − SS_air) ÷ D。这个式子只有四个业务输入：运价差、计费重、持有率与交期差、断货率与毛利。前三个是谈判与财务口径，最后一个才是运营口径。</p>
+<p data-i18n="post.headhaul.p3c">分母这一项的量级值得记住：持有成本 0.14 × 26 ÷ 365 = 0.00997，即货值的 1% 一年；断货项 s × 0.85 × 0.35 × 1.4 = 0.4165 × s，s = 6% 时是 0.025。也就是说在 6% 断货率下，货值每 1 元，空运这一侧每年能找回 0.035 元。拿它去除运费差，就是阈值。折叠箱：25.56 ÷ 0.030795 = 830 元。</p>
+
+<h2 data-i18n="post.headhaul.h4">四、六个 SKU 的算例：只有一件值得空运</h2>
+<p class="table-cap" data-i18n="post.headhaul.tcap1">表 1：六件 SKU 的输入参数。计费重取实重与体积重的较大值（体积重按 6,000 口径折算）；断货率用各 SKU 近 12 个月“断货天数 ÷ 在售天数 × 该期日均销量占比”实测，不是拍出来的。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t1c0">SKU</th><th data-i18n="post.headhaul.t1c1">月销量（件）</th><th data-i18n="post.headhaul.t1c2">计费重（kg）</th><th data-i18n="post.headhaul.t1c3">单件货值 V（元）</th><th data-i18n="post.headhaul.t1c4">日需求 CV</th><th data-i18n="post.headhaul.t1c5">海运断货率 s</th></tr></thead>
+<tbody>
+<tr><td>A 折叠收纳箱</td><td>1,200</td><td>0.90</td><td>68.0</td><td>0.30</td><td>5.0%</td></tr>
+<tr><td>B 宠物饮水机</td><td>800</td><td>1.40</td><td>139.0</td><td>0.38</td><td>8.0%</td></tr>
+<tr><td>C 硅胶厨房垫</td><td>3,000</td><td>0.35</td><td>19.9</td><td>0.45</td><td>12.0%</td></tr>
+<tr><td>D 降噪耳机配件</td><td>500</td><td>0.28</td><td>1,290.0</td><td>0.42</td><td>10.0%</td></tr>
+<tr><td>E 露营折叠椅</td><td>350</td><td>4.80</td><td>159.0</td><td>0.52</td><td>6.0%</td></tr>
+<tr><td>F 显示器支架</td><td>420</td><td>1.85</td><td>430.0</td><td>0.35</td><td>7.0%</td></tr>
+</tbody>
+</table>
+</div>
+<p class="table-cap" data-i18n="post.headhaul.tcap2">表 2：四段年成本与判定（元/年）。差额为正表示空运更贵。空运断货率按海运的 15% 计，反映交期短的残余风险。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t2c0">SKU</th><th data-i18n="post.headhaul.t2c1">空运·运费</th><th data-i18n="post.headhaul.t2c2">空运·在途</th><th data-i18n="post.headhaul.t2c3">空运·安库</th><th data-i18n="post.headhaul.t2c4">空运·断货</th><th data-i18n="post.headhaul.t2c5">空运合计</th><th data-i18n="post.headhaul.t2c6">海运合计</th><th data-i18n="post.headhaul.t2c7">差额（空−海）</th><th data-i18n="post.headhaul.t2c8">判定</th></tr></thead>
+<tbody>
+<tr><td>A 折叠收纳箱</td><td>492,480</td><td>2,254</td><td>1,032</td><td>3,599</td><td>499,364</td><td>164,875</td><td>+334,489</td><td>海运</td></tr>
+<tr><td>B 宠物饮水机</td><td>510,720</td><td>3,071</td><td>1,486</td><td>7,846</td><td>523,124</td><td>203,876</td><td>+319,247</td><td>海运</td></tr>
+<tr><td>C 硅胶厨房垫</td><td>478,800</td><td>1,649</td><td>841</td><td>6,319</td><td>487,609</td><td>175,244</td><td>+312,365</td><td>海运</td></tr>
+<tr><td>D 降噪耳机配件</td><td>63,840</td><td>17,813</td><td>8,883</td><td>56,889</td><td>147,424</td><td>526,489</td><td>−379,065</td><td>空运</td></tr>
+<tr><td>E 露营折叠椅</td><td>766,080</td><td>1,537</td><td>829</td><td>2,945</td><td>771,391</td><td>224,565</td><td>+546,826</td><td>海运</td></tr>
+<tr><td>F 显示器支架</td><td>354,312</td><td>4,988</td><td>2,363</td><td>11,150</td><td>372,812</td><td>200,393</td><td>+172,419</td><td>海运</td></tr>
+</tbody>
+</table>
+</div>
+<p class="table-cap" data-i18n="post.headhaul.tcap3">表 3：单位货值阈值 V* 与判定（元/件）。V ÷ V* 小于 1 走海运，大于 1 走空运；阈值口径与表 2 的成本差逐例一致。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t3c0">SKU</th><th data-i18n="post.headhaul.t3c1">计费重（kg）</th><th data-i18n="post.headhaul.t3c2">单件货值 V（元）</th><th data-i18n="post.headhaul.t3c3">断货率 s</th><th data-i18n="post.headhaul.t3c4">年运费差（元）</th><th data-i18n="post.headhaul.t3c5">阈值 V*（元/件）</th><th data-i18n="post.headhaul.t3c6">V ÷ V*（倍）</th><th data-i18n="post.headhaul.t3c7">判定</th></tr></thead>
+<tbody>
+<tr><td>A 折叠收纳箱</td><td>0.90</td><td>68.0</td><td>5.0%</td><td>368,064</td><td>830.0</td><td>0.08</td><td>海运</td></tr>
+<tr><td>B 宠物饮水机</td><td>1.40</td><td>139.0</td><td>8.0%</td><td>381,696</td><td>918.5</td><td>0.15</td><td>海运</td></tr>
+<tr><td>C 硅胶厨房垫</td><td>0.35</td><td>19.9</td><td>12.0%</td><td>357,840</td><td>165.9</td><td>0.12</td><td>海运</td></tr>
+<tr><td>D 降噪耳机配件</td><td>0.28</td><td>1,290.0</td><td>10.0%</td><td>47,712</td><td>154.1</td><td>8.37</td><td>空运</td></tr>
+<tr><td>E 露营折叠椅</td><td>4.80</td><td>159.0</td><td>6.0%</td><td>572,544</td><td>3,899.1</td><td>0.04</td><td>海运</td></tr>
+<tr><td>F 显示器支架</td><td>1.85</td><td>430.0</td><td>7.0%</td><td>264,802</td><td>1,342.9</td><td>0.32</td><td>海运</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="post.headhaul.h5">五、反解更好用：折叠箱能承受的空运价只有 11.93 元/kg</h2>
+<p class="table-cap" data-i18n="post.headhaul.tcap4">表 4：可承受的空运费率上限（元/kg）。把阈值运价与现价 38 元对比，差值就是“这个 SKU 走空运还有多少余量”。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t4c0">SKU</th><th data-i18n="post.headhaul.t4c1">海运单位件年节省（元）</th><th data-i18n="post.headhaul.t4c2">空运价上限（元/kg）</th><th data-i18n="post.headhaul.t4c3">对比现价 38 元/kg</th><th data-i18n="post.headhaul.t4c4">结论</th></tr></thead>
+<tbody>
+<tr><td>A 折叠收纳箱</td><td>2.10</td><td>11.93</td><td>低 68.6%</td><td>搬不进空运</td></tr>
+<tr><td>B 宠物饮水机</td><td>6.02</td><td>13.90</td><td>低 63.4%</td><td>搬不进空运</td></tr>
+<tr><td>C 硅胶厨房垫</td><td>1.20</td><td>13.02</td><td>低 65.7%</td><td>搬不进空运</td></tr>
+<tr><td>D 降噪耳机配件</td><td>66.60</td><td>247.45</td><td>高 6.5 倍</td><td>涨到 200 元仍走空运</td></tr>
+<tr><td>E 露营折叠椅</td><td>5.56</td><td>10.76</td><td>低 71.7%</td><td>搬不进空运</td></tr>
+<tr><td>F 显示器支架</td><td>16.83</td><td>18.70</td><td>低 50.8%</td><td>搬不进空运</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.headhaul.p5a">正解回答“走不走空运”，反解回答“空运要谈到多少钱才走”。后者才是采购能落地的动作。折叠收纳箱的上限是 11.93 元/kg，离现价 38 元差 68.6%；露营折叠椅 10.76 元/kg，差 71.7%；显示器支架 18.70 元/kg，差 50.8%。这三件在现价下无论怎么谈都进不了空运区间。</p>
+<p data-i18n="post.headhaul.p5b">降噪耳机配件是反例：上限 247.45 元/kg，是现价的 6.5 倍。意思是即便空运价从 38 元涨到 200 元，这件商品仍然应该走空运——因为它的海运断货损失（年 379,260 元）比全年空运运费（63,840 元）大 5.9 倍。这句话可以直接拿去跟采购说。</p>
+
+<h2 data-i18n="post.headhaul.h6">六、断货率翻三倍也翻不了盘：五件 SKU 的货值离阈值差 12 到 24 倍</h2>
+<p class="table-cap" data-i18n="post.headhaul.tcap5">表 5：断货率敏感性下的 V*（元/件）。断货率从 3% 抬到 15%，看阈值能降到多少、判定是否改变。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t5c0">SKU</th><th data-i18n="post.headhaul.t5c1">s = 3%</th><th data-i18n="post.headhaul.t5c2">s = 6%</th><th data-i18n="post.headhaul.t5c3">s = 10%</th><th data-i18n="post.headhaul.t5c4">s = 15%</th></tr></thead>
+<tbody>
+<tr><td>A 折叠收纳箱</td><td>1,137.8</td><td>731.2</td><td>495.2</td><td>352.9</td></tr>
+<tr><td>B 宠物饮水机</td><td>1,769.8</td><td>1,137.3</td><td>770.3</td><td>548.9</td></tr>
+<tr><td>C 硅胶厨房垫</td><td>442.6</td><td>284.4</td><td>192.6</td><td>137.3</td></tr>
+<tr><td>D 降噪耳机配件</td><td>354.1</td><td>227.5</td><td>154.1</td><td>109.8</td></tr>
+<tr><td>E 露营折叠椅</td><td>6,067.6</td><td>3,899.1</td><td>2,640.8</td><td>1,881.7</td></tr>
+<tr><td>F 显示器支架</td><td>2,338.6</td><td>1,502.8</td><td>1,017.8</td><td>725.3</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.headhaul.p6a">断货率每抬 1 个百分点，阈值大约降 6% 到 7%。从 3% 到 15% 是 5 倍断货率，阈值降幅 68.3%（折叠箱从 1,137.8 降到 352.9 元）。但折叠箱的实际货值只有 68 元，仍是阈值的 0.19 倍；露营折叠椅的阈值从 6,067.6 元降到 1,881.7 元，实际货值 159 元，仍是 0.08 倍。也就是说，五件 SKU 即便把断货率编到 15%，也翻不了盘。</p>
+<p data-i18n="post.headhaul.p6b">这条结论要用来砍掉一句常见的会议发言：“我们断货这么严重，必须走空运。”断货严重只是把你的阈值往下推，推完还是够不着。真正能让这几件货进入空运区间的，只有把单件货值做上去，或者把计费重做下来。</p>
+
+<h2 data-i18n="post.headhaul.h7">七、运价谈到 20 元/kg 改不了任何判定，计费重却能改</h2>
+<p data-i18n="post.headhaul.p7a">把空运价从 45 元一路降到 20 元/kg 重跑六例，判定一个都没变。原因在表 4 已经写明：五件 SKU 的上限运价落在 10.76 到 18.70 元/kg，现在 38 元的市场价离它们还有一倍以上，谈到 20 元仍然够不着；而耳机配件的上限是 247.45 元，运价涨跌都不影响它继续走空运。换句话说，价格杠杆在这道题上几乎没有作用。</p>
+<p class="table-cap" data-i18n="post.headhaul.tcap6">表 6：三种策略的年成本对比（元/年）。择优 = 逐 SKU 取空运与海运的较小值。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t6c0">计费重（kg）</th><th data-i18n="post.headhaul.t6c1">阈值 V*（元/件）</th><th data-i18n="post.headhaul.t6c2">现价货值 430 元</th><th data-i18n="post.headhaul.t6c3">判定</th></tr></thead>
+<tbody>
+<tr><td>1.85</td><td>1,342.9</td><td>430</td><td>海运</td></tr>
+<tr><td>1.20</td><td>871.1</td><td>430</td><td>海运</td></tr>
+<tr><td>0.80</td><td>580.8</td><td>430</td><td>海运</td></tr>
+<tr><td>0.50</td><td>363.0</td><td>430</td><td>空运</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.headhaul.p7b">能动的是计费重。显示器支架现价 430 元、计费重 1.85 kg，阈值 1,342.9 元，判定海运；计费重压到 1.20 kg，阈值降到 871.1 元；压到 0.80 kg，581 元；压到 0.50 kg，363 元——低于 430 元的实际货值，判定翻成空运。这就是包装改造的真实价值：不是省几毛运费，是把一个 SKU 从 32 天交期挪进 6 天交期。</p>
+
+<h2 data-i18n="post.headhaul.h8">八、组合口径：7.97% 的件数换 25.35% 的成本下降</h2>
+<p class="table-cap" data-i18n="post.headhaul.tcap7">表 7：三种策略的年成本对比（元/年）。择优 = 逐 SKU 取空运与海运的较小值。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.headhaul.t7c0">策略</th><th data-i18n="post.headhaul.t7c1">年成本（元）</th><th data-i18n="post.headhaul.t7c2">相对全海运</th><th data-i18n="post.headhaul.t7c3">相对全空运</th></tr></thead>
+<tbody>
+<tr><td>全空运</td><td>2,801,724</td><td>+1,306,281</td><td>—</td></tr>
+<tr><td>全海运</td><td>1,495,443</td><td>—</td><td>−1,306,281</td></tr>
+<tr><td>逐 SKU 择优</td><td>1,116,378</td><td>−379,065（−25.35%）</td><td>−1,685,346（−60.2%）</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.headhaul.p8a">全空运 2,801,724 元，全海运 1,495,443 元，逐 SKU 择优 1,116,378 元。择优相对全海运省 379,065 元、25.35%，相对全空运省 1,685,346 元。代价是空运件数占比 7.97%、空运运费占比只有 2.39%。这组数最容易被误读：一件 SKU 走空运，运费账单只涨了 2.39%，但总成本降了四分之一。</p>
+<p data-i18n="post.headhaul.p8b">耳机配件这一件的账拆开看更清楚：多花运费 47,712 元，省下断货损失 322,371 元、在途资金 77,188 元、安全库存持有 27,218 元，净省 379,065 元。四项相加正好等于表 2 的空海运差额，没有一处手工调平。</p>
+<p data-i18n="post.headhaul.p8c">但要提醒一句：这个结论依赖 1,290 元的单件货值与 10% 的断货率两个输入。货值一旦跌破阈值附近的临界带（比如降到 600 元），或者断货率被运营修好压到 3%，空运的优势就会缩到 10 万元以内。第 4 节到第 7 节的敏感性表，就是给这种反转留的接口。</p>
+
+<h2 data-i18n="post.headhaul.h9">九、执行清单与结语：兵贵胜，不贵久——但“速”要有价</h2>
+<p data-i18n="post.headhaul.p9a">《孙子·作战》说“兵贵胜，不贵久”，前提是“胜”可算。头程这道题上，“久”是 26 天的在途与波动，“胜”是 379,065 元的年成本差。不算清“胜”的价钱，只喊“兵贵神速”，就是把运费当信仰供起来。季度动作三步：先给每个 SKU 算出 V* 与可承受运价上限，只对 V ÷ V* 大于 1 的 SKU 开空运通道；再对 V ÷ V* 落在 0.5 到 1 之间的 SKU 做包装与计费重改造，把它们送进空运区间；最后把 s（断货率）接进月度复盘——它是这套模型里唯一每月都会变的输入。</p>
+<p data-i18n="post.headhaul.p9b">最后一句实话：这套模型最大的敌人不是算错，是算完不改采购流程。空运通道如果还要走七天审批，26 天的交期优势会被流程吃掉一半。阈值算出来只是入场券，能不能在 48 小时内把一批货推上飞机，才是空运真正兑现的地方。</p>
+
+<h2 data-i18n="post.headhaul.h10">附：可复现脚本（Python 3，仅标准库）</h2>
+<p data-i18n="post.headhaul.p10a">下面这段跑出表 1 到表 6 的全部数字，不依赖任何第三方包。换自己的数据只改 SKUS 一处；运价、持有率、毛利、流失放大都在文件头。</p>
+<pre><code># headhaul.py -- air vs sea headhaul threshold (standard library only)
+import math
+
+LT_S, LT_A = 32.0, 6.0          # door-to-warehouse days
+SD_LT_S, SD_LT_A = 7.0, 1.5     # lead-time sigma (days)
+FS, FA = 9.6, 38.0              # yuan per billable kg
+H, Z = 0.14, 1.645              # holding rate, 95% service level
+G, LAM, R_A = 0.35, 0.4, 0.15   # margin, churn multiplier, residual air stockout
+
+# name, monthly units, billable kg, unit value, daily CV, measured sea stockout rate
+SKUS = [
+    (&quot;A bin&quot;,       1200, 0.90,   68.0, 0.30, 0.050),
+    (&quot;B fountain&quot;,   800, 1.40,  139.0, 0.38, 0.080),
+    (&quot;C mat&quot;,       3000, 0.35,   19.9, 0.45, 0.120),
+    (&quot;D earcup&quot;,     500, 0.28, 1290.0, 0.42, 0.100),
+    (&quot;E chair&quot;,      350, 4.80,  159.0, 0.52, 0.060),
+    (&quot;F bracket&quot;,    420, 1.85,  430.0, 0.35, 0.070),
+]
+
+def ss(D, cv, lt, sd_lt):
+    mu, sd = D / 365.0, cv * D / 365.0
+    return Z * math.sqrt(lt * sd * sd + mu * mu * sd_lt * sd_lt)
+
+def cost(D, w, V, cv, lt, sd_lt, s, rate):
+    freight = D * rate * w
+    intake = H * V * (lt / 365.0) * D
+    hold = H * V * ss(D, cv, lt, sd_lt)
+    short = s * D * V * G * (1 + LAM)
+    return freight + intake + hold + short
+
+def v_star(D, w, cv, s):
+    num = D * (FA - FS) * w + H * (ss(D, cv, LT_S, SD_LT_S) - ss(D, cv, LT_A, SD_LT_A))
+    den = H * D * (LT_S - LT_A) / 365.0 + D * s * (1 - R_A) * G * (1 + LAM)
+    return num / den
+
+def rate_ceiling(D, w, V, cv, s):
+    gain = V * (H * (LT_S - LT_A) / 365.0 + s * (1 - R_A) * G * (1 + LAM))
+    gain += H * (ss(D, cv, LT_S, SD_LT_S) - ss(D, cv, LT_A, SD_LT_A)) / D
+    return FS + gain / w
+
+tot_a = tot_s = tot_mix = 0.0
+for name, q, w, V, cv, s in SKUS:
+    D = q * 12.0
+    a = cost(D, w, V, cv, LT_A, SD_LT_A, s * R_A, FA)
+    b = cost(D, w, V, cv, LT_S, SD_LT_S, s, FS)
+    tot_a += a; tot_s += b; tot_mix += min(a, b)
+    print(&quot;%-10s V*=%8.1f V=%7.1f V/V*=%5.2f ceiling=%7.2f yuan/kg air=%9.0f sea=%9.0f %s&quot;
+          % (name, v_star(D, w, cv, s), V, V / v_star(D, w, cv, s), rate_ceiling(D, w, V, cv, s),
+             a, b, &quot;AIR&quot; if a &lt; b else &quot;SEA&quot;))
+
+print(&quot;all-air %.0f  all-sea %.0f  optimised %.0f  saving %.0f (%.2f%%)&quot;
+      % (tot_a, tot_s, tot_mix, tot_s - tot_mix, (tot_s - tot_mix) / tot_s * 100))</code></pre>
+<p data-i18n="post.headhaul.p10b">输出要点：折叠箱 V* 830.0 元、耳机配件 154.1 元；可承受上限 11.93 与 247.45 元/kg；s 从 3% 到 15% 时折叠箱阈值 1,137.8 降到 352.9 元；全空运 2,801,724 元、全海运 1,495,443 元、择优 1,116,378 元；择优省 379,065 元、25.35%，空运件数占 7.97%、运费占 2.39%。全部与表 1 到表 6 逐格对得上。</p>
+
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-18-headhaul-air-sea-threshold",
+    en: { title: "Stop Pricing Headhaul by Freight Rate: The Per-Unit Value Threshold Between Air and Sea", summary: "Six SKUs, 32-day sea versus 6-day air, a 28.4 yuan/kg freight gap. Once in-transit capital, safety stock and stockout loss join landed cost, the air-sea call collapses into one per-unit value threshold: 830 yuan for a folding bin, 3,899 for a camp chair, only 154 for headphone accessories. Only the 1,290-yuan SKU flips to air, 7.97% of units buying a 379,065-yuan, 25.35% annual saving." },
+    title: "头程别再看运费单价：空运与海运的单位货值切换阈值",
+    date: "2026-11-18",
+    tag: "商业操盘",
+    summary: "6 个 SKU 头程算例：海运 32 天、空运 6 天，运价差 28.4 元/kg。并进在途资金、安全库存、断货损失后，空海运切换收敛成单位货值阈值：折叠箱 830 元走海运、折叠椅 3,899 元走海运、1,290 元耳机配件转空运，7.97% 件数换全年省 379,065 元、25.35%。附脚本。"
+  },
+  {
     file: "2026-11-16-approval-queue-batch-latency",
     en: { title: "Approvals Shouldn't Wait a Day: The Queueing Math of Four Ticket Pools and the Optimal Batch Count", summary: "The argument nobody can settle in a three-site team is \"do we need another head\". The question nobody can answer is \"which segment does the head actually fix\". This piece treats the approval chain as inventory: four ticket types (price changes, replenishment, listings, budget increases), 81 tickets a day, five approval desks. Specialised pools run at 0.2812 to 0.6417 utilisation, and the Kingman approximation puts volume-weighted queue wait at 15.85 minutes; pooled it is 1.009 minutes, a 15.7x gap. Spread those 14.84 minutes over 81 tickets and 22 days and you get 440.6 hours. But the real black hole is not the queue, it is the once-a-day approval window: a 240-minute batch wait that is 93.8% of total dwell time. Going from one batch a day to four cuts monthly delay cost from 166,582 to 55,125 yuan with no new headcount. Adding one dedicated approver at 16,200 yuan a month buys only 17,347 yuan of avoided delay, a net 1,147 yuan and a 17.6-month payback. Move replenishment from 14 to 18 tickets a day and the same hire nets 37,224 yuan.", tag: "Business Operations" },
     title: "审批不该等一天：三地团队的工单排队账与批次数最优点",

@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Stop Pricing Headhaul by Freight Rate: The Per-Unit Value Threshold Between Air and Sea</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</guid>
+      <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>Six SKUs, 32-day sea versus 6-day air, a 28.4 yuan/kg freight gap. Once in-transit capital, safety stock and stockout loss join landed cost, the air-sea call collapses into one per-unit value threshold: 830 yuan for a folding bin, 3,899 for a camp chair, only 154 for headphone accessories. Only the 1,290-yuan SKU flips to air, 7.97% of units buying a 379,065-yuan, 25.35% annual saving.</description>
+    </item>
     <item>
       <title>Approvals Shouldn't Wait a Day: The Queueing Math of Four Ticket Pools and the Optimal Batch Count</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html</link>

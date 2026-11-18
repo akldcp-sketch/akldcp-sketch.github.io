@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 16 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2026 01:20:00 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>头程别再看运费单价：空运与海运的单位货值切换阈值</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</guid>
+      <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>6 个 SKU 头程算例：海运 32 天、空运 6 天，运价差 28.4 元/kg。并进在途资金、安全库存、断货损失后，空海运切换收敛成单位货值阈值：折叠箱 830 元走海运、折叠椅 3,899 元走海运、1,290 元耳机配件转空运，7.97% 件数换全年省 379,065 元、25.35%。附脚本。</description>
+    </item>
     <item>
       <title>审批不该等一天：三地团队的工单排队账与批次数最优点</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html</link>
