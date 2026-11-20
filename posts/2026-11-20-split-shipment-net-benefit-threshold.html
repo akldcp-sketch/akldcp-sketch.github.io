@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>多仓拆单别只看费率表：跨境尾程拆单的净收益阈值 - 扶摇</title>
+  <meta name="description" content="六类订单、月 18,600 单拆单算例：拆单省近区费率差 0.79 到 26.10 元，多付首重 26.00 到 30.50 元加操作费 8.50 元。闭式阈值 w* =（首重＋操作费−时效收益）÷ 跨区费率差，六类仅 5-SKU 套件单过线，占单 3.33%、年省 121,555 元，仅占运费 0.87%。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="多仓拆单别只看费率表：跨境尾程拆单的净收益阈值 - 扶摇">
+  <meta property="og:description" content="六类订单、月 18,600 单拆单算例：拆单省近区费率差 0.79 到 26.10 元，多付首重 26.00 到 30.50 元加操作费 8.50 元。闭式阈值 w* =（首重＋操作费−时效收益）÷ 跨区费率差，六类仅 5-SKU 套件单过线，占单 3.33%、年省 121,555 元，仅占运费 0.87%。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html"},"headline":"多仓拆单别只看费率表：跨境尾程拆单的净收益阈值","description":"六类订单、月 18,600 单拆单算例：拆单省近区费率差 0.79 到 26.10 元，多付首重 26.00 到 30.50 元加操作费 8.50 元。闭式阈值 w* =（首重＋操作费−时效收益）÷ 跨区费率差，六类仅 5-SKU 套件单过线，占单 3.33%、年省 121,555 元，仅占运费 0.87%。","inLanguage":"zh-CN","datePublished":"2026-11-20","dateModified":"2026-11-20","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"商业操盘","keywords":"多仓拆单, 尾程分区费率, 拆单净收益阈值, 临界近仓重量, 首重门槛, 跨境尾程成本"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"商业思维","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"多仓拆单别只看费率表：跨境尾程拆单的净收益阈值","item":"https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html"},"headline":"Don't Optimise the Rate Card: The Net-Benefit Threshold for Split Shipments","description":"Six order classes, 18,600 orders a month: splitting saves a 0.79 to 26.10 yuan inter-zone rate gap but adds a second parcel base of 26.00 to 30.50 plus 8.50 in handling, a 20x order-of-magnitude mismatch. The closed-form threshold is w* = (base + handling - service recovery) / rate gap. Only the 5-SKU suite order clears it: 3.33% of orders, 121,555 yuan a year, 0.87% of freight. Splitting everything loses 5,221,402 yuan. Code included.","inLanguage":"en","datePublished":"2026-11-20","dateModified":"2026-11-20","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"Business Operations","keywords":"multi-warehouse split shipment, zone rate card, split break-even threshold, near-warehouse weight, parcel base, last-mile cost"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Business Thinking","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"Don't Optimise the Rate Card: The Net-Benefit Threshold for Split Shipments","item":"https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../business-thinking.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.splitship.title">多仓拆单别只看费率表：跨境尾程拆单的净收益阈值</h1>
+        <p class="post-meta"><time datetime="2026-11-20">2026-11-20</time> · <span data-i18n="post.splitship.tag">商业操盘</span></p>
+        <div class="post-body">
+
+<p data-i18n="post.splitship.lead">拆单发货这个动作，多数团队是凭直觉做的：近仓有货的部分就近发，远仓的另发一个包裹，看起来只赚不亏。把六类订单的账摊开，结论是反的——拆单省下的是近区那一段的费率差，0.79 到 26.10 元；多付的是一个新包裹的首重 26.00 到 30.50 元，再加操作费 8.50 元，两边量级差近 20 倍。六类里五类净亏 10.71 到 31.48 元，只有客单价 1,860 元、近仓可发 11.60 kg 的 5-SKU 套件单净赚 16.34 元，占订单 3.33%。这条策略一年只值运费的 0.87%（121,555 元）；无差别全拆则一年多付 5,221,402 元、运费的 37.23%。而它真正的价值不在省钱，在于把“拆不拆”从会议争论变成一行阈值判断。</p>
+
+<h2 data-i18n="post.splitship.h1">一、拆单不是运费题：省下的费率差与多付的首重，量级差 20 倍</h2>
+<p data-i18n="post.splitship.p1a">先承认一个事实：尾程费率表是分段线性的，每个 zone 只有两个参数——一个包裹的首重 base，和每公斤的续重单价 rate。拆单这件事，在费率表上被切的只有两块：近区那部分的 rate 更便宜，这里省；远区那部分照旧，不省。但拆单同时也把“包裹数”从 1 变成 2，第二个包裹的 base 是躲不掉的固定收费，再加上拣货、包装、面单、复核的操作费。</p>
+<p data-i18n="post.splitship.p1b">两边的量级差从第一个算例就能看清。O1 是一张 2-SKU 轻件单，总重 0.90 kg，其中 0.35 kg 在近仓（zone 2）能发，其余 0.55 kg 只能在远仓（zone 8）。跨区费率差 2.25 元每公斤，0.35 kg 省下 0.79 元；第二个包裹要付 base 26.00 元加操作费 8.50 元。省 0.79 元、付 34.50 元，这笔账在任何重量下都不会自己翻过来——除了重量足够大，让那 2.25 元的费率差累积到 34.50 元以上。</p>
+<h2 data-i18n="post.splitship.h2">二、三段成本模型：分区费率、拆单固定成本、时效收益</h2>
+<p data-i18n="post.splitship.p2a">第一段是分区费率。表 1 是八分区的地面费率：首重从 zone 1 的 24.00 元爬到 zone 8 的 39.50 元，续重从 3.60 元每公斤爬到 6.10 元。注意两个涨幅不同——base 涨 64.6%，rate 涨 69.4%，但 base 是绝对值 15.50 元的差，rate 只有 2.50 元每公斤。这就是为什么轻件拆单必亏、重件才有戏：轻件付的是 base 的绝对值差，重件赚的是 rate 的单价差。</p>
+<p class="table-cap" data-i18n="post.splitship.tcap1">表 1：八分区尾程费率（元）。rate 溢价以 zone 1 的 3.60 元/kg 为基准。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.splitship.z1c0">分区</th><th data-i18n="post.splitship.z1c1">首重 base（元）</th><th data-i18n="post.splitship.z1c2">续重 rate（元/kg）</th><th data-i18n="post.splitship.z1c3">rate 溢价</th></tr></thead>
+<tbody>
+<tr><td>zone 1</td><td>24.00</td><td>3.60</td><td>0.0%</td></tr>
+<tr><td>zone 2</td><td>26.00</td><td>3.85</td><td>6.9%</td></tr>
+<tr><td>zone 3</td><td>28.20</td><td>4.15</td><td>15.3%</td></tr>
+<tr><td>zone 4</td><td>30.50</td><td>4.60</td><td>27.8%</td></tr>
+<tr><td>zone 5</td><td>32.80</td><td>4.95</td><td>37.5%</td></tr>
+<tr><td>zone 6</td><td>35.00</td><td>5.35</td><td>48.6%</td></tr>
+<tr><td>zone 7</td><td>37.20</td><td>5.72</td><td>58.9%</td></tr>
+<tr><td>zone 8</td><td>39.50</td><td>6.10</td><td>69.4%</td></tr>
+</tbody>
+</table>
+</div>
+<h2 data-i18n="post.splitship.h3">三、闭式阈值：临界近仓重量 w* 决定一切</h2>
+<p data-i18n="post.splitship.p3a">第二段是拆单固定成本。一个额外包裹的实付账拆四块：拣货与二次复核 3.20 元、包装耗材 1.40 元、面单与打单 1.20 元、WMS 与人工处理 2.70 元，合计 8.50 元。第三段是时效收益：整单跨区发货的实测退款率 4.6%、差评率 5.4%；拆单后只有子包裹延迟，退款率 2.9%、差评率 3.1%。差 1.7 个百分点按 30% 的退货货损折算 0.51%，差评差 2.3 个百分点、每条折算 0.36 个客单价的后续转化折损，折算 0.83%，合计 1.33% 客单价。</p>
+<p data-i18n="post.splitship.p3b">三段合起来，拆单相对整单远发的净差额只有一个式子：净差额 = 近区首重 + 操作费 − 近仓可发重量 × 跨区费率差 − 1.33% × 客单价。令它为零，得到临界近仓重量 w* = (近区首重 + 操作费 − 1.33% × 客单价) ÷ 跨区费率差。</p>
+<p data-i18n="post.splitship.p3c">这个式子只有四个输入，而且三个是合同参数：首重、费率差、操作费都写在承运商与仓配合同里，一年谈一次。唯一能每天变的是客单价。所以 w* 的含义很硬：近仓至少要能发走这么多公斤，拆单才开始付得起；发不到，拆单就是给承运商多交一次首重。</p>
+<h2 data-i18n="post.splitship.h4">四、六类订单算例：月 18,600 单里只有一类过线</h2>
+<p class="table-cap" data-i18n="post.splitship.tcap2">表 2：六类订单的输入参数。远区/近区指收件地址相对两仓的尾程分区；近仓可发重量是订单中近仓有货、可独立成包裹的部分；月单量为三仓合计实测分布。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.splitship.z2c0">订单类</th><th data-i18n="post.splitship.z2c1">远区</th><th data-i18n="post.splitship.z2c2">近区</th><th data-i18n="post.splitship.z2c3">总重（kg）</th><th data-i18n="post.splitship.z2c4">近仓可发（kg）</th><th data-i18n="post.splitship.z2c5">客单价（元）</th><th data-i18n="post.splitship.z2c6">月单量</th></tr></thead>
+<tbody>
+<tr><td>O1 2-SKU 轻件</td><td>zone 8</td><td>zone 2</td><td>0.90</td><td>0.35</td><td>168</td><td>6,200</td></tr>
+<tr><td>O2 3-SKU 中件</td><td>zone 7</td><td>zone 3</td><td>3.20</td><td>1.80</td><td>420</td><td>4,900</td></tr>
+<tr><td>O3 4-SKU 抛货</td><td>zone 6</td><td>zone 2</td><td>6.50</td><td>4.20</td><td>690</td><td>3,400</td></tr>
+<tr><td>O4 5-SKU 重件</td><td>zone 8</td><td>zone 4</td><td>9.80</td><td>7.15</td><td>980</td><td>2,100</td></tr>
+<tr><td>O5 5-SKU 套件</td><td>zone 8</td><td>zone 2</td><td>14.20</td><td>11.60</td><td>1,860</td><td>620</td></tr>
+<tr><td>O6 3-SKU 礼盒</td><td>zone 7</td><td>zone 2</td><td>5.40</td><td>3.90</td><td>1,240</td><td>1,380</td></tr>
+</tbody>
+</table>
+</div>
+<p class="table-cap" data-i18n="post.splitship.tcap3">表 3：六类订单的成本与判定（元/单）。费率差节省 = 近仓可发重量 × 跨区费率差；多付 = 近区首重 + 操作费 8.50；净差额 = 全远发运费 + 多付 − 费率差节省 − 时效收益，为正表示拆单更贵。临界 w* 单位 kg。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.splitship.z3c0">订单类</th><th data-i18n="post.splitship.z3c1">全远发运费</th><th data-i18n="post.splitship.z3c2">拆单运费（含操作费）</th><th data-i18n="post.splitship.z3c3">费率差节省</th><th data-i18n="post.splitship.z3c4">多付首重＋操作费</th><th data-i18n="post.splitship.z3c5">时效收益</th><th data-i18n="post.splitship.z3c6">净差额</th><th data-i18n="post.splitship.z3c7">临界 w*（kg）</th><th data-i18n="post.splitship.z3c8">判定</th></tr></thead>
+<tbody>
+<tr><td>O1 2-SKU 轻件</td><td>44.99</td><td>78.70</td><td>0.79</td><td>34.50</td><td>2.23</td><td>+31.48</td><td>14.34</td><td>整单远发</td></tr>
+<tr><td>O2 3-SKU 中件</td><td>55.50</td><td>89.38</td><td>2.83</td><td>36.70</td><td>5.59</td><td>+28.29</td><td>19.82</td><td>整单远发</td></tr>
+<tr><td>O3 4-SKU 抛货</td><td>69.78</td><td>97.97</td><td>6.30</td><td>34.50</td><td>9.18</td><td>+19.02</td><td>16.88</td><td>整单远发</td></tr>
+<tr><td>O4 5-SKU 重件</td><td>99.28</td><td>127.56</td><td>10.73</td><td>39.00</td><td>13.03</td><td>+15.24</td><td>17.31</td><td>整单远发</td></tr>
+<tr><td>O5 5-SKU 套件</td><td>126.12</td><td>134.52</td><td>26.10</td><td>34.50</td><td>24.74</td><td>-16.34</td><td>4.34</td><td>拆单</td></tr>
+<tr><td>O6 3-SKU 礼盒</td><td>68.09</td><td>95.30</td><td>7.29</td><td>34.50</td><td>16.49</td><td>+10.71</td><td>9.63</td><td>整单远发</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.splitship.p4a">六类的结论几乎没有悬念：五类净亏，金额从 10.71 元（O6 礼盒单）到 31.48 元（O1 轻件单）。亏损的排序不是按重量排的，是按 w* 与实发重量的比值排的：O1 的 w* 是 14.34 kg，实际只能发 0.35 kg，差 41 倍，亏得最狠；O6 的 w* 是 9.63 kg，实际 3.90 kg，差 2.5 倍，亏得最轻。</p>
+<p data-i18n="post.splitship.p4b">唯一过线的是 O5：14.20 kg 的套件单，近仓能发 11.60 kg，w* 只有 4.34 kg，净省 16.34 元。它占月单量 3.33%。这个占比不是巧合——套件单的重量集中在近仓可发的部分，且客单价 1,860 元把时效收益推到 24.74 元，两者同时成立，阈值才被突破。</p>
+<h2 data-i18n="post.splitship.h5">五、拆单的收益不在运费里：O5 的 26.10 对 26.00</h2>
+<p data-i18n="post.splitship.p5a">把 O5 的账单独拆开，会看到一件容易被忽略的事。这单拆单省的费率差是 11.60 × 2.25 = 26.10 元；多付的近区首重是 26.00 元；两个数字几乎相等，运费层面拆单只省了 0.10 元。再把 8.50 元操作费算进去，运费这一层是净多付 8.40 元。整单最终净省 16.34 元，全部来自 24.74 元的时效收益。</p>
+<p data-i18n="post.splitship.p5b">这条结论会改变谈判对象。如果拆单的收益来自运费，团队该去找承运商谈费率；既然收益来自时效，该谈的是仓网与客单价结构。同一个逻辑也解释了为什么 O6（客单价 1,240 元、近区首重 26.00 元）差 10.71 元没过线：它的时效收益 16.49 元已经不小，但省下的费率差只有 7.29 元，抵不上 36.70 元的多付。</p>
+<h2 data-i18n="post.splitship.h6">六、把操作费从 12 压到 3，救不回五类中的任何一类</h2>
+<p class="table-cap" data-i18n="post.splitship.tcap4">表 4：操作费敏感性下的净差额（元/单）。负数表示拆单更省。拆单类数在四个取值上恒为 1 类。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.splitship.z4c0">订单类</th><th data-i18n="post.splitship.z4c1">操作费 3.00</th><th data-i18n="post.splitship.z4c2">操作费 6.00</th><th data-i18n="post.splitship.z4c3">操作费 8.50（基准）</th><th data-i18n="post.splitship.z4c4">操作费 12.00</th></tr></thead>
+<tbody>
+<tr><td>O1 2-SKU 轻件</td><td>+25.98</td><td>+28.98</td><td>+31.48</td><td>+34.98</td></tr>
+<tr><td>O2 3-SKU 中件</td><td>+22.79</td><td>+25.79</td><td>+28.29</td><td>+31.79</td></tr>
+<tr><td>O3 4-SKU 抛货</td><td>+13.52</td><td>+16.52</td><td>+19.02</td><td>+22.52</td></tr>
+<tr><td>O4 5-SKU 重件</td><td>+9.74</td><td>+12.74</td><td>+15.24</td><td>+18.74</td></tr>
+<tr><td>O5 5-SKU 套件</td><td>-21.84</td><td>-18.84</td><td>-16.34</td><td>-12.84</td></tr>
+<tr><td>O6 3-SKU 礼盒</td><td>+5.21</td><td>+8.21</td><td>+10.71</td><td>+14.21</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.splitship.p6a">这张表最值得看的是“无论怎么压都一样”。操作费从 12.00 砍到 3.00 元、降幅 75%，O1 的亏损从 34.98 元收窄到 25.98 元，仍然亏 25.98 元；O6 从 14.21 元收窄到 5.21 元，仍然亏。判定一次都没变。</p>
+<p data-i18n="post.splitship.p6b">原因在 break-even 操作费上：使净差额为零的操作费上限，O1 是 −22.98 元、O2 是 −19.79 元、O3 是 −10.52 元、O4 是 −6.74 元、O6 是 −2.22 元，全是负数。只有 O5 的 break-even 是 +24.84 元。负数意味着操作费要收到负数——即仓配方倒贴钱——才可能翻盘。真正压住这五类的不是操作费，是第二个包裹 26 到 30.50 元的首重。</p>
+<h2 data-i18n="post.splitship.h7">七、跨区溢价做到 60% 才让第四类翻盘</h2>
+<p class="table-cap" data-i18n="post.splitship.tcap5">表 5：跨区费率溢价敏感性（元/单）。溢价 p 指近区费率相对远区费率的折扣率，即近区 rate = 远区 rate × (1 − p)；基准算例相当于 p = 36.9%（zone 8 的 6.10 对 zone 2 的 3.85）。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.splitship.z5c0">订单类</th><th data-i18n="post.splitship.z5c1">p = 15%</th><th data-i18n="post.splitship.z5c2">p = 30%</th><th data-i18n="post.splitship.z5c3">p = 45%</th><th data-i18n="post.splitship.z5c4">p = 60%</th></tr></thead>
+<tbody>
+<tr><td>O1 2-SKU 轻件</td><td>+31.95</td><td>+31.63</td><td>+31.30</td><td>+30.98</td></tr>
+<tr><td>O2 3-SKU 中件</td><td>+29.57</td><td>+28.03</td><td>+26.48</td><td>+24.94</td></tr>
+<tr><td>O3 4-SKU 抛货</td><td>+21.95</td><td>+18.58</td><td>+15.21</td><td>+11.84</td></tr>
+<tr><td>O4 5-SKU 重件</td><td>+19.42</td><td>+12.88</td><td>+6.34</td><td>-0.20</td></tr>
+<tr><td>O5 5-SKU 套件</td><td>-0.85</td><td>-11.47</td><td>-22.08</td><td>-32.69</td></tr>
+<tr><td>O6 3-SKU 礼盒</td><td>+14.66</td><td>+11.32</td><td>+7.97</td><td>+4.62</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.splitship.p7a">跨区溢价是唯一能真正撬动判定的外部变量。p 从 15% 抬到 60%，年节省从 6,339 元涨到 248,359 元，涨了 39 倍；O5 的净收益从 0.85 元涨到 32.69 元；O4 在 p = 60% 时才第一次过线，净省 0.20 元——几乎贴着零。</p>
+<p data-i18n="post.splitship.p7b">问题是这个变量买不来。八分区地面费率里，zone 8 对 zone 2 的 rate 溢价是 58.4%，这已经接近多数承运商合同区间的上沿；要求 60% 的统一折扣意味着近区费率被压到远区的四成，谈判上等于让对方单独给近区开一条底价线。等这个条件成立，不如改仓网——把近仓可发比重提上去，w* 的门槛可以直接失效。</p>
+<h2 data-i18n="post.splitship.h8">八、组合口径：这条策略值运费的 0.87%，不是战略</h2>
+<p class="table-cap" data-i18n="post.splitship.tcap6">表 6：三种策略的运费与拆单成本口径（元）。全远发为基线；阈值策略只对净差额为负的订单类拆单；全拆为无差别拆单。年化为月值 × 12。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th data-i18n="post.splitship.z6c0">策略</th><th data-i18n="post.splitship.z6c1">月运费（元）</th><th data-i18n="post.splitship.z6c2">年运费（元）</th><th data-i18n="post.splitship.z6c3">相对基线（元/年）</th><th data-i18n="post.splitship.z6c4">拆单订单占比</th></tr></thead>
+<tbody>
+<tr><td>全远发（基线）</td><td>1,168,786</td><td>14,025,437</td><td>—</td><td>0.00%</td></tr>
+<tr><td>阈值拆单</td><td>1,158,657</td><td>13,903,882</td><td>−121,555</td><td>3.33%</td></tr>
+<tr><td>无差别全拆</td><td>1,603,903</td><td>19,246,839</td><td>+5,221,402</td><td>100.00%</td></tr>
+</tbody>
+</table>
+</div>
+<p data-i18n="post.splitship.p8a">月 18,600 单的基线运费是 1,168,786 元，年化 14,025,437 元。阈值策略一年省 121,555 元，占运费 0.87%；全拆一年多付 5,221,402 元，占运费 37.23%。三个数字放在一起，结论很清楚：拆单规则不是战略，是运费表上的第四位小数。但它也不是零——12 万级的年省，够付一个人的绩效，而它只需要一条写进 WMS 的分单判断。</p>
+<p data-i18n="post.splitship.p8b">要提醒一句口径风险：这 0.87% 依赖 1.33% 的时效折算率。如果实际差评与退款的差额只有 0.7%，O5 的净收益会从 16.34 元掉到 4.9 元附近，年省跟着缩到 3 万级；如果差额到 2.2%，O6 也会过线，年省抬到 20 万级。所以 1.33% 这个参数必须用自己的退款与差评工单实测，不能抄别人的。</p>
+<h2 data-i18n="post.splitship.h9">九、执行清单与结语：不可胜在己，拆单只是脚注</h2>
+<p data-i18n="post.splitship.p9a">季度动作四步。第一，把承运商费率表换算成每 zone 的 base 与 rate 两参数，重算每个订单类的 w*，写成一张表交给 WMS。第二，分单规则只在近仓可发重量大于 w* 时触发拆单，其余走整单远发或补货等待——把“能不能拆”变成“该不该拆”。第三，把 1.33% 这个时效折算率接到月度退款与差评工单上，它一变，w* 就变。第四，也是最值钱的一步：盯住近仓可发比重，这个比重从 0.35 提到 0.90，w* 的门槛直接失效，比谈任何费率都快。</p>
+<p data-i18n="post.splitship.p9b">《孙子·军形》讲“昔之善战者，先为不可胜，以待敌之可胜”。拆单是“待敌之可胜”——等费率差、等客单价、等跨区溢价凑齐条件，能赢的订单只有 3.33%。“不可胜在己”的那一半是备齐率：仓网布局与库存前置，让近仓能发走的那部分重量自己长起来。拆单规则是这一题的脚注，不是正文；把脚注当正文写，就是 O1 那笔一年亏 31.48 元乘 6,200 单的账。</p>
+<h2 data-i18n="post.splitship.h10">附：可复现脚本（Python 3，仅标准库）</h2>
+<p data-i18n="post.splitship.p10a">下面这段跑出表 3 到表 6 的全部数字，不依赖任何第三方包。换自己的数据只改 ZONES 与 ORDERS 两处；w* 的公式与正文第三节逐字对应。</p>
+<pre><code># split_ship.py -- multi-warehouse split-shipment break-even (standard library only)
+ZONES = {1: (24.0, 3.60), 2: (26.0, 3.85), 3: (28.2, 4.15), 4: (30.5, 4.60),
+         5: (32.8, 4.95), 6: (35.0, 5.35), 7: (37.2, 5.72), 8: (39.5, 6.10)}
+F_OP = 8.5          # picking + packaging + label per extra parcel
+TIME_RATE = 0.0133  # service-downtime recovery as a share of order value
+
+def freight(z, w):
+    base, rate = ZONES[z]
+    return base + rate * w
+
+# name, far zone, near zone, total kg, near-shippable kg, order value, orders/month
+ORDERS = [
+    (&quot;O1 2-SKU light&quot;,   8, 2,  0.90,  0.35,  168, 6200),
+    (&quot;O2 3-SKU mid&quot;,     7, 3,  3.20,  1.80,  420, 4900),
+    (&quot;O3 4-SKU bulki&quot;,   6, 2,  6.50,  4.20,  690, 3400),
+    (&quot;O4 5-SKU heavy&quot;,   8, 4,  9.80,  7.15,  980, 2100),
+    (&quot;O5 5-SKU suite&quot;,   8, 2, 14.20, 11.60, 1860,  620),
+    (&quot;O6 3-SKU gift&quot;,    7, 2,  5.40,  3.90, 1240, 1380),
+]
+
+def solve(f_op=F_OP, p=None):
+    rows, base, best, allsplit = [], 0.0, 0.0, 0.0
+    for name, zf, zn, W, wb, V, q in ORDERS:
+        single = freight(zf, W)
+        if p is not None:                      # near rate discounted off the far rate
+            near = ZONES[zn][0] + ZONES[zf][1] * (1 - p) * wb
+            gap = ZONES[zf][1] * p
+        else:
+            near = freight(zn, wb)
+            gap = ZONES[zf][1] - ZONES[zn][1]
+        split = near + freight(zf, W - wb) + f_op
+        T = TIME_RATE * V
+        net = split - T - single
+        w_star = (ZONES[zn][0] + f_op - T) / gap
+        rows.append((name, single, split, T, net, w_star, &quot;SPLIT&quot; if net &lt; 0 else &quot;ONE&quot;))
+        base += q * single
+        best += q * min(net, 0.0)
+        allsplit += q * net
+    return rows, base, best, allsplit
+
+rows, base, best, allsplit = solve()
+for r in rows:
+    print(&quot;%-18s single=%7.2f split=%7.2f T=%6.2f net=%+8.2f w*=%7.2f %s&quot; % r)
+print(&quot;freight baseline %.0f/month  saving %.0f/yr (%.2f%%)  split-all %+.0f/yr (%.2f%%)&quot;
+      % (base, -best * 12, -best * 12 / (base * 12) * 100, allsplit * 12, allsplit * 12 / (base * 12) * 100))
+print(&quot;split share %.2f%%&quot; % (sum(q for (_, _, _, _, _, _, q), r in zip(ORDERS, rows)
+                                if r[6] == &quot;SPLIT&quot;) / sum(o[6] for o in ORDERS) * 100))
+for f in (3.0, 6.0, 8.5, 12.0):
+    rs, _, _, _ = solve(f_op=f)
+    print(&quot;F=%4.1f &quot; % f + &quot; &quot;.join(&quot;%s:%+7.2f&quot; % (r[0][:2], r[4]) for r in rs))
+for p in (0.15, 0.30, 0.45, 0.60):
+    rs, _, best_p, _ = solve(p=p)
+    print(&quot;p=%.0f%% &quot; % (p * 100) + &quot; &quot;.join(&quot;%s:%+7.2f&quot; % (r[0][:2], r[4]) for r in rs) +
+          &quot;  saving/yr=%+.0f&quot; % (-best_p * 12))</code></pre>
+<p data-i18n="post.splitship.p10b">输出要点：六类净差额 +31.48、+28.29、+19.02、+15.24、−16.34、+10.71 元；w* 14.34 到 4.34 kg；月运费基线 1,168,786 元、年省 121,555 元（0.87%）、全拆多付 5,221,402 元（+37.23%）；拆单占订单 3.33%。逐格与表 3 到表 6 对得上。</p>
+
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

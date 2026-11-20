@@ -5,8 +5,16 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 18 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 01:10:46 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>多仓拆单别只看费率表：跨境尾程拆单的净收益阈值</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html</guid>
+      <pubDate>Fri, 20 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>六类订单、月 18,600 单的拆单算例：拆单省近区费率差 0.79 到 26.10 元，多付首重 26.00 到 30.50 元加操作费 8.50 元。闭式阈值 w* =（首重＋操作费−时效收益）÷ 跨区费率差，六类仅 5-SKU 套件单过线、净省 16.34 元，年省 121,555 元（占运费 0.87%）；无差别全拆一年多付 5,221,402 元、+37.23%。附零依赖脚本。</description>
+    </item>
     <item>
       <title>头程别再看运费单价：空运与海运的单位货值切换阈值</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</link>

@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-20-split-shipment-net-benefit-threshold",
+    en: { title: "Don't Optimise the Rate Card: The Net-Benefit Threshold for Split Shipments", summary: "Six order classes, 18,600 orders a month. Splitting captures a 0.79 to 26.10 yuan inter-zone rate gap but pays a 26.00 to 30.50 second base plus 8.50 handling. The closed-form threshold w* = (base + handling - service recovery) / rate gap clears for one class only: the 5-SKU suite order nets 16.34 yuan, 121,555 a year, 0.87% of freight. Splitting everything costs an extra 5,221,402 yuan, 37.23% of freight. Zero-dependency script included." },
+    title: "多仓拆单别只看费率表：跨境尾程拆单的净收益阈值",
+    date: "2026-11-20",
+    tag: "商业操盘",
+    summary: "六类订单、月 18,600 单的拆单算例：拆单省近区费率差 0.79 到 26.10 元，多付首重 26.00 到 30.50 元加操作费 8.50 元。闭式阈值 w* =（首重＋操作费−时效收益）÷ 跨区费率差，六类仅 5-SKU 套件单过线、净省 16.34 元，年省 121,555 元（占运费 0.87%）；无差别全拆一年多付 5,221,402 元、+37.23%。附零依赖脚本。"
+  },
+  {
     file: "2026-11-18-headhaul-air-sea-threshold",
     en: { title: "Stop Pricing Headhaul by Freight Rate: The Per-Unit Value Threshold Between Air and Sea", summary: "Six SKUs, 32-day sea versus 6-day air, a 28.4 yuan/kg freight gap. Once in-transit capital, safety stock and stockout loss join landed cost, the air-sea call collapses into one per-unit value threshold: 830 yuan for a folding bin, 3,899 for a camp chair, only 154 for headphone accessories. Only the 1,290-yuan SKU flips to air, 7.97% of units buying a 379,065-yuan, 25.35% annual saving." },
     title: "头程别再看运费单价：空运与海运的单位货值切换阈值",

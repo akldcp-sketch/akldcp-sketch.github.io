@@ -5,14 +5,22 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Nov 2026 01:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2026 01:10:46 GMT</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Don't Optimise the Rate Card: The Net-Benefit Threshold for Split Shipments</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-20-split-shipment-net-benefit-threshold.html</guid>
+      <pubDate>Fri, 20 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>Six order classes, 18,600 orders a month. Splitting captures a 0.79 to 26.10 yuan inter-zone rate gap but pays a 26.00 to 30.50 second base plus 8.50 handling. The closed-form threshold w* = (base + handling - service recovery) / rate gap clears for one class only: the 5-SKU suite order nets 16.34 yuan, 121,555 a year, 0.87% of freight. Splitting everything costs an extra 5,221,402 yuan, 37.23% of freight. Zero-dependency script included.</description>
+    </item>
     <item>
       <title>Stop Pricing Headhaul by Freight Rate: The Per-Unit Value Threshold Between Air and Sea</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</link>
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-18-headhaul-air-sea-threshold.html</guid>
       <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
-      <category>Business Operations</category>
+      <category>商业操盘</category>
       <description>Six SKUs, 32-day sea versus 6-day air, a 28.4 yuan/kg freight gap. Once in-transit capital, safety stock and stockout loss join landed cost, the air-sea call collapses into one per-unit value threshold: 830 yuan for a folding bin, 3,899 for a camp chair, only 154 for headphone accessories. Only the 1,290-yuan SKU flips to air, 7.97% of units buying a 379,065-yuan, 25.35% annual saving.</description>
     </item>
     <item>
@@ -21,7 +29,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-16-approval-queue-batch-latency.html</guid>
       <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
       <category>Business Operations</category>
-      <description>The argument nobody can settle in a three-site team is "do we need another head". The question nobody can answer is "which segment does the head actually fix". This piece treats the approval chain as inventory: four ticket types (price changes, replenishment, listings, budget increases), 81 tickets a day, five approval desks. Specialised pools run at 0.2812 to 0.6417 utilisation, and the Kingman approximation puts volume-weighted queue wait at 15.85 minutes; pooled it is 1.009 minutes, a 15.7x gap. Spread those 14.84 minutes over 81 tickets and 22 days and you get 440.6 hours. But the real black hole is not the queue, it is the once-a-day approval window: a 240-minute batch wait that is 93.8% of total dwell time. Going from one batch a day to four cuts monthly delay cost from 166,582 to 55,125 yuan with no new headcount. Adding one dedicated approver at 16,200 yuan a month buys only 17,347 yuan of avoided delay, a net 1,147 yuan and a 17.6-month payback. Move replenishment from 14 to 18 tickets a day and the same hire nets 37,224 yuan.</description>
+      <description>The argument nobody can settle in a three-site team is &quot;do we need another head&quot;. The question nobody can answer is &quot;which segment does the head actually fix&quot;. This piece treats the approval chain as inventory: four ticket types (price changes, replenishment, listings, budget increases), 81 tickets a day, five approval desks. Specialised pools run at 0.2812 to 0.6417 utilisation, and the Kingman approximation puts volume-weighted queue wait at 15.85 minutes; pooled it is 1.009 minutes, a 15.7x gap. Spread those 14.84 minutes over 81 tickets and 22 days and you get 440.6 hours. But the real black hole is not the queue, it is the once-a-day approval window: a 240-minute batch wait that is 93.8% of total dwell time. Going from one batch a day to four cuts monthly delay cost from 166,582 to 55,125 yuan with no new headcount. Adding one dedicated approver at 16,200 yuan a month buys only 17,347 yuan of avoided delay, a net 1,147 yuan and a 17.6-month payback. Move replenishment from 14 to 18 tickets a day and the same hire nets 37,224 yuan.</description>
     </item>
     <item>
       <title>An AI Skill Pack Is Not Finished When It Runs: Golden-Set Wilson Bounds and Weekly Control Limits as the Regression Gate</title>
@@ -37,7 +45,7 @@
       <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-12-rebate-realization-margin.html</guid>
       <pubDate>Thu, 12 Nov 2026 00:00:00 GMT</pubDate>
       <category>Business Operations</category>
-      <description>Six SKUs on 12.37M yuan of monthly revenue: top-tier accrual books 5.421M of gross profit at 43.82% while cash received is 5.143M at 41.58% - 278K yuan and 2.25 points of fiction, 3.336M annualised. Of 672.9K accrued rebate only 395.0K arrives, a 58.69% realization rate; 15% ad budget built on accrued margin overruns by 42K a month. Weighting tiers by twelve-month hit frequency cuts the error to 38K yuan (86.2% reduction), and 18% Q4 volume growth lifts realization to 79.76%. Includes a zero-dependency Python script.</description>
+      <description>Six SKUs on 12.37M yuan of monthly revenue: top-tier accrual books 5.421M of gross profit at 43.82% while cash received is 5.143M at 41.58% — 278K yuan and 2.25 points of fiction, 3.336M annualised. Of 672.9K accrued rebate only 395.0K arrives, a 58.69% realization rate; 15% ad budget built on accrued margin overruns by 42K a month. Weighting tiers by twelve-month hit frequency cuts the error to 38K yuan (86.2% reduction), and 18% Q4 volume growth lifts realization to 79.76%. Includes a zero-dependency Python script.</description>
     </item>
     <item>
       <title>Stop Sizing Safety Stock in Days: Service Level, Lead-Time Variance and the Stockout Cost Triangle</title>
