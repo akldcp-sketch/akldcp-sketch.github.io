@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界 - 扶摇</title>
+  <meta name="description" content="六类 SKU、年采购额 592.10 万元的 MOQ 阶梯折扣算例：折扣节省要先扣掉多压库存的持有成本 2.97%/月与季节性尾货沉淀，闭式阈值 d* 判定 4 类该跨档、2 类必须留档。账面折扣 26.23 万元高估 2.14 倍，阈值口径实得 12.26 万元、仅占采购额 2.07%。附零依赖脚本。">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:title" content="MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界 - 扶摇">
+  <meta property="og:description" content="六类 SKU、年采购额 592.10 万元的 MOQ 阶梯折扣算例：折扣节省要先扣掉多压库存的持有成本 2.97%/月与季节性尾货沉淀，闭式阈值 d* 判定 4 类该跨档、2 类必须留档。账面折扣 26.23 万元高估 2.14 倍，阈值口径实得 12.26 万元、仅占采购额 2.07%。附零依赖脚本。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界 - 扶摇">
+  <meta name="twitter:description" content="六类 SKU、年采购额 592.10 万元的 MOQ 阶梯折扣算例：折扣节省要先扣掉多压库存的持有成本 2.97%/月与季节性尾货沉淀，闭式阈值 d* 判定 4 类该跨档、2 类必须留档。账面折扣 26.23 万元高估 2.14 倍，阈值口径实得 12.26 万元、仅占采购额 2.07%。附零依赖脚本。">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html"},"headline":"MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界","description":"六类 SKU、年采购额 592.10 万元的 MOQ 阶梯折扣算例：折扣节省要先扣掉多压库存的持有成本 2.97%/月与季节性尾货沉淀，闭式阈值 d* 判定 4 类该跨档、2 类必须留档。账面折扣 26.23 万元高估 2.14 倍，阈值口径实得 12.26 万元、仅占采购额 2.07%。附零依赖脚本。","inLanguage":"zh-CN","datePublished":"2026-11-22","dateModified":"2026-11-22","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"商业操盘","keywords":"MOQ 阶梯折扣, 临界折扣率, 跨档采购净收益, 尾货沉淀, 持有成本率, 采购谈判"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"商业思维","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界","item":"https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html"},"headline":"MOQ Tier Discounts Are Not a Discount Question: The Net-Benefit Threshold for Stepping Up","description":"Six SKUs, 5,921,040 yuan of annual spend: a tier discount has to pay for the carrying cost of the extra stock at 2.97% a month and for the seasonal leftover write-down. The closed-form threshold d* clears four SKUs and blocks two. The paper discount of 262,266 overstates the gain 2.14 times; the threshold reading is 122,574, 2.07% of spend. Zero-dependency script included.","inLanguage":"en","datePublished":"2026-11-22","dateModified":"2026-11-22","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"Business Operations","keywords":"MOQ tier discount, break-even discount, tier step-up net benefit, leftover write-down, carrying cost, purchasing negotiation"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Business Thinking","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"MOQ Tier Discounts Are Not a Discount Question: The Net-Benefit Threshold for Stepping Up","item":"https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html"}]}</script>
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../business-thinking.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.moq.title">MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界</h1>
+        <p class="post-meta"><time datetime="2026-11-22">2026-11-22</time> · <span data-i18n="post.moq.tag">商业操盘</span></p>
+        <div class="post-body">
+        <p data-i18n="post.moq.lead">供应商给阶梯价，多数团队按折扣率高低拍板：5% 比 3% 好，能跨档就跨。把六个 SKU 的账摊开，结论是反的——折扣节省只站在收入这一侧，另一侧压着资金占用、仓储与贬值三笔持有成本，还有季节性 SKU 的尾货沉淀；唯一能对冲的是一个最容易被漏掉的项：断货不再发生、毛利润没有丢掉的那部分。年采购额 592.10 万元，账面折扣 26.23 万元，扣完这三块只剩 12.26 万元，占采购额 2.07%。六类里 4 类该跨档、2 类必须留在本档；若按折扣率无差别全跨，年净收益掉到 6.23 万元，账面口径高估 2.14 倍。</p>
+        <h2 data-i18n="post.moq.h1">一、折扣率不能和持有成本率直接比：压仓月数是隐藏乘数</h2>
+        <p data-i18n="post.moq.p1a">误判发生在任何算术之前：把折扣率和资金成本率放在一起看。“月资金成本 0.667%，折扣 3.5%，划算”——这个比较漏了压仓月数。折扣是一次性的，持有成本是按月走的时间账，两者之间差一个乘数：这批货你要多压几个月。3.5% 的折扣，若多压 3 个月，按 2.97%/月的持有成本算就是 8.91%，已经反超。</p>
+        <p data-i18n="post.moq.p1b">六个 SKU 的覆盖月数从 1.88 到 4.06，差 2.2 倍。试试最容易想到的简化指标——折扣率 ÷ 覆盖月数，当作月度净率看：S1 收纳箱 1.87%，S5 防潮垫 1.85%，几乎一模一样，但一个该跨档、一个必须不跨。这个指标在真实数据上直接失效，所以下面全部改用净收益口径。</p>
+        <h2 data-i18n="post.moq.h2">二、净收益的四个组成：折扣节省、持有成本、尾货沉淀、缺货对冲</h2>
+        <p data-i18n="post.moq.p2a">折扣节省最直观：跨档后的单价乘以跨档数量。持有成本按月率 m = 资金 0.667% + 仓储摊销 1.5% + 贬值 0.8% = 2.97%，作用在平均多压的库存上——库存从本档爬到下一档，取一半作为均值——再乘沉淀月数。尾货沉淀只咬季节性 SKU：季末卖不掉的按折价率 k 损掉，比例用历史尾货率 φ 估。尾货这一项的杀伤力取决于产品结构，不取决于供应商。</p>
+        <p data-i18n="post.moq.p2b">第三块是团队最容易漏的，而且不小：库存压厚了，断货概率下降，没丢掉的毛利就回来了。它凭什么算进采购决策？因为断货丢的是毛利润——不是运费，也不是折扣——而毛利润和你在谈的那点折扣，在同一张损益表上。按断货率差乘月销量、再乘单价与毛利率 0.42 算回。</p>
+        <h2 data-i18n="post.moq.h3">三、闭式阈值：临界折扣率 d* 是怎么算出来的</h2>
+        <p data-i18n="post.moq.p3a">令净收益为零，解出临界折扣率。结构可读：持有项带 Δ²/(4D)——跨档量翻倍，多压的件数和压着的月数一起涨，所以是平方；尾货项带 k·φ，是线性的；缺货对冲是唯一的减项，权重看客单价与毛利率。d* 高于合同折扣，这一档就不该跨。</p>
+        <pre class="formula"><code>d* = [ p·m·Δ² / (4D) + p·k·φ·Δ − D·a0·(1 − 1/T)·p·G ] / (Q1·p)</code></pre>
+        <p class="table-cap" data-i18n="post.moq.formula">式中：Δ = Q2 − Q1 为跨档多压件数，D 为月销量，Q1 为本档量、Q2 为下一档量，T = Q2 / D 为覆盖月数；p 为采购单价，m = 2.97%/月 为月度持有成本率，k 为尾货折价率，φ 为尾货率，a0 为现断货率，G = 0.42 为毛利率。</p>
+        <p data-i18n="post.moq.p3b">六个输入里，四个是合同或历史：单价、两档数量、尾货折价与尾货率；两个是判断：月度持有成本率、现断货率。所以 d* 不是供应商给的数，是你自己算出来的数。公式还说明一件反直觉的事：同一笔折扣，覆盖月数拖得越长，缺货对冲的力度越大（T 从 2 到 4，系数从 0.5 到 0.75），但持有成本是平方级上涨——这就是为什么“多压一点更安全”在低价高频品上成立，在高单价季节性品上不成立。</p>
+        <h2 data-i18n="post.moq.h4">四、六类 SKU 算例：4 类该跨档、2 类必须留档</h2>
+        <p class="table-cap" data-i18n="post.moq.tcap1">表 1：六类 SKU 的阶梯输入参数（元）。覆盖月 T = 下一档数量 ÷ 月销量；尾货率 φ 取过去两个同季度的实际沉淀比例；断货率 a0 为现档位下的实测缺货比。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.moq.t1c0">SKU</th>
+                <th data-i18n="post.moq.t1c1">单价 p（元）</th>
+                <th data-i18n="post.moq.t1c2">月销量 D</th>
+                <th data-i18n="post.moq.t1c3">本档 Q1</th>
+                <th data-i18n="post.moq.t1c4">下一档 Q2</th>
+                <th data-i18n="post.moq.t1c5">折扣 d</th>
+                <th data-i18n="post.moq.t1c6">尾货折价 k</th>
+                <th data-i18n="post.moq.t1c7">尾货率 φ</th>
+                <th data-i18n="post.moq.t1c8">断货率 a0</th>
+                <th data-i18n="post.moq.t1c9">覆盖月 T</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>S1 收纳箱</td>
+                <td>38.0</td>
+                <td>3,200</td>
+                <td>3,200</td>
+                <td>6,000</td>
+                <td>3.50%</td>
+                <td>15%</td>
+                <td>6%</td>
+                <td>3.5%</td>
+                <td>1.88</td>
+              </tr>
+              <tr>
+                <td>S2 折叠椅</td>
+                <td>96.0</td>
+                <td>850</td>
+                <td>900</td>
+                <td>2,800</td>
+                <td>5.00%</td>
+                <td>30%</td>
+                <td>42%</td>
+                <td>4.0%</td>
+                <td>3.29</td>
+              </tr>
+              <tr>
+                <td>S3 露营灯</td>
+                <td>52.0</td>
+                <td>2,100</td>
+                <td>2,100</td>
+                <td>5,000</td>
+                <td>4.00%</td>
+                <td>20%</td>
+                <td>9%</td>
+                <td>4.5%</td>
+                <td>2.38</td>
+              </tr>
+              <tr>
+                <td>S4 地钉套装</td>
+                <td>12.5</td>
+                <td>5,600</td>
+                <td>5,600</td>
+                <td>22,000</td>
+                <td>6.00%</td>
+                <td>18%</td>
+                <td>11%</td>
+                <td>3.0%</td>
+                <td>3.93</td>
+              </tr>
+              <tr>
+                <td>S5 防潮垫</td>
+                <td>68.0</td>
+                <td>640</td>
+                <td>700</td>
+                <td>2,600</td>
+                <td>7.50%</td>
+                <td>35%</td>
+                <td>38%</td>
+                <td>5.0%</td>
+                <td>4.06</td>
+              </tr>
+              <tr>
+                <td>S6 保温水壶</td>
+                <td>45.0</td>
+                <td>1,500</td>
+                <td>1,500</td>
+                <td>3,000</td>
+                <td>2.50%</td>
+                <td>22%</td>
+                <td>8%</td>
+                <td>3.8%</td>
+                <td>2.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-cap" data-i18n="post.moq.tcap2">表 2：六类 SKU 的净收益分解（元/采购周期）。净 = 折扣省 − 持有成本 − 尾货沉淀 + 缺货对冲；年化 = 净 × 年采购周期数（12D/Q1）。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.moq.t2c0">SKU</th>
+                <th data-i18n="post.moq.t2c1">折扣省</th>
+                <th data-i18n="post.moq.t2c2">持有成本</th>
+                <th data-i18n="post.moq.t2c3">尾货沉淀</th>
+                <th data-i18n="post.moq.t2c4">缺货对冲</th>
+                <th data-i18n="post.moq.t2c5">净/周期</th>
+                <th data-i18n="post.moq.t2c6">年周期数</th>
+                <th data-i18n="post.moq.t2c7">年化</th>
+                <th data-i18n="post.moq.t2c8">阈值 d* 判定</th>
+                <th data-i18n="post.moq.t2c9">判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>S1 收纳箱</td>
+                <td>7,980</td>
+                <td>691</td>
+                <td>958</td>
+                <td>834</td>
+                <td>+7,165</td>
+                <td>6.40</td>
+                <td>+45,858</td>
+                <td>0.36%</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+              <tr>
+                <td>S2 折叠椅</td>
+                <td>13,440</td>
+                <td>3,027</td>
+                <td>22,982</td>
+                <td>955</td>
+                <td>−11,615</td>
+                <td>3.64</td>
+                <td>−42,312</td>
+                <td>9.32%</td>
+                <td data-i18n="post.moq.vstay">留本档</td>
+              </tr>
+              <tr>
+                <td>S3 露营灯</td>
+                <td>10,400</td>
+                <td>1,546</td>
+                <td>2,714</td>
+                <td>1,197</td>
+                <td>+7,336</td>
+                <td>5.04</td>
+                <td>+36,976</td>
+                <td>1.18%</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+              <tr>
+                <td>S4 地钉套装</td>
+                <td>16,500</td>
+                <td>4,458</td>
+                <td>4,059</td>
+                <td>657</td>
+                <td>+8,641</td>
+                <td>3.05</td>
+                <td>+26,394</td>
+                <td>2.86%</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+              <tr>
+                <td>S5 防潮垫</td>
+                <td>13,260</td>
+                <td>2,848</td>
+                <td>17,184</td>
+                <td>689</td>
+                <td>−6,083</td>
+                <td>2.95</td>
+                <td>−17,967</td>
+                <td>10.94%</td>
+                <td data-i18n="post.moq.vstay">留本档</td>
+              </tr>
+              <tr>
+                <td>S6 保温水壶</td>
+                <td>3,375</td>
+                <td>501</td>
+                <td>1,188</td>
+                <td>539</td>
+                <td>+2,224</td>
+                <td>6.00</td>
+                <td>+13,347</td>
+                <td>0.85%</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.moq.p4a">先看两个失败案例，教训都在这里。S2 折叠椅拿到全场最高的 5.00% 折扣，一个周期省 13,440 元；但它的覆盖月数拖到 3.29，尾货率 42%，光尾货沉淀就 22,982 元，是折扣的 1.7 倍，净 −11,615 元，临界 d* 9.32%——供应商得给到 9.32% 这笔账才持平，桌上是 5%。S5 防潮垫重复同一个剧本：7.50% 的折扣看着最诱人，尾货沉淀 17,184 元对折扣 13,260 元，临界 d* 10.94%。</p>
+        <p data-i18n="post.moq.p4b">过线的四类是同一套算术的另一半。S1 收纳箱覆盖 1.88 个月、尾货率 6%：折扣 7,980 元对持有 691 元加尾货 958 元，净 +7,165 元/周期，年化 45,858 元，临界 0.36%。S6 保温水壶的折扣只有 2.50%，全场最小，但覆盖 2.00 个月、尾货率 8%，临界 d* 只有 0.85%，2.5% 轻松过线，年化 13,347 元。S4 地钉套装折扣绝对额最大（16,500 元），年化却是四类里最低的 26,394 元——月销 5,600 件对 22,000 件的档位，一年只走 3.05 个采购周期。</p>
+        <h2 data-i18n="post.moq.h5">五、账面折扣高估 2.14 倍：26.23 万对 12.26 万</h2>
+        <p class="table-cap" data-i18n="post.moq.tcap3">表 3：三种口径的年净收益（元）。账面口径 = 年采购额 × 折扣率，不做任何扣减；阈值口径只对 d ≥ d* 的 SKU 跨档；无差别全跨档对所有 SKU 按折扣率跨档。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.moq.t3c0">口径</th>
+                <th data-i18n="post.moq.t3c1">年净收益（元）</th>
+                <th data-i18n="post.moq.t3c2">占采购额</th>
+                <th data-i18n="post.moq.t3c3">过线 SKU 数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="post.moq.t3r1">账面口径（按折扣率）</td>
+                <td>262,266</td>
+                <td>4.43%</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td data-i18n="post.moq.t3r2">阈值口径（d ≥ d*）</td>
+                <td>122,574</td>
+                <td>2.07%</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td data-i18n="post.moq.t3r3">无差别全跨档</td>
+                <td>62,295</td>
+                <td>1.05%</td>
+                <td>6</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.moq.p5a">阈值口径与全跨档差 60,279 元/年，正好是两条负线之和：S2 的 −42,312 加 S5 的 −17,967。账面口径 4.43% 不是算错了，是符号约定错了——它默认折扣到账、其他一切不动。真实世界里折扣一到账，多压的库存、季末的尾货、账上的资金占用同时动。</p>
+        <h2 data-i18n="post.moq.h6">六、敏感度：持有成本率翻不动判定，尾货率才是开关</h2>
+        <p class="table-cap" data-i18n="post.moq.tcap4">表 4：月度持有成本率 m 的敏感度（年化净收益，元）。基准 m = 2.97%；2.17% 对应自有仓、4.00% 与 5.50% 对应第三方仓与高贬值品类。四个取值上过线 SKU 恒为 4 类。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.moq.t4c0">SKU</th>
+                <th data-i18n="post.moq.t4c1">m = 2.17%</th>
+                <th data-i18n="post.moq.t4c2">m = 2.97%（基准）</th>
+                <th data-i18n="post.moq.t4c3">m = 4.00%</th>
+                <th data-i18n="post.moq.t4c4">m = 5.50%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>S1 收纳箱</td>
+                <td>+47,050</td>
+                <td>+45,858</td>
+                <td>+44,324</td>
+                <td>+42,089</td>
+              </tr>
+              <tr>
+                <td>S2 折叠椅</td>
+                <td>−39,341</td>
+                <td>−42,312</td>
+                <td>−46,136</td>
+                <td>−51,706</td>
+              </tr>
+              <tr>
+                <td>S3 露营灯</td>
+                <td>+39,075</td>
+                <td>+36,976</td>
+                <td>+34,273</td>
+                <td>+30,337</td>
+              </tr>
+              <tr>
+                <td>S4 地钉套装</td>
+                <td>+30,061</td>
+                <td>+26,394</td>
+                <td>+21,672</td>
+                <td>+14,795</td>
+              </tr>
+              <tr>
+                <td>S5 防潮垫</td>
+                <td>−15,701</td>
+                <td>−17,967</td>
+                <td>−20,884</td>
+                <td>−25,133</td>
+              </tr>
+              <tr>
+                <td>S6 保温水壶</td>
+                <td>+14,157</td>
+                <td>+13,347</td>
+                <td>+12,304</td>
+                <td>+10,785</td>
+              </tr>
+              <tr>
+                <td>过线 SKU 数</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>年净合计</td>
+                <td>+130,343</td>
+                <td>+122,574</td>
+                <td>+112,572</td>
+                <td>+98,006</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.moq.p6a">m 从 2.17% 抬到 5.50%，增幅 153%，年净只从 130,343 元掉到 98,006 元，降幅 24.8%，过线类数一次都没变。结论很硬：别在持有成本率上做文章，它不是决策变量。仓储成本算错会看错金额，不会看错档位。</p>
+        <p class="table-cap" data-i18n="post.moq.tcap5">表 5：尾货率 φ 的翻转点。φ* 是把该 SKU 净收益压到零的尾货率；实际 φ 高于 φ* 即不该跨档。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.moq.t5c0">SKU</th>
+                <th data-i18n="post.moq.t5c1">实际尾货率 φ</th>
+                <th data-i18n="post.moq.t5c2">φ* 翻转判定</th>
+                <th data-i18n="post.moq.t5c3">缺口</th>
+                <th data-i18n="post.moq.t5c4">判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>S1 收纳箱</td>
+                <td>6%</td>
+                <td>50.9%</td>
+                <td>−44.9 pt</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+              <tr>
+                <td>S2 折叠椅</td>
+                <td>42%</td>
+                <td>20.8%</td>
+                <td>+21.2 pt</td>
+                <td data-i18n="post.moq.vstay">留本档</td>
+              </tr>
+              <tr>
+                <td>S3 露营灯</td>
+                <td>9%</td>
+                <td>33.3%</td>
+                <td>−24.3 pt</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+              <tr>
+                <td>S4 地钉套装</td>
+                <td>11%</td>
+                <td>34.4%</td>
+                <td>−23.4 pt</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+              <tr>
+                <td>S5 防潮垫</td>
+                <td>38%</td>
+                <td>24.5%</td>
+                <td>+13.5 pt</td>
+                <td data-i18n="post.moq.vstay">留本档</td>
+              </tr>
+              <tr>
+                <td>S6 保温水壶</td>
+                <td>8%</td>
+                <td>23.0%</td>
+                <td>−15.0 pt</td>
+                <td data-i18n="post.moq.vup">跨档</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.moq.p6b">真正能翻转结论的只有尾货率。S5 的尾货率只要从 38% 压到 24.5% 以下，跨档就从年亏 17,967 元变成赚；S2 得从 42% 压到 20.8%，难得多。这两个数不是供应商能给的，是选品、预报与季末清仓节奏决定的——也就是说，阶梯折扣这道题真正的解法在商品侧，不在谈判桌。</p>
+        <h2 data-i18n="post.moq.h7">七、反向论证：谈判桌上更值钱的不是跨档，是年框锁价</h2>
+        <p class="table-cap" data-i18n="post.moq.tcap6">表 6：年框锁价与阶梯跨档的对照（元/年）。锁价净收益 = 年采购额 × 折让 − 30% 预付款 × 8% 资金成本；临界折让 2.40%。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.moq.t6c0">方案</th>
+                <th data-i18n="post.moq.t6c1">年净收益（元）</th>
+                <th data-i18n="post.moq.t6c2">对阶梯跨档（122,574）</th>
+                <th data-i18n="post.moq.t6c3">倍数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="post.moq.t6r1">锁价折让 3%</td>
+                <td>+35,526</td>
+                <td>−87,048</td>
+                <td>0.29×</td>
+              </tr>
+              <tr>
+                <td data-i18n="post.moq.t6r2">锁价折让 5%</td>
+                <td>+153,947</td>
+                <td>+31,373</td>
+                <td>1.26×</td>
+              </tr>
+              <tr>
+                <td data-i18n="post.moq.t6r3">锁价折让 8%</td>
+                <td>+331,578</td>
+                <td>+209,004</td>
+                <td>2.70×</td>
+              </tr>
+              <tr>
+                <td data-i18n="post.moq.t6r4">阶梯跨档（阈值口径）</td>
+                <td>+122,574</td>
+                <td>—</td>
+                <td>1.00×</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.moq.p7a">这才是分析该改变对话的地方。同样 592.10 万元的采购额，谈成 12 个月平价锁价，根本不产生跨档库存：收益就是采购额乘折让，唯一成本是 30% 预付款按 8% 计的资金占用，临界折让 2.40%。给到 5% 锁价净 15.39 万元，给到 8% 是 33.16 万元，两个都超过把六个 SKU 的阶梯折扣算到底的 12.26 万元，而且不增加一分钱库存。</p>
+        <p data-i18n="post.moq.p7b">但别急着改口，两个反面的账必须算。第一，预付款是现金出去的：30% 的 592.10 万元是 177.63 万元，直接从周转里抽走，对现金流吃紧的矩阵，这不是免费的。第二，平价锁价是一笔“价格不会跌”的赌注：如果中途供应商自己的目录价降了 6%，你锁的 8% 并没有换来任何额外的东西。所以结论是一个比较式而不是一句口号：当锁价折让 &gt; 阶梯折扣净收益 + 保持灵活性的期权价值，才该改谈锁价。</p>
+        <h2 data-i18n="post.moq.h8">八、季度动作：把档位判断压成一张表</h2>
+        <p data-i18n="post.moq.p8a">第一步，每个 SKU 算出覆盖月 T 与临界折扣 d*，做成一张两列的表，挂在采购共享盘上。第二步，采购时只按 d ≥ d* 跨档，d &lt; d* 留本档、接受分批到货，把“能不能跨”变成“该不该跨”。第三步，把尾货率 φ 接进季末清仓复盘——它是唯一能翻转结论的参数，每季度重算一次。第四步，谈判时把 d* 表摆出来：供应商的档位是固定的，你的 d* 是算出来的，谁手里有表，谁在定价格。</p>
+        <p data-i18n="post.moq.p8b">一个执行细节：这张表对 m 不敏感，但对 m 的两项最容易被拍脑袋——1.5% 的仓储摊销和 0.8% 的贬值率。仓储要用自有仓的真实单件存储成本（租金、人力、货架折旧摊到件），不要用行业均值；贬值率用过去 12 个月的实际跌价记录，不要用财务的存货跌价准备，后者是会计估计，不是现金损失。估错这两项不会改结论，但会让你的年净收益数字上下浮动两成。</p>
+        <h2 data-i18n="post.moq.h9">九、结语：杂于利害</h2>
+        <p data-i18n="post.moq.p9a">《孙子·九变》讲“是故智者之虑，必杂于利害。杂于利而务可信也，杂于害而患可解也”。阶梯折扣就是这句话的标准题型：折扣率是利，尾货率是害，两个数必须落在同一张表上算，单看任何一个都会做错。S2 那个 5.00% 是全场最高的折扣，也是全场最贵的一档——恰恰因为它看上去最划算。</p>
+        <h2 data-i18n="post.moq.h10">附：可复现脚本（Python 3，仅标准库）</h2>
+        <p data-i18n="post.moq.p10a">下面这段跑出表 1 到表 6 的全部数字，不依赖任何第三方包。换自己的数据只改 SKUS 一处，m、WACC、PREPAY 三个参数在顶部。</p>
+        <pre><code class="language-python"># moq_tier.py -- MOQ tier-discount net benefit (standard library only)
+M = 0.0067 + 0.0150 + 0.0080   # monthly carrying rate: capital + warehouse + drift
+G = 0.42                        # gross margin, used to value the stockout recovery
+WACC = 0.08                     # annual cost of capital
+PREPAY = 0.30                   # prepay share demanded by a 12-month price lock
+
+# name, unit cost, monthly demand, tier qty, next tier qty, discount, markdown, leftover rate, stockout rate
+SKUS = [
+    (&quot;S1 storage box&quot;, 38.0, 3200,  3200,  6000, 0.035, 0.15, 0.06, 0.035),
+    (&quot;S2 folding chair&quot;, 96.0,  850,   900,  2800, 0.050, 0.30, 0.42, 0.040),
+    (&quot;S3 camp lantern&quot;,  52.0, 2100,  2100,  5000, 0.040, 0.20, 0.09, 0.045),
+    (&quot;S4 peg set&quot;,       12.5, 5600,  5600, 22000, 0.060, 0.18, 0.11, 0.030),
+    (&quot;S5 moisture mat&quot;,  68.0,  640,   700,  2600, 0.075, 0.35, 0.38, 0.050),
+    (&quot;S6 water bottle&quot;,  45.0, 1500,  1500,  3000, 0.025, 0.22, 0.08, 0.038),
+]
+
+
+def one(p, D, q0, q1, d, k, phi, a0, m=M):
+    delta = q1 - q0                          # extra units held after the step-up
+    t1 = q1 / D                              # months of cover on the new tier
+    save = q1 * p * d                        # discount captured on the whole order
+    hold = p * m * delta * delta / (4 * D)   # avg extra stock x months held
+    dead = p * k * phi * delta               # leftover written down at season end
+    stock = D * a0 * (1 - 1 / t1) * p * G    # stockout recovered, 1/T decay
+    net = save - hold - dead + stock
+    dstar = (hold + dead - stock) / (q1 * p)
+    cyc = 12 * D / q1                        # purchase cycles a year
+    return dict(save=save, hold=hold, dead=dead, stock=stock, net=net,
+                dstar=dstar, cyc=cyc, annual=net * cyc, t1=t1)
+
+
+def table(m=M):
+    return [dict(one(*s[1:], m=m), name=s[0]) for s in SKUS]
+
+
+def flip_phi(s):
+    _, p, D, q0, q1, d, k, _, a0 = s
+    lo, hi = 0.0, 1.0
+    for _ in range(100):
+        mid = (lo + hi) / 2
+        if one(p, D, q0, q1, d, k, mid, a0)[&quot;net&quot;] &lt; 0:
+            hi = mid
+        else:
+            lo = mid
+    return (lo + hi) / 2
+
+
+R = table()
+print(&quot;%-17s %6s %8s %7s %8s %8s %8s %8s %8s&quot; %
+      (&quot;SKU&quot;, &quot;cover&quot;, &quot;discount&quot;, &quot;carry&quot;, &quot;leftover&quot;, &quot;stockout&quot;, &quot;net/cyc&quot;, &quot;annual&quot;, &quot;d*&quot;))
+for r in R:
+    print(&quot;%-17s %6.2f %8.0f %7.0f %8.0f %8.0f %+8.0f %+8.0f %7.2f%%&quot; %
+          (r[&quot;name&quot;], r[&quot;t1&quot;], r[&quot;save&quot;], r[&quot;hold&quot;], r[&quot;dead&quot;], r[&quot;stock&quot;],
+           r[&quot;net&quot;], r[&quot;annual&quot;], r[&quot;dstar&quot;] * 100))
+
+spend = sum(s[1] * s[2] * 12 for s in SKUS)
+paper = sum(s[1] * s[2] * 12 * s[5] for s in SKUS)
+thr = sum(r[&quot;annual&quot;] for r in R if r[&quot;net&quot;] &gt; 0)
+allcross = sum(r[&quot;annual&quot;] for r in R)
+print(&quot;\nspend %.0f | paper %+.0f | threshold %+.0f (%.2f%%) | step-up-all %+.0f (%.2f%%)&quot; %
+      (spend, paper, thr, thr / spend * 100, allcross, allcross / spend * 100))
+print(&quot;threshold - all %.0f | paper / threshold %.2f x&quot; % (thr - allcross, paper / thr))
+
+print(&quot;\n== carrying-rate sensitivity ==&quot;)
+for mm in (0.0217, M, 0.0400, 0.0550):
+    rs = table(mm)
+    print(&quot;m=%.2f%% &quot; % (mm * 100) +
+          &quot; &quot;.join(&quot;%s:%+7.0f&quot; % (r[&quot;name&quot;][:2], r[&quot;annual&quot;]) for r in rs) +
+          &quot; cleared=%d net=%+.0f&quot; % (sum(1 for r in rs if r[&quot;net&quot;] &gt; 0),
+                                     sum(r[&quot;annual&quot;] for r in rs if r[&quot;net&quot;] &gt; 0)))
+
+print(&quot;\n== leftover-rate flip point ==&quot;)
+for s in SKUS:
+    print(s[0], &quot;phi*=%.1f%%&quot; % (flip_phi(s) * 100))
+
+print(&quot;\n== 12-month price lock ==&quot;)
+for g in (0.03, 0.05, 0.08):
+    lock = spend * g - spend * PREPAY * WACC
+    print(&quot;concession %.0f%% lock net %+.0f vs tier %+.0f&quot; % (g * 100, lock, thr))
+print(&quot;lock break-even concession g* = %.2f%%&quot; % (PREPAY * WACC * 100))</code></pre>
+        <p data-i18n="post.moq.p10b">输出要点：六类年化 +45,858、−42,312、+36,976、+26,394、−17,967、+13,347 元；年采购额 5,921,040 元、账面折扣 262,266 元、阈值口径 122,574 元（2.07%）、全跨档 62,295 元（1.05%）；m 四个取值下过线恒为 4 类；锁价临界折让 2.40%，8% 折让净 331,578 元。</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

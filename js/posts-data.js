@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-22-moq-tier-discount-net-benefit-threshold",
+    en: { title: "MOQ Tier Discounts Are Not a Discount Question: The Net-Benefit Threshold for Stepping Up", summary: "Six SKUs, 5,921,040 yuan of spend: the discount is worth 7,980 to 16,500 per cycle against 691 to 4,458 of carrying and 958 to 22,982 of leftover write-down. The closed-form d* clears four SKUs and blocks the two seasonal ones. Threshold reading 122,574 a year (2.07% of spend); stepping up across the board 62,295; the paper figure 262,266 overstates 2.14 times. A twelve-month price lock breaks even at a 2.40% concession and nets 331,578 at 8%. Zero-dependency script included." },
+    title: "MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界",
+    date: "2026-11-22",
+    tag: "商业操盘",
+    summary: "六类 SKU、年采购额 592.10 万元的 MOQ 阶梯折扣算例：折扣省 7,980 到 16,500 元/周期，持有成本 691 到 4,458 元，尾货沉淀 958 到 22,982 元。闭式阈值 d* 判定 4 类跨档（S1 0.36%、S3 1.18%、S4 2.86%、S6 0.85%）、2 类留档（S2 9.32%、S5 10.94%）。阈值口径年净 122,574 元（2.07%），全跨档仅 62,295 元，账面 262,266 元高估 2.14 倍；年框锁价临界折让 2.40%，8% 折让净 331,578 元。附零依赖脚本。"
+  },
+  {
     file: "2026-11-20-split-shipment-net-benefit-threshold",
     en: { title: "Don't Optimise the Rate Card: The Net-Benefit Threshold for Split Shipments", summary: "Six order classes, 18,600 orders a month. Splitting captures a 0.79 to 26.10 yuan inter-zone rate gap but pays a 26.00 to 30.50 second base plus 8.50 handling. The closed-form threshold w* = (base + handling - service recovery) / rate gap clears for one class only: the 5-SKU suite order nets 16.34 yuan, 121,555 a year, 0.87% of freight. Splitting everything costs an extra 5,221,402 yuan, 37.23% of freight. Zero-dependency script included." },
     title: "多仓拆单别只看费率表：跨境尾程拆单的净收益阈值",
