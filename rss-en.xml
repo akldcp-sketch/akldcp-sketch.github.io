@@ -5,8 +5,24 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>Business operations, cross-border growth and AI skill packs — field notes from running a 49-store, 9-brand operation.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Nov 2026 01:12:23 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Stop Watching Volatility: The Settlement-Lag Gate and a Hedge Queue That Actually Pays</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html</guid>
+      <pubDate>Thu, 26 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>FX risk is not a function of volatility but of volatility times settlement lag divided by gross margin. Six currency markets, 28.40 million yuan of collections: one sigma inside a single window burns 6.97% of GBP gross profit, 102.4% of a 6.8% net margin. The lag gate T*=365x(theta*G/sigma)^2 flags five markets as over the line, three of which no amount of renegotiation fixes. Queued by cost-benefit ratio R, the top four cost 207,900 yuan and return 732,965, or 69.0% of the full benefit, while queuing by volume starts with USD, the worst value in the book.</description>
+    </item>
+    <item>
+      <title>Don&#39;t Haggle the Slot Fee: Break-Even Volume and the Commission Structure It Buys</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html</guid>
+      <pubDate>Tue, 24 Nov 2026 00:00:00 GMT</pubDate>
+      <category>Business Operations</category>
+      <description>A live slot fee is an exchange rate, not a price. Six SKUs, tickets of 49 to 1,299 yuan, 611,992 yuan of GMV a session: Q* = (20,000 - 3,000) / (ticket x 17%) splits the list in two. The stool (1.65x), peg bag (1.18x) and light set (1.05x) clear it and take the high-fee low-commission deal at 19,253, 12,740 and 7,075 yuan a session; the folding table (0.78x) and camp cart (0.72x) stay on the low-fee plan. The power station (0.75x) fails both structures and should run on pure commission. Picking per SKU nets 1,423,620 yuan a year, 6.46% of 22,031,712 of GMV, against 890,989 on a flat plan - a 532,624 gap. Raise paid traffic from 6% to 24% and passing SKUs fall from six to none. Zero-dependency script included.</description>
+    </item>
     <item>
       <title>MOQ Tier Discounts Are Not a Discount Question: The Net-Benefit Threshold for Stepping Up</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html</link>

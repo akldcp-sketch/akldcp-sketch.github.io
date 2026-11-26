@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队 - 扶摇</title>
+  <meta name="description" content="汇率风险不看波动率大小，看波动率×账期÷毛利率。六类币种、年回款2,840万元算例：单窗口1σ吃掉GBP站点6.97%毛利，等于净利率6.8%的102.4%；账期闸门T*=365×(θ·G÷σ)²划出五类超标，三类谈账期救不回；按效费比R排队，前四位用20.79万元成本换73.30万元净收益，占全量69.0%。">
+  <meta property="og:title" content="汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队 - 扶摇">
+  <meta property="og:description" content="汇率风险不看波动率大小，看波动率×账期÷毛利率。六类币种、年回款2,840万元算例：单窗口1σ吃掉GBP站点6.97%毛利，等于净利率6.8%的102.4%；账期闸门T*=365×(θ·G÷σ)²划出五类超标，三类谈账期救不回；按效费比R排队，前四位用20.79万元成本换73.30万元净收益，占全量69.0%。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队 - 扶摇">
+  <meta name="twitter:description" content="汇率风险不看波动率大小，看波动率×账期÷毛利率。六类币种、年回款2,840万元算例：单窗口1σ吃掉GBP站点6.97%毛利，等于净利率6.8%的102.4%；账期闸门T*=365×(θ·G÷σ)²划出五类超标，三类谈账期救不回；按效费比R排队，前四位用20.79万元成本换73.30万元净收益，占全量69.0%。">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html"},"headline":"汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队","description":"汇率风险不看波动率大小，看波动率×账期÷毛利率。六类币种、年回款2,840万元算例：单窗口1σ吃掉GBP站点6.97%毛利，等于净利率6.8%的102.4%；账期闸门T*=365×(θ·G÷σ)²划出五类超标，三类谈账期救不回；按效费比R排队，前四位用20.79万元成本换73.30万元净收益，占全量69.0%。","inLanguage":"zh-CN","datePublished":"2026-11-26","dateModified":"2026-11-26","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"商业操盘","keywords":"汇率敞口, 结算账期, 锁汇阀值, 账期闸门, 多币种结算, 毛利弹性, 汇率止损线"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"商业思维","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队","item":"https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html"},"headline":"Stop Watching Volatility: The Settlement-Lag Gate and a Hedge Queue That Actually Pays","description":"FX risk is not a function of volatility but of volatility times settlement lag divided by gross margin. Six currency markets, 28.40 million yuan of collections: one sigma inside a single window burns 6.97% of GBP gross profit, 102.4% of a 6.8% net margin. The lag gate T*=365x(theta*G/sigma)^2 flags five markets as over the line, three of which no amount of renegotiation fixes. Queued by cost-benefit ratio R, the top four cost 207,900 yuan and return 732,965, or 69.0% of the full benefit, while queuing by volume starts with USD, the worst value in the book.","inLanguage":"en","datePublished":"2026-11-26","dateModified":"2026-11-26","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"Business Operations","keywords":"FX exposure, settlement lag, hedge threshold, lag gate, multi-currency, gross margin elasticity, stop line"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Business Thinking","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"Stop Watching Volatility: The Settlement-Lag Gate and a Hedge Queue That Actually Pays","item":"https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html"}]}</script>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../business-thinking.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.fxgate.title">汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队</h1>
+        <p class="post-meta"><time datetime="2026-11-26">2026-11-26</time> · <span data-i18n="post.fxgate.tag">商业操盘</span></p>
+        <div class="post-body">
+        <p data-i18n="post.fxgate.lead">多币种结算的团队把汇率当背景噪声，月底看一眼汇兑损益，然后继续。口径错了：汇率对利润的冲击不看波动率大小，看波动率乘上账期，再乘上毛利对汇率的弹性，而弹性就是毛利率的倒数。六类币种站点、年回款 2,840 万元的算例：单窗口一个标准差的汇率波动，GBP 站点吃掉 6.97% 毛利，等于该站点净利率 6.8% 的 102.4%——一个 σ 就把净利打到零以下；账期闸门 T* = 365 × (θ·G ÷ σ)² 划出六类里五类已超标，其中三类靠缩短账期根本救不回来；锁汇不是全锁，按 R = σ√(2/π) ÷ h 排队，先做前四类只需 207,900 元成本，换来 732,965 元净收益，占全量净收益 1,062,455 元的 69.0%。按回款额排队的话，第一顺位恰恰是效费比最差的 USD。</p>
+        <h2 data-i18n="post.fxgate.h1">一、2,840 万回款里的 5.00%：汇率不是背景噪声</h2>
+        <p data-i18n="post.fxgate.p1a">六类币种站点的年回款合计 2,840 万元，年化汇率波动率从 4.6%（USD）到 9.8%（JPY）。按半正态期望值算，一年不利方向的汇兑损失是 1,420,155 元，占回款的 5.00%。这笔钱不进损益表的「汇兑损益」一行——它分两年、六个币种、上百笔结算陆续落进毛利，等财务把它归集出来，SKU 定价和广告预算已经按错的毛利率调过三轮。</p>
+        <p data-i18n="post.fxgate.p1b">更麻烦的是口径。多数团队盯波动率：JPY 9.8% 高、USD 4.6% 低，结论变成「日元站风险大」。波动率只是三个变量之一。真正决定敞口的是这笔钱暴露多久——账期。账期 21 天的 CAD 站点，σ 只有 5.7%，单窗口冲击 6.19% 毛利，反而高于 σ 6.3% 但账期 14 天的 EUR 的 5.82%。波动率的解释力，不如「波动率除以账期平方根」。</p>
+        <pre class="formula"><code>sigma_T = sigma * sqrt(T / 365)
+impact  = sigma_T / G          # 1-sigma hit to gross profit
+E       = 1 / G                # elasticity of gross profit to FX
+T_gate  = 365 * (theta * G / sigma) ** 2
+R       = sigma * sqrt(2 / pi) / h
+P_new   = P / (1 - x)          # price that restores local-currency revenue</code></pre>
+        <p class="table-cap" data-i18n="post.fxgate.f1cap">式中：σ 为年化汇率波动率，T 为平台回款账期（天），G 为毛利率，θ 为可容忍的汇兑冲击上限（取净利率的一半），h 为远期锁汇年化点差，x 为汇率跌幅。率一律用小数；混用百分数是最常见的错。</p>
+        <h2 data-i18n="post.fxgate.h2">二、账期是敞口的放大器：翻倍只涨 41%，但足够改结论</h2>
+        <p data-i18n="post.fxgate.p2a">汇率近似随机游走，T 天窗口的波动率按时间平方根缩放。账期从 T+14 延到 T+28，敞口涨 1.414 倍，不是 2 倍；从 T+14 延到 T+60，涨 2.07 倍。这条平方根律有个直接用途：给「提前回款」定价。</p>
+        <p data-i18n="post.fxgate.p2b">USD 站点账期 14 天时单窗口 1σ 冲击 3.75% 毛利，延到 28 天是 5.31%。若平台提供的加速回款收 1.2% 手续费，账面上 5.31 − 3.75 = 1.56 个百分点比 1.2% 划算；但 1.56 个百分点是 1σ 情形，取期望要打 0.798 折，实际 1.24 个百分点，与手续费几乎持平，方案恰在临界线。这类账把平方根写出来才算得清，凭「早回款总是好的」下判断，等于用 1.2% 的确定成本换 1.24% 的期望收益，还是带方差的收益。</p>
+        <p class="table-cap" data-i18n="post.fxgate.tcap1">表 1：六类币种站点的结算参数。年回款为折算人民币口径；账期取多平台回款规则的中位数；年化波动率取近 24 个月日频收益标准差年化；锁汇点差取 3 个月远期报价与即期的年化差。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.fxgate.tb1c0">币种</th>
+                <th data-i18n="post.fxgate.tb1c1">年回款（万元）</th>
+                <th data-i18n="post.fxgate.tb1c2">毛利率</th>
+                <th data-i18n="post.fxgate.tb1c3">费用率</th>
+                <th data-i18n="post.fxgate.tb1c4">净利率</th>
+                <th data-i18n="post.fxgate.tb1c5">账期 T</th>
+                <th data-i18n="post.fxgate.tb1c6">年化 σ</th>
+                <th data-i18n="post.fxgate.tb1c7">锁汇点差 h</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>USD</td><td>1,120</td><td>24.0%</td><td>16.0%</td><td>8.0%</td><td>T+14</td><td>4.6%</td><td>1.15%</td></tr>
+              <tr><td>EUR</td><td>620</td><td>21.2%</td><td>13.8%</td><td>7.4%</td><td>T+14</td><td>6.3%</td><td>1.35%</td></tr>
+              <tr><td>GBP</td><td>380</td><td>19.4%</td><td>12.6%</td><td>6.8%</td><td>T+14</td><td>6.9%</td><td>1.45%</td></tr>
+              <tr><td>JPY</td><td>340</td><td>27.1%</td><td>17.0%</td><td>10.1%</td><td>T+21</td><td>9.8%</td><td>0.95%</td></tr>
+              <tr><td>AUD</td><td>230</td><td>24.9%</td><td>17.4%</td><td>7.5%</td><td>T+14</td><td>8.4%</td><td>1.60%</td></tr>
+              <tr><td>CAD</td><td>150</td><td>22.1%</td><td>14.0%</td><td>8.1%</td><td>T+21</td><td>5.7%</td><td>1.40%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 data-i18n="post.fxgate.h3">三、单窗口一个 σ 就吃掉一半净利：弹性是毛利率的倒数</h2>
+        <p data-i18n="post.fxgate.p3a">毛利额对汇率的绝对冲击恒等于回款额乘汇率变动幅度，与毛利率无关——这是第一层容易算错的地方。相对冲击要除毛利率：毛利率越低，同一笔汇兑损失占毛利的比例越高。弹性 E = 1/G，USD 的 24.0% 毛利对应 4.17 倍，GBP 的 19.4% 对应 5.15 倍。低毛利不是「薄利多销」，是「薄利先碎」。</p>
+        <p data-i18n="post.fxgate.p3b">换算到净利口径才是能拍桌子的数。USD 单窗口 1σ 吃掉 3.75% 毛利，占净利率 8.0% 的 46.9%——一个标准差波动，半个净利没了。GBP 是 6.97% 对 6.8%，102.4%：账期 14 天、毛利率 19.4% 的站点，汇率不需要「大幅波动」，正常波动就足以让一个季度的净利归零。这句话该写进周会材料，而不是等年底汇兑损益出来再复盘。</p>
+        <p class="table-cap" data-i18n="post.fxgate.tcap2">表 2：单窗口冲击与账期闸门。闸门 T* 为「单窗口 1σ 冲击等于净利率一半」时反解出的账期上限；判定列「超标」表示现行账期已越过闸门。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.fxgate.tb2c0">币种</th>
+                <th data-i18n="post.fxgate.tb2c1">弹性 1/G</th>
+                <th data-i18n="post.fxgate.tb2c2">1σ 冲击/毛利</th>
+                <th data-i18n="post.fxgate.tb2c3">占净利率</th>
+                <th data-i18n="post.fxgate.tb2c4">闸门 T*（天）</th>
+                <th data-i18n="post.fxgate.tb2c5">现行账期</th>
+                <th data-i18n="post.fxgate.tb2c6">判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>USD</td><td>4.17</td><td>3.75%</td><td>46.9%</td><td>15.9</td><td>T+14</td><td>未超</td></tr>
+              <tr><td>EUR</td><td>4.72</td><td>5.82%</td><td>78.6%</td><td>5.7</td><td>T+14</td><td>超标</td></tr>
+              <tr><td>GBP</td><td>5.15</td><td>6.97%</td><td>102.4%</td><td>3.3</td><td>T+14</td><td>超标</td></tr>
+              <tr><td>JPY</td><td>3.69</td><td>8.67%</td><td>85.9%</td><td>7.1</td><td>T+21</td><td>超标</td></tr>
+              <tr><td>AUD</td><td>4.02</td><td>6.61%</td><td>88.1%</td><td>4.5</td><td>T+14</td><td>超标</td></tr>
+              <tr><td>CAD</td><td>4.52</td><td>6.19%</td><td>76.4%</td><td>9.0</td><td>T+21</td><td>超标</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 data-i18n="post.fxgate.h4">四、账期闸门：五类超标，三类靠谈账期救不回来</h2>
+        <p data-i18n="post.fxgate.p4a">闸门 T* = 365 × (θ·G ÷ σ)²，θ 取净利率的一半，含义是「汇兑冲击不许吃掉超过一半净利」。六类里只有 USD 过关：闸门 15.9 天，现行 T+14。其余五类全超标，最紧的 GBP 是 3.3 天，AUD 4.5 天，EUR 5.7 天，JPY 7.1 天，CAD 9.0 天。</p>
+        <p data-i18n="post.fxgate.p4b">闸门的用处不是催人去谈账期，而是指出哪条路根本走不通。GBP 要把账期压进 3.3 天，现实里没有平台做得到，这条路径直接判死，只剩锁汇或调价；EUR 5.7 天、JPY 7.1 天、AUD 4.5 天同样做不到。六类里五类在「缩短账期」这一栏是空白，闸门真正的输出是：汇率风险必须从运营侧推到财务侧，别再指望靠谈账期解决。这是判断，不是建议。</p>
+        <h2 data-i18n="post.fxgate.h5">五、别按回款额排队：锁汇效费比 R 决定先做谁</h2>
+        <p data-i18n="post.fxgate.p5a">到这一步，团队的标准动作是「全部锁掉」。全锁确实不亏：年期望不利损失 1,420,155 元，锁汇成本 357,700 元，净 1,062,455 元，占回款 3.74%。但额度、保证金、财务人力都有约束时，全锁不是唯一选项，也不是最优启动顺序。</p>
+        <p data-i18n="post.fxgate.p5b">效费比 R = σ√(2/π) ÷ h 给出排序。JPY 以 8.23 排第一：波动率最高 9.8%，点差最便宜 0.95%，日元利差结构使然。USD 以 3.19 排最后：回款额最大，但 1.15% 的点差相对 4.6% 的波动率不便宜。按 R 做前四位——JPY、AUD、GBP、EUR——成本 207,900 元，净收益 732,965 元，占全量净收益的 69.0%，留存敞口 479,289 元。用 58.1% 的成本拿到 69.0% 的收益，后两位随时补。按回款额排队的第一顺位是 USD，而它恰好是效费比最差的一档。</p>
+        <p class="table-cap" data-i18n="post.fxgate.tcap3">表 3：按效费比 R 排序的锁汇队列与分期效果（元/年）。累计净收益为按该顺序做到第 N 类的合计。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.fxgate.tb3c0">顺位</th>
+                <th data-i18n="post.fxgate.tb3c1">币种</th>
+                <th data-i18n="post.fxgate.tb3c2">R</th>
+                <th data-i18n="post.fxgate.tb3c3">年期望损失</th>
+                <th data-i18n="post.fxgate.tb3c4">年锁汇成本</th>
+                <th data-i18n="post.fxgate.tb3c5">累计净收益</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>JPY</td><td>8.23</td><td>265,855</td><td>32,300</td><td>233,555</td></tr>
+              <tr><td>2</td><td>AUD</td><td>4.19</td><td>154,151</td><td>36,800</td><td>350,906</td></tr>
+              <tr><td>3</td><td>GBP</td><td>3.80</td><td>209,205</td><td>55,100</td><td>505,012</td></tr>
+              <tr><td>4</td><td>EUR</td><td>3.72</td><td>311,654</td><td>83,700</td><td>732,965</td></tr>
+              <tr><td>5</td><td>CAD</td><td>3.25</td><td>68,219</td><td>21,000</td><td>780,185</td></tr>
+              <tr><td>6</td><td>USD</td><td>3.19</td><td>411,070</td><td>128,800</td><td>1,062,455</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h2 data-i18n="post.fxgate.h6">六、提价补偿不是加 x%：等价换算是 x ÷ (1 − x)</h2>
+        <p data-i18n="post.fxgate.p6a">用提价抵消汇率跌幅，最常见的错是按跌幅原样加价。本币收入要回到原值，售价得按 P′ = P ÷ (1 − x) 提，因为提价本身也在这笔折算里。跌 5% 要提 5.26%，跌 8% 要提 8.70%，跌 10% 要提 11.11%。跌幅越大两者偏离越明显，10 个百分点时差 1.11 个点，够一个 SKU 的促销预算。</p>
+        <p data-i18n="post.fxgate.p6b">另一半是止损线：净利归零的汇率跌幅，恰好等于净利率。USD 净利率 8.0%，汇率跌 8.0% 就白干；GBP 净利率 6.8%，跌 6.8% 归零；AUD 7.5% 对 7.5%。这条线比「波动率多少算高」有用，因为它对应一个可监控的汇率点位：把开票日即期汇率与预算汇率一比，触及跌幅就触发预定动作，不用开会讨论。</p>
+        <h2 data-i18n="post.fxgate.h7">七、可复现脚本：零依赖，跑一遍复现全部结论</h2>
+        <p data-i18n="post.fxgate.p7a">脚本只用 math，六类币种的参数硬编码在表里，跑出来是上面三张表的全部数字。把自己的账期、点差、毛利率换进去，就能得到自己站点的闸门与排队顺序。</p>
+        <pre><code># fx_settlement_gate.py - settlement-lag gate and hedge queue for multi-currency books
+import math
+
+K = math.sqrt(2 / math.pi)   # half-normal expectation coefficient, 0.7979
+
+# currency, annual collections (CNY), gross margin, opex ratio,
+# settlement lag (days), annualised volatility, annualised hedge spread
+BOOK = [
+    ("USD", 11_200_000, 0.240, 0.160, 14, 0.046, 0.0115),
+    ("EUR",  6_200_000, 0.212, 0.138, 14, 0.063, 0.0135),
+    ("GBP",  3_800_000, 0.194, 0.126, 14, 0.069, 0.0145),
+    ("JPY",  3_400_000, 0.271, 0.170, 21, 0.098, 0.0095),
+    ("AUD",  2_300_000, 0.249, 0.174, 14, 0.084, 0.0160),
+    ("CAD",  1_500_000, 0.221, 0.140, 21, 0.057, 0.0140),
+]
+
+def window_impact(sigma, days, gross):
+    """1-sigma FX impact inside one settlement window, as a share of gross profit."""
+    return sigma * math.sqrt(days / 365) / gross
+
+def lag_gate(gross, net, sigma, tol=0.5):
+    """Longest settlement lag for which a 1-sigma window eats at most tol of net margin."""
+    theta = net * tol
+    return 365 * (theta * gross / sigma) ** 2
+
+def hedge_ratio(sigma, spread):
+    """Expected adverse loss per unit of hedge cost (annualised, half-normal)."""
+    return sigma * K / spread
+
+def reprice(x):
+    """Price increase that restores local-currency revenue after a decline x."""
+    return x / (1 - x)
+
+print(f"{'ccy':4}{'1sig/gross':&gt;11}{'vs net':&gt;8}{'T*':&gt;7}{'over':&gt;6}{'R':&gt;6}")
+rows = []
+for ccy, rev, gross, opex, days, sigma, spread in BOOK:
+    net = gross - opex
+    imp = window_impact(sigma, days, gross)
+    gate = lag_gate(gross, net, sigma)
+    r = hedge_ratio(sigma, spread)
+    rows.append((ccy, rev, sigma, spread, imp, net, gate, r))
+    print(f"{ccy:4}{imp*100:&gt;10.2f}%{imp/net*100:&gt;7.1f}%{gate:&gt;7.1f}{'Y' if days &gt; gate else '-':&gt;6}{r:&gt;6.2f}")
+
+total = sum(r[1] for r in rows)
+loss = sum(r[1] * r[2] * K for r in rows)
+cost = sum(r[1] * r[3] for r in rows)
+print(f"\ncollections {total:,}  expected loss {loss:,.0f} ({loss/total:.2%})")
+print(f"hedge all   cost {cost:,.0f} ({cost/total:.2%})  net {loss-cost:,.0f} ({(loss-cost)/total:.2%})")
+
+print("\nqueue by R (highest first):")
+cum = 0.0
+for ccy, rev, sigma, spread, imp, net, gate, r in sorted(rows, key=lambda x: -x[7]):
+    cum += rev * sigma * K - rev * spread
+    print(f"  {ccy}  R={r:5.2f}  loss {rev*sigma*K:&gt;9,.0f}  cost {rev*spread:&gt;8,.0f}  cum net {cum:&gt;9,.0f}")
+
+print("\nreprice after a decline:")
+for x in (0.02, 0.05, 0.08, 0.10):
+    print(f"  decline {x:.0%} -&gt; raise {reprice(x):.2%}")</code></pre>
+        <h2 data-i18n="post.fxgate.h8">八、落地口径：把 T* 和 R 写进结算表与锁汇日历</h2>
+        <ol>
+          <li data-i18n="post.fxgate.li1">结算表加两列：σ（年化）与 T（账期）。没有这两列，汇率讨论永远停在「最近美元涨了」。</li>
+          <li data-i18n="post.fxgate.li2">每月算一次闸门 T*，超标的站点在锁汇日历上标记。闸门值越小优先级越高，与回款额无关。</li>
+          <li data-i18n="post.fxgate.li3">锁汇按 R 排队，不按金额排队。USD 这类效费比最低的币种放最后，不是它不重要，是它的点差贵，早锁等于多付。</li>
+          <li data-i18n="post.fxgate.li4">提价补偿一律用 x ÷ (1 − x)，不用 x。1 个百分点的差异在低毛利 SKU 上就是一个促销位。</li>
+          <li data-i18n="post.fxgate.li5">把净利率写进汇率监控表当止损线：跌幅触及净利率，当天触发调价或锁汇，不等月末汇兑损益。月末的数字是结论，不是信号。</li>
+        </ol>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

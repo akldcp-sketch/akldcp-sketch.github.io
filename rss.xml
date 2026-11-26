@@ -5,8 +5,24 @@
     <link>https://akldcp-sketch.github.io/blog.html</link>
     <description>商业操盘、跨境增长与 AI 技能包的实战笔记，来自一个 49 店铺、9 品牌的操盘现场。</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Nov 2026 01:12:23 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://akldcp-sketch.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-26-fx-settlement-lag-hedge-gate.html</guid>
+      <pubDate>Thu, 26 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>汇率风险不看波动率大小，看波动率×账期÷毛利率。六类币种、年回款2,840万元算例：单窗口1σ吃掉GBP站点6.97%毛利，等于净利率6.8%的102.4%；账期闸门T*=365×(θ·G÷σ)²划出五类超标，三类谈账期救不回；按效费比R排队，前四位用20.79万元成本换73.30万元净收益，占全量69.0%。</description>
+    </item>
+    <item>
+      <title>直播坑位费别按报价砍：佣金结构的等价销量与保本分界</title>
+      <link>https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html</link>
+      <guid isPermaLink="true">https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html</guid>
+      <pubDate>Tue, 24 Nov 2026 00:00:00 GMT</pubDate>
+      <category>商业操盘</category>
+      <description>达人直播坑位费不是价格问题，是兑换问题。六类 SKU、客单价 49 到 1,299 元、单场 GMV 61.20 万元的算例：等价销量 Q* =（20,000 − 3,000）÷（客单价 × 17%）一条线分出两组，收纳凳 1.65 倍、地钉包 1.18 倍、灯串套装 1.05 倍过高坑位低佣（19,253、12,740、7,075 元/场），折叠桌 0.78 倍、露营车 0.72 倍留低坑位高佣；户外电源 0.75 倍两个结构都跌破保本，应改纯佣。结构择优年净 142.36 万元（占年 GMV 2,203.17 万元的 6.46%），全走低坑位高佣 89.10 万元、差 53.26 万元；投流从 6% 提到 24%，过线 SKU 由 6 类降到 0 类。附零依赖 Python 脚本。</description>
+    </item>
     <item>
       <title>MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界</title>
       <link>https://akldcp-sketch.github.io/posts/2026-11-22-moq-tier-discount-net-benefit-threshold.html</link>

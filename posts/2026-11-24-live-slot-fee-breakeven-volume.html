@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  /* theme-init v1.9（全站统一）：统一 localStorage 键 'theme'；旧键 'site_theme' 自动迁移回写；
+     无记录时跟随系统 prefers-color-scheme；头部提前执行，避免首屏闪白 */
+  (function(){
+    var t = null;
+    try {
+      t = localStorage.getItem('theme');
+      if (!t) {
+        var legacy = localStorage.getItem('site_theme');
+        if (legacy) { t = legacy; localStorage.setItem('theme', legacy); }
+      }
+    } catch (e) {}
+    if (!t) {
+      t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    var root = document.documentElement;
+    root.setAttribute('data-theme', t);
+    root.style.colorScheme = t;
+    function syncMeta() {
+      var m = document.querySelector('meta[name="theme-color"]');
+      if (m) m.setAttribute('content', t === 'dark' ? '#0B1220' : '#FFFFFF');
+    }
+    syncMeta();
+    document.addEventListener('DOMContentLoaded', syncMeta);
+  })();
+</script>
+  <title>直播坑位费别按报价砍：佣金结构的等价销量与保本分界 - 扶摇</title>
+  <meta name="description" content="直播坑位费不是价格问题，是兑换问题。六类 SKU、客单价 49 到 1,299 元、单场 GMV 61.20 万元的算例：等价销量一条线划出三类该走高坑位低佣、三类只配低坑位，客单价 1,299 元的户外电源两个结构都跌破保本。结构择优年净 142.36 万元，全走低坑位高佣仅 89.10 万元。">
+  <meta property="og:title" content="直播坑位费别按报价砍：佣金结构的等价销量与保本分界 - 扶摇">
+  <meta property="og:description" content="直播坑位费不是价格问题，是兑换问题。六类 SKU、客单价 49 到 1,299 元、单场 GMV 61.20 万元的算例：等价销量一条线划出三类该走高坑位低佣、三类只配低坑位，客单价 1,299 元的户外电源两个结构都跌破保本。结构择优年净 142.36 万元，全走低坑位高佣仅 89.10 万元。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html">
+  <meta property="og:site_name" content="扶摇">
+  <meta property="og:image" content="https://akldcp-sketch.github.io/assets/img/og-default.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="直播坑位费别按报价砍：佣金结构的等价销量与保本分界 - 扶摇">
+  <meta name="twitter:description" content="直播坑位费不是价格问题，是兑换问题。六类 SKU、客单价 49 到 1,299 元、单场 GMV 61.20 万元的算例：等价销量一条线划出三类该走高坑位低佣、三类只配低坑位，客单价 1,299 元的户外电源两个结构都跌破保本。结构择优年净 142.36 万元，全走低坑位高佣仅 89.10 万元。">
+  <link rel="canonical" href="https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html"},"headline":"直播坑位费别按报价砍：佣金结构的等价销量与保本分界","description":"直播坑位费不是价格问题，是兑换问题。六类 SKU、客单价 49 到 1,299 元、单场 GMV 61.20 万元的算例：等价销量一条线划出三类该走高坑位低佣、三类只配低坑位，客单价 1,299 元的户外电源两个结构都跌破保本。结构择优年净 142.36 万元，全走低坑位高佣仅 89.10 万元。","inLanguage":"zh-CN","datePublished":"2026-11-24","dateModified":"2026-11-24","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"商业操盘","keywords":"直播坑位费, 达人佣金结构, 等价销量, 保本销量, 投流天花板, 退货损耗"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"商业思维","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"直播坑位费别按报价砍：佣金结构的等价销量与保本分界","item":"https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html"},"headline":"Don't Haggle the Slot Fee: Break-Even Volume and the Commission Structure It Buys","description":"A slot fee is an exchange rate, not a price. Six SKUs, tickets of 49 to 1,299 yuan, 611,992 yuan of GMV a session: break-even volume sends three to the high-fee low-commission deal, keeps three on the low-fee plan, and rules the 1,299-yuan power station out of both. Picking per SKU nets 1,423,620 yuan a year against 890,989 on a flat plan.","inLanguage":"en","datePublished":"2026-11-24","dateModified":"2026-11-24","author":{"@type":"Person","name":"扶摇","url":"https://akldcp-sketch.github.io/","email":"mailto:akldcp@gmail.com","sameAs":["https://github.com/alextok200"]},"publisher":{"@type":"Organization","name":"扶摇","url":"https://akldcp-sketch.github.io/"},"articleSection":"Business Operations","keywords":"live-streaming slot fee, creator commission structure, equivalent volume, break-even volume, paid traffic ceiling, return loss"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://akldcp-sketch.github.io/"},{"@type":"ListItem","position":2,"name":"Business Thinking","item":"https://akldcp-sketch.github.io/business-thinking.html"},{"@type":"ListItem","position":3,"name":"Don't Haggle the Slot Fee: Break-Even Volume and the Commission Structure It Buys","item":"https://akldcp-sketch.github.io/posts/2026-11-24-live-slot-fee-breakeven-volume.html"}]}</script>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#9333ea">
+  <link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<style>
+    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --accent: #9333ea; --line: #e5e7eb; --code-bg: #f6f6f7; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.75; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    .site-header { border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+    .logo { font-weight: 700; text-decoration: none; color: var(--fg); font-size: 18px; }
+    .logo .accent { color: var(--accent); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .lang-btn { background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; font-size: 13px; color: var(--fg); cursor: pointer; }
+    .post { padding: 40px 0 56px; }
+    .eyebrow { margin: 0 0 8px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; }
+    .post-title { font-size: 32px; line-height: 1.3; margin: 0 0 8px; }
+    /* 明亮模式（默认）用压暗色轮避免浅底过曝；暗色模式保留完整霓虹 */
+    .text-gradient{background-image:linear-gradient(92deg,#C0244B 0%,#A44C00 14%,#7F6000 29%,#007539 43%,#00726B 57%,#006B9E 71%,#8F23EA 86%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    :root[data-theme="dark"] .text-gradient{background-image:linear-gradient(92deg,#FF3366 0%,#FF7A00 14%,#FFC400 29%,#00E676 43%,#00D4C8 57%,#00B0FF 71%,#9C27FF 86%);filter:drop-shadow(0 0 14px rgba(255,51,102,.4)) drop-shadow(0 0 26px rgba(0,176,255,.32));}
+    .post-meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .post-body p { margin: 0 0 18px; }
+    .post-body h2 { font-size: 22px; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .table-wrap { overflow-x: auto; margin: 16px 0 20px; }
+    .post-body table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+    .post-body th, .post-body td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+    .post-body th { background: var(--code-bg); font-weight: 600; white-space: nowrap; }
+    .post-body code { background: var(--code-bg); border-radius: 4px; padding: 2px 6px; font-family: "SFMono-Regular", Menlo, Consolas, monospace; font-size: 14px; }
+    .post-body .table-cap { font-size: 13px; color: var(--muted); margin: 18px 0 6px; }
+    .post-body pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; overflow-x: auto; margin: 16px 0 20px; }
+    .post-body pre code { background: none; padding: 0; border-radius: 0; font-size: 13px; line-height: 1.6; white-space: pre; }
+    .post-body pre.formula code { white-space: pre-wrap; font-size: 14px; }
+    .post-body ol, .post-body ul { margin: 0 0 20px; padding-left: 24px; }
+    .post-body li { margin-bottom: 8px; }
+    .site-footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .site-footer p { margin: 4px 0; }
+    .footer-links a { color: var(--muted); text-decoration: none; }
+    .dot { margin: 0 6px; }
+    @media (max-width: 640px) { .post-title { font-size: 26px; } .nav-links { gap: 10px; } }
+    /* 主题对齐（全站统一）：data-theme 优先于系统偏好，配合 theme-init + theme.js */
+    :root[data-theme="light"] { --bg: #ffffff; --fg: #1a1a1a; --muted: #6b7280; --line: #e5e7eb; --code-bg: #f6f6f7; color-scheme: light; }
+    :root[data-theme="dark"] { --bg: #121212; --fg: #ececec; --muted: #9ca3af; --line: #2d2d2d; --code-bg: #1c1c1e; color-scheme: dark; }
+    .logo-mark { width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; border-radius: 4px; }
+    .theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; background: none; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle .icon-moon { display: block; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo"><img class="logo-mark" src="../assets/img/favicon-32.png" alt="">扶摇</a>
+      <div class="nav-links">
+        <a href="../blog.html" data-i18n="nav.blog">最新文章</a>
+        <a href="../archive.html" data-i18n="nav.archive">文汇</a>
+        <a href="../business-thinking.html" data-i18n="nav.business">商业思维</a>
+        <a href="../ai-skill-practice.html" data-i18n="nav.aiSkill">AI技能包实战</a>
+        <a href="../faq.html" data-i18n="nav.faq">常见问题</a>
+        <a href="../newsletter.html" data-i18n="nav.newsletter">订阅</a>
+        <a href="../about.html" data-i18n="nav.about">关于</a>
+        <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题" data-i18n-attr="aria-label:theme.toggle">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="lang-btn" data-i18n-toggle aria-label="切换语言">EN</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <article class="post">
+      <div class="container post-container">
+        <p class="eyebrow"><a href="../business-thinking.html" class="back-link" data-i18n="post.back">← 返回博客</a></p>
+        <h1 class="post-title text-gradient" data-i18n="post.slotfee.title">直播坑位费别按报价砍：佣金结构的等价销量与保本分界</h1>
+        <p class="post-meta"><time datetime="2026-11-24">2026-11-24</time> · <span data-i18n="post.slotfee.tag">商业操盘</span></p>
+        <div class="post-body">
+        <p data-i18n="post.slotfee.lead">达人直播的坑位费，多数团队按报价砍：3,000 元砍到 2,000，20,000 元砍到 15,000。方向错了。坑位费和佣金在同一场里是一对兑换关系——3,000 元坑位费配 25% 佣金，还是 20,000 元配 8%，答案不取决于谁敢砍价，取决于场均能卖多少件。六类 SKU、客单价 49 到 1,299 元、单场 GMV 611,992 元的算例：等价销量 Q* = 17,000 ÷（客单价 × 17%）一条线划出三类该走高坑位低佣、三类只配低坑位；掉的那一类是客单价 1,299 元的户外电源，两个结构都跌破保本，坑位费一分不该付。结构择优年净 142.36 万元（占年 GMV 2,203.17 万元的 6.46%），无差别全走低坑位高佣只有 89.10 万元，差 53.26 万元、+59.78%。</p>
+        <h2 data-i18n="post.slotfee.h1">一、坑位费和佣金是一次兑换：等价销量 Q* 怎么算</h2>
+        <p data-i18n="post.slotfee.p1a">坑位费是固定成本，佣金是变动成本，报表上本来就分两栏，于是团队分两件事谈：让达人降坑位费，同时把佣金压到 20% 以内。可这两栏在同一场直播里是对冲的——达人愿意零坑位费接 30% 佣金，也愿意收 20,000 元只拿 8%。只谈其中一栏，等于把另一半的让价空间白送。</p>
+        <p data-i18n="post.slotfee.p1b">让两个结构的净收益相等，解出来的就是等价销量：Q* =（高佣结构坑位费 − 低佣结构坑位费）÷［客单价 ×（高佣金率 − 低佣金率）］。本题分子是 20,000 − 3,000 = 17,000 元，分母是客单价 × 17 个百分点。于是客单价 89 元的收纳凳要 1,124 件/场才够本，客单价 49 元的地钉包要 2,041 件，客单价 1,299 元的户外电源只要 77 件——同一笔 17,000 元的差价，在高客单上便宜 26.5 倍。这就是坑位费谈判真正的坐标系：不是砍掉多少，而是场均件数落在 Q* 的哪一侧。</p>
+        <pre class="formula"><code>Q* = (F_B − F_A) / [ P × (c_A − c_B) ]
+Q_be = F / ( P × u )      u = G − c − A − r × k
+A_max = G − c − r × k</code></pre>
+        <p class="table-cap" data-i18n="post.slotfee.f1cap">式中：F 为坑位费（元/场），c 为佣金率，P 为客单价（元），G 为毛利率，A 为投流费占成交 GMV 比例，r 为退货率，k 为退货损耗率；u 为单件净贡献（元/件），Q_be 为保本销量（件/场），A_max 为投流天花板。率一律用小数，混用百分数是最常见的错。</p>
+        <h2 data-i18n="post.slotfee.h2">二、保本销量：单件净贡献扣完四笔，才轮得到坑位费</h2>
+        <p data-i18n="post.slotfee.p2a">单件净贡献 u = 毛利率 − 佣金率 − 投流占成交比 − 退货率 × 退货损耗率。前两项是谈判结果，第三项是自己投的，第四项最常被漏：退货率 18%、退货损耗率 12%，等价于 2.16 个百分点的毛利——比这六类 SKU 里四类的单件净贡献率还高。只说退货率不说损耗，等于把逆向运费、质检折价、二次销售折损都当成免费。</p>
+        <p data-i18n="post.slotfee.p2b">保本销量 Q_be = 坑位费 ÷（客单价 × u）。它和 Q* 是两把不同的尺子：Q* 回答两个结构里选哪个，是相对选择；Q_be 回答这个结构本身成不成立，是绝对底线。只算 Q*，会在两个都亏的结构里挑一个亏得少的，然后把这场直播做成“看起来完成了 KPI”的亏损单。</p>
+        <h2 data-i18n="post.slotfee.h3">三、投流天花板：A_max = 毛利率 − 佣金率 − 退货损耗</h2>
+        <p data-i18n="post.slotfee.p3a">投流是场中唯一能放大的变量，但上限被佣金挤占。结构 A（25% 佣金）下，毛利率 38% 的户外电源只剩 10.84% 的空间，地钉包有 22.84%。把投流从 12% 提到 18%，选优后的单场合计净收益从 39,545 元掉到 2,825 元（−92.86%）；提到 24%，六类全部转负、合计 −33,894 元。这条线只说明一件事：单件净贡献为负时，投流加码只会把亏损放大得更快。</p>
+        <p data-i18n="post.slotfee.p3b">反过来，A_max 也是谈佣金的筹码。达人要 25% 佣金时，38% 毛利的品能接受的投流预算上限就从 12% 压到 10.84%——这就是“高佣金必须换低投流”的量化依据，而不是一句经验之谈。谈判表上该有两列：佣金率，和它对应的 A_max。</p>
+        <h2 data-i18n="post.slotfee.h4">四、六类 SKU 算例：三类走高坑位低佣，三类只配低坑位，一类不该上</h2>
+        <p class="table-cap" data-i18n="post.slotfee.tcap1">表 1：六类 SKU 的输入参数。结构 A = 坑位费 3,000 元/场 + 25% 佣金；结构 B = 20,000 元/场 + 8% 佣金；投流占成交 12%、退货率 18%、退货损耗率 12% 为六类共用；场均件数取近 12 场的中位数。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.slotfee.t1c0">SKU</th>
+                <th data-i18n="post.slotfee.t1c1">客单价 P（元）</th>
+                <th data-i18n="post.slotfee.t1c2">毛利率 G</th>
+                <th data-i18n="post.slotfee.t1c3">场均件数 Q</th>
+                <th data-i18n="post.slotfee.t1c4">单件净贡献 uA</th>
+                <th data-i18n="post.slotfee.t1c5">单件净贡献 uB</th>
+                <th data-i18n="post.slotfee.t1c6">等价销量 Q*（件/场）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>S1 收纳凳</td><td>89</td><td>46%</td><td>1,850</td><td>6.84%</td><td>23.84%</td><td>1,124</td></tr>
+              <tr><td>S2 折叠桌</td><td>299</td><td>48%</td><td>260</td><td>8.84%</td><td>25.84%</td><td>334</td></tr>
+              <tr><td>S3 户外电源</td><td>1,299</td><td>38%</td><td>58</td><td>−1.16%</td><td>15.84%</td><td>77</td></tr>
+              <tr><td>S4 地钉包</td><td>49</td><td>50%</td><td>2,400</td><td>10.84%</td><td>27.84%</td><td>2,041</td></tr>
+              <tr><td>S5 露营车</td><td>599</td><td>44%</td><td>120</td><td>4.84%</td><td>21.84%</td><td>167</td></tr>
+              <tr><td>S6 灯串套装</td><td>169</td><td>48%</td><td>620</td><td>8.84%</td><td>25.84%</td><td>592</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-cap" data-i18n="post.slotfee.tcap2">表 2：判定结果（元/场）。判定列：A = 走低坑位高佣结构，B = 走高坑位低佣结构，0 = 两个结构都跌破保本，应改为纯佣。保本销量为“∞”表示该结构单件净贡献 ≤ 0，无论卖多少件都兜不住坑位费。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.slotfee.t2c0">SKU</th>
+                <th data-i18n="post.slotfee.t2c1">Q ÷ Q＊</th>
+                <th data-i18n="post.slotfee.t2c2">保本销量 A（件）</th>
+                <th data-i18n="post.slotfee.t2c3">保本销量 B（件）</th>
+                <th data-i18n="post.slotfee.t2c4">结构 A 净（元/场）</th>
+                <th data-i18n="post.slotfee.t2c5">结构 B 净（元/场）</th>
+                <th data-i18n="post.slotfee.t2c6">判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>S1 收纳凳</td><td>1.65</td><td>493</td><td>943</td><td>8,262</td><td>19,253</td><td>B</td></tr>
+              <tr><td>S2 折叠桌</td><td>0.78</td><td>114</td><td>259</td><td>3,872</td><td>88</td><td>A</td></tr>
+              <tr><td>S3 户外电源</td><td>0.75</td><td>∞</td><td>97</td><td>−3,874</td><td>−8,066</td><td>0</td></tr>
+              <tr><td>S4 地钉包</td><td>1.18</td><td>565</td><td>1,466</td><td>9,748</td><td>12,740</td><td>B</td></tr>
+              <tr><td>S5 露营车</td><td>0.72</td><td>103</td><td>153</td><td>479</td><td>−4,301</td><td>A</td></tr>
+              <tr><td>S6 灯串套装</td><td>1.05</td><td>201</td><td>458</td><td>6,263</td><td>7,075</td><td>B</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.slotfee.p4a">结果分出三类。收纳凳（1.65 倍）、地钉包（1.18 倍）、灯串套装（1.05 倍）的场均件数过 Q*，走高坑位低佣：19,253、12,740、7,075 元/场。折叠桌（0.78 倍）、露营车（0.72 倍）留在低坑位高佣：3,872 元和 479 元/场——后者只比保本线多 17 件，场均抖一下就翻负。灯串套装过线只有 5%，属于“看着过了、其实没余量”的边界单。</p>
+        <p data-i18n="post.slotfee.p4b">户外电源（0.75 倍）是特殊情形：结构 A 单件净贡献 −1.16%、保本无解；结构 B 保本要 97 件、场均只有 58 件，两个结构都亏。正确动作不是在两个坏结构里挑一个，而是换掉其中一个变量：把 20,000 元坑位费换成纯佣（F = 0），单场净 11,934 元；同时把这个 SKU 从冲量名单里挪出去，投流预算转给单件净贡献 27.84% 的地钉包。客单价过千的品，坑位费在数学上几乎永远换不回来——这一点和达人大小无关。</p>
+        <p data-i18n="post.slotfee.p4c">年度汇总：按每 SKU 年 36 场，结构择优年净 142.36 万元，占年 GMV 2,203.17 万元的 6.46%。无差别全走结构 A 是 89.10 万元，全走结构 B 是 96.44 万元，择优比前者多 53.26 万元（+59.78%）。交叉验证一次：全走 B 比全走 A 少付佣金 374.54 万元，但多付坑位费 367.20 万元，净差 7.34 万元——和 96.44 与 89.10 之差完全对上，说明两个口径没有互相掩盖。</p>
+        <h2 data-i18n="post.slotfee.h5">五、敏感性：投流一涨，判定线整体上移</h2>
+        <p class="table-cap" data-i18n="post.slotfee.tcap3">表 3：不同投流占比下的单场合计净收益（元/场，逐 SKU 取结构较优值）。过线 SKU 指单场净收益为正的类别数。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.slotfee.t3c0">投流占成交</th>
+                <th data-i18n="post.slotfee.t3c1">选优单场合计（元）</th>
+                <th data-i18n="post.slotfee.t3c2">相对 12%</th>
+                <th data-i18n="post.slotfee.t3c3">过线 SKU</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>6%</td><td>76,264</td><td>+92.85%</td><td>6</td></tr>
+              <tr><td>12%</td><td>39,545</td><td>基准</td><td>5</td></tr>
+              <tr><td>18%</td><td>2,825</td><td>−92.86%</td><td>3</td></tr>
+              <tr><td>24%</td><td>−33,894</td><td>—</td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-cap" data-i18n="post.slotfee.tcap4">表 4：退货率对结构 A（25% 佣金）单场合计的影响，退货损耗率固定 12%。注意 Q* 完全不变——退货率不进等价销量公式，只压绝对底线。</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-i18n="post.slotfee.t4c0">退货率 r</th>
+                <th data-i18n="post.slotfee.t4c1">结构 A 单场合计（元）</th>
+                <th data-i18n="post.slotfee.t4c2">过线 SKU</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>10%</td><td>30,625</td><td>5</td></tr>
+              <tr><td>18%</td><td>24,750</td><td>5</td></tr>
+              <tr><td>30%</td><td>15,937</td><td>4</td></tr>
+              <tr><td>40%</td><td>8,593</td><td>4</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="post.slotfee.p5a">投流从 6% 到 24%，同样的货、同样的场均，判定从“六个都成立”变成“一个都不成立”。这就是坑位费谈判不能用历史场次 ROI 反推的原因：历史 ROI 里含着当时的投流强度和退货率，两项一变，Q* 没动而 Q_be 全变。拿上一场的主播战绩去谈下一场的坑位费，谈的是两个不同的方程。</p>
+        <p data-i18n="post.slotfee.p5b">退货率从 10% 涨到 40%，结构 A 的单场合计从 30,625 元压到 8,593 元、过线 SKU 从 5 类掉到 4 类；退货影响的是“还能不能做”，不影响“选哪个结构”。这个分工要记住：Q* 管选结构，Q_be 管上不上，A_max 管投多少。三把尺子各管一件事，混用就会在谈判桌上说错话。</p>
+        <h2 data-i18n="post.slotfee.h6">六、可复现脚本：零依赖，跑一遍就能复现全部结论</h2>
+        <p data-i18n="post.slotfee.p6a">脚本只做三件事：算等价销量、算两个结构的单场净收益与保本点、按投流与退货两组参数重跑。利率类的单位校验写在函数里，混用百分数会直接抛错，避免“把 25% 写成 25”这类静默错。</p>
+        <pre><code># slot_fee.py — 坑位费与佣金结构的净收益判定（零依赖）
+SKUS = [
+    # name, 客单价 P, 毛利率 G, 场均件数 Q
+    ("S1 stool", 89, 0.46, 1850),
+    ("S2 table", 299, 0.48, 260),
+    ("S3 power", 1299, 0.38, 58),
+    ("S4 peg", 49, 0.50, 2400),
+    ("S5 cart", 599, 0.44, 120),
+    ("S6 light", 169, 0.48, 620),
+]
+F_A, C_A = 3000, 0.25      # 低坑位费、高佣金
+F_B, C_B = 20000, 0.08     # 高坑位费、低佣金
+AD = 0.12                  # 投流占成交 GMV
+RET, LOSS = 0.18, 0.12     # 退货率、退货损耗率
+SESSIONS = 36              # 每 SKU 年场次
+
+
+def unit(G, c, ad=AD, ret=RET, loss=LOSS):
+    """单件净贡献率。率一律小数，传入百分数直接报错。"""
+    for name, v in (("G", G), ("c", c), ("ad", ad), ("loss", loss)):
+        if not 0 &lt;= v &lt;= 1:
+            raise ValueError("%s=%r 必须是 0-1 的小数，不是百分数" % (name, v))
+    if not 0 &lt;= ret &lt;= 1:
+        raise ValueError("ret 必须是 0-1 的小数")
+    return G - c - ad - ret * loss
+
+
+def judge(P, G, Q):
+    """返回 (等价销量, {结构: 指标}, 判定)"""
+    q_star = (F_B - F_A) / (P * (C_A - C_B))
+    out = {}
+    for tag, F, c in (("A", F_A, C_A), ("B", F_B, C_B)):
+        u = unit(G, c)
+        out[tag] = {
+            "u": u,
+            "q_be": float("inf") if u &lt;= 0 else F / (P * u),
+            "net": Q * P * u - F,
+            "a_max": G - c - RET * LOSS,
+        }
+    best = max(out, key=lambda t: out[t]["net"])
+    if out[best]["net"] &lt;= 0:
+        best = "pure-commission"   # 两个结构都跌破保本
+    return q_star, out, best
+
+
+rows = []
+for name, P, G, Q in SKUS:
+    q_star, o, best = judge(P, G, Q)
+    rows.append((name, o, best))
+    print("%-10s Q*=%6.0f uA=%+.4f uB=%+.4f QbeA=%7.1f QbeB=%7.1f "
+          "netA=%+8.0f netB=%+8.0f -&gt; %s" % (
+              name, q_star, o["A"]["u"], o["B"]["u"],
+              o["A"]["q_be"], o["B"]["q_be"],
+              o["A"]["net"], o["B"]["net"], best))
+
+pick = sum(max(o["A"]["net"], o["B"]["net"]) for _, o, _ in rows)
+gmv = sum(P * Q for _, P, G, Q in SKUS)
+print(f"\nGMV/session {gmv:,} | best net {pick:+,} | "
+      f"year {pick * SESSIONS:+,} | {pick / gmv:.2%} of GMV")
+
+for ad in (0.06, 0.12, 0.18, 0.24):
+    tot, ok = 0, 0
+    for _, P, G, Q in SKUS:
+        net = max(Q * P * unit(G, C_A, ad) - F_A,
+                  Q * P * unit(G, C_B, ad) - F_B)
+        tot, ok = tot + net, ok + (net &gt; 0)
+    print(f"traffic {ad:.0%} -&gt; session total {tot:+,.0f} | passing {ok}")
+
+for ret in (0.10, 0.18, 0.30, 0.40):
+    tot, ok = 0, 0
+    for _, P, G, Q in SKUS:
+        net = Q * P * unit(G, C_A, ret=ret) - F_A
+        tot, ok = tot + net, ok + (net &gt; 0)
+    print(f"returns {ret:.0%} -&gt; structure A {tot:+,.0f} | passing {ok}")
+</code></pre>
+        <h2 data-i18n="post.slotfee.h7">七、落地口径：把 Q* 和 Q_be 写进谈判表与上播闸门</h2>
+        <ol>
+          <li data-i18n="post.slotfee.li1">谈坑位费先算 Q*：把“这个达人报价高不高”换成“我们场均能不能过这条线”。谈判从比价变成算数，多谈一轮少丢一场。</li>
+          <li data-i18n="post.slotfee.li2">每场上播前过一次 Q_be 闸门：场均件数低于保本销量的 SKU 不进坑位费清单，只走纯佣。清单砍掉一半，履约和复盘也轻一半。</li>
+          <li data-i18n="post.slotfee.li3">投流上限写进 SOP：A ≤ 0.8 × A_max，留 20% 余量吸收退货率与平台扣点波动。这条比“日耗控制在多少”有用得多，因为它跟着佣金率走。</li>
+          <li data-i18n="post.slotfee.li4">高客单低场量的品别买坑位：客单价过千、场均不足百件的品，坑位费在数学上换不回来（本题 97 件对 58 件）。这类品要的是内容种草和搜索承接，不是坑位费。</li>
+          <li data-i18n="post.slotfee.li5">退货按损耗记账，不按件数：k 取逆向运费、质检折价、二次销售折损的实际比例，别拿 1 代替，也别拿 0 代替。这一项在敏感表里能一次改掉 2.16 个百分点的毛利。</li>
+
+        </ol>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p data-i18n="footer.copyright">© 2026 扶摇 · Powered by GitHub Pages</p>
+      <p class="footer-links">
+        <a href="../rss.xml" data-i18n="footer.rss">RSS</a>
+        <span class="dot">·</span>
+        <a href="../rss-en.xml">RSS (EN)</a>
+        <span class="dot">·</span>
+        <a href="../brands.html" data-i18n="nav.projects">项目经历</a>
+        <span class="dot">·</span>
+        <a href="../careers.html" data-i18n="nav.careers">加入我们</a>
+        <span class="dot">·</span>
+        <a href="../contact.html" data-i18n="nav.contact">联系</a>
+      </p>
+    </div>
+  </footer>
+  <script src="../js/theme.js?v=1.11.0"></script>
+  <script src="../js/site-config.js?v=1.11.0"></script>
+  <script src="../js/i18n.js?v=1.11.0"></script>
+  <script src="../js/main.js?v=1.11.0"></script>
+  <script src="../js/posts-data.js?v=1.11.0"></script>
+  <script src="../js/post.js?v=1.11.0"></script>
+  <script src="../js/seo.js?v=1.11.0"></script>
+  <script src="../js/analytics.js?v=1.11.0"></script>
+  <script src="../js/comments.js?v=1.11.0"></script>
+  <script src="../js/sw-register.js?v=1.11.0"></script>
+  <script src="../js/assistant.js?v=1.11.0"></script>
+</body>
+</html>

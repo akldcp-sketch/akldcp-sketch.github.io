@@ -1,6 +1,22 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-26-fx-settlement-lag-hedge-gate",
+    en: { title: "Stop Watching Volatility: The Settlement-Lag Gate and a Hedge Queue That Actually Pays", summary: "FX risk is not a function of volatility but of volatility times settlement lag divided by gross margin. Six currency markets, 28.40 million yuan of collections: one sigma inside a single window burns 6.97% of GBP gross profit, 102.4% of a 6.8% net margin. The lag gate T*=365x(theta*G/sigma)^2 flags five markets as over the line, three of which no amount of renegotiation fixes. Queued by cost-benefit ratio R, the top four cost 207,900 yuan and return 732,965, or 69.0% of the full benefit, while queuing by volume starts with USD, the worst value in the book." },
+    title: "汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队",
+    date: "2026-11-26",
+    tag: "商业操盘",
+    summary: "汇率风险不看波动率大小，看波动率×账期÷毛利率。六类币种、年回款2,840万元算例：单窗口1σ吃掉GBP站点6.97%毛利，等于净利率6.8%的102.4%；账期闸门T*=365×(θ·G÷σ)²划出五类超标，三类谈账期救不回；按效费比R排队，前四位用20.79万元成本换73.30万元净收益，占全量69.0%。"
+  },
+  {
+    file: "2026-11-24-live-slot-fee-breakeven-volume",
+    en: { title: "Don't Haggle the Slot Fee: Break-Even Volume and the Commission Structure It Buys", summary: "A live slot fee is an exchange rate, not a price. Six SKUs, tickets of 49 to 1,299 yuan, 611,992 yuan of GMV a session: Q* = (20,000 - 3,000) / (ticket x 17%) splits the list in two. The stool (1.65x), peg bag (1.18x) and light set (1.05x) clear it and take the high-fee low-commission deal at 19,253, 12,740 and 7,075 yuan a session; the folding table (0.78x) and camp cart (0.72x) stay on the low-fee plan. The power station (0.75x) fails both structures and should run on pure commission. Picking per SKU nets 1,423,620 yuan a year, 6.46% of 22,031,712 of GMV, against 890,989 on a flat plan - a 532,624 gap. Raise paid traffic from 6% to 24% and passing SKUs fall from six to none. Zero-dependency script included." },
+    title: "直播坑位费别按报价砍：佣金结构的等价销量与保本分界",
+    date: "2026-11-24",
+    tag: "商业操盘",
+    summary: "达人直播坑位费不是价格问题，是兑换问题。六类 SKU、客单价 49 到 1,299 元、单场 GMV 61.20 万元的算例：等价销量 Q* =（20,000 − 3,000）÷（客单价 × 17%）一条线分出两组，收纳凳 1.65 倍、地钉包 1.18 倍、灯串套装 1.05 倍过高坑位低佣（19,253、12,740、7,075 元/场），折叠桌 0.78 倍、露营车 0.72 倍留低坑位高佣；户外电源 0.75 倍两个结构都跌破保本，应改纯佣。结构择优年净 142.36 万元（占年 GMV 2,203.17 万元的 6.46%），全走低坑位高佣 89.10 万元、差 53.26 万元；投流从 6% 提到 24%，过线 SKU 由 6 类降到 0 类。附零依赖 Python 脚本。"
+  },
+  {
     file: "2026-11-22-moq-tier-discount-net-benefit-threshold",
     en: { title: "MOQ Tier Discounts Are Not a Discount Question: The Net-Benefit Threshold for Stepping Up", summary: "Six SKUs, 5,921,040 yuan of spend: the discount is worth 7,980 to 16,500 per cycle against 691 to 4,458 of carrying and 958 to 22,982 of leftover write-down. The closed-form d* clears four SKUs and blocks the two seasonal ones. Threshold reading 122,574 a year (2.07% of spend); stepping up across the board 62,295; the paper figure 262,266 overstates 2.14 times. A twelve-month price lock breaks even at a 2.40% concession and nets 331,578 at 8%. Zero-dependency script included." },
     title: "MOQ 阶梯折扣别只看折扣率：跨档采购的净收益分界",
