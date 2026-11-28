@@ -1,6 +1,14 @@
 /* 博客文章数据源：所有页面共享，新增文章只需在这里加一条 */
 window.POSTS_DATA = [
   {
+    file: "2026-11-28-return-rate-net-profit-gate",
+    en: { title: "Stop Capping Returns at an Industry Average: The Reverse-Cost and Salvage Gate", summary: "Return-rate caps borrowed from industry averages are guesses. This piece derives the cap from reverse cost and salvage value: six SKUs, 36.35 million yuan of annual GMV, 62.37 to 329.14 yuan lost per return, break-even thresholds of 21.3% to 30.7% and margin-floor thresholds of just 12.8% to 18.4%. The womenswear line at 24% sits flush against break-even with 10,900 yuan left, carrying 43.7% of site-wide return losses. Rank fixes by units times loss and 501,876 yuan a year comes back free." },
+    title: "退货率别按行业均值定上限：逆向成本与残值回收的净利闸门",
+    date: "2026-11-28",
+    tag: "商业操盘",
+    summary: "退货率不该按行业均值设上限，它由逆向成本与残值回收共同决定。六类 SKU、年 GMV 3,635 万元算例：单笔退货损失 62.37 到 329.14 元，保本红线 21.3% 到 30.7%，净利地板口径仅 12.8% 到 18.4%；女装 24% 的退货率把整线净利压到 1.09 万元，占全站退货损失 43.7%。附零依赖脚本。"
+  },
+  {
     file: "2026-11-26-fx-settlement-lag-hedge-gate",
     en: { title: "Stop Watching Volatility: The Settlement-Lag Gate and a Hedge Queue That Actually Pays", summary: "FX risk is not a function of volatility but of volatility times settlement lag divided by gross margin. Six currency markets, 28.40 million yuan of collections: one sigma inside a single window burns 6.97% of GBP gross profit, 102.4% of a 6.8% net margin. The lag gate T*=365x(theta*G/sigma)^2 flags five markets as over the line, three of which no amount of renegotiation fixes. Queued by cost-benefit ratio R, the top four cost 207,900 yuan and return 732,965, or 69.0% of the full benefit, while queuing by volume starts with USD, the worst value in the book." },
     title: "汇率敞口别只看波动率：多币种结算的账期闸门与锁汇排队",
